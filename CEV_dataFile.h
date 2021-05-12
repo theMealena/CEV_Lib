@@ -1,0 +1,343 @@
+//**********************************************************/
+//** Done by  |      Date     |  version |    comment     **/
+//**------------------------------------------------------**/
+//**   CEV    |  14-02-2015   |   0.0    |    creation    **/
+//**   CEV    |    05-2016    |   0.1    |    SDL2 rev    **/
+//**   CEV    |  15-02-2017   |   0.2    |   rev & test   **/
+//**   CEV    |  11-2017      |   1.0.1  | diag improved  **/
+//**   CEV    |  05-2018      |   1.0.2  | map added      **/
+//**   CEV    |  07-2019      |   1.0.3  | parallax added **/
+//**   CEV    |  01-2020      |   1.0.4  | weather added  **/
+//**********************************************************/
+
+
+#ifndef CEV_FILE_LOAD_H_INCLUDED
+#define CEV_FILE_LOAD_H_INCLUDED
+
+#include <stdio.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
+//#include "CEV_display.h"
+#include "CEV_table.h"
+#include "CEV_animator.h"
+#include "CEV_texts.h"
+#include "CEV_scroll.h"
+#include "CEV_gif.h"
+#include "CEV_types.h"
+#include "CEV_selection.h"
+#include "CEV_maps.h"
+#include "CEV_weather.h"
+#include "../parallax.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
+#define FILE_TYPE_NUM 16
+#define FILE_TYPE_LIST {"default", "dat", "txt", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr"}
+
+
+/** \brief defines file type
+ */
+typedef enum FILE_TYPE
+{IS_DEFAULT = 0,
+  IS_DAT    = 1,
+  IS_TXT    = 2,
+  IS_BMP    = 3,
+  IS_PNG    = 4,
+  IS_JPG    = 5,
+  IS_GIF    = 6,
+  IS_WAV    = 7,
+  IS_FONT   = 8,
+  IS_SPS    = 9,
+  IS_MENU   = 10,
+  IS_SCROLL = 11,
+  IS_MAP    = 12,
+  IS_MUSIC  = 13,
+  IS_PRALX  = 14,
+  IS_WTHR   = 15
+}FILE_TYPE;
+
+
+
+/** \brief raw memory handle
+ */
+typedef struct CEV_FileInfo
+{/**structure containing buffer and associated informations **/
+
+    uint32_t    type, /* IS_BMP / IS_PNG...*/
+                size; /*data size in bytes*/
+    void        *data; /*raw ram*/
+}
+CEV_FileInfo;
+
+
+
+/*----------USER END FUNCTIONS---------*/
+
+
+/** \brief fetches anything
+ *
+ * \param index : data index to fetch.
+ * \param file : opened file to fetch from.
+ *
+ * \return void* on anything that was requested, NULL on error.
+ * \return CEV_FileInfo* if DEFAULT or DAT file is spotted.
+ */
+void* CEV_anyFetch(unsigned int index, FILE* file);
+
+
+/** \brief loads file into memory as it
+ *
+ * \param infos : CEV_FileInfo* to store file.
+ * \param fileName : file to be opened and stored.
+ *
+ * \return any of the function status.
+ */
+int CEV_rawLoad(CEV_FileInfo* infos, char* fileName);
+
+
+/** \brief fetches raw binary from file.
+ *
+ * \param index : data index to fetch.
+ * \param infos : CEV_FileInfo* to receive raw memory.
+ * \param file : FILE* to read from.
+ *
+ * \return any of the functions status.
+ */
+int CEV_rawFetch(unsigned int index, CEV_FileInfo* infos, FILE* file);
+
+
+
+
+            /*---SDL_Surfaces---*/
+
+
+/** \brief Loads any picture file from BMP/PNG/JPG.
+ *
+ * \param fileName : file to open.
+ *
+ * \return SDL_Surface* on success, NULL on error.
+ */
+SDL_Surface* CEV_surfaceLoad(const char* fileName);
+
+
+/** \brief fetch pic as SDL_Surface from compiled file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return SDL_Surface* on success, NULL on error.
+ */
+SDL_Surface* CEV_surfaceFetch(unsigned int index, const char* fileName);
+
+
+
+
+            /*---SDL_Textures---*/
+
+/** \brief Loads any picture file from BMP/PNG/JPG.
+ *
+ * \param fileName : file to open.
+ *
+ * \return SDL_Texture* on success, NULL on error.
+ */
+SDL_Texture* CEV_textureLoad(const char* fileName);
+
+
+
+/** \brief fetch pic as SDL_Texture from compiled file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return SDL_Texture* on success, NULL on error.
+ */
+SDL_Texture* CEV_textureFetch(unsigned int index, const char* fileName);
+
+
+
+          /*---CEV_Text---*/
+
+/** \brief fetch text as CEV_Text from compiled file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Text* on success, NULL on error.
+ */
+CEV_Text* CEV_textFetch(unsigned int index, const char* filename);
+
+
+        /*---TTF_Font from compiled file---*/
+
+/** \brief fetch font as CEV_Font from compiled file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Font* on success, NULL on error.
+ */
+CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName);
+
+
+        /*----WAV from compiled file----*/
+
+/** \brief fetch wave as CEV_Chunk from compiled file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Chunk* on success, NULL on error.
+ */
+CEV_Chunk* CEV_waveFetch(unsigned int index, const char* fileName);
+
+
+        /*---MUSIC from compiled file---*/
+
+/** \brief fetch music as CEV_Music from compiled file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Music* on success, NULL on error.
+ */
+CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName);
+
+
+        /*---Animations---*/
+
+/** \brief loads animation set from file
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return SP_AnimList* on success, NULL on error.
+ */
+SP_AnimList* CEV_animListFetch(unsigned int index, char* fileName);
+
+
+/** \brief loads gif from file
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_GifAnim* on success, NULL on error.
+ */
+CEV_GifAnim* CEV_gifFetch(unsigned int index, char* fileName);
+
+        /*---scroll---*/
+
+/** \brief loads text scroller from file.
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_ScrollText* on success, NULL on error.
+ */
+CEV_ScrollText *CEV_scrollFetch(unsigned int index, char* fileName);
+
+        /*---menu---*/
+
+/** \brief Laods menu from file
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Menu* on success, NULL on error.
+ *
+ */
+CEV_Menu *CEV_menuFetch(int index, char* fileName);
+
+        /*---maps---*/
+
+/** \brief Loads tile map from file
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_TileMap* on success, NULL on error.
+ *
+ */
+CEV_TileMap *CEV_mapFetch(int index, char* fileName);
+
+        /*---parallax background---*/
+
+/** \brief Loads parallax from file
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Parallax* on success, NULL on error.
+ *
+ */
+CEV_Parallax *CEV_parallaxFetch(int index, char* fileName);
+
+
+/** \brief Loads weather from file
+ *
+ * \param index : data index in file.
+ * \param fileName : file to fetch from.
+ *
+ * \return CEV_Weather* on success, NULL on error.
+ */
+CEV_Weather *CEV_weatherFetch(int index, char* fileName);
+
+
+/** \brief file to mem.
+ *
+ * \param buffer : CEV_FileInfo* to be filled.
+ * \param src : FILE* to read from actual position.
+ * \return readWriteErr is set.
+ *
+ */
+void CEV_fileInfoTypeRead(FILE *src, CEV_FileInfo *buffer);
+
+
+/** \brief mem to file.
+ *
+ * \param buffer : CEV_FileInfo* to be dumped.
+ * \param dst: FILE* to write into at actual position.
+ * \return readWriteErr is set.
+ *
+ */
+void CEV_fileInfoTypeWrite(CEV_FileInfo *buffer, FILE *dst);
+
+
+/**clean content*/
+/** \brief clean up / free fileInfo content.
+ *
+ * \param buffer : CEV_FileInfo* to clear.
+ *
+ * \return N/A.
+ */
+void CEV_fileInfoClear(CEV_FileInfo *buffer);
+
+
+/**free fileInfo*/
+/** \brief free content and itself.
+ *
+ * \param buffer : CEV_FileInfo* to free.
+ *
+ * \return N/A.
+ */
+void CEV_fileInfoFree(CEV_FileInfo *buffer);
+
+
+/**free fileInfo*/
+/** \brief filename to enum type.
+ *
+ * \param filename : name of file to deduce type from
+ *
+ * \return any of FILE_TYPE enum
+ */
+int CEV_fileToType(char* fileName);
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // PIC_LOAD_H_INCLUDED

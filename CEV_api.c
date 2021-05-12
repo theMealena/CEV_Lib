@@ -26,49 +26,49 @@ bool CEV_bitGet(int flag, int bitIndex)
 
 
 void CEV_bitSet(int* flag, int bitIndex)
-{/*set le bit bitIndex dans valeur ***VALIDE***/
+{/*set le bit bitIndex dans valeur***VALIDE***/
 
     *flag |= 1<<bitIndex;
 }
 
 
 void CEV_bitClear(int* flag, int bitIndex)
-{/*reset le bit bitIndex dans valeur ***VALIDE***/
+{/*reset le bit bitIndex dans valeur***VALIDE***/
 
    *flag &= (~(1<<bitIndex));
 }
 
 
 bool CEV_edgeRise(CEV_Edge * edge)
-{/*calcul un front montant ***VALIDE***/
+{/*calcul un front montant***VALIDE***/
 
-    edge->out = (edge->value && !edge->memo);
+    bool funcSts = (edge->value && !edge->memo);
 
     edge->memo = edge->value;
 
-    return (edge->out);
+    return (funcSts);
 }
 
 
 bool CEV_edgeFall(CEV_Edge *edge)
 {/*calcul un front descendant***VALIDE***/
 
-    edge->out = (!edge->value && edge->memo);
+    bool funcSts = (!edge->value && edge->memo);
 
     edge->memo = edge->value;
 
-    return(edge->out);
+    return(funcSts);
 }
 
 
 bool CEV_edgeAny(CEV_Edge *edge)
 {/*n'importe quel front***VALIDE**/
 
-    edge->out = (edge->value != edge->memo);
+    uint8_t funcSts = (edge->value != edge->memo);
 
     edge->memo = edge->value;
 
-    return(edge->out);
+    return(funcSts);
 }
 
 

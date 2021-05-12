@@ -1,0 +1,9 @@
+#ifndef CEV_BLIT_H_INCLUDED
+#define CEV_BLIT_H_INCLUDED
+
+#include <SDL.h>
+
+
+void CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Rect* srcRect, SDL_Texture* dst, SDL_Rect* dstRect);
+
+#endif // CEV_BLIT_H_INCLUDED
