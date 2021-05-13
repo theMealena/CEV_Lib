@@ -71,7 +71,7 @@ typedef struct CEV_Input
     CEV_Mouse       mouse;                  /**< Mouse. */
     CEV_Window      window;                 /**< Window. */
     unsigned int    lastKeyVal;             /**< Last key pushed index. */
-    char*           text;                   /**< SDL_Input ptr. */
+    char            text;                   /**< SDL_TEXTINPUT char. */
 }
 CEV_Input;
 

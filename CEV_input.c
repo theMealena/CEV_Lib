@@ -9,6 +9,7 @@
 // - mouse relative corrected 20170416
 // - keyrepeat suppressed 20200108
 // - updateInput return value supports any event 20200319
+// - SDL_TEXTINPUT event corrected
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -37,7 +38,7 @@ bool CEV_inputUpdate(void)
 	input->mouse.button[SDL_BUTTON_WHEELLEFT]                   = 0;
 	input->mouse.button[SDL_BUTTON_WHEELRIGHT]                  = 0;
     input->lastKeyVal = input->mouse.rel.x = input->mouse.rel.y = 0;
-    input->text = NULL;
+    input->text = '\0';
 
     while (SDL_PollEvent(&event))
     {
@@ -60,7 +61,7 @@ bool CEV_inputUpdate(void)
             break;
 
             case SDL_TEXTINPUT:
-                    input->text         = event.text.text;
+                    input->text         = event.text.text[0];
                     input->lastDevice   = KEYBOARD;
                     result              = true;
             break;
