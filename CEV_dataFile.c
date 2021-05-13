@@ -29,47 +29,47 @@
 #include "CEV_texts.h"
 #include "CEV_selection.h"
 #include "CEV_maps.h"
-#include "../parallax.h"
+#include "parallax.h"
 #include "CEV_weather.h"
 
 /***** Local functions****/
 
 /*ram mem into CEV_Text*/
-static CEV_Text* L_rawToTxt(CEV_FileInfo* info);
+static CEV_Text* L_rawToTxt(CEV_Capsule* info);
 
 /*ram mem into texture*/
-static SDL_Texture* L_rawToPic(CEV_FileInfo* info);
+static SDL_Texture* L_rawToPic(CEV_Capsule* info);
 
 /*ram mem into gif animation*/
-static CEV_GifAnim* L_rawToGif(CEV_FileInfo *info);
+static CEV_GifAnim* L_rawToGif(CEV_Capsule *info);
 
 /*ram mem into wav*/
-static CEV_Chunk* L_rawToWav(CEV_FileInfo *info);
+static CEV_Chunk* L_rawToWav(CEV_Capsule *info);
 
 /*ram mem int music*/
-static CEV_Music* L_rawToMusic(CEV_FileInfo *buffer);
+static CEV_Music* L_rawToMusic(CEV_Capsule *buffer);
 
 /*ram mem into font*/
-static CEV_Font* L_rawToFont(CEV_FileInfo* info);
+static CEV_Font* L_rawToFont(CEV_Capsule* info);
 
 /*ram mem into animations set*/
-static SP_AnimList* L_rawToAnimSet(CEV_FileInfo* info);
+static SP_AnimList* L_rawToAnimSet(CEV_Capsule* info);
 
 /*ram to tile map*/
-static CEV_TileMap* L_rawToMap(CEV_FileInfo* buffer);
+static CEV_TileMap* L_rawToMap(CEV_Capsule* buffer);
 
 /*ram to parallax background*/
-static CEV_Parallax* L_rawToParallax(CEV_FileInfo* buffer);
+static CEV_Parallax* L_rawToParallax(CEV_Capsule* buffer);
 
 /*ram to weather*/
-static CEV_Weather* L_rawToWeather(CEV_FileInfo* buffer);
+static CEV_Weather* L_rawToWeather(CEV_Capsule* buffer);
 
 
 /*file manipulation*/
-static int L_fileInfoReadIndex(unsigned int num, CEV_FileInfo* buffer, FILE* file);
+static int L_fileInfoReadIndex(unsigned int num, CEV_Capsule* buffer, FILE* file);
 static size_t L_gotoDataIndex(unsigned int index, FILE* file);
 static void L_gotoAndDiscard(unsigned int index, FILE *file);
-static void L_infoReadRaw(CEV_FileInfo* buffer, FILE* file);
+static void L_infoReadRaw(CEV_Capsule* buffer, FILE* file);
 static size_t L_fileSize(FILE* file);
 
 
@@ -84,7 +84,7 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
 
     /*---DECLARATIONS---*/
 
-    CEV_FileInfo lBuffer    = {.type=0, .size=0, .data=NULL};//raw data informations
+    CEV_Capsule lBuffer    = {.type=0, .size=0, .data=NULL};//raw data informations
     uint32_t indexTabSize   = 0;//size of header
 
     void* returnVal = NULL; //result
@@ -92,7 +92,7 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
 
     /*---PRL---*/
 
-    if(index<0 || file == NULL)
+    if(file == NULL)
         return NULL;
 
     rewind(file);
@@ -122,7 +122,7 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
                 fprintf(stderr, "Err at %s / %d : unable to allocate returnVal :%s\n", __FUNCTION__, __LINE__, strerror(errno));
                 goto exit;
             }
-            *((CEV_FileInfo*)returnVal) = lBuffer;
+            *((CEV_Capsule*)returnVal) = lBuffer;
 
         break;
 
@@ -200,7 +200,7 @@ exit:
 }
 
 
-int CEV_rawFetch(unsigned int index, CEV_FileInfo* infos, FILE* file)
+int CEV_rawFetch(unsigned int index, CEV_Capsule* infos, FILE* file)
 {/*gets raw data in opened compiled file */
 
     /*---DECLARATIONS---*/
@@ -230,7 +230,7 @@ int CEV_rawFetch(unsigned int index, CEV_FileInfo* infos, FILE* file)
 }
 
 
-int CEV_rawLoad(CEV_FileInfo* infos, char* fileName)
+int CEV_rawLoad(CEV_Capsule* infos, char* fileName)
 {/*gets raw from natural file*/
 
     /*--DECLARATIONS--*/
@@ -308,14 +308,14 @@ SDL_Surface* CEV_surfaceFetch(unsigned int index, const char* fileName)
 
     SDL_Surface *surface  = NULL,
                 *temp     = NULL;
-    CEV_FileInfo  lBuffer = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule  lBuffer = {.type = 0, .size = 0, .data = NULL};
     FILE* file            = NULL;
 
     /*---PRELIMINAIRE---*/
 
     lBuffer.data    = NULL;
 
-    if(index<0 || fileName == NULL)
+    if(fileName == NULL)
     {
         fprintf(stderr,"Err at %s / %d : arg error received %d, %s\n", __FUNCTION__, __LINE__, index, fileName);
         goto end;
@@ -390,12 +390,12 @@ SDL_Texture* CEV_textureFetch(unsigned int index, const char* fileName)
      /*---DECLARATIONS---*/
 
     SDL_Texture     *texture = NULL;
-    CEV_FileInfo    lBuffer  = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule    lBuffer  = {.type = 0, .size = 0, .data = NULL};
     FILE            *file    = NULL;
 
     /*---PRELIMINAIRE---*/
 
-    if(index<0 || fileName == NULL)
+    if(fileName == NULL)
     {
         fprintf(stderr, "Err at %s / %d : arg error received %d, %s\n", __FUNCTION__, __LINE__, index, fileName);
         goto end;
@@ -446,11 +446,11 @@ CEV_Text* CEV_textFetch(unsigned int index, const char* fileName)
     FILE *file          = NULL;
     CEV_Text* result    = NULL;
 
-    CEV_FileInfo lbuffer;
+    CEV_Capsule lbuffer;
 
     /*---PRL---**/
 
-    if(index<0 || fileName == NULL)
+    if(fileName == NULL)
     {
         fprintf(stderr,"Err at %s / %d : arg error received %d, %s\n", __FUNCTION__, __LINE__, index, fileName);
         return NULL;
@@ -495,7 +495,7 @@ CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
 
     CEV_Font* font       = NULL;
     FILE* file           = NULL;
-    CEV_FileInfo lBuffer = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule lBuffer = {.type = 0, .size = 0, .data = NULL};
 
         /*---PRL---*/
 
@@ -540,7 +540,7 @@ CEV_Chunk* CEV_waveFetch(unsigned int index, const char* fileName)
 
     CEV_Chunk       *result = NULL;
     FILE            *file   = NULL;
-    CEV_FileInfo    lBuffer = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule    lBuffer = {.type = 0, .size = 0, .data = NULL};
 
         /*---PRL---*/
 
@@ -583,12 +583,12 @@ CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName)
      /*---DECLARATIONS---*/
 
     CEV_Music       *music  = NULL;
-    CEV_FileInfo    lBuffer = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule    lBuffer = {.type = 0, .size = 0, .data = NULL};
     FILE            *file   = NULL;
 
     /*---PRELIMINAIRE---*/
 
-    if(index<0 || fileName == NULL)
+    if(fileName == NULL)
     {
         fprintf(stderr, "Err at %s / %d : arg error received %d, %s\n", __FUNCTION__, __LINE__, index, fileName);
         goto end;
@@ -638,7 +638,7 @@ SP_AnimList* CEV_animListFetch(unsigned int index, char* fileName)
 
     FILE            *file       = NULL;
     SP_AnimList      *animSet    = NULL;
-    CEV_FileInfo    lBuffer     = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule    lBuffer     = {.type = 0, .size = 0, .data = NULL};
 
         /*---PRL---*/
 
@@ -680,7 +680,7 @@ CEV_GifAnim* CEV_gifFetch(unsigned int index, char* fileName)
 
     FILE            *file       = NULL;
     CEV_GifAnim     *animSet    = NULL;
-    CEV_FileInfo    lBuffer     = {.type = 0, .size = 0, .data = NULL};
+    CEV_Capsule    lBuffer     = {.type = 0, .size = 0, .data = NULL};
 
         /*---PRL---*/
 
@@ -724,7 +724,7 @@ CEV_ScrollText *CEV_scrollFetch(unsigned int index, char* fileName)
 
     FILE            *file   = NULL;
     CEV_ScrollText  *result = NULL;
-    CEV_FileInfo    lBuffer = {.data = NULL};
+    CEV_Capsule    lBuffer = {.data = NULL};
 
     /*---PRL---*/
 
@@ -825,7 +825,7 @@ CEV_TileMap *CEV_mapFetch(int index, char* fileName)
 
     FILE            *file   = NULL;
     CEV_TileMap     *result = NULL;
-    CEV_FileInfo    lBuffer = {.data = NULL};
+    CEV_Capsule    lBuffer = {.data = NULL};
 
     /*---PRL---*/
 
@@ -893,7 +893,7 @@ CEV_Parallax *CEV_parallaxFetch(int index, char* fileName)
 
     FILE            *file   = NULL;
     CEV_Parallax    *result = NULL;
-    CEV_FileInfo    lBuffer = {.data = NULL};
+    CEV_Capsule    lBuffer = {.data = NULL};
 
     /*---PRL---*/
 
@@ -953,13 +953,15 @@ exit :
 }
 
 
+/*----weather fetch----*/
+
 CEV_Weather *CEV_weatherFetch(int index, char* fileName)
 {/*fetch weather in compressed data file*/
     /*---DECLARATIONS---*/
 
     FILE            *file   = NULL;
     CEV_Weather     *result = NULL;
-    CEV_FileInfo    lBuffer = {.data = NULL};
+    CEV_Capsule    lBuffer = {.data = NULL};
 
     /*---PRL---*/
 
@@ -1019,7 +1021,7 @@ exit :
 
 
 
-void CEV_fileInfoTypeWrite(CEV_FileInfo *buffer, FILE* dst)
+void CEV_fileInfoTypeWrite(CEV_Capsule *buffer, FILE* dst)
 {/*writes file info into file*/
     write_u32le(buffer->type, dst);
     write_u32le(buffer->size, dst);
@@ -1029,7 +1031,7 @@ void CEV_fileInfoTypeWrite(CEV_FileInfo *buffer, FILE* dst)
 }
 
 
-void CEV_fileInfoTypeRead(FILE* src, CEV_FileInfo *buffer)
+void CEV_fileInfoTypeRead(FILE* src, CEV_Capsule *buffer)
 {/*reads file info into file*/
     buffer->type       = read_u32le(src);
     buffer->size       = read_u32le(src);
@@ -1038,7 +1040,7 @@ void CEV_fileInfoTypeRead(FILE* src, CEV_FileInfo *buffer)
 }
 
 
-void CEV_fileInfoClear(CEV_FileInfo *buffer)
+void CEV_fileInfoClear(CEV_Capsule *buffer)
 {/*clears fileinfo content*/
 
     free(buffer->data);
@@ -1048,7 +1050,7 @@ void CEV_fileInfoClear(CEV_FileInfo *buffer)
 }
 
 
-void CEV_fileInfoFree(CEV_FileInfo *buffer)
+void CEV_fileInfoFree(CEV_Capsule *buffer)
 {/*frees fileinfo and content*/
     free(buffer->data);
     free(buffer);
@@ -1088,7 +1090,7 @@ int CEV_fileToType(char* fileName)
 /*---Local Sub-functions not to be directly called---*/
 
 
-static CEV_Text* L_rawToTxt(CEV_FileInfo* buffer)
+static CEV_Text* L_rawToTxt(CEV_Capsule* buffer)
 {/**create table of pointers to lines*/
 
     /*---DECLARATIONS---*/
@@ -1116,7 +1118,7 @@ static CEV_Text* L_rawToTxt(CEV_FileInfo* buffer)
 }
 
 
-static SDL_Texture *L_rawToPic(CEV_FileInfo* buffer)
+static SDL_Texture *L_rawToPic(CEV_Capsule* buffer)
 {/*converts raw mem to SDL_Texture*/
 
     /*---DECLARATIONS---*/
@@ -1147,7 +1149,7 @@ static SDL_Texture *L_rawToPic(CEV_FileInfo* buffer)
 }
 
 
-static CEV_GifAnim *L_rawToGif(CEV_FileInfo *buffer)
+static CEV_GifAnim *L_rawToGif(CEV_Capsule *buffer)
 {/*converts to a gif animation*/
 
     /*---DECLARATIONS---*/
@@ -1176,7 +1178,7 @@ static CEV_GifAnim *L_rawToGif(CEV_FileInfo *buffer)
 }
 
 
-static CEV_Chunk* L_rawToWav(CEV_FileInfo *buffer)
+static CEV_Chunk* L_rawToWav(CEV_Capsule *buffer)
 {/*convert to a wav sample*/
 
     /*---DECLARATIONS---*/
@@ -1237,7 +1239,7 @@ err_1:
 }
 
 
-static CEV_Music* L_rawToMusic(CEV_FileInfo *buffer)
+static CEV_Music* L_rawToMusic(CEV_Capsule *buffer)
 {/*convert to a wav sample*/
 
     /*---DECLARATIONS---*/
@@ -1300,7 +1302,7 @@ err_1:
 }
 
 
-static CEV_Font* L_rawToFont(CEV_FileInfo* buffer)
+static CEV_Font* L_rawToFont(CEV_Capsule* buffer)
 {/*converts to CEV_Font*/
 
     /*---DECLARATIONS---*/
@@ -1362,7 +1364,7 @@ err_exit :
 }
 
 
-static SP_AnimList* L_rawToAnimSet(CEV_FileInfo* buffer)
+static SP_AnimList* L_rawToAnimSet(CEV_Capsule* buffer)
 {/*converts to animSet */
 
     /*---DECLARATIONS---*/
@@ -1385,7 +1387,7 @@ static SP_AnimList* L_rawToAnimSet(CEV_FileInfo* buffer)
 }
 
 
-static CEV_TileMap* L_rawToMap(CEV_FileInfo* buffer)
+static CEV_TileMap* L_rawToMap(CEV_Capsule* buffer)
 {/*convert to tile map*/
 
     /*---DECLARATIONS---*/
@@ -1408,7 +1410,7 @@ static CEV_TileMap* L_rawToMap(CEV_FileInfo* buffer)
 }
 
 
-static CEV_Parallax* L_rawToParallax(CEV_FileInfo* buffer)
+static CEV_Parallax* L_rawToParallax(CEV_Capsule* buffer)
 {/*convert to parallax*/
 
     /*---DECLARATIONS---*/
@@ -1431,7 +1433,7 @@ static CEV_Parallax* L_rawToParallax(CEV_FileInfo* buffer)
 }
 
 
-static CEV_Weather* L_rawToWeather(CEV_FileInfo* buffer)
+static CEV_Weather* L_rawToWeather(CEV_Capsule* buffer)
 {/*convert to weather*/
         /*---DECLARATIONS---*/
     CEV_Weather *result = NULL;
@@ -1462,11 +1464,11 @@ static void L_gotoAndDiscard(unsigned int index, FILE *file)
 }
 
 
-static int L_fileInfoReadIndex(unsigned int index, CEV_FileInfo* buffer, FILE* file)
+static int L_fileInfoReadIndex(unsigned int index, CEV_Capsule* buffer, FILE* file)
 {/*reaches index and fills buffer**/
 
     /*---PRL---*/
-    if (index<0 || buffer==NULL || file==NULL)
+    if (buffer==NULL || file==NULL)
         return ARG_ERR;
 
     /*---EXECUTION---*/
@@ -1501,7 +1503,7 @@ static size_t L_gotoDataIndex(unsigned int index, FILE *file)
 }
 
 
-static void L_infoReadRaw(CEV_FileInfo* buffer, FILE* file)
+static void L_infoReadRaw(CEV_Capsule* buffer, FILE* file)
 {/*fills and allocate buffer->data*//**1.0**/
 
     /*---PRL---*/

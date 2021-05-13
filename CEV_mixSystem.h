@@ -44,7 +44,7 @@
 #define CEV_CHANNEL_NUM     16      /*number of channel to be used*/
 #define CEV_CHUNK_SIZE      2048    /*sound chunk bitsize*/
 
-#define CEV_AUTO_SIZE 1 //automatically find display ratio
+#define CEV_AUTO_SIZE 0 //automatically find display ratio
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,56 +52,59 @@ extern "C" {
 
 
     /**** MISCELLANEOUS DECLARATIONS ****/
+
+/** \brief Video display status
+ */
 typedef struct CEV_VideoDisplay
 {
-    int screenW,
-        screenH,
-        logicW,
-        logicH;
+    int screenW, /**< Display pixel width */
+        screenH, /**< Display pixel height */
+        logicW,  /**< Render logic width */
+        logicH;  /**< Render logic height */
 
-    float proportion;
+    float proportion; /**< Display ratio as W/H */
 
-    char *type;
+    char *type;       /**< Screen type as string */
 }
 CEV_VideoDisplay;
 
 
-/** \brief sound system
+/** \brief Sound system
  */
 typedef struct CEV_SoundSystem
 {
-    unsigned char musicVolume,
-                  sfxVolume;
+    unsigned char musicVolume,  /**< Music volume applied */
+                  sfxVolume;    /**< Sfx volume applied */
 
-    unsigned int channelNum;
+    unsigned int channelNum;    /**< num of channel opened */
 
-    CEV_Music *loadedMusic;
+    CEV_Music *loadedMusic;     /**< Actually playing music */
 }
 CEV_SoundSystem;
 
 
 
-/** \brief video system
+/** \brief Video system
  */
 typedef struct CEV_VideoSystem
 {
-    char isFullScreen;
+    char isFullScreen;          /**< fullscreen on/off */
 
-    SDL_Window      *window;
-    SDL_Renderer    *render;
-    CEV_VideoDisplay   info;
+    SDL_Window      *window;    /**< Main window */
+    SDL_Renderer    *render;    /**< Main renderer */
+    CEV_VideoDisplay   info;    /**< Display infos */
 
 }
 CEV_VideoSystem;
 
 
-/** \brief Input structure
+/** \brief Global system
 */
 typedef struct CEV_MainSystem
 {
-    CEV_VideoSystem   video;
-    CEV_SoundSystem   sound;
-    CEV_Input         input;
+    CEV_VideoSystem   video; /**< Main video sytem */
+    CEV_SoundSystem   sound; /**< Main sound system */
+    CEV_Input         input; /**< Main input struct */
 }
 CEV_MainSystem;
 
@@ -158,12 +161,12 @@ CEV_VideoSystem* CEV_videoSystemGet(void);
 CEV_Music *CEV_playingMusicGet(void);
 
 
+/** \brief Switches fullscreen on/off.
+ *
+ * \return N/A.
+ *
+ */
 int CEV_screenSwitch(void);
-
-
-
-        /**** SUB FUNCTIONS NOT TO BE DIRECTLY CALLED ***/
-
 
 
 

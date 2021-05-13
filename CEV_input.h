@@ -15,7 +15,7 @@
 #include "CEV_api.h"
 
 
-#define MSE_NB_BT 20  /*nombre de boutons de souris*/
+#define MSE_BT_NUM 20  /**< mouse button array size*/
 #define KEYBOARD 0
 #define MOUSE    1
 #define PAD      2
@@ -23,10 +23,10 @@
 
 #if SDL_MAJOR_VERSION == 2
 
- #define SDL_BUTTON_WHEELUP	    6
+ #define SDL_BUTTON_WHEELUP     6
  #define SDL_BUTTON_WHEELDOWN	7
- #define SDL_BUTTON_WHEELRIGHT   8
- #define SDL_BUTTON_WHEELLEFT    9
+ #define SDL_BUTTON_WHEELRIGHT  8
+ #define SDL_BUTTON_WHEELLEFT   9
 
 #endif // SDL_BUTTON_WHEELDOWN
 
@@ -34,58 +34,58 @@
 extern "C" {
 #endif
 
-/**cvdb
-fonctions de gestions des entrées
-*/
 
-
-
+/** \brief Window request & status.
+ */
 typedef struct CEV_Window
-{/**structure fenetre**/
+{
 
-    bool quitApp,   /*quit apps request*/
-         resize,    /*resize request*/
-         isFocused; /*window is focused*/
+    bool quitApp,   /**< Quit apps request. */
+         resize,    /**< Resize request. */
+         isFocused; /**< Window is focused. */
 }
 CEV_Window;
 
 
+/** \brief Mouse status
+ */
 typedef struct CEV_Mouse
-{/**structure souris**/
+{
 
-    bool button[MSE_NB_BT];/*boutons de la souris*/
-    SDL_Point pos;/*position x,y actuelle de la souris*/
-    SDL_Point rel;/*relatif x.y*/
+    bool button[MSE_BT_NUM]; /**< Mouse buttons array. */
+    SDL_Point pos;          /**< Actual mouse position. */
+    SDL_Point rel;          /**< Relative mouse movement. */
 }
 CEV_Mouse;
 
 
+/** \brief Input main structure.
+ */
 typedef struct CEV_Input
-{/**structure des entrées**/
+{
 
-    bool            key[SDL_NUM_SCANCODES];/*touches clavier*/
-    unsigned char   lastDevice,
-                    padNum;/*nombre de pad*/
-    CEV_Pad         *pad; /*les pads*/
-    CEV_Mouse       mouse;/*la souris*/
-    CEV_Window      window;/*la fenêtre*/
-    unsigned int    lastKeyVal;
-    char*           text;
+    bool            key[SDL_NUM_SCANCODES]; /**< Keys array. */
+    unsigned char   lastDevice,             /**< Last device used. */
+                    padNum;                 /**< Num of pad controller. */
+    CEV_Pad         *pad;                   /**< Pads controller array. */
+    CEV_Mouse       mouse;                  /**< Mouse. */
+    CEV_Window      window;                 /**< Window. */
+    unsigned int    lastKeyVal;             /**< Last key pushed index. */
+    char*           text;                   /**< SDL_Input ptr. */
 }
 CEV_Input;
 
 
 
-/**input update**/
-/** \brief updates inputs.
+
+/** \brief Updates inputs.
  *
  * \return true if any button pressed.
  */
 bool CEV_inputUpdate();
 
 
-/**input structure initialisation**/
-/** \brief input initialisation.
+/** \brief Input initialisation.
  *
  * \return FUNC_OK if init, FATAL on error.
  *
@@ -93,24 +93,22 @@ bool CEV_inputUpdate();
 int CEV_inputInit();
 
 
-/**memory clean-up**/
-/** \brief free input structure.
- *
+/** \brief Frees input structure.
+ * \comment memory clean-up.
  * \return N/A.
  */
 void CEV_inputFree();
 
 
-/**clear structure content**/
-/** \brief clear input content.
+/** \brief Clears input content / resets to 0.
  *
  * \return N/A.
  */
 void CEV_inputClear();
 
 
-/**creates permanent link*/
-/** \brief creates link to input structure.
+
+/** \brief Saves Input structure as default for project.
  *
  * \param CEV_Input* to set.
  *
@@ -119,8 +117,8 @@ void CEV_inputClear();
 CEV_Input* CEV_inputSet(CEV_Input *ptr);
 
 
-/**fetch input structure*/
-/** \brief gets main input structure.
+
+/** \brief Fetches main input structure.
  *
  * \return CEV_Input* as recorded..
  */
@@ -129,13 +127,13 @@ CEV_Input* CEV_inputGet();
 
 void CEV_inputValue(int *val);
 
-/**mouse box**/
-/** \brief return index of box the mouse is on.
+
+/** \brief Returns index of box the mouse is on.
  *
  * \param box : SDL_Rect* to check.
  * \param num : number of boxes in table.
- * \return int : rect index or -1 if none.
  *
+ * \return int : rect index or -1 if none.
  */
 int CEV_mouseBox(SDL_Rect* box ,int num);
 

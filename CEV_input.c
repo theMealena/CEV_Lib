@@ -23,24 +23,10 @@
 #include "CEV_api.h"
 
 
-/*LOCAL FUNCTIONS DECLARATION*/
-
-//add a new pad
-void L_padAddWarm(int index);
-
-//removes a pad
-void L_padRemoveWarm(int id);
-
-//rearrange pad list
-void L_padSortByID(CEV_Pad * pad, int num);
-
-
-
-
 bool CEV_inputUpdate(void)
-{//updating inputs
+{/*Updating inputs*/
 
-    CEV_Input* input = CEV_inputGet();//main struc
+    CEV_Input* input = CEV_inputGet();//main struct
 
     SDL_Event event;    //events
     bool result = false;//any button / quit
@@ -62,15 +48,15 @@ bool CEV_inputUpdate(void)
                 if(!event.key.repeat)
                 {
                     input->key[event.key.keysym.scancode]   = true;
-                    input->lastKeyVal                       = event.key.keysym.scancode;
-                    input->lastDevice                       = KEYBOARD;
-                    result                                  = true;
+                    input->lastKeyVal   = event.key.keysym.scancode;
+                    input->lastDevice   = KEYBOARD;
+                    result              = true;
                 }
             break;
 
             case SDL_KEYUP :
-                input->key[event.key.keysym.scancode]   = false;
-                input->lastDevice                       = KEYBOARD;
+                input->key[event.key.keysym.scancode] = false;
+                input->lastDevice   = KEYBOARD;
             break;
 
             case SDL_TEXTINPUT:
@@ -82,8 +68,8 @@ bool CEV_inputUpdate(void)
             /**mouse**/
             case SDL_MOUSEBUTTONDOWN :
                     input->mouse.button[event.button.button] = true;
-                    input->lastDevice                        = MOUSE;
-                    result                                   = true;
+                    input->lastDevice   = MOUSE;
+                    result              = true;
             break;
 
             case SDL_MOUSEBUTTONUP :
@@ -118,41 +104,40 @@ bool CEV_inputUpdate(void)
 
             /**pads**/
             case SDL_JOYBUTTONDOWN :
-                input->pad[event.jbutton.which].button[event.jbutton.button]    = true;
-                input->lastDevice                                               = PAD;
-                result                                                          = true;
+                input->pad[event.jbutton.which].button[event.jbutton.button] = true;
+                input->lastDevice   = PAD;
+                result              = true;
             break;
 
             case SDL_JOYBUTTONUP :
-                input->pad[event.jbutton.which].button[event.jbutton.button]    = false;
-                input->lastDevice                                               = PAD;
+                input->pad[event.jbutton.which].button[event.jbutton.button] = false;
+                input->lastDevice = PAD;
             break;
 
             case SDL_JOYHATMOTION :
-                input->pad[event.jhat.which].hat    = event.jhat.value;
-                input->lastDevice                   = PAD;
-                result                              = true;
+                input->pad[event.jhat.which].hat = event.jhat.value;
+                input->lastDevice   = PAD;
+                result              = true;
             break;
 
             case SDL_JOYAXISMOTION :
-                input->pad[event.jaxis.which].axisValue[event.jaxis.axis]   = event.jaxis.value;
-                input->lastDevice                                           = PAD;
-                result                                                      = true;
+                input->pad[event.jaxis.which].axis[event.jaxis.axis].rawValue = event.jaxis.value;
+                input->lastDevice   = PAD;
+                result              = true;
             break;
 
             case SDL_JOYDEVICEADDED :
                 //printf("pad added at index :%d\n", event.jdevice.which);
-                L_padAddWarm(event.jdevice.which);  //added by index
+                CEV_padAddWarm(event.jdevice.which);  //added by index
 
             break;
 
             case SDL_JOYDEVICEREMOVED :
                 //printf("pad removed at id = %d\n", event.jdevice.which);
-                L_padRemoveWarm(event.jdevice.which);   //removed by Id
+                CEV_padRemoveWarm(event.jdevice.which);   //removed by Id
             break;
 
             /**misc**/
-
             case SDL_QUIT :
                 input->window.quitApp = true;
                 result                = true;
@@ -179,24 +164,24 @@ bool CEV_inputUpdate(void)
         }
     }
 
+    for(int i= 0; i<input->padNum; i++)
+        CEV_padUpdate(&input->pad[i]);
+
     return result;
 }
 
 
 int CEV_inputInit()
-{/**initialisation de la structure des entrées***valide***/
+{/*Main input init*/
 
-    /*---DECLARATIONS---*/
     CEV_Input* input = NULL;
-
-    /*---EXECUTION---*/
 
     input = &CEV_systemGet()->input;
 
     if(!input)
         return FATAL;
 
-    CEV_inputSet(input);/*création du lien vers la structure*/
+    CEV_inputSet(input);//creating link to structure for global call
     CEV_inputClear();
 
     return FUNC_OK;
@@ -204,7 +189,8 @@ int CEV_inputInit()
 
 
 void CEV_inputFree()
-{/**destruction**/
+{/*destruction*/
+
     CEV_Input *input = CEV_inputGet();
 
     if (input)
@@ -224,7 +210,7 @@ void CEV_inputClear()
         input->lastKeyVal   = 0;
         //input->lastDevice   = KEYBOARD;
 
-        for(int i=0; i<MSE_NB_BT; i++)
+        for(int i=0; i<MSE_BT_NUM; i++)
             input->mouse.button[i] = false;
 
 
@@ -239,12 +225,8 @@ void CEV_inputClear()
             for(int j=0; j<input->pad[i].btNum; j++)
             {
                 input->pad[i].button[j] = false;
-                /*
-                for(int k=0; k<input->pad[i].axesNum; k++)
-                    input->pad[i].axisValue[k] = 0;*/
             }
         }
-
 
         input->window.isFocused = 1;
         input->window.quitApp = false;
@@ -253,7 +235,7 @@ void CEV_inputClear()
 
 
 CEV_Input* CEV_inputSet(CEV_Input *ptr)
-{/**record inputs ptr**/
+{/*records inputs ptr */
 
     static CEV_Input* funcSts = NULL;
 
@@ -265,13 +247,15 @@ CEV_Input* CEV_inputSet(CEV_Input *ptr)
 
 
 CEV_Input* CEV_inputGet()
-{/**fetch inputs**/
+{/*fetches inputs**/
+
     return CEV_inputSet(NULL);
 }
 
 
 void CEV_inputValue(int *val)
 {
+
     bool anyValue = false;
     int lValue = 0;
     CEV_Input *input = CEV_inputGet();
@@ -305,7 +289,7 @@ void CEV_inputValue(int *val)
 }
 
 int CEV_mouseBoxPtr(SDL_Rect** box ,int num)
-{/**mouse box with ptr table**/
+{/*mouse box with ptr table**/
 
     SDL_Point *msePos = &CEV_inputGet()->mouse.pos;
 
@@ -320,7 +304,7 @@ int CEV_mouseBoxPtr(SDL_Rect** box ,int num)
 
 
 int CEV_mouseBox(SDL_Rect* box ,int num)
-{/**mouse box**/
+{/*mouse box**/
 
     SDL_Point *msePos = &CEV_inputGet()->mouse.pos;
 
@@ -333,86 +317,4 @@ int CEV_mouseBox(SDL_Rect* box ,int num)
     return -1;
 }
 
-
-
-/*LOACAL FUNCTION IMPLEMENTATION*/
-
-void L_padAddWarm(int index)
-{//adds a joystick
-
-    fprintf(stdout, "Adding new pad index %d.\n", index);
-
-    CEV_Input * input = CEV_inputGet();
-    CEV_Pad newPad;
-    CEV_Pad* temp = NULL;
-
-
-    CEV_padClear(&newPad);//everything to 0
-
-    newPad.joy = SDL_JoystickOpen(index);
-
-    if (newPad.joy == NULL)
-        return;
-
-    temp = realloc(input->pad, (input->padNum+1)* sizeof(*temp));//extending table
-
-    if(temp == NULL)
-    {/*on error*/
-        fprintf(stderr, "Err at %s / %d : unable to allocate new added joystick : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        goto err_1;
-    }
-
-    CEV_padInitThis(&newPad);
-
-    input->pad                = temp;
-    input->pad[input->padNum] = newPad;
-    input->padNum++;
-
-    L_padSortByID(input->pad, input->padNum);
-
-   return;
-
-err_1 :
-    SDL_JoystickClose(newPad.joy);
-
-    return;
-}
-
-
-void L_padRemoveWarm(int id)
-{/**remove a pad from list*/
-
-    CEV_Input *input = CEV_inputGet();
-
-    fprintf(stderr, "Removing pad #%d\n", id);
-
-    input->pad[id].isPlugged = false;
-    //input->padNum --;
-
-    L_padSortByID(input->pad, input->padNum);
-
-}
-
-
-void L_padSortByID(CEV_Pad * pad, int num)
-{/*sorts pad by id*/
-
-    CEV_Pad temp;
-
-    if (num<2)
-        return;
-
-    for (int i=0; i < num-1; i++)
-    {
-        for (int j=0; j < num-1; j++)
-        {
-            if (pad[j].id > pad[j+1].id)
-            {
-                temp     = pad[j];
-                pad[j]   = pad[j+1];
-                pad[j+1] = temp;
-            }
-        }
-    }
-}
 

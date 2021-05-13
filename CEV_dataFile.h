@@ -18,7 +18,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-//#include "CEV_display.h"
 #include "CEV_table.h"
 #include "CEV_animator.h"
 #include "CEV_texts.h"
@@ -28,7 +27,7 @@
 #include "CEV_selection.h"
 #include "CEV_maps.h"
 #include "CEV_weather.h"
-#include "../parallax.h"
+#include "parallax.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,16 +61,16 @@ typedef enum FILE_TYPE
 
 
 
-/** \brief raw memory handle
+/** \brief File encapsulation
  */
-typedef struct CEV_FileInfo
+typedef struct CEV_Capsule
 {/**structure containing buffer and associated informations **/
 
-    uint32_t    type, /* IS_BMP / IS_PNG...*/
-                size; /*data size in bytes*/
-    void        *data; /*raw ram*/
+    uint32_t    type, /**< IS_BMP / IS_PNG... */
+                size; /**< data size in bytes */
+    void        *data;/**< raw data */
 }
-CEV_FileInfo;
+CEV_Capsule;
 
 
 
@@ -84,30 +83,30 @@ CEV_FileInfo;
  * \param file : opened file to fetch from.
  *
  * \return void* on anything that was requested, NULL on error.
- * \return CEV_FileInfo* if DEFAULT or DAT file is spotted.
+ * \return CEV_Capsule* if DEFAULT or DAT file is spotted.
  */
 void* CEV_anyFetch(unsigned int index, FILE* file);
 
 
 /** \brief loads file into memory as it
  *
- * \param infos : CEV_FileInfo* to store file.
+ * \param infos : CEV_Capsule* to store file.
  * \param fileName : file to be opened and stored.
  *
  * \return any of the function status.
  */
-int CEV_rawLoad(CEV_FileInfo* infos, char* fileName);
+int CEV_rawLoad(CEV_Capsule* infos, char* fileName);
 
 
 /** \brief fetches raw binary from file.
  *
  * \param index : data index to fetch.
- * \param infos : CEV_FileInfo* to receive raw memory.
+ * \param infos : CEV_Capsule* to receive raw memory.
  * \param file : FILE* to read from.
  *
  * \return any of the functions status.
  */
-int CEV_rawFetch(unsigned int index, CEV_FileInfo* infos, FILE* file);
+int CEV_rawFetch(unsigned int index, CEV_Capsule* infos, FILE* file);
 
 
 
@@ -288,42 +287,42 @@ CEV_Weather *CEV_weatherFetch(int index, char* fileName);
 
 /** \brief file to mem.
  *
- * \param buffer : CEV_FileInfo* to be filled.
+ * \param buffer : CEV_Capsule* to be filled.
  * \param src : FILE* to read from actual position.
  * \return readWriteErr is set.
  *
  */
-void CEV_fileInfoTypeRead(FILE *src, CEV_FileInfo *buffer);
+void CEV_fileInfoTypeRead(FILE *src, CEV_Capsule *buffer);
 
 
 /** \brief mem to file.
  *
- * \param buffer : CEV_FileInfo* to be dumped.
+ * \param buffer : CEV_Capsule* to be dumped.
  * \param dst: FILE* to write into at actual position.
  * \return readWriteErr is set.
  *
  */
-void CEV_fileInfoTypeWrite(CEV_FileInfo *buffer, FILE *dst);
+void CEV_fileInfoTypeWrite(CEV_Capsule *buffer, FILE *dst);
 
 
 /**clean content*/
 /** \brief clean up / free fileInfo content.
  *
- * \param buffer : CEV_FileInfo* to clear.
+ * \param buffer : CEV_Capsule* to clear.
  *
  * \return N/A.
  */
-void CEV_fileInfoClear(CEV_FileInfo *buffer);
+void CEV_fileInfoClear(CEV_Capsule *buffer);
 
 
 /**free fileInfo*/
 /** \brief free content and itself.
  *
- * \param buffer : CEV_FileInfo* to free.
+ * \param buffer : CEV_Capsule* to free.
  *
  * \return N/A.
  */
-void CEV_fileInfoFree(CEV_FileInfo *buffer);
+void CEV_fileInfoFree(CEV_Capsule *buffer);
 
 
 /**free fileInfo*/

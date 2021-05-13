@@ -2,26 +2,29 @@
 //** Done by  |      Date     |  version |    comment     **/
 //**------------------------------------------------------**/
 //**   CEV    |    02-2017    |   1.0    |    creation    **/
+//**   CEV    |    05-2021    |   1.0    | Documentation  **/
 //**********************************************************/
 
 
 #ifndef CEV_FILEFUNCS_H_INCLUDED
 #define CEV_FILEFUNCS_H_INCLUDED
 
+#include <stdio.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
-/** \brief text structure.
+/** \brief Easy text management.
  */
 typedef struct CEV_Text
 {
-    size_t  linesNum, /*number of lines*/
-            lineSize; /*longest line length*/
+    size_t  linesNum,       /**< number of lines*/
+            lineSize;       /**< longest line length*/
 
-    char    fileTerminator, /*file terminator char*/
-            **line;  /*texts storage*/
+    char    fileTerminator, /**< file terminator char*/
+            **line;         /**< texts storage*/
 }
 CEV_Text;
 
@@ -45,7 +48,7 @@ CEV_Text* CEV_textCreate(unsigned int lines, unsigned int maxLength);
  * \param index : "string" index to write into.
  * \param src : "string" to be written.
  *
- * \return return any of function status.
+ * \return return any of standard status.
  */
 int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src);
 
@@ -58,6 +61,16 @@ int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src);
  * \return  start of string address.
  */
  char* CEV_textRead(CEV_Text *src, unsigned int index);
+
+
+ /** \brief appends text line.
+ *
+ * \param dst : text structure to add src into.
+ * \param src : source "string".
+ *
+ * \return  return any of standard status.
+ */
+ int CEV_textAppend(CEV_Text* dst, const char* src);
 
 
 /**files related*/

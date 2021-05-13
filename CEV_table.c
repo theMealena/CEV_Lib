@@ -157,7 +157,7 @@ void* CEV_tabFreeSlotGet(CEV_DynamicArray *table)
     char *ptr = NULL;
 
     if (table->inUse < table->capacity)
-        ptr = (char*)table->data + table->elemSize * table->inUse;
+        ptr = (char*)table->data + (table->elemSize * table->inUse);
 
     return (void*)ptr;
 }

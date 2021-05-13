@@ -797,7 +797,7 @@ SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale)
 
 
 SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2)
-{//adds SDL_Rect
+{//sums SDL_Rect
     SDL_Rect result;
 
     int leftX   = MIN(rect1.x, rect2.x),

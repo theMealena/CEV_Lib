@@ -6,7 +6,7 @@
 //**   CEV    |  05-2016   |   2.0    |    SDL2 rev       **/
 //**   CEV    |  03-2017   |   2.1    | usage corrections **/
 //**   CEV    |  11-2017   |   2.1.1  |   diag improved   **/
-//**   CEV    |  01-2020   |   2.1.2  |loaded music ptr   **/ ->CEV_playingMusicFetch()
+//**   CEV    |  01-2020   |   2.1.2  |loaded music ptr   **/ ->CEV_playingMusicGet()
 //**********************************************************/
 
 #include <stdint.h>
@@ -50,11 +50,7 @@ bool L_videoAutoAdapt(CEV_VideoDisplay * cfg);
 int CEV_systemInit(void)
 {/*system initialization **/
 
-        /*DEC*/
-
     CEV_MainSystem  *sys    = NULL; /*main system*/
-
-        /*PRL***/
 
     sys = calloc(1, sizeof(*sys));
 
@@ -65,8 +61,6 @@ int CEV_systemInit(void)
     }
 
     L_systemSet(sys);
-
-        /*EXECUTION*/
 
     srand(time(NULL));/*random seed*/
 
@@ -129,8 +123,6 @@ exit_err:
 void CEV_systemClose(void)
 {/*System close**/
 
-    /*EXE**/
-
     CEV_inputFree();        /*frees input structure & allocations*/
     L_soundSystemFree();    /*frees sound structures and closes FMODeX / SDL_mixer*/
     L_videoSystemFree();    /*frees video structures and closes SDL*/
@@ -138,8 +130,6 @@ void CEV_systemClose(void)
     IMG_Quit();             /*closes SDL_IMG*/
 
     free(CEV_systemGet());/*Finally frees system structure*/
-
-    /*POST***/
 
     printf("All Modules have been correctly closed and freed.\n");
 }
@@ -212,13 +202,9 @@ int CEV_screenSwitch(void)
 int L_videoSystemCreate(void)
 {/*creates SDL_window and renderer*/
 
-    /*DEC**/
-
     CEV_VideoSystem  *sys    = CEV_videoSystemGet();
     SDL_Renderer    *render = NULL;
     SDL_Window      *window = NULL;
-
-    /*EXE*/
 
     if (SDL_Init(CEV_SDL_FLAG)<0)
     {/*SDL initialization*/
@@ -250,8 +236,6 @@ int L_videoSystemCreate(void)
 
     SDL_RenderSetLogicalSize(render, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    /*POST***/
-
     sys->isFullScreen = (SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP);
     sys->render       = render;
     sys->window       = window;
@@ -269,11 +253,7 @@ err_exit :
 void L_videoSystemFree(void)
 {/*frees sdl window/renderer and quit*/
 
-    /*DEC*/
-
     CEV_VideoSystem* video    = CEV_videoSystemGet();
-
-    /*EXE**/
 
     if (video != NULL)
     {
@@ -292,14 +272,8 @@ void L_videoSystemFree(void)
 int L_soundSystemCreate(void)
 {/*creates audio system and init mixer*/
 
-    /*DEC**/
-
     int             sts;
     CEV_MainSystem  *sys    = CEV_systemGet();
-
-
-    /*EXE**/
-
 
     /*system init **/
     sts = Mix_OpenAudio(CEV_FREQUENCY, CEV_MIX_FORMAT, CEV_STEREO, CEV_CHUNK_SIZE);
@@ -337,8 +311,6 @@ int L_soundSystemCreate(void)
     /*setting default volume*/
     Mix_VolumeMusic(CEV_MUSIC_VOLUME);
 
-    /*POST***/
-
     return FUNC_OK;
 
 err :
@@ -352,14 +324,10 @@ err :
 void L_soundSystemFree(void)
 {/* frees and closes system SDL_Mixer */
 
-    /*DEC**/
-
     int numTimesOpened, /*used to close as many times as has been opened*/
         freq,           /*mostly dummies...*/
         chans;
     uint16_t format;
-
-    /*EXE**/
 
     /*playing music cleaning*/
     CEV_Music* music = CEV_playingMusicGet();
@@ -383,7 +351,7 @@ void L_soundSystemFree(void)
 
 
 bool L_videoAutoAdapt(CEV_VideoDisplay * cfg)
-{
+{/* screen ratio auto adaptation*/
 
 #if CEV_AUTO_SIZE
 
