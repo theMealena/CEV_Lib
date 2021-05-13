@@ -85,7 +85,8 @@ CEV_FCoord;
 typedef struct CEV_Edge
 {/*edge structure**/
     uint8_t value,
-            memo;
+            memo,
+            out;
 }
 CEV_Edge;
 

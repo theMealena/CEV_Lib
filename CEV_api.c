@@ -42,33 +42,33 @@ void CEV_bitClear(int* flag, int bitIndex)
 bool CEV_edgeRise(CEV_Edge * edge)
 {/*calcul un front montant***VALIDE***/
 
-    bool funcSts = (edge->value && !edge->memo);
+    edge->out = (edge->value && !edge->memo);
 
     edge->memo = edge->value;
 
-    return (funcSts);
+    return (edge->out);
 }
 
 
 bool CEV_edgeFall(CEV_Edge *edge)
 {/*calcul un front descendant***VALIDE***/
 
-    bool funcSts = (!edge->value && edge->memo);
+    edge->out = (!edge->value && edge->memo);
 
     edge->memo = edge->value;
 
-    return(funcSts);
+    return(edge->out);
 }
 
 
 bool CEV_edgeAny(CEV_Edge *edge)
 {/*n'importe quel front***VALIDE**/
 
-    uint8_t funcSts = (edge->value != edge->memo);
+    edge->out = (edge->value != edge->memo);
 
     edge->memo = edge->value;
 
-    return(funcSts);
+    return(edge->out);
 }
 
 
