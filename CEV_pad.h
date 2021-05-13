@@ -117,6 +117,15 @@ bool CEV_padInitThis(CEV_Pad* pad);
 void CEV_padClear(CEV_Pad* pad);
 
 
+/** \brief Resets/defaults value of analog axis.
+ *
+ * \param pad : Pad from which to reset analog axis values.
+ *
+ * \return N/A.
+ */
+void CEV_padAxisInit(CEV_Pad* pad);
+
+
 /** \brief Closes / frees all registered pads.
  *
  * \return N/A.
