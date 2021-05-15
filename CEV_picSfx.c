@@ -78,7 +78,7 @@ static void L_videoFx6(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uin
 /*centered side stretch*/
 static void L_videoFx7(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
 
-/*fade*/
+/*fade in over*/
 static void L_videoFx8(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
 
 /*horizontal crossed lines*/
@@ -112,11 +112,13 @@ static void L_videoFx16(SDL_Renderer* render, L_Texture* src, L_Texture* dst, ui
 /*static slide left to right*/
 static void L_videoFx17(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
 
-
+/*random squares in*/
 static void L_videoFx18(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
 
-
+/*soft alpha left to right*/
 static void L_videoFx19(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
+
+static void L_videoFx20(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
 
 static SDL_Rect* L_ctrlPosToBlit(int centreX, int centreY, SDL_Rect* blit);
 
@@ -152,7 +154,7 @@ void CEV_videoSfxSelect(SDL_Texture* dst, int which, uint32_t time)
                                                                                 L_videoFx9, L_videoFx10, L_videoFx11,
                                                                                 L_videoFx12, L_videoFx13, L_videoFx14,
                                                                                 L_videoFx15, L_videoFx16, L_videoFx17,
-                                                                                L_videoFx18, L_videoFx19};
+                                                                                L_videoFx18, L_videoFx19, L_videoFx20};
     if(which < 0)
         which = rand()%VFX_NUM;
 
@@ -973,6 +975,29 @@ static void L_videoFx19(SDL_Renderer* render, L_Texture* src, L_Texture* dst, ui
     }
 }
 
+
+static void L_videoFx20(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime)
+{/*flash in to alpha fade out*/
+
+    uint32_t start = SDL_GetTicks();
+    bool done = false;
+    int alpha = SDL_ALPHA_OPAQUE;
+
+    while(!done)
+    {
+        alpha = CEV_map(SDL_GetTicks(), start, start+setTime, 255, 0);
+
+        if(alpha>=0)
+        {
+            SDL_SetTextureAlphaMod(dst->texture, alpha);
+            SDL_RenderCopy(render, dst->texture, NULL, NULL);
+            SDL_RenderPresent(render);
+            SDL_RenderClear(render);
+        }
+        else
+            break;
+    }
+}
 
 static SDL_Rect* L_ctrlPosToBlit(int centreX, int centreY, SDL_Rect* blit)
 {/*position de blit depuis le centre de gravité*/

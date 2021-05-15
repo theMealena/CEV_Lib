@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <SDL.h>
 
-#define VFX_NUM 20
+#define VFX_NUM 21
 
 #ifdef __cplusplus
 extern "C" {
