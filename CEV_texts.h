@@ -4,6 +4,7 @@
 //**   CEV    |    02-2017    |   1.0    |    creation    **/
 //**   CEV    |    05-2021    |   1.0    | Documentation  **/
 //**********************************************************/
+//- CEV 20210522 : lines realloc'd if writing greater string : CEV_TEXT_XTRA_ALLOC defined
 
 
 #ifndef CEV_FILEFUNCS_H_INCLUDED
@@ -15,13 +16,15 @@
 extern "C" {
 #endif
 
+#define CEV_TEXT_XTRA_ALLOC (sizeof(size_t) + 1) /**< num of bytes added to strlen in alloc */
 
 /** \brief Easy text management.
+ *  \note For each line, the alloc size is stored in size_t just after the '\0' char
  */
 typedef struct CEV_Text
 {
     size_t  linesNum,       /**< number of lines*/
-            lineSize;       /**< longest line length*/
+            lineSize;       /**< longest line length terminal char included*/
 
     char    fileTerminator, /**< file terminator char*/
             **line;         /**< texts storage*/
@@ -160,7 +163,7 @@ int CEV_textToData(CEV_Text *src, const char* dstFileName);
  *
  * \return N/A.
  */
-void CEV_textFree(CEV_Text * in);
+void CEV_textDestroy(CEV_Text * in);
 
 
 /** \brief Free and raz content of CEV_Text.
@@ -184,7 +187,7 @@ int CEV_fileStrSearch(FILE* file, char* src);
 
 
 /** \brief cleans file string into memory friendly string :
- * removes '/\r' and '/\n' replaced by '/\0'.
+ * \note removes '/\r' and '/\n' replaced by '/\0'.
  * \param in : char* to clean.
  *
  * \return N/A.
