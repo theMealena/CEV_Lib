@@ -1,13 +1,15 @@
 
 //**********************************************************/
-//** Done by  |      Date     |  version |    comment     **/
-//**------------------------------------------------------**/
-//**   CEV    |  02-2015   |   1.0    |    creation       **/
-//**   CEV    |  05-2016   |   2.0    |    SDL2 rev       **/
-//**   CEV    |  03-2017   |   2.1    | usage corrections **/
-//**   CEV    |  11-2017   |   2.1.1  |   diag improved   **/
-//**   CEV    |  01-2020   |   2.1.2  |loaded music ptr   **/ ->CEV_playingMusicGet()
-//**********************************************************/
+//** Done by  |    Date    |  version |    comment
+//**------------------------------------------------------
+//**   CEV    |  02-2015   |   1.0    |    creation
+//**   CEV    |  05-2016   |   2.0    |    SDL2 rev
+//**   CEV    |  03-2017   |   2.1    | usage corrections
+//**   CEV    |  11-2017   |   2.1.1  |   diag improved
+//**   CEV    |  01-2020   |   2.1.2  | loaded music ptr   ->CEV_playingMusicGet()
+//**   CEV    |  05-2021   |   2.1.2  | local funcs as static
+//**********************************************************
+
 
 #include <stdint.h>
 #include <stdio.h>
@@ -25,19 +27,19 @@
     /*LOCAL FUNCTIONS DECLARATION*/
 
 /*initialize video system as window and renderer*/
-int L_videoSystemCreate();
+static int L_videoSystemCreate();
 
 /*free & close video*/
-void L_videoSystemFree();
+static void L_videoSystemFree();
 
 /*create sound environment SDL_Mixer*/
-int L_soundSystemCreate();
+static int L_soundSystemCreate();
 
 /*free / close sound system*/
-void L_soundSystemFree();
+static void L_soundSystemFree();
 
 /*mesmorize main system*/
-CEV_MainSystem* L_systemSet(CEV_MainSystem* sys);
+static CEV_MainSystem* L_systemSet(CEV_MainSystem* sys);
 
 /*automatic selection 4/3 - 16/10 - 16/9*/
 bool L_videoAutoAdapt(CEV_VideoDisplay * cfg);
@@ -199,7 +201,7 @@ int CEV_screenSwitch(void)
 
     /**Local functions**/
 
-int L_videoSystemCreate(void)
+static int L_videoSystemCreate(void)
 {/*creates SDL_window and renderer*/
 
     CEV_VideoSystem  *sys    = CEV_videoSystemGet();
@@ -250,7 +252,7 @@ err_exit :
 }
 
 
-void L_videoSystemFree(void)
+static void L_videoSystemFree(void)
 {/*frees sdl window/renderer and quit*/
 
     CEV_VideoSystem* video    = CEV_videoSystemGet();
@@ -269,7 +271,7 @@ void L_videoSystemFree(void)
 }
 
 
-int L_soundSystemCreate(void)
+static int L_soundSystemCreate(void)
 {/*creates audio system and init mixer*/
 
     int             sts;
@@ -321,7 +323,7 @@ err :
 }
 
 
-void L_soundSystemFree(void)
+static void L_soundSystemFree(void)
 {/* frees and closes system SDL_Mixer */
 
     int numTimesOpened, /*used to close as many times as has been opened*/
@@ -350,7 +352,7 @@ void L_soundSystemFree(void)
 }
 
 
-bool L_videoAutoAdapt(CEV_VideoDisplay * cfg)
+static bool L_videoAutoAdapt(CEV_VideoDisplay * cfg)
 {/* screen ratio auto adaptation*/
 
 #if CEV_AUTO_SIZE
