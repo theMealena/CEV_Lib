@@ -283,18 +283,10 @@ void CEV_memCopy(void *src, void *dst, size_t count)
 bool CEV_lim(int limInf, int val, int limSup)
 {/*interval vrai (limites incluse) si entre, faux si hors*/
 
-    switch (limInf <= limSup)
-    {
-        case true:
-            return (val >= limInf && val <= limSup);
-        break;
-
-        case false:
-            return (val >= limInf || val <= limSup);
-        break;
-    }
-
-    return false;
+    if(limInf <= limSup)
+        return (val >= limInf && val <= limSup);
+    else
+        return (val >= limInf || val <= limSup);
 }
 
 
@@ -756,20 +748,23 @@ SDL_Rect* CEV_rectDimCopy(SDL_Rect src, SDL_Rect* dst)
 }
 
 
-SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, int w, int h)
-{/*keeps rect inside w*h */
+SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, SDL_Rect border)
+{/*keeps rect inside border */
 
-    if (rect->x < 0)
-        rect->x = 0;
+    if ((rect->w > border.w) || (rect->h > border.h))
+        return NULL;
 
-    else if ((rect->x + rect->w) >= w)
-        rect->x = w - rect->w - 1;
+    if (rect->x < border.x)
+        rect->x = border.x;
 
-    if (rect->y < 0 )
-        rect->y = 0;
+    else if ((rect->x + rect->w) >= (border.x + border.w))
+        rect->x = border.w - rect->w - 1;
 
-    else if ((rect->y + rect->h) >= h)
-        rect->y = h - rect->h - 1;
+    if (rect->y < border.y )
+        rect->y = border.y;
+
+    else if ((rect->y + rect->h) >= (border.y + border.h))
+        rect->y = border.h - rect->h - 1;
 
     return rect;
 }
@@ -778,8 +773,10 @@ SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, int w, int h)
 void CEV_pointRectConstraint(SDL_Point *point, SDL_Rect *rect, int w, int h)
 {/*keeps point and rect within w*h*/
 
+    SDL_Rect lrect = {0, 0, w, h};
+
     CEV_rectAroundPoint(*point, rect);
-    CEV_rectConstraint(rect, w, h);
+    CEV_rectConstraint(rect, lrect);
     CEV_rectMidToPoint(*rect, point);
 }
 
