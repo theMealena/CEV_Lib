@@ -29,7 +29,7 @@
 #include "CEV_texts.h"
 #include "CEV_selection.h"
 #include "CEV_maps.h"
-#include <parallax.h>
+#include <CEV_parallax.h>
 #include "CEV_weather.h"
 
 /***** Local functions****/
@@ -610,6 +610,8 @@ CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
 
     /*---POST---*/
 
+    //CEV_capsuleClear(&lCaps);
+
 err_1 :
     fclose(file);
 
@@ -654,8 +656,6 @@ CEV_Chunk* CEV_waveFetch(unsigned int index, const char* fileName)
         fprintf(stderr,"Err at %s / %d : index provided is not wav.\n", __FUNCTION__, __LINE__);
 
     /*---POST---*/
-
-    CEV_capsuleClear(&lCaps);
 
 err_1 :
     fclose(file);
@@ -710,6 +710,8 @@ CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName)
     /*---POST---*/
 
     CEV_soundSystemGet()->loadedMusic = music;
+
+    //CEV_capsuleClear(&lCaps);
 
 err_1:
     fclose(file);
