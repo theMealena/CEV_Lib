@@ -9,7 +9,7 @@
 //**   CEV    |  07-2019      |   1.0.3  | parallax added **/
 //**   CEV    |  01-2020      |   1.0.4  | weather added  **/
 //**********************************************************/
-
+//- CEV 20210520- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
 
 #ifndef CEV_FILE_LOAD_H_INCLUDED
 #define CEV_FILE_LOAD_H_INCLUDED
@@ -27,7 +27,7 @@
 #include "CEV_selection.h"
 #include "CEV_maps.h"
 #include "CEV_weather.h"
-#include "parallax.h"
+#include <parallax.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,7 +64,7 @@ typedef enum FILE_TYPE
 /** \brief File encapsulation
  */
 typedef struct CEV_Capsule
-{/**structure containing buffer and associated informations **/
+{/**structure containing data and associated informations **/
 
     uint32_t    type, /**< IS_BMP / IS_PNG... */
                 size; /**< data size in bytes */
@@ -88,26 +88,36 @@ CEV_Capsule;
 void* CEV_anyFetch(unsigned int index, FILE* file);
 
 
-/** \brief loads file into memory as it
- *
- * \param infos : CEV_Capsule* to store file.
- * \param fileName : file to be opened and stored.
- *
- * \return any of the function status.
- */
-int CEV_rawLoad(CEV_Capsule* infos, char* fileName);
-
-
 /** \brief fetches raw binary from file.
  *
  * \param index : data index to fetch.
- * \param infos : CEV_Capsule* to receive raw memory.
+ * \param caps : CEV_Capsule* to receive raw memory.
  * \param file : FILE* to read from.
  *
  * \return any of the functions status.
  */
-int CEV_rawFetch(unsigned int index, CEV_Capsule* infos, FILE* file);
+int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file);
 
+
+/** \brief loads file into memory as it
+ *
+ * \param caps : CEV_Capsule* to store file.
+ * \param fileName : file to be opened and stored.
+ *
+ * \return any of the function status.
+ */
+int CEV_rawLoad(CEV_Capsule* caps, char* fileName);
+
+
+/** \brief Extract exploitable data from capsule
+ *
+ * \param caps : CEV_Capsule* to extract file from
+ * \param freeData : Destroys capsule content if true.
+ *
+ * \return void* on resulting object. NULL on error.
+ * \note Capsule content is kept as if extraction fails.
+ */
+void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData);
 
 
 
@@ -287,42 +297,42 @@ CEV_Weather *CEV_weatherFetch(int index, char* fileName);
 
 /** \brief file to mem.
  *
- * \param buffer : CEV_Capsule* to be filled.
+ * \param caps : CEV_Capsule* to be filled.
  * \param src : FILE* to read from actual position.
  * \return readWriteErr is set.
  *
  */
-void CEV_fileInfoTypeRead(FILE *src, CEV_Capsule *buffer);
+void CEV_capsuleRead(FILE *src, CEV_Capsule *caps);
 
 
 /** \brief mem to file.
  *
- * \param buffer : CEV_Capsule* to be dumped.
+ * \param caps : CEV_Capsule* to be dumped.
  * \param dst: FILE* to write into at actual position.
  * \return readWriteErr is set.
  *
  */
-void CEV_fileInfoTypeWrite(CEV_Capsule *buffer, FILE *dst);
+void CEV_capsuleWrite(CEV_Capsule *caps, FILE *dst);
 
 
 /**clean content*/
 /** \brief clean up / free fileInfo content.
  *
- * \param buffer : CEV_Capsule* to clear.
+ * \param caps : CEV_Capsule* to clear.
  *
  * \return N/A.
  */
-void CEV_fileInfoClear(CEV_Capsule *buffer);
+void CEV_capsuleClear(CEV_Capsule *caps);
 
 
 /**free fileInfo*/
 /** \brief free content and itself.
  *
- * \param buffer : CEV_Capsule* to free.
+ * \param caps : CEV_Capsule* to free.
  *
  * \return N/A.
  */
-void CEV_fileInfoFree(CEV_Capsule *buffer);
+void CEV_capsuleDestroy(CEV_Capsule *caps);
 
 
 /**free fileInfo*/
