@@ -42,7 +42,7 @@ void CEV_bitClear(int* flag, int bitIndex)
 bool CEV_edgeRise(CEV_Edge * edge)
 {/*calcul un front montant***VALIDE***/
 
-    edge->out = (edge->value && !edge->memo);
+    edge->out = edge->re = (edge->value && !edge->memo);
 
     edge->memo = edge->value;
 
@@ -53,7 +53,7 @@ bool CEV_edgeRise(CEV_Edge * edge)
 bool CEV_edgeFall(CEV_Edge *edge)
 {/*calcul un front descendant***VALIDE***/
 
-    edge->out = (!edge->value && edge->memo);
+    edge->out = edge->fe = (!edge->value && edge->memo);
 
     edge->memo = edge->value;
 
@@ -64,11 +64,24 @@ bool CEV_edgeFall(CEV_Edge *edge)
 bool CEV_edgeAny(CEV_Edge *edge)
 {/*n'importe quel front***VALIDE**/
 
-    edge->out = (edge->value != edge->memo);
+    edge->out = edge->any = (edge->value != edge->memo);
 
     edge->memo = edge->value;
 
     return(edge->out);
+}
+
+
+bool CEV_edgeUpdate(CEV_Edge *edge)
+{/*calcul de tous les fronts*/
+
+    edge->re    = edge->value && !edge->memo;
+    edge->fe    = !edge->value && edge->memo;
+    edge->any   = edge->re || edge->fe;
+    edge->out   = edge->any;
+    edge->memo  = edge->value;
+
+    return edge->out;
 }
 
 
@@ -360,6 +373,7 @@ double CEV_map(double realVal, double realMin, double realMax, double retMin, do
 
 int CEV_irand(int start, int end)
 {/*random int value in [start, end]*/
+
     if (end <= start)
         return 0;
 
@@ -369,6 +383,7 @@ int CEV_irand(int start, int end)
 
 double CEV_frand(double start, double end)
 {/*random double in [start, end]*/
+
     if (end<=start)
         return 0.0;
 
@@ -810,3 +825,61 @@ SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2)
     return result;
 }
 
+
+/*** Allocations **/
+
+void** CEV_allocate2d(size_t x, size_t y, size_t size)
+{
+    int i = 0;
+    void** result = calloc(x, sizeof(void*));
+
+    if(IS_NULL(result))
+        return NULL;
+
+    for(i = 0; i<x; i++)
+    {
+        result[i] = calloc(y, size);
+
+        if(IS_NULL(result[i]))
+            goto err;
+    }
+
+    return result;
+
+err:
+
+    for(int j=0; j<i; j++)
+        free(result[j]);
+
+    return NULL;
+}
+
+
+void*** CEV_allocate3d(size_t x, size_t y, size_t z, size_t size)
+{
+    int i = 0;
+    void*** result = calloc(x, sizeof(void**));
+
+    if(IS_NULL(result))
+        return NULL;
+
+    for(i=0; i<x; i++)
+    {
+        result[i] = CEV_allocate2d(y, z, size);
+
+        if(IS_NULL(result[i]))
+            goto err;
+    }
+
+    return result;
+
+err:
+
+    for(int j=0; j<i; j++)
+    {
+        for(int k=0; k<y; k++)
+            free(result[j][k]);
+    }
+
+    return NULL;
+}

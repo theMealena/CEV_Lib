@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "CEV_file.h"
+#include "CEV_api.h"
+#include "rwtypes.h"
 
 
 int CEV_fileNumOfLine(FILE *file)
@@ -113,12 +115,13 @@ size_t CEV_fileSize(FILE* file)
 
 
 bool CEV_fileFileNameGet(const char* src, char* dst)
-{
+{/*dst is filled with name from folder/name*/
+
     int len = strlen(src);
 
-    for(int i = len-1; i>=0; i--)
+    for(int i = len-1; i >= 0; i--)
     {
-      if(src[i] == '/' || src[i]=='\\')
+      if((src[i] == '/') || (src[i] == '\\'))
       {
         strcpy(dst, &src[i+1]);
         return true;
@@ -130,14 +133,16 @@ bool CEV_fileFileNameGet(const char* src, char* dst)
 
 
 bool CEV_fileFolderNameGet(const char *src, char *dst)
-{
+{/*dst is filled with folder from folder/name*/
+
     bool funcSts = false;
+
     int srcLen   = strlen(src),
         i;
 
-    for (i = srcLen; i>=0; i--)
+    for (i = srcLen; i >= 0; i--)
     {
-        if (src[i] =='/' || src[i]=='\\')
+        if ((src[i] =='/') || (src[i]=='\\'))
         {
             funcSts = true;
             break;
@@ -146,9 +151,30 @@ bool CEV_fileFolderNameGet(const char *src, char *dst)
 
     if (funcSts)
     {
-        dst[i+1] ='\0';
-        for(int j = i; j>=0; j--)
+        dst[i+1] = '\0';
+        for(int j = i; j >= 0; j--)
             dst[j]= src[j];
+    }
+
+    return funcSts;
+}
+
+
+bool CEV_fileFolderUp(char* str)
+{/* parent folder of folder/folder */
+
+    bool funcSts = false;
+    int srcLen   = strlen(str),
+        i;
+
+    for (i = srcLen; i >= 0; i--)
+    {
+        if ((str[i] =='/') || (str[i]=='\\'))
+        {
+            str[i] = '\0';
+            funcSts = true;
+            break;
+        }
     }
 
     return funcSts;
@@ -198,4 +224,65 @@ void CEV_stringGroup(char *src, unsigned int group)
 
         count++;  //incrément du nombre de boucles
     }
+}
+
+
+int CEV_fileStrSearch(FILE* file, char* src)
+{/*seeks string in file and returns line index*/
+
+    long            pos         = ftell(file);
+    char            line[256];
+    unsigned int    i           = 0;
+    int result                  = -1;
+
+    rewind(file);
+    while (fgets(line, sizeof(line), file))
+    {
+        CEV_stringEndFormat(line);
+
+        if(!strcmp(line, src))
+        {
+            result = i;
+            break;
+        }
+        i++;
+    }
+
+    fseek(file, pos, SEEK_SET);
+
+    return result;
+}
+
+
+int CEV_fileCopy(char *srcName, char *dstName)
+{
+    int funcSts = FUNC_OK;
+    readWriteErr = 0;
+
+    FILE *srcFile = fopen(srcName, "rb"),
+         *dstFile = fopen(dstName, "wb");
+
+    if(IS_NULL(srcFile) || IS_NULL(dstFile))
+    {
+        fprintf(stderr, "Err at %s / %d :   .\n", __FUNCTION__, __LINE__ );
+        funcSts = FUNC_ERR;
+        goto end;
+    }
+
+    uint32_t fileSize = CEV_fileSize(srcFile);
+
+    for(int i=0; i<fileSize; i++)
+    {
+        write_u8(read_u8(srcFile), dstFile);
+    }
+
+    funcSts = readWriteErr? FUNC_ERR : FUNC_OK;
+
+end:
+
+    fclose(srcFile);
+    fclose(dstFile);
+
+    return funcSts;
+
 }

@@ -6,8 +6,49 @@
 //**********************************************************/
 
 
+/*
+-----------------------------------------------------------------------------------------------
+Fichier Data .map
+version major   u8
+version minor   u8
+num of layers   uint32
+tileSet ID      uint32
+tile width      uint32
+tile height     uint32
+tile size pix   uint32
+
+per num of layer * width * height : single tile definition :
+{
+    index       uint32
+    hardness    u8
+    is anim     u8
+
+    if is anim :
+    {
+        pic num     uint
+        picStart    uint
+        picAct      uint
+        delay       uint
+    }
+    option value    10 * int
+}
+
+profile layer width*height :
+type s32;
+
+tileSet     CEV_Capsule //to be implemented
+-----------------------------------------------------------------------------------------------
+Layer index 0 is the farmost layer.
+layers blit from top left to bottom right
+*/
+
+// TODO (drx#1#): insert CEV_Camera directly
+
 #ifndef CEV_TILES_H_INCLUDED
 #define CEV_TILES_H_INCLUDED
+
+#define MAP_MAJOR_VERSION 1
+#define MAP_MINOR_VERSION 1
 
 #include <stdbool.h>
 #include <SDL.h>
@@ -16,7 +57,33 @@
 #define MAP_LAYER_ALL -1
 #define TILE_NUM_OPTION 10
 
+/*
+Map file content :
+u32 : num of layers
+    : tileset ID
+    : num of tiles width
+    : num of tiles height
+    : single tile size (w==h)
 
+per layer 0 ->
+    for 0->width
+        for 0->height
+            u32 : tileIndex
+            u8  : is hard tile
+                : is anim
+
+                if anim :
+                    u32 : num of pic
+                        : pic start
+                        : delay (ms)
+
+            for TILE_NUM_OPTION
+                u32 : option value
+
+for 0->width
+        for 0->height
+            u32 : tile type
+*/
 typedef struct MAP_TileAnim
 {
     unsigned int
@@ -31,9 +98,10 @@ MAP_TileAnim;
 
 
 //not implemented
-typedef union MAP_TileProps
+typedef struct MAP_TileProps
 {
     char type;
+    int value;
     //add any options structure here (warp, chest, objects) must contain char type as first member
 }
 MAP_TileProps;
@@ -61,41 +129,33 @@ MAP_Tile;
 typedef struct CEV_TileMap
 {//tile map definition
 
-    bool xScroll,       //true if map wider than display
-         yScroll,       //true if map Higher than display
-         firstCall;     //map draw first call
+    bool
+        xScroll,   //true if map wider than display
+        yScroll,   //true if map higher than display
+        firstCall; //map draw first call
 
-    int tileSetIndex,   //tile set index
-        numLayer,       //number of layers
-        tileSize;	    //tile size (pixels)
-        //mapWidth, 	    //map width (tiles)
-        //mapHeight,	    //map height (tiles)
-		//picWidth,	    //tiles texture width (tiles)
-		//picHeight,      //tiles texture height (tiles)
-		//screenWidth,    //display width (pxl)
-		//screenHeight,   //display height (pxl)
-		//dispOffsetX,    //X offset of map if smaller than screen
-		//dispOffsetY;    //Y offset of map if smaller than screen
+    int  numLayer;
+       //number of layers
+    uint32_t
+            tileSetId,  //tile set index
+            tileSize;   //tile size (pixels)
 
-    struct Dim1
+    struct
     {
-        struct Dim2
+        struct
         {
             SDL_Rect pixels,//size in pxl
                      tiles; //size in tiles
-        } world,
-        tileSet,
-        display,
-        dispOffset;
+        } world,    //world size
+        tileSet,    //tileset size
+        display,    //display size
+        dispOffset; //display offset size
 
     } dim;
 
-	SDL_Rect mapRect;   //map size (pixels)
-
-
-    MAP_Tile*** tileMap;	//tiles tables
-
-    SDL_Texture *tileSetPic;	//tiles texture
+    MAP_Tile*** tileMap;        //tiles matrix
+    MAP_TileProps** tileProps;  //properties layer
+    SDL_Texture *tileSetPic;    //tiles texture
 }
 CEV_TileMap;
 
@@ -153,14 +213,24 @@ CEV_TileMap* CEV_mapCreate(int layers, int width, int height, int tilePix);
  *  \brief free and destroy allocated CEV_TileMap structure
  *
  *  \param [in] map : CEV_TileMap ptr to free
- *  \param [in] freeTexture : let decide whether or not freeing associated texture
  *
  *  \return N/A
  *
  *  \details More details
  */
-void CEV_mapFree(CEV_TileMap *map, char freeTexture);
+void CEV_mapDestroy(CEV_TileMap *map);
 
+
+/**
+ *  \brief frees CEV_TileMap structure content
+ *
+ *  \param [in] map : CEV_TileMap ptr to clear
+ *
+ *  \return N/A
+ *
+ *  \details More details
+ */
+void CEV_mapClear(CEV_TileMap *map);
 
 /**
  *  \brief associate texture containing tiles to a CEV_TileMap
@@ -311,6 +381,8 @@ SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos);
 SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos);
 
 
+MAP_Tile CEV_mapTileClear(void);
 
+MAP_TileAnim CEV_mapTileAnimClear(void);
 
 #endif // CEV_TILES_H_INCLUDED

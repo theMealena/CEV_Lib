@@ -46,6 +46,7 @@
 
 #define CEV_AUTO_SIZE 0 //automatically find display ratio
 
+
 #ifdef __cplusplus
 extern "C" {
 #endif

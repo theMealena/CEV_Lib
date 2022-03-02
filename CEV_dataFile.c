@@ -9,8 +9,8 @@
 //**   CEV    |  07-2019      |   1.0.3  | parallax added **/
 //**   CEV    |  01-2020      |   1.0.4  | weather added  **/
 //**********************************************************/
-//- CEV 20210520- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
-
+//- CEV 2021 05 20- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
+//- CEV 2022 03 02- CEV_capsuleRead() secured / returns readWriteErr
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +29,7 @@
 #include "CEV_texts.h"
 #include "CEV_selection.h"
 #include "CEV_maps.h"
-#include <CEV_parallax.h>
+#include "CEV_parallax.h"
 #include "CEV_weather.h"
 
 /***** Local functions****/
@@ -66,10 +66,11 @@ static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps);
 
 
 /*file manipulation*/
-static int L_fileInfoReadIndex(unsigned int num, CEV_Capsule* caps, FILE* file);
+static int L_capsuleReadIndex(unsigned int num, CEV_Capsule* caps, FILE* file);
 static size_t L_gotoDataIndex(unsigned int index, FILE* file);
 static void L_gotoAndDiscard(unsigned int index, FILE *file);
-static void L_infoReadRaw(CEV_Capsule* caps, FILE* file);
+static void L_capsuleDataRead(FILE* src, CEV_Capsule* dst);
+static void L_capsuleDataRead_RW(SDL_RWops* src, CEV_Capsule* dst);
 static size_t L_fileSize(FILE* file);
 
 
@@ -78,26 +79,25 @@ static size_t L_fileSize(FILE* file);
 /*----Type Any----*/
 
 
-void* CEV_anyFetch(unsigned int index, FILE* file)
-{/*returns finished load of any file type**/
+void* CEV_anyFetch(unsigned int index, FILE* src)
+{/*returns finished load of any file type */
 
 
     /*---DECLARATIONS---*/
 
-    CEV_Capsule lCaps    = {.type=0, .size=0, .data=NULL};//raw data informations
+    CEV_Capsule lCaps       = {.type=0, .size=0, .data=NULL};//raw data informations
     uint32_t indexTabSize   = 0;//size of header
 
     void* returnVal = NULL; //result
 
-
     /*---PRL---*/
 
-    if(file == NULL)
+    if(src == NULL)
         return NULL;
 
-    rewind(file);
+    rewind(src);
 
-    indexTabSize = read_u32le(file);//gets number of raw data in file
+    indexTabSize = read_u32le(src);//gets number of raw data in file
 
     if(index >= indexTabSize/sizeof(uint32_t))
     {//checking rawData index is available in file
@@ -107,7 +107,7 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)//loads raw data into lCaps
+    if (L_capsuleReadIndex(index, &lCaps, src) != FUNC_OK)//loads raw data into lCaps
        goto exit;
 
     switch (lCaps.type)
@@ -128,16 +128,19 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
 
         case IS_TXT : //returns CEV_Text ptr
             returnVal = L_capsuleToTxt(&lCaps);
+            CEV_capsuleClear(&lCaps);
         break;
 
         case IS_BMP :
         case IS_PNG :
         case IS_JPG :
             returnVal = L_capsuleToPic(&lCaps); //returns SDL_Texture ptr
+            CEV_capsuleClear(&lCaps);
         break;
 
         case IS_GIF :
             returnVal = L_capsuleToGif(&lCaps); //returns SDL_GIFAnim ptr
+            CEV_capsuleClear(&lCaps);
         break;
 
         case IS_WAV :
@@ -150,26 +153,28 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
 
         case IS_SPS :
             returnVal = L_capsuleToAnimSet(&lCaps); //return SP_AnimList ptr
+            CEV_capsuleClear(&lCaps);
         break;
 
         case IS_MENU :
 
             CEV_capsuleClear(&lCaps);//unused to extract scroll
-            L_gotoAndDiscard(index, file);
-            returnVal = CEV_menuLoadf(file);//returns menu ptr
+            L_gotoAndDiscard(index, src);
+            returnVal = CEV_menuLoadf(src);//returns menu ptr
         break;
 
         case IS_SCROLL :
 
             CEV_capsuleClear(&lCaps);//unused to extract scroll
-            L_gotoAndDiscard(index, file);
-            returnVal = CEV_scrollLoadf(file);//extraction reads file directly
+            L_gotoAndDiscard(index, src);
+            returnVal = CEV_scrollLoadf(src);//extraction reads file directly
 
         break;
 
         case IS_MAP :
 
             returnVal = L_capsuleToMap(&lCaps);
+            CEV_capsuleClear(&lCaps);
         break;
 
         case IS_MUSIC :
@@ -177,14 +182,16 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
             returnVal = L_capsuleToMusic(&lCaps);
         break;
 
-        case IS_PRALX :
+        case IS_PLX :
 
             returnVal = L_capsuleToParallax(&lCaps);
+            CEV_capsuleClear(&lCaps);
         break;
 
         case IS_WTHR :
 
             returnVal = L_capsuleToWeather(&lCaps);
+            CEV_capsuleClear(&lCaps);
 
         default :
             CEV_capsuleClear(&lCaps);
@@ -195,12 +202,11 @@ void* CEV_anyFetch(unsigned int index, FILE* file)
     /*---POST---*/
 
 exit:
-
     return returnVal;
 }
 
 
-int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file)
+int CEV_capsuleFetch(unsigned int index, FILE* src, CEV_Capsule* dst)
 {/*gets raw data in opened compiled file */
 
     /*---DECLARATIONS---*/
@@ -209,12 +215,12 @@ int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file)
 
     /*---PRL---*/
 
-    if((file == NULL) || (caps == NULL))
+    if((src == NULL) || (dst == NULL))
         return ARG_ERR;
 
-    rewind(file);
+    rewind(src);
 
-    if(index >= read_u32le(file) / sizeof(uint32_t))
+    if(index >= read_u32le(src) / sizeof(uint32_t))
     {//checking if rawData index is available in file
         fprintf(stderr, "Err at %s / %d : Index provided is higher than available in file.\n", __FUNCTION__, __LINE__);
         return FUNC_ERR;
@@ -222,7 +228,7 @@ int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file)
 
     /*---EXECUTION---*/
 
-    funcSts = L_fileInfoReadIndex(index, caps, file);
+    funcSts = L_capsuleReadIndex(index, dst, src);
 
     /*---POST---*/
 
@@ -230,18 +236,13 @@ int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file)
 }
 
 
-int CEV_rawLoad(CEV_Capsule* caps, char* fileName)
-{/*gets raw from natural file*/
-
-    /*--DECLARATIONS--*/
+int CEV_capsuleLoad(CEV_Capsule* caps, const char* fileName)
+{/*fills Capsule from file*/
 
     FILE* file  = NULL;
-
-    /*--PRELIMINAIRES--*/
-
     readWriteErr = 0;
 
-    if(caps == NULL || fileName == NULL)
+    if(IS_NULL(caps) || IS_NULL(fileName))
     {
         fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
         return ARG_ERR;
@@ -249,7 +250,7 @@ int CEV_rawLoad(CEV_Capsule* caps, char* fileName)
 
     file = fopen(fileName, "rb");
 
-    if (file == NULL)
+    if (IS_NULL(file))
     {
         printf("Err at %s / %d : unable to open file %s : %s\n", __FUNCTION__, __LINE__, fileName, strerror(errno));
         return FUNC_ERR;
@@ -259,9 +260,7 @@ int CEV_rawLoad(CEV_Capsule* caps, char* fileName)
     caps->size = L_fileSize(file);
     rewind(file);
 
-    L_infoReadRaw(caps, file);
-
-    /*--POST--*/
+    L_capsuleDataRead(file, caps);//allocs & fills data field
 
     fclose(file);
 
@@ -334,7 +333,7 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
             returnVal = L_capsuleToMusic(caps);
         break;
 
-        case IS_PRALX :
+        case IS_PLX :
             returnVal = L_capsuleToParallax(caps);
         break;
 
@@ -343,15 +342,17 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
 
         default :
             fprintf(stderr,"Err at %s / %d : unrecognized file format.\n", __FUNCTION__, __LINE__);//should not occur
+            return NULL;
         break;
     }
 
     if(freeData)
         CEV_capsuleClear(caps);
-exit:
 
+exit:
     return returnVal;
 }
+
 
 /*----SDL_Surfaces----*/
 
@@ -415,7 +416,7 @@ SDL_Surface* CEV_surfaceFetch(unsigned int index, const char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
        goto err_1;
 
     if (IS_PIC(lCaps.type))
@@ -495,7 +496,7 @@ SDL_Texture* CEV_textureFetch(unsigned int index, const char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
        goto err_1;
 
     if(IS_PIC(lCaps.type))
@@ -552,7 +553,7 @@ CEV_Text* CEV_textFetch(unsigned int index, const char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
        goto err_2;
 
     if(lCaps.type == IS_TXT)
@@ -600,7 +601,7 @@ CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
         goto err_1;
 
     if(lCaps.type == IS_FONT)
@@ -610,7 +611,7 @@ CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
 
     /*---POST---*/
 
-    //CEV_capsuleClear(&lCaps);
+    CEV_capsuleClear(&lCaps);
 
 err_1 :
     fclose(file);
@@ -647,7 +648,7 @@ CEV_Chunk* CEV_waveFetch(unsigned int index, const char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
         goto err_1;
 
     if (lCaps.type == IS_WAV)
@@ -656,6 +657,8 @@ CEV_Chunk* CEV_waveFetch(unsigned int index, const char* fileName)
         fprintf(stderr,"Err at %s / %d : index provided is not wav.\n", __FUNCTION__, __LINE__);
 
     /*---POST---*/
+
+    CEV_capsuleClear(&lCaps);
 
 err_1 :
     fclose(file);
@@ -672,9 +675,9 @@ CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName)
 
      /*---DECLARATIONS---*/
 
-    CEV_Music       *music  = NULL;
-    CEV_Capsule    lCaps = {.type = 0, .size = 0, .data = NULL};
-    FILE            *file   = NULL;
+    CEV_Music   *music  = NULL;
+    CEV_Capsule lCaps   = {.type = 0, .size = 0, .data = NULL};
+    FILE        *file   = NULL;
 
     /*---PRELIMINAIRE---*/
 
@@ -694,7 +697,7 @@ CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
        goto err_1;
 
     if(lCaps.type == IS_MUSIC)
@@ -711,7 +714,7 @@ CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName)
 
     CEV_soundSystemGet()->loadedMusic = music;
 
-    //CEV_capsuleClear(&lCaps);
+    CEV_capsuleClear(&lCaps);
 
 err_1:
     fclose(file);
@@ -747,7 +750,7 @@ SP_AnimList* CEV_animListFetch(unsigned int index, char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
         goto err_1;
 
     if (lCaps.type == IS_SPS)
@@ -790,7 +793,7 @@ CEV_GifAnim* CEV_gifFetch(unsigned int index, char* fileName)
 
     /*---EXECUTION---*/
 
-    if (L_fileInfoReadIndex(index, &lCaps, file) != FUNC_OK)
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
         goto err_1;
 
     if (lCaps.type == IS_GIF)
@@ -952,7 +955,7 @@ CEV_TileMap *CEV_mapFetch(int index, char* fileName)
         goto exit;
     }
     else
-        L_infoReadRaw(&lCaps, file);
+        L_capsuleDataRead(file, &lCaps);
 
     if(IS_NULL(lCaps.data))
     {
@@ -1016,13 +1019,13 @@ CEV_Parallax *CEV_parallaxFetch(int index, char* fileName)
     lCaps.type = read_u32le(file);//just to check
     lCaps.size = read_u32le(file);//useless but has to be read
 
-    if(lCaps.type != IS_PRALX)
+    if(lCaps.type != IS_PLX)
     {
         fprintf(stderr, "Err at %s / %d : index provided is not parallax background.\n", __FUNCTION__, __LINE__);
         goto exit;
     }
     else
-        L_infoReadRaw(&lCaps, file);
+        L_capsuleDataRead(file, &lCaps);
 
     if(IS_NULL(lCaps.data))
     {
@@ -1091,7 +1094,7 @@ CEV_Weather *CEV_weatherFetch(int index, char* fileName)
         goto exit;
     }
     else
-        L_infoReadRaw(&lCaps, file);
+        L_capsuleDataRead(file, &lCaps);
 
     if(IS_NULL(lCaps.data))
     {
@@ -1119,8 +1122,10 @@ exit :
 }
 
 
+/*----- Encapsulation -----*/
 
-void CEV_capsuleWrite(CEV_Capsule *caps, FILE* dst)
+
+void CEV_capsuleWrite(CEV_Capsule* caps, FILE* dst)
 {/*writes capsule into file*/
 
     write_u32le(caps->type, dst);
@@ -1131,17 +1136,32 @@ void CEV_capsuleWrite(CEV_Capsule *caps, FILE* dst)
 }
 
 
-void CEV_capsuleRead(FILE* src, CEV_Capsule *caps)
-{/*reads file info into file*/
+int CEV_capsuleRead(FILE* src, CEV_Capsule* dst)
+{/*reads capsule from file*/
 
-    caps->type       = read_u32le(src);
-    caps->size       = read_u32le(src);
+    readWriteErr = 0;
 
-    L_infoReadRaw(caps, src);
+    dst->type   = read_u32le(src);
+    dst->size   = read_u32le(src);
+
+    if(!readWriteErr)
+        L_capsuleDataRead(src, dst);//allocs & fills data field
+
+    return readWriteErr;
 }
 
 
-void CEV_capsuleClear(CEV_Capsule *caps)
+void CEV_capsuleRead_RW(SDL_RWops* src, CEV_Capsule* dst)
+{/*reads capsule from RWops*/
+
+    dst->type   = SDL_ReadLE32(src);
+    dst->size   = SDL_ReadLE32(src);
+
+    L_capsuleDataRead_RW(src, dst);
+}
+
+
+void CEV_capsuleClear(CEV_Capsule* caps)
 {/*clears fileinfo content*/
 
     free(caps->data);
@@ -1151,8 +1171,9 @@ void CEV_capsuleClear(CEV_Capsule *caps)
 }
 
 
-void CEV_capsuleDestroy(CEV_Capsule *caps)
+void CEV_capsuleDestroy(CEV_Capsule* caps)
 {/*frees fileinfo and content*/
+
     free(caps->data);
     free(caps);
 }
@@ -1186,7 +1207,16 @@ int CEV_fileToType(char* fileName)
     return(IS_DEFAULT);
 }
 
+//attributes extension
+char* CEV_fileTypeToExt(FILE_TYPE type)
+{
+    char *extList[FILE_TYPE_NUM] = FILE_TYPE_LIST;
 
+    if(type>0 && type<FILE_TYPE_NUM)
+        return extList[type];
+
+    return extList[0];
+}
 
 /*---Local Sub-functions not to be directly called---*/
 
@@ -1250,7 +1280,7 @@ static SDL_Texture *L_capsuleToPic(CEV_Capsule* caps)
 }
 
 
-static CEV_GifAnim *L_capsuleToGif(CEV_Capsule *caps)
+static CEV_GifAnim *L_capsuleToGif(CEV_Capsule* caps)
 {/*converts to a gif animation*/
 
     /*---DECLARATIONS---*/
@@ -1279,7 +1309,7 @@ static CEV_GifAnim *L_capsuleToGif(CEV_Capsule *caps)
 }
 
 
-static CEV_Chunk* L_capsuleToWav(CEV_Capsule *caps)
+static CEV_Chunk* L_capsuleToWav(CEV_Capsule* caps)
 {/*convert to a wav sample*/
 
     /*---DECLARATIONS---*/
@@ -1340,7 +1370,7 @@ err_1:
 }
 
 
-static CEV_Music* L_capsuleToMusic(CEV_Capsule *caps)
+static CEV_Music* L_capsuleToMusic(CEV_Capsule* caps)
 {/*convert to a wav sample*/
 
     /*---DECLARATIONS---*/
@@ -1554,8 +1584,7 @@ static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps)
 }
 
 
-
-static void L_gotoAndDiscard(unsigned int index, FILE *file)
+static void L_gotoAndDiscard(unsigned int index, FILE* file)
 {/*reach raw data discarding header*/
 
     L_gotoDataIndex(index, file);
@@ -1565,7 +1594,7 @@ static void L_gotoAndDiscard(unsigned int index, FILE *file)
 }
 
 
-static int L_fileInfoReadIndex(unsigned int index, CEV_Capsule* caps, FILE* file)
+static int L_capsuleReadIndex(unsigned int index, CEV_Capsule* caps, FILE* file)
 {/*reaches index and fills caps**/
 
     /*---PRL---*/
@@ -1589,7 +1618,7 @@ static int L_fileInfoReadIndex(unsigned int index, CEV_Capsule* caps, FILE* file
 }
 
 
-static size_t L_gotoDataIndex(unsigned int index, FILE *file)
+static size_t L_gotoDataIndex(unsigned int index, FILE* file)
 {/*goes to index in file*/
 
     size_t offset=0;
@@ -1604,27 +1633,53 @@ static size_t L_gotoDataIndex(unsigned int index, FILE *file)
 }
 
 
-static void L_infoReadRaw(CEV_Capsule* caps, FILE* file)
+static void L_capsuleDataRead(FILE* src, CEV_Capsule* dst)
 {/*fills and allocate caps->data*//**1.0**/
 
     /*---PRL---*/
 
-    if(caps==NULL || file==NULL)
+    if(dst==NULL || src==NULL)
         readWriteErr++;
 
-    caps->data = malloc(caps->size);
+    dst->data = malloc(dst->size);
 
     /*---EXECUTION---*/
 
-    if (caps->data == NULL)
+    if (dst->data == NULL)
     {
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         readWriteErr++;
     }
-    else if (fread(caps->data, 1, caps->size, file) != caps->size)
+    else if (fread(dst->data, 1, dst->size, src) != dst->size)
     {
-        fprintf(stderr, "Err at %s / %d : unable to read data in file : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        CEV_capsuleClear(caps);
+        fprintf(stderr, "Err at %s / %d : unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        CEV_capsuleClear(dst);
+        readWriteErr++;
+    }
+}
+
+
+static void L_capsuleDataRead_RW(SDL_RWops* src, CEV_Capsule* dst)
+{/*fills and allocate dst->data*//**1.0**/
+
+    /*---PRL---*/
+
+    if(dst==NULL || src==NULL)
+        readWriteErr++;
+
+    dst->data = malloc(dst->size);
+
+    /*---EXECUTION---*/
+
+    if (dst->data == NULL)
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        readWriteErr++;
+    }
+    else if (SDL_RWread(src, dst->data, 1, dst->size) != dst->size)
+    {
+        fprintf(stderr, "Err at %s / %d : unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        CEV_capsuleClear(dst);
         readWriteErr++;
     }
 }

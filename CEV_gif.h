@@ -139,7 +139,7 @@ void CEV_gifFrameNext(CEV_GifAnim *anim);
  *
  * \return N/A.
  */
-void CEV_gifTimeSet(CEV_GifAnim *anim, unsigned int index, uint16_t timeMs);
+void CEV_gifTimeSet(CEV_GifAnim *anim, int index, uint16_t timeMs);
 
 
 /** \brief sets loop reading mode.

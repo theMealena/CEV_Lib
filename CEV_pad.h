@@ -11,7 +11,10 @@
 #ifndef CEV_PAD_H_INCLUDED
 #define CEV_PAD_H_INCLUDED
 
+
 #include <stdbool.h>
+#include <stdint.h>
+#include <SDL.h>
 
 #define PAD_ANA_MAX_VAL 0x7FFF  /**< Max analog Value (32767) */
 #define PAD_ANA_MIN_VAL 0x8000  /**< Min analog Value (-32768) */
@@ -153,7 +156,7 @@ float CEV_padAngle(Sint16 axisX, Sint16 axisY);
 
 
 /** \brief Analog stick zone divider as circular.
- * \detail analog stick is divided by pad's num of zone.
+ * \note analog stick is divided by pad's num of zone.
  *
  * \param pad : Pad to divide value.
  *
@@ -163,7 +166,7 @@ int CEV_padCircularZone(const CEV_Pad *pad);
 
 
 /** \brief Dumps Pad status.
- * \detail Result is dumped to stdout.
+ * \note Result is dumped to stdout.
  *
  * \param pad : Pad to display status from.
  *

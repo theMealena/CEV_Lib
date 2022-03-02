@@ -218,7 +218,7 @@ void CEV_gifFrameNext(CEV_GifAnim *anim)
 }
 
 
-void CEV_gifTimeSet(CEV_GifAnim *anim, unsigned int index, uint16_t timeMs)
+void CEV_gifTimeSet(CEV_GifAnim *anim, int index, uint16_t timeMs)
 {/*sets animation speed*/
 
     if ((index >= anim->status.imgNum) || index < GIF_ALL)

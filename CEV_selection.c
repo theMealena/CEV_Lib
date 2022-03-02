@@ -14,6 +14,7 @@
 #include "CEV_file.h"
 #include "rwtypes.h"
 // TODO (drx#1#03/05/17): vérifier la sécurité des fonctions de relecture / ecriture fichier
+// TODO (drx#1#03/05/21): Créer chargement depuis RWops
 
 
 
@@ -210,7 +211,7 @@ int CEV_convertMenuTxtToData(const char* srcName, const char* dstName)
          lFileFolder[FILENAME_MAX],
          hasFolder = CEV_fileFolderNameGet(srcName, lFileFolder);
 
-    CEV_FileInfo lBuffer = {.type = 0,
+    CEV_Capsule lBuffer = {.type = 0,
                             .size = 0,
                             .data = NULL};
 
@@ -259,7 +260,7 @@ int CEV_convertMenuTxtToData(const char* srcName, const char* dstName)
             strcpy(lString, lFileFolder);
         }
 
-        CEV_rawLoad(&lBuffer, lString);/*loads font file into buffer*/
+        CEV_capsuleLoad(&lBuffer, lString);/*loads font file into buffer*/
 
         if(lBuffer.type != IS_FONT)
         {
@@ -274,7 +275,7 @@ int CEV_convertMenuTxtToData(const char* srcName, const char* dstName)
             goto err_1;
         }
 
-        CEV_fileInfoTypeWrite(&lBuffer, dst);
+        CEV_capsuleWrite(&lBuffer, dst);
     }
 
     for(int i =0; i<buttonNum; i++)
@@ -317,7 +318,7 @@ int CEV_convertMenuTxtToData(const char* srcName, const char* dstName)
 err_1:
 
     if(lBuffer.data != NULL)
-        CEV_fileInfoClear(&lBuffer);
+        CEV_capsuleClear(&lBuffer);
 
     if(src != NULL)
         fclose(src);
@@ -389,7 +390,7 @@ CEV_Menu * CEV_menuLoadf(FILE *src)
 
     TTF_Font *font = NULL;
 
-    CEV_FileInfo lBuffer = {.type = 0,
+    CEV_Capsule lBuffer = {.type = 0,
                             .size = 0,
                             .data = NULL};
 
@@ -412,7 +413,7 @@ CEV_Menu * CEV_menuLoadf(FILE *src)
     if (fontSize)
     {/*extracting font file*/
 
-        CEV_fileInfoTypeRead(src, &lBuffer);//read raw font
+        CEV_capsuleRead(src, &lBuffer);//read raw font
 
         if(lBuffer.data == NULL)
         {
@@ -424,9 +425,6 @@ CEV_Menu * CEV_menuLoadf(FILE *src)
 
         ops = SDL_RWFromMem(lBuffer.data,lBuffer.size);//turn into virtual file
 
-void L_mSlideTypeRead(FILE* src, CEV_MSlider *dst);
-void L_mPicTypeRead(FILE* src, CEV_MPic* dst);
-void L_mTextTypeRead(FILE* src, CEV_MText* dst);
         if(ops == NULL)
         {
             fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
@@ -508,7 +506,7 @@ err_2:
     SDL_RWclose(ops);
 
 err_1:
-    //CEV_fileInfoClear(&lBuffer);
+    //CEV_capsuleClear(&lBuffer);
 
 exit:
     return NULL;
@@ -524,13 +522,13 @@ void L_mSlideTypeRead(FILE *src, CEV_MSlider *dst)
 
     SDL_RWops* ops = NULL;
 
-    CEV_FileInfo lBuffer = {.type = 0,
+    CEV_Capsule lBuffer = {.type = 0,
                             .size = 0,
                             .data = NULL};
 
     /*---EXECUTION---*/
 
-    CEV_fileInfoTypeRead(src, &lBuffer);// fetch pic raw
+    CEV_capsuleRead(src, &lBuffer);// fetch pic raw
 
     if(lBuffer.data == NULL)
     {
@@ -580,7 +578,7 @@ err_2:
     //SDL_RWclose(ops);
 
 err_1:
-    CEV_fileInfoClear(&lBuffer);
+    CEV_capsuleClear(&lBuffer);
 
 exit:
     return;
@@ -594,13 +592,13 @@ void L_mPicTypeRead(FILE* src, CEV_MPic* dst)
 
     SDL_RWops* ops = NULL;
 
-    CEV_FileInfo lBuffer = {.type = 0,
+    CEV_Capsule lBuffer = {.type = 0,
                             .size = 0,
                             .data = NULL};
 
     /*---EXECUTION---*/
 
-    CEV_fileInfoTypeRead(src, &lBuffer);// fetch pic raw
+    CEV_capsuleRead(src, &lBuffer);// fetch pic raw
 
     if(lBuffer.data == NULL)
     {
@@ -649,7 +647,7 @@ err_2:
     //SDL_RWclose(ops);
 
 err_1:
-    CEV_fileInfoClear(&lBuffer);
+    CEV_capsuleClear(&lBuffer);
 
 exit:
     return;
@@ -785,7 +783,7 @@ static void L_menuCopyPicToDat(FILE *src, FILE *dst, char* folder)
     char lString[FILENAME_MAX],
          lFileName[FILENAME_MAX];
 
-    CEV_FileInfo lBuffer = {.type = 0,
+    CEV_Capsule lBuffer = {.type = 0,
                             .size = 0,
                             .data = NULL};
 
@@ -804,7 +802,7 @@ static void L_menuCopyPicToDat(FILE *src, FILE *dst, char* folder)
     else
         strcpy(lFileName, lString);
 
-    CEV_rawLoad(&lBuffer, lFileName);/*loads picture file into buffer*/
+    CEV_capsuleLoad(&lBuffer, lFileName);/*loads picture file into buffer*/
 
     fscanf(src, "%u\n", &picNum);
     fscanf(src, "%u %u %u %u\n", &clip[0], &clip[1], &clip[2], &clip[3]);
@@ -825,7 +823,7 @@ static void L_menuCopyPicToDat(FILE *src, FILE *dst, char* folder)
 
     /*writting M_PIC data*/
 
-    CEV_fileInfoTypeWrite(&lBuffer, dst);//inserts picture
+    CEV_capsuleWrite(&lBuffer, dst);//inserts picture
 
     write_u32le(picNum, dst); //number of clips
 
@@ -837,7 +835,7 @@ static void L_menuCopyPicToDat(FILE *src, FILE *dst, char* folder)
 
     /*---POST---*/
 
-    CEV_fileInfoClear(&lBuffer);
+    CEV_capsuleClear(&lBuffer);
 
 err_1 :
 
@@ -856,7 +854,7 @@ static void L_menuCopySlideToDat(FILE *src, FILE *dst, char *folder)
     char lString[FILENAME_MAX],
          lFileName[FILENAME_MAX];
 
-    CEV_FileInfo lBuffer = {.type = 0,
+    CEV_Capsule lBuffer = {.type = 0,
                             .size = 0,
                             .data = NULL};
 
@@ -875,7 +873,7 @@ static void L_menuCopySlideToDat(FILE *src, FILE *dst, char *folder)
     else
         strcpy(lFileName, lString);
 
-    CEV_rawLoad(&lBuffer, lFileName);/*loads picture file into buffer*/
+    CEV_capsuleLoad(&lBuffer, lFileName);/*loads picture file into buffer*/
 
     for(int i = 0; i<2; i++)
         fscanf(src, "%d %d %d %d\n", &clip[i][0], &clip[i][1], &clip[i][2], &clip[i][3]);
@@ -897,7 +895,7 @@ static void L_menuCopySlideToDat(FILE *src, FILE *dst, char *folder)
 
     /*writting M_PIC data*/
 
-    CEV_fileInfoTypeWrite(&lBuffer, dst);//inserts picture
+    CEV_capsuleWrite(&lBuffer, dst);//inserts picture
 
     for(int i = 0; i<2; i++)
         for(int j=0; j<4; j++)
@@ -908,7 +906,7 @@ static void L_menuCopySlideToDat(FILE *src, FILE *dst, char *folder)
 
     /*---POST---*/
 
-    CEV_fileInfoClear(&lBuffer);
+    CEV_capsuleClear(&lBuffer);
 
 err_1 :
 

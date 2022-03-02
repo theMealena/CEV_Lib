@@ -35,8 +35,8 @@ bool CEV_inputUpdate(void)
     //default values / SDL2->wheel axis to button
     input->mouse.button[SDL_BUTTON_WHEELDOWN]                   = 0;
     input->mouse.button[SDL_BUTTON_WHEELUP]                     = 0;
-	input->mouse.button[SDL_BUTTON_WHEELLEFT]                   = 0;
-	input->mouse.button[SDL_BUTTON_WHEELRIGHT]                  = 0;
+    input->mouse.button[SDL_BUTTON_WHEELLEFT]                   = 0;
+    input->mouse.button[SDL_BUTTON_WHEELRIGHT]                  = 0;
     input->lastKeyVal = input->mouse.rel.x = input->mouse.rel.y = 0;
     input->text = '\0';
 

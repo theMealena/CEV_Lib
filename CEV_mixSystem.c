@@ -42,7 +42,7 @@ static void L_soundSystemFree();
 static CEV_MainSystem* L_systemSet(CEV_MainSystem* sys);
 
 /*automatic selection 4/3 - 16/10 - 16/9*/
-bool L_videoAutoAdapt(CEV_VideoDisplay * cfg);
+static bool L_videoAutoAdapt(CEV_VideoDisplay * cfg);
 
 
 
@@ -361,8 +361,9 @@ static bool L_videoAutoAdapt(CEV_VideoDisplay * cfg)
 
     SDL_GetDesktopDisplayMode(0, &mode);
 
-    cfg->screenH = mode.h;
     cfg->screenW = mode.w;
+    cfg->screenH = mode.h;
+
 
     cfg->proportion = (float)mode.w/mode.h;
 
@@ -384,14 +385,21 @@ static bool L_videoAutoAdapt(CEV_VideoDisplay * cfg)
         cfg->logicW = SCREEN_WSMALL;
         cfg->logicH = SCREEN_HSMALL;
     }
-    else
-#endif // CEV_AUTO_SIZE
+
+#elif SCREEN_DEFAULT_IS_DESKTOP
+    {
+        cfg->type   = "desktop";
+        cfg->logicW = cfg->screenW;
+        cfg->logicH = cfg->screenH;
+    }
+
+#else
     {
         cfg->type   = "predefined";
         cfg->logicW = SCREEN_WDEFAULT;
         cfg->logicH = SCREEN_HDEFAULT;
     }
-
+#endif // CEV_AUTO_SIZE
     return true;
 }
 

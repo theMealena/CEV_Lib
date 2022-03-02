@@ -1,9 +1,4 @@
-// TODO (drx#2#): ne charger que les constantes nécessaire pour les pnj (comme les objets)
-// TODO (drx#2#): Mettre les warps dans le level descriptor (vers l'autre level decriptor), le warp de la map ne servira plus que d'ID
-// TODO (drx#2#): passer par une mini map pour les sélections de niveau
-// FIXME (drx#1#): régler le problème d'enchaînement des bumper (world0.00)
-// TODO (drx#1#): vérifier que l'intro au chapitre ne se montre qu'au premier niveau
-// TODO (drx#1#): mettre au propre le changement de sens de la caméra
+
 
 #ifndef PROJECT_DEF_H_INCLUDED
 #define PROJECT_DEF_H_INCLUDED
@@ -13,8 +8,10 @@ extern "C" {
 #endif
 
 /*default screen value*/
-#define SCREEN_WDEFAULT   336
-#define SCREEN_HDEFAULT   210
+#define SCREEN_DEFAULT_IS_DESKTOP 0
+
+#define SCREEN_WDEFAULT   1280
+#define SCREEN_HDEFAULT   720
 
 /** if system auto size activated **/
 //neo geo definition 4/3
@@ -31,18 +28,19 @@ extern "C" {
 /**end auto size*/
 
 #define FONT_MAX 10
-#define FONT_SIZE_L 10
-#define FONT_SIZE_M 10
+#define FONT_SIZE_L 15
+#define FONT_SIZE_M 12
 #define FONT_SIZE_S 10
 
-#define APP_NAME "Le Bonhomme"
+#define APP_NAME "level creator"
+#define MY_ORG "the mealena"
 
 #define RELEASE 0
 
 #if !RELEASE
-    #define DEBUG 1     //show player's boxes
+    #define DEBUG 0     //show player's boxes
     #define VERBOSE 1   //displays prints in console
-    #define FILE_MAKE 1 //build ressources
+    #define FILE_MAKE 0 //build ressources
     #define SOUND_EN 0  //enables / stops musics
 #else
     #define DEBUG 0     //show player's boxes

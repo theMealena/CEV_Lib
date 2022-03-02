@@ -25,8 +25,8 @@
 #include <CEV_parallax.h>
 
 
-void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, SDL_Rect clip, int camWidth);
-void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, SDL_Rect clip, int camWidth);
+void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth);
+void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth);
 
 void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder);
 
@@ -147,8 +147,9 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
     CEV_ParaLayer *thisLayer = &in->layers[index];
 
     SDL_Rect
-        blitPos = {0, 0, in->cameraPos->w, in->cameraPos->h},
-        clip    = blitPos;
+        blitPos = thisLayer->picSize,
+        camera  = *in->cameraPos,
+        world   = in->worldDim;
 
     SDL_Renderer *render = CEV_videoSystemGet()->render;
 
@@ -162,10 +163,10 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
         //adding self velocity with modulo
         thisLayer->axisPar[0].pos = CEV_fModulo(thisLayer->axisPar[0].pos + thisLayer->axisPar[0].vel, blitPos.w);
 
-        blitPos.x = -((int)(in->cameraPos->x * thisLayer->axisPar[0].ratio) % blitPos.w)
+        blitPos.x = -((int)(camera.x * thisLayer->axisPar[0].ratio) % blitPos.w)
                     + thisLayer->axisPar[0].pos
                     -((thisLayer->axisPar[0].ratio < 0.0)?
-                                thisLayer->picSize.w : 0.0);
+                                blitPos.w : 0.0);
     }
     else
     {
@@ -174,27 +175,29 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
             case PRLX_TOP :
             case PRLX_BOTTOM :
             case PRLX_AUTO :
-                clip.x = (int)CEV_map(in->cameraPos->x, 0, in->worldDim.w - in->cameraPos->w, 0, thisLayer->picSize.w - in->cameraPos->w);
+                blitPos.x = (int)CEV_map(camera.x, 0, world.w - camera.w, 0, camera.w - blitPos.w);
             break;
 
             case PRLX_LEFT : //origin at left of world.
-                blitPos.x = (in->worldDim.w - in->cameraPos->x - blitPos.w) * thisLayer->axisPar[0].ratio;
+                blitPos.x = (world.w - camera.x - camera.w) * thisLayer->axisPar[0].ratio;
             break;
 
             case PRLX_RIGHT : //origin at right of world
-                blitPos.x = in->cameraPos->x * thisLayer->axisPar[0].ratio;
+                blitPos.x = camera.x * thisLayer->axisPar[0].ratio;
+            break;
+
+            case PRLX_CENTERED :
             break;
         }
     }
 
-
+    int offset;
     /*treating Y*/
     if(thisLayer->axisPar[1].isRepeat)
     {
         //adding self velocity with modulo
         thisLayer->axisPar[1].pos = CEV_fModulo(thisLayer->axisPar[1].pos + thisLayer->axisPar[1].vel, blitPos.h);
-
-        blitPos.y = -(((int)(in->cameraPos->y * thisLayer->axisPar[1].ratio) % blitPos.h)) + thisLayer->axisPar[1].pos;
+        blitPos.y = -(((int)(camera.y * thisLayer->axisPar[1].ratio) % blitPos.h)) + thisLayer->axisPar[1].pos;
     }
     else
     {
@@ -203,36 +206,38 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
             case PRLX_RIGHT:
             case PRLX_LEFT :
             case PRLX_AUTO :
-                clip.y = (int)CEV_map(in->cameraPos->y, 0, in->worldDim.h - in->cameraPos->h, 0, blitPos.h - in->cameraPos->h);
+                blitPos.y = (int)CEV_map(camera.y, 0, world.h - camera.h, 0, camera.h - blitPos.h);
             break;
 
             case PRLX_BOTTOM : //origin at bottom of world.
-                blitPos.y = (in->worldDim.h - in->cameraPos->y - blitPos.h) * thisLayer->axisPar[1].ratio;
+				offset = (world.h - camera.h - camera.y - 1) * thisLayer->axisPar[1].ratio;;
+                blitPos.y = (camera.h - blitPos.h) + offset;
             break;
 
             case PRLX_TOP : //origin at top of world
-                blitPos.y = in->cameraPos->y * thisLayer->axisPar[1].ratio;
+                //offset = camera.y * thisLayer->axisPar[1].ratio;
+                blitPos.y = -camera.y * thisLayer->axisPar[1].ratio;
             break;
         }
-
     }
 
-    printf("clip = %d, %d, %d, %d\n", clip.x, clip.y, clip.w, clip.h);
-
     if (thisLayer->axisPar[0].isRepeat && !thisLayer->axisPar[1].isRepeat)
-        L_blitXrepeat(render, thisLayer->texture, blitPos, clip, blitPos.w);
+    {
+        //clip.h = camera.h;
+        L_blitXrepeat(render, thisLayer->texture, blitPos, camera.w);
+    }
 
     else if (thisLayer->axisPar[1].isRepeat && !thisLayer->axisPar[0].isRepeat)
     {
-        clip.h = thisLayer->picSize.h;
-        L_blitYrepeat(render, thisLayer->texture, blitPos, clip, blitPos.h);
+        L_blitYrepeat(render, thisLayer->texture, blitPos, camera.h);
     }
     else
-        SDL_RenderCopy(render, thisLayer->texture, &clip, NULL);
+        SDL_RenderCopy(render, thisLayer->texture, NULL, &blitPos);
 
 }
 
-void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, SDL_Rect clip, int camWidth)
+
+void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth)
 {
     while(blitPos.x <= camWidth)
         {
@@ -242,11 +247,11 @@ void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos,
 }
 
 
-void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, SDL_Rect clip, int camWidth)
+void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth)
 {
     while(blitPos.y <= camWidth)
         {
-            SDL_RenderCopy(render, texture, &clip, &blitPos);
+            SDL_RenderCopy(render, texture, NULL, &blitPos);
             blitPos.y += blitPos.h;
         }
 }
@@ -569,7 +574,7 @@ void L_parallaxPictureTypeWrite(char* fileName, FILE* dst)
     printf("inserting picture %s...", fileName);
     CEV_Capsule buffer;
 
-    CEV_rawLoad(&buffer, fileName);
+    CEV_capsuleLoad(&buffer, fileName);
 
     CEV_capsuleWrite(&buffer, dst);
 

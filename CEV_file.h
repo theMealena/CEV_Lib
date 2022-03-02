@@ -50,27 +50,37 @@ bool CEV_fileGotoNextLine(FILE *file);
 size_t CEV_fileSize(FILE* file);
 
 
-/** \brief extract file name from full path name
+/** \brief extract file name from full path name.
  *
- * \param src : full name path+file name
- * \param dst : stores result as file name only
+ * \param src : full name path+file name.
+ * \param dst : stores result as file name only.
  *
  * \return 1 on success, 0 otherwise.
  */
 bool CEV_fileFileNameGet(const char* src, char* dst);
 
 
-/** \brief extract folder from full path name
+/** \brief extract folder from full path name.
  *
- * \param src : full name path+file name
- * \param dst : stores result as path only
+ * \param src : full name path+file name.
+ * \param dst : stores result as path only.
  *
  * \return 1 on success, 0 otherwise.
  */
 bool CEV_fileFolderNameGet(const char *src, char *dst);
 
 
-/** \brief cleans end of string from LR/CR.
+
+/** \brief Modify str to parent folder.
+ * \note subfolder char '/' or '\' is removed.
+ * \param str : char* to path.
+ *
+ * \return true if str was modified.
+ */
+bool CEV_fileFolderUp(char* str);
+
+
+/** \brief cleans end of string from LR/CR with nul.
  *
  * \param in : string to clean.
  *
@@ -89,5 +99,29 @@ void CEV_stringEndFormat(char* in);
  * \note src must be long enough to be extended.
  */
 void CEV_stringGroup(char *src, unsigned int group);
+
+
+/** \brief seeks string in file (complete line).
+ *
+ * \param file : file to seek string into.
+ * \param src : string to seek.
+ *
+ * \return line index of where string was found, -1 otherwise.
+ *
+ * \note src must be long enough to be extended.
+ */
+int CEV_fileStrSearch(FILE* file, char* src);
+
+
+/** \brief copies file.
+ *
+ * \param srcName : char* path and name of file to copy.
+ * \param dstName char* path and name of file as result.
+ *
+ * \return int : any of std return value.
+ *
+ */
+int CEV_fileCopy(char *srcName, char *dstName);
+
 
 #endif // CEV_FILE_H_INCLUDED

@@ -32,7 +32,7 @@ couche [N] :    Ratio X-(float) Vitesse X-(float)   is repeat X-(0/1)   posMode 
                 nomFichierImage-(relatif)
 
 -----------------------------------------------------------------------------------------------
-Fichier Data .prlx
+Fichier Data .plx
 
 uint 32	nombre de couche N
 

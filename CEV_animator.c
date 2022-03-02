@@ -796,9 +796,9 @@ static void L_animPictureTypeWrite(char* fileName, FILE* dst)
 {//inserts pic
 
     printf("packing picture %s...", fileName);
-    CEV_FileInfo buffer;
+    CEV_Capsule buffer;
 
-    CEV_rawLoad(&buffer, fileName);
+    CEV_capsuleLoad(&buffer, fileName);
 
     write_u32le(buffer.size, dst);
 

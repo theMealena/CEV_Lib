@@ -44,7 +44,7 @@
 #define CLEAR_ICOORD    (CEV_Icoord){.x = 0, .y = 0, .z = 0}
 #define CLEAR_FCOORD    (CEV_Fcoord){.x = 0.0, .y = 0.0, .z = 0.0}
 #define CLEAR_RECT      (SDL_Rect){.x = 0, .y = 0, .w = 0, .h = 0}
-#define CLEAR_EDGE      (CEV_Edge){.value = false, .memo = false, .out = false}
+#define CLEAR_EDGE      (CEV_Edge){.value = false, .memo = false, .re = false, .fe = false, .any = false .out = false}
 
 #define CEV_X 0
 #define CEV_Y 1
@@ -64,9 +64,9 @@ enum {FATAL = -4, QUIT = -3, ARG_ERR = -2, FUNC_ERR = -1, FUNC_OK = 0};
  */
 typedef struct CEV_ICoord
 {/*integer coords**/
-    int     x,
-            y,
-            z;
+    int     x,  /**< horizontal position */
+            y,  /**< vertical position */
+            z;  /**< depth position */
 }
 CEV_ICoord;
 
@@ -75,9 +75,9 @@ CEV_ICoord;
  */
 typedef struct CEV_FCoord
 {/*float coords**/
-    float   x,
-            y,
-            z;
+    float   x,  /**< horizontal position */
+            y,  /**< vertical position */
+            z;  /**< depth position */
 }
 CEV_FCoord;
 
@@ -86,9 +86,12 @@ CEV_FCoord;
  */
 typedef struct CEV_Edge
 {/*edge structure**/
-    uint8_t value,
-            memo,
-            out;
+    uint8_t value,  /**< process value to be tested */
+            memo,   /**< value memo / internal */
+            re,     /**< rising edge has occured */
+            fe,     /**< falling edge has occured */
+            any,    /**< any change in value */
+            out;    /**< functions result / compatibiliy */
 }
 CEV_Edge;
 
@@ -151,6 +154,15 @@ bool CEV_edgeFall(CEV_Edge *edge);
  * \return true if RE or FE occured, false otherwise.
  */
 bool CEV_edgeAny(CEV_Edge *edge);
+
+
+/** \brief Every edge / Update structure content.
+ *
+ * \param edge : CEV_Edge* to test.
+ *
+ * \return true on any edge.
+ */
+bool CEV_edgeUpdate(CEV_Edge *edge);
 
 
 /** \brief int swap valOne <-> valTwo.
@@ -841,11 +853,32 @@ SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2);
 
 
 
+/** Allocations **/
 
 
+/** \brief Allocates 2d matrix.
+ *
+ * \param x : size_t as num of columns.
+ * \param y : size_t as num of rows.
+ * \param size : size_t as unit of allocation.
+ *
+ * \return void** to allocation / NULL on failure.
+ *
+ */
+void** CEV_allocate2d(size_t x, size_t y, size_t size);
 
 
-
+/** \brief Allocates 3d cube.
+ *
+ * \param x : size_t as num of columns.
+ * \param y : size_t as num of rows.
+ * \param z : size_t as depth.
+ * \param size : size_t as unit of allocation.
+ *
+ * \return void** to allocation / NULL on failure.
+ *
+ */
+void*** CEV_allocate3d(size_t x, size_t y, size_t z, size_t size);
 
 
 

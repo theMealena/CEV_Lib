@@ -3,6 +3,7 @@
 //**------------------------------------------------------**/
 //**   CEV    |    02-2017    |   1.0    |    creation    **/
 //**   CEV    |    05-2021    |   1.0    | Documentation  **/
+//**   CEV    |    02-2022    |   1.0.3  | sort added     **/
 //**********************************************************/
 //- CEV 20210522 : lines realloc'd if writing greater string : CEV_TEXT_XTRA_ALLOC defined
 
@@ -10,6 +11,7 @@
 #ifndef CEV_FILEFUNCS_H_INCLUDED
 #define CEV_FILEFUNCS_H_INCLUDED
 
+#include <SDL.h>
 #include <stdio.h>
 
 #ifdef __cplusplus
@@ -52,6 +54,7 @@ CEV_Text* CEV_textCreate(unsigned int lines, unsigned int maxLength);
  * \param src : "string" to be written.
  *
  * \return return any of standard status.
+ * \note internal strings need maintenance, do not use std func on CEV_Text strings
  */
 int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src);
 
@@ -61,10 +64,28 @@ int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src);
  * \param src : text structure to read from.
  * \param index : "string" index to read from.
  *
- * \return  start of string address.
+ * \return  ptr* to start of string address.
+ * \note internal strings need maintenance, do not use std func on CEV_Text strings
  */
- char* CEV_textRead(CEV_Text *src, unsigned int index);
+char* CEV_textRead(CEV_Text *src, unsigned int index);
 
+
+/** \brief Sorts content A to Z
+ *
+ * \param src : CEV_Text* to sort
+ *
+ * \return void
+ */
+void CEV_textSortAZ(CEV_Text *src);
+
+
+/** \brief Sorts content Z to A
+ *
+ * \param src : CEV_Text* to sort
+ *
+ * \return void
+ */
+void CEV_textSortZA(CEV_Text *src);
 
  /** \brief appends text line.
  *
@@ -173,6 +194,14 @@ void CEV_textDestroy(CEV_Text * in);
  * \return N/A.
  */
 void CEV_textClear(CEV_Text* in);
+
+/** \brief Dumps structure content into stdout.
+ *
+ * \param in : CEV_Text* to dump.
+ *
+ * \return N/A.
+ */
+void CEV_textDump(CEV_Text* in);
 
 
 /** \brief Seeks string in file.

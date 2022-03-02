@@ -10,7 +10,7 @@
 #include <stdint.h>
 #include "rwtypes.h"
 
-char readWriteErr = 0;
+char readWriteErr = 0;/**< global r/w survey */
 
 
 uint8_t read_u8(FILE* f)
@@ -317,9 +317,9 @@ void write_s64be(int64_t val, FILE*f)
 }
 
 
-void write_f32le(float *val, FILE *f)
+void write_f32le(float val, FILE *f)
 {
-    uint32_t *tmp = (uint32_t*)val;
+    uint32_t *tmp = (uint32_t*)&val;
     uint8_t b[4];
 
     b[0] = (*tmp)     & 0xff;

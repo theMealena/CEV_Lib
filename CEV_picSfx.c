@@ -54,7 +54,7 @@ L_Texture;
 
 
     /*LOCAL FUNCTIONS DECLARATION*/
-// TODO (drx#1#02/28/17): VFX At work...
+
 static void L_videoFx0(SDL_Renderer* render, L_Texture* src, L_Texture* dst, uint32_t setTime);
 
 /*comes from left*/
@@ -148,7 +148,7 @@ void CEV_videoSfxSelect(SDL_Texture* dst, int which, uint32_t time)
     if(!time)
         time = 1000;
 
-    void(*function[VFX_NUM])(SDL_Renderer*, L_Texture*, L_Texture*, uint32_t)={L_videoFx0, L_videoFx1, L_videoFx2,
+    void(*function[VFX_NUM])(SDL_Renderer*, L_Texture*, L_Texture*, uint32_t) ={L_videoFx0, L_videoFx1, L_videoFx2,
                                                                                 L_videoFx3, L_videoFx4, L_videoFx5,
                                                                                 L_videoFx6, L_videoFx7, L_videoFx8,
                                                                                 L_videoFx9, L_videoFx10, L_videoFx11,

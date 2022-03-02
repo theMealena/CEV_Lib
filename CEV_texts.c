@@ -4,6 +4,7 @@
 //**   CEV    |    02-2017    |   1.0    |    creation    **/
 //**   CEV    |    11-2017    |   1.0.1  | diag improved  **/
 //**   CEV    |    11-2017    |   1.0.2  | alloc corrected**/
+//**   CEV    |    02-2022    |   1.0.3  | sort added     **/
 //**********************************************************/
 /*
 - CEV 20210406 : modified clear / destroy functions to allow NULL as argument causing crash otherwise
@@ -46,6 +47,10 @@ static size_t L_lineAllocSizeGet(char* src);
 
 /*hides line's alloces capacity*/
 static void L_lineAllocSizeWrite(char* src, size_t size);
+
+/*Qsort compare function*/
+static int L_textCompareAZ(const void* q1, const void* q2);
+static int L_textCompareZA(const void* q1, const void* q2);
 
 
 /*USER END FUNCTIONS*/
@@ -165,6 +170,18 @@ char* CEV_textRead(CEV_Text *src, unsigned int index)
     }
 
     return src->line[index];
+}
+
+
+void CEV_textSortAZ(CEV_Text *src)
+{/*sorts lines A to Z*/
+    qsort(src->line, src->linesNum, sizeof(char*), L_textCompareAZ);
+}
+
+
+void CEV_textSortZA(CEV_Text *src)
+{/*sorts lines Z to A*/
+    qsort(src->line, src->linesNum, sizeof(char*), L_textCompareZA);
 }
 
 
@@ -418,6 +435,14 @@ void CEV_textClear(CEV_Text* in)
 }
 
 
+void CEV_textDump(CEV_Text* in)
+{//dumps structure content
+
+    printf("text holds %u lines\n", in->linesNum);
+
+    for(int i=0; i<in->linesNum; i++)
+        puts(CEV_textRead(in, i));
+}
 
 /********LOCAL FUNCTIONS*******/
 
@@ -636,3 +661,13 @@ static void L_lineAllocSizeWrite(char* src, size_t size)
     *ptr = size;
 }
 
+
+static int L_textCompareAZ(const void* q1, const void* q2)
+{
+    return strcmp(*(char**)q1, *(char**)q2);
+}
+
+static int L_textCompareZA(const void* q1, const void* q2)
+{
+    return strcmp(*(char**)q2, *(char**)q1);
+}

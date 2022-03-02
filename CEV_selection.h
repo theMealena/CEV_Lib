@@ -1,6 +1,7 @@
 #ifndef CEV_SELECTION_H_INCLUDED
 #define CEV_SELECTION_H_INCLUDED
 
+#include <stdio.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "CEV_api.h"

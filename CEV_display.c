@@ -33,10 +33,8 @@
 
 /*DIRECT DISPLAY***/
 
-
-
 int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio)
-{
+{//displays value
 
         /*DECLARATIONS*****/
 
@@ -60,7 +58,7 @@ int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point poi
 
 
 int CEV_dispText(const char *text, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio)
-{/*affiche un texte***VALIDE***/
+{/*displays text***VALIDE***/
 
         /*DEC*/
 
@@ -124,11 +122,11 @@ void CEV_dispWarning(char *title, char* message)
 {
     int buttonId;
 
-    const SDL_MessageBoxButtonData button = {SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT |SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT , 0, "OK"};
+    const SDL_MessageBoxButtonData button = {SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT , 0, "OK"};
 
     const SDL_MessageBoxData messageboxdata = {
             SDL_MESSAGEBOX_WARNING, /* .flags */
-            NULL, /* .window */
+            CEV_videoSystemGet()->window, /* .window */
             title, /* .title */
             message, /* .message */
             1, /* .numbuttons */
@@ -151,11 +149,61 @@ int CEV_dispConfirm(char *title, char* message)
 
     const SDL_MessageBoxData messageboxdata = {
             SDL_MESSAGEBOX_INFORMATION, /* .flags */
-            NULL, /* .window */
+            CEV_videoSystemGet()->window, /* .window */
             title, /* .title */
             message, /* .message */
             2, /* .numbuttons */
             yesNoButtons, /* .buttons */
+            NULL};
+
+    SDL_ShowMessageBox(&messageboxdata, &buttonId);
+
+    return buttonId;
+}
+
+
+int CEV_dispChoice2(char *title, char* message, char* opt0, char* opt1)
+{
+    int buttonId;
+
+    const SDL_MessageBoxButtonData yesNoButtons[2] =
+    {
+        { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, opt0 },
+        { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, opt1 }
+    };
+
+    const SDL_MessageBoxData messageboxdata = {
+            SDL_MESSAGEBOX_INFORMATION, /* .flags */
+            CEV_videoSystemGet()->window, /* .window */
+            title, /* .title */
+            message, /* .message */
+            2, /* .numbuttons */
+            yesNoButtons, /* .buttons */
+            NULL};
+
+    SDL_ShowMessageBox(&messageboxdata, &buttonId);
+
+    return buttonId;
+}
+
+int CEV_dispChoice3(char *title, char* message, char* opt0, char* opt1, char* opt2)
+{
+    int buttonId;
+
+    const SDL_MessageBoxButtonData choiceButtons[3] =
+    {
+        { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, opt0 },
+        { 0, 1, opt1 },
+        { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 2, opt2 }
+    };
+
+    const SDL_MessageBoxData messageboxdata = {
+            SDL_MESSAGEBOX_INFORMATION, /* .flags */
+            CEV_videoSystemGet()->window, /* .window */
+            title, /* .title */
+            message, /* .message */
+            3, /* .numbuttons */
+            choiceButtons, /* .buttons */
             NULL};
 
     SDL_ShowMessageBox(&messageboxdata, &buttonId);
@@ -218,6 +266,17 @@ void CEV_dispBlitPos(SDL_Rect* pos, SDL_Point point, int mode, float ratio)
 
 }
 
+
+void CEV_renderColorSet(SDL_Renderer* render, SDL_Color color)
+{
+    SDL_SetRenderDrawColor(render, color.r, color.g, color.b, color.a);
+}
+
+
+void CEV_renderColorGet(SDL_Renderer* render, SDL_Color* color)
+{
+    SDL_GetRenderDrawColor(render, &color->r, &color->g, &color->b, &color->a);
+}
 
 /*--ZOOM RELATED--*/
 

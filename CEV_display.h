@@ -23,7 +23,7 @@
 #define CEV_TOP         0x8
 #define CEV_BOTTOM      0x10
 #define CEV_Y_CENTERED  0x20
-#define NUM_MAX_DIGIT   10
+#define NUM_MAX_DIGIT   20
 
 #ifdef __cplusplus
 extern "C" {
@@ -99,15 +99,39 @@ int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point poi
 void CEV_dispWarning(char *title, char *message);
 
 
-/** \brief display simple yes/no box
+/** \brief display simple yes/no box.
 *
-* \param title : box title
-* \param message : message to display
+* \param title : box title.
+* \param message : message to display.
 *
-* \return 1 as "yes", <=0 otherwise
+* \return 1 as "yes" (return key), 0 otherwise (escape key).
 */
 int CEV_dispConfirm(char *title, char* message);
 
+
+/** \brief display simple choice box.
+*
+* \param title : box title.
+* \param message : message to display.
+* \param opt0 : first choice text (escape key).
+* \param opt1 : second choice text (return key).
+*
+* \return 1 as "opt1", <=0 otherwise
+*/
+int CEV_dispChoice2(char *title, char* message, char* opt0, char* opt1);
+
+
+/** \brief display simple choice box
+*
+* \param title : box title
+* \param message : message to display
+* \param opt0 : first choice text (escape key).
+* \param opt1 : second choice text.
+* \param opt2 : third choice text (return key).
+*
+* \return int : as selected option
+*/
+int CEV_dispChoice3(char *title, char* message, char* opt0, char* opt1, char* opt2);
 
 /**Texture from font**/
 /** \brief creates SDL_Texture*.
@@ -119,6 +143,25 @@ int CEV_dispConfirm(char *title, char* message);
  * \return SDL_Texture* on success, NULL on error.
  */
 SDL_Texture* CEV_createTTFTexture(const char *text, TTF_Font *font, SDL_Color colour);
+
+
+/** \brief SDL_color version of SDL_SetRenderDrawColor().
+ *
+ * \param render SDL_Renderer* to apply color to.
+ * \param color SDL_Color to be applied.
+ *
+ * \return N/A.
+ */
+void CEV_renderColorSet(SDL_Renderer* render, SDL_Color color);
+
+
+/** \brief SDL_color version of SDL_GetRenderDrawColor().
+ *
+ * \param render SDL_Renderer* to fetch color from.
+ * \param color SDL_Color* to store color into.
+ *
+ * \return N/A
+ */void CEV_renderColorGet(SDL_Renderer* render, SDL_Color* color);
 
 
 /**adjusts display position*/

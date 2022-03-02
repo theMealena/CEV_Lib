@@ -76,6 +76,22 @@ int CEV_tabAddValue(CEV_DynamicArray *table, void* value)
 }
 
 
+int CEV_tabIndexSet(CEV_DynamicArray *table, void *value, unsigned int index)
+{/*writes new value at index*/
+
+    if(index > table->inUse - 1)
+    {
+        CEV_tabAddValue(table, value);
+        return table->inUse - 1;
+    }
+    else
+    {
+        CEV_memCopy(value, CEV_tabIndexGet(table, index), table->elemSize);
+    }
+    return index;
+}
+
+
 void CEV_tabRemoveIndex(CEV_DynamicArray *table, unsigned int index)
 {/*copies last value into index*/
 

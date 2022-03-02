@@ -76,7 +76,7 @@ void write_u64be(uint64_t val, FILE*f);
 
 void write_s64be(int64_t val, FILE*f);
 
-void write_f32le(float *val, FILE *f);
+void write_f32le(float val, FILE *f);
 
 float read_f32le(FILE *f);
 

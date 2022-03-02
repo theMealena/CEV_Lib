@@ -94,7 +94,7 @@ int CEV_inputInit();
 
 
 /** \brief Frees input structure.
- * \comment memory clean-up.
+ * \note memory clean-up.
  * \return N/A.
  */
 void CEV_inputFree();

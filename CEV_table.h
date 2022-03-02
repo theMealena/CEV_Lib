@@ -8,6 +8,8 @@
 #ifndef TABLE_MANAGER_H_INCLUDED
 #define TABLE_MANAGER_H_INCLUDED
 
+#include "stdlib.h"
+
 #define DYNA_IS_EMPTY(x) (x.inUse == 0)
 
 #ifdef __cplusplus
@@ -63,6 +65,21 @@ int CEV_tabSizeDouble(CEV_DynamicArray *table);
 int CEV_tabAddValue(CEV_DynamicArray *table, void *value);
 
 
+
+/** \brief append value in table.
+ *
+ * \param table : table in which to add value.
+ * \param value : memory field to be added in table.
+ * \param index : array index in wich to copy value.
+ *
+ * \return index at which value was written.
+ *
+ * \note value content is copied and can be freed.
+ * Value is append if index is too high.
+ */
+int CEV_tabIndexSet(CEV_DynamicArray *table, void *value, unsigned int index);
+
+
 /** \brief Deactivate an element of the table.
  *
  * \param table : the table from which to remove index.
@@ -100,7 +117,7 @@ void CEV_tabFree(CEV_DynamicArray *table);
 
 /** \brief Free table content an reset 0 / NULL.
  *
- * \param table : CEV_DynamicArray* to free.
+ * \param table : CEV_DynamicArray* to clear.
  *
  * \return N/A.
  */

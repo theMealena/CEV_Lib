@@ -7,6 +7,8 @@
 //**********************************************************/
 
 
+// TODO (drx#1#03/05/21): Créer chargement depuis RWops
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -278,7 +280,7 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
     FILE *src       = NULL,
          *dst       = NULL;
 
-    CEV_FileInfo lBuffer;
+    CEV_Capsule lBuffer;
 
     uint32_t fontSize   = 0,
              speed      = 0,
@@ -329,7 +331,7 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
     else
         strcpy(fileName, lString);
 
-    CEV_rawLoad(&lBuffer, fileName);/*loads font file into buffer*/
+    CEV_capsuleLoad(&lBuffer, fileName);/*loads font file into buffer*/
 
     if(lBuffer.type != IS_FONT)
     {
@@ -382,7 +384,7 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
     }
 
     /*inserts raw font file*/
-    CEV_fileInfoTypeWrite(&lBuffer, dst);
+    CEV_capsuleWrite(&lBuffer, dst);
 
     /*POST**/
 
@@ -390,7 +392,7 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
         funcSts = FUNC_ERR;
 
 err_2:
-    CEV_fileInfoClear(&lBuffer);
+    CEV_capsuleClear(&lBuffer);
 
 err_1:
     if(src != NULL)
@@ -462,7 +464,7 @@ CEV_ScrollText* CEV_scrollLoadf(FILE* file)
     CEV_ScrollText  *result = NULL,
                     scrollTemp;
     CEV_Text        text    = {.line = NULL};
-    CEV_FileInfo    lBuffer = {.data = NULL};
+    CEV_Capsule    lBuffer = {.data = NULL};
     TTF_Font        *font   = NULL;
     SDL_RWops       *ops    = NULL;
 
@@ -479,7 +481,7 @@ CEV_ScrollText* CEV_scrollLoadf(FILE* file)
 
     CEV_textTypeRead(file, &text);   /*associated texts*/
 
-    CEV_fileInfoTypeRead(file, &lBuffer);/*font with header*/
+    CEV_capsuleRead(file, &lBuffer);/*font with header*/
 
 
     if(lBuffer.type != IS_FONT)
@@ -529,7 +531,7 @@ exit :
         TTF_CloseFont(font);
 
     if(lBuffer.data != NULL)
-        CEV_fileInfoClear(&lBuffer);
+        CEV_capsuleClear(&lBuffer);
 
     return result;
 }
@@ -757,7 +759,7 @@ static int L_scrollInsertText(FILE *src, FILE* dst)
         goto exit;
     }
 
-    CEV_textFree(text);
+    CEV_textDestroy(text);
 
 exit:
 

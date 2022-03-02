@@ -1,7 +1,8 @@
 //**********************************************************/
 //** Done by  |      Date     |  version |    comment     **/
 //**------------------------------------------------------**/
-//**   CEV    |    10-2017    |   0.0    |  creation/SDL2 **/
+//**   CEV    |    10-2017    |   1.0    |  creation/SDL2 **/
+//**   CEV    |    07-2021    |   1.1    |  pic embedded & NULL tolerance **/
 //**********************************************************/
 
 #include <stdlib.h>
@@ -13,6 +14,7 @@
 #include "project_def.h"
 #include "CEV_API.h"
 #include "CEV_maps.h"
+#include <CEV_dataFile.h>
 #include "rwtypes.h"
 
 
@@ -30,8 +32,8 @@
  */
 static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now);
 
-/**
- *  \brief Fills map structure reading from file
+
+/**\brief Fills map structure reading from file
  *
  *  \param [in] src : SDL_RWops ptr to read from
  *  \param [in] dst : CEV_TileMap ptr to structure to be filled
@@ -43,8 +45,7 @@ static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now);
 static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst);
 
 
-/**
- *  \brief write mapping into file
+/**\brief write mapping into file
  *
  *  \param [in] src : CEV_TileMap to be saved
  *  \param [in] dst : file ptr to write into
@@ -56,8 +57,7 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst);
 static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst);
 
 
- /**
- *  \brief Read lone tile structure
+ /**\brief Read lone tile structure
  *
  *  \param [in] src : SDL_RWops to read from
  *  \param [in] dst : MAP_Tile ptr to structure to be filled
@@ -67,7 +67,6 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst);
  *  \details Local function called by L_TMapReadFromFile_RW
  */
 static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst);
-
 
 
 /** \brief Write lone tile structure
@@ -169,6 +168,14 @@ int CEV_mapSave(const CEV_TileMap* src, const char* dstFileName)
 
 	readWriteErr = 0;
 
+	/**saving texture as png first**/
+
+	CEV_textureSavePNG(src->tileSetPic, dstFileName);
+	//now picking this file as capsule
+	CEV_Capsule caps;
+	CEV_capsuleLoad(&caps, dstFileName);
+	caps.type = IS_PNG;
+
 	FILE* dst = fopen(dstFileName, "wb");
 
 	if IS_NULL(dst)
@@ -178,6 +185,7 @@ int CEV_mapSave(const CEV_TileMap* src, const char* dstFileName)
 	}
 
 	L_mapTypeWrite(src, dst);
+	CEV_capsuleWrite(&caps, dst);
 
 	fclose(dst);
 
@@ -190,8 +198,15 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
 
 	/**PRL**/
 
-        int layer   = SDL_ReadLE32(src),    //reading num of layers
-            tileSet = SDL_ReadLE32(src),    //reading tile set index
+	if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return NULL;
+    }
+
+    uint32_t
+            layer   = SDL_ReadLE32(src),    //reading num of layers
+            tileSet = SDL_ReadLE32(src),    //reading tile set ID
             width 	= SDL_ReadLE32(src), 	//reading map width in tile
             height 	= SDL_ReadLE32(src),	//reading map height in tile
             tilePx 	= SDL_ReadLE32(src);	//reading tile size
@@ -205,24 +220,49 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
 		return NULL;
 	}
 
-	result->tileSetIndex = tileSet;
+	result->tileSetId = tileSet;
 
 	//go and read mapping
 	L_mapTypeRead_RW(src, result);
+
+	CEV_Capsule caps = {0, 0, NULL};
+
+	CEV_capsuleRead_RW(src, &caps);
+
+	if(!IS_PIC(caps.type))
+    {
+        fprintf(stderr, "Err at %s / %d : Capsule content is not picture.\n", __FUNCTION__, __LINE__ );
+        goto err;
+    }
+
+    SDL_Texture *tex = CEV_capsuleExtract(&caps, true);
+
+	if(IS_NULL(tex))
+    {
+        fprintf(stderr, "Err at %s / %d : Could not extract texture from capsule.\n", __FUNCTION__, __LINE__ );
+        goto err;
+    }
+
+    CEV_mapTilesTextureSet(result, tex);
 
 	//close RWops if requested
 	if(freeSrc)
 		SDL_RWclose(src);
 
+    CEV_capsuleClear(&caps);
+
 	return result;
+
+err:
+    CEV_capsuleClear(&caps);
+    CEV_mapDestroy(result);
+
+    return NULL;
 }
 
 
 CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 {//creates map structure
-    /*---DECLARATIONS---*/
-
-    int i,j;
 
     /*---PRL---*/
 
@@ -255,24 +295,23 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 		return NULL;
 	}
 
-	//attributting members values
+	//attributting members default values
 	result->numLayer                = layer;
-	result->tileSetIndex            = 0;
+	result->tileSetId               = 0;
 	result->firstCall               = true;
 	result->xScroll                 = false;
 	result->yScroll                 = false;
 	result->dim.world.tiles         = (SDL_Rect){.x = 0, .y = 0, .w = width, .h = height};
 	result->dim.world.pixels        = (SDL_Rect){.x = 0, .y = 0, .w = width*tilePix, .h = height*tilePix};
 	result->tileSize 	            = tilePix;
-	result->dim.tileSet.tiles       = (SDL_Rect){0, 0, 0, 0};
-	result->dim.tileSet.pixels      = (SDL_Rect){0, 0, 0, 0};
+	result->dim.tileSet.tiles       = CLEAR_RECT;
+	result->dim.tileSet.pixels      = CLEAR_RECT;
 	result->tileSetPic              = NULL;
-	result->dim.dispOffset.pixels   = (SDL_Rect){0, 0, 0, 0};
+	result->dim.dispOffset.pixels   = CLEAR_RECT;
 
 
-	//allocating map content dim 1
-
-	result->tileMap = calloc(layer, sizeof(MAP_Tile**));
+	//allocating tilemap content matrix
+	result->tileMap = CEV_allocate3d(layer, width, height, sizeof(MAP_Tile));
 
 	if IS_NULL(result->tileMap)
 	{//on error
@@ -280,48 +319,37 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 		goto err_1;
 	}
 
-	//allocating map content dim 2
-	for (i=0; i<layer; i++)
-    {
-        result->tileMap[i] = calloc(width, sizeof(MAP_Tile*));
+	for(int lay=0; lay<layer; lay++)
+        for(int x=0; x<width; x++)
+            for(int y=0; y<height; y++)
+                result->tileMap[lay][x][y] = CEV_mapTileClear();
 
-        if IS_NULL(result->tileMap[i])
-        {//on error
-            fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-            goto err_2;
-        }
+    //allocating properties matrix
+	result->tileProps = CEV_allocate2d(width, height, sizeof(MAP_TileProps));
 
-        //allocating map content dim 3
-        for (j=0; j<width; j++)
-        {
-            result->tileMap[i][j] = calloc(height, sizeof(MAP_Tile));
+	if IS_NULL(result->tileProps)
+	{//on error
+		fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+		goto err_2;
+	}
 
-            if IS_NULL(result->tileMap[i][j])
-            {//on error
-                fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-                goto err_3;
-            }
+	for(int i=0; i<width; i++)
+        for(int j=0; j<height; j++)
+        result->tileProps[i][j] = (MAP_TileProps){-1, -1};
 
-                for(int thisTile=0; thisTile<height; thisTile++)
-                    L_tileInit(&result->tileMap[i][j][thisTile]);
-        }
-    }
-
-	return result;
+    return result;
 
 //error exit
-err_3:
-
-    for(j-=1; j>=0; j--)
-        free(result->tileMap[i][j]);
 err_2:
 
-    for(i-=1; i>=0; i--)
-        for(j=0; j<width; j++)
+    for(int i=0; i<layer; i++)
+    {
+        for(int j=0; j<width; j++)
             free(result->tileMap[i][j]);
 
-    for(i=0; i<layer; i++)
         free(result->tileMap[i]);
+    }
+    free(result->tileMap);
 
 err_1:
 	free(result);
@@ -330,32 +358,55 @@ err_1:
 }
 
 
-void CEV_mapFree(CEV_TileMap *map, char freeTexture)
-{//free structure and content
+void CEV_mapDestroy(CEV_TileMap *map)
+{//frees content and structur
 
-    for (int i=0; i < map->numLayer; i++)
+    if(IS_NULL(map))
     {
-        for (int j=0; j<map->dim.world.tiles.w; j++)
-            free(map->tileMap[i][j]);
-
-        free(map->tileMap[i]);
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return;
     }
 
-    free(map->tileMap);
-
-	if (freeTexture)	//free texture if requested
-		SDL_DestroyTexture(map->tileSetPic);
-
-	free(map);	//free itself
+    CEV_mapClear(map);  //frees content
+	free(map);	        //frees itself
 }
 
 
-bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture *texture)
+void CEV_mapClear(CEV_TileMap *map)
+{//frees TileMap content
+
+    if(IS_NULL(map))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
+
+    //frees tilemap content
+    for (int i=0; i < map->numLayer; i++)
+    {//for every layer
+        for (int j=0; j<map->dim.world.tiles.w; j++)
+            free(map->tileMap[i][j]); //for every column
+
+        free(map->tileMap[i]);//free column
+    }
+    free(map->tileMap);//free map
+
+
+    for (int i=0; i<map->dim.world.tiles.w; i++)
+        free(map->tileProps[i]);
+
+    free(map->tileProps);
+
+	SDL_DestroyTexture(map->tileSetPic);
+}
+
+
+bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture* texture)
 {//associates texture containing tiles and sets clips
 
-    if(IS_NULL(texture))
+    if(IS_NULL(map) || IS_NULL(texture))
     {
-        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, "Texture argument is NULL");
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return false;
     }
 
@@ -364,8 +415,8 @@ bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture *texture)
 	SDL_QueryTexture(texture,
                         NULL,
                         NULL,
-                        (int*)&map->dim.tileSet.pixels.w,
-                        (int*)&map->dim.tileSet.pixels.h);
+                        &map->dim.tileSet.pixels.w,
+                        &map->dim.tileSet.pixels.h);
 
 	map->dim.tileSet.tiles.w  = map->dim.tileSet.pixels.w / map->tileSize;
 	map->dim.tileSet.tiles.h  = map->dim.tileSet.pixels.h / map->tileSize;
@@ -398,6 +449,11 @@ bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture *texture)
 void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int layer)
 {//draws map onto SDL_Renderer
 
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
 
     if(layer >= src->numLayer)
     {
@@ -434,9 +490,9 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 
     unsigned int now = SDL_GetTicks();
 
-	for(int x = inWorld.x; x <= inWorld.x + inWorld.w; x++)
+	for(int x = inWorld.x; x < inWorld.x + inWorld.w; x++)
 	{
-	    for(int y = inWorld.y; y <= inWorld.y + inWorld.h; y++)
+	    for(int y = inWorld.y; y < inWorld.y + inWorld.h; y++)
         {
             //where to draw tile
             SDL_Rect blitPos = CEV_mapBlitPos(src, x, y, dispX, dispY);
@@ -460,7 +516,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
                             clipPos = src->tileMap[i][x][y].clip;
                         }
 
-                        CEV_rectConstraint(&clipPos, src->dim.tileSet.pixels.w, src->dim.tileSet.pixels.h);
+                        CEV_rectConstraint(&clipPos, src->dim.tileSet.pixels);
 
                         SDL_RenderCopy(dst, src->tileSetPic, &clipPos, &blitPos);
                     }
@@ -481,7 +537,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
                         clipPos = src->tileMap[layer][x][y].clip;
                     }
 
-                    CEV_rectConstraint(&clipPos, src->dim.tileSet.pixels.w, src->dim.tileSet.pixels.h);
+                    CEV_rectConstraint(&clipPos, src->dim.tileSet.pixels);
 
                     SDL_RenderCopy(dst, src->tileSetPic, &clipPos, &blitPos);
                 }
@@ -493,6 +549,12 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 
 SDL_Rect CEV_mapBlitPos(CEV_TileMap *src, int tileX, int tileY, int dispX, int dispY)
 {//calculate tile blit position
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_RECT;
+    }
 
     SDL_Rect result;
 
@@ -518,13 +580,27 @@ SDL_Rect CEV_mapBlitPos(CEV_TileMap *src, int tileX, int tileY, int dispX, int d
 
 
 SDL_Rect CEV_mapWorldDimPxl(CEV_TileMap *src)
-{
+{//world size in pixels
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_RECT;
+    }
+
     return src->dim.world.pixels;
 }
 
 
 SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
 {//calculates tiles included in display
+
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_RECT;
+    }
 
     SDL_Rect result;
     bool addTile;
@@ -541,7 +617,7 @@ SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
     else
     {
         result.x = 0;
-        result.w = src->dim.world.tiles.w - 1;
+        result.w = src->dim.world.tiles.w;
     }
 
     if(src->yScroll)
@@ -556,7 +632,7 @@ SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
     else
     {
         result.y = 0;
-        result.h = src->dim.world.tiles.h - 1;
+        result.h = src->dim.world.tiles.h;
     }
 
     return result;
@@ -565,6 +641,13 @@ SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
 
 bool CEV_mapNeedScroll(CEV_TileMap *src, SDL_Renderer* dst)
 {//does the map needs scrolling or not
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
+
     int dispW,
         dispH;
 
@@ -583,13 +666,26 @@ bool CEV_mapNeedScroll(CEV_TileMap *src, SDL_Renderer* dst)
 
 
 bool CEV_mapIsHardTile(CEV_TileMap *src, SDL_Point pos)
-{
+{//id that map pos hard ?
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
+
     return src->tileMap[0][pos.x/src->tileSize][pos.y/src->tileSize].isHard;
 }
 
 
 int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index)
-{
+{//fetches tile option value
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return -1;
+    }
 
     if ((pos.x < 0) || (pos.x >= src->dim.world.pixels.w))
         return ARG_ERR;
@@ -609,13 +705,27 @@ int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index)
 
 
 SDL_Point CEV_mapWorldPointToDisplayPoint(CEV_TileMap *src, SDL_Point pos)
-{
+{//position in world to display position
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_POINT;
+    }
+
     return (SDL_Point){pos.x + src->dim.dispOffset.pixels.x, pos.y + src->dim.dispOffset.pixels.y};
 }
 
 
 SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos)
-{
+{//tile rect under position in world relative to display
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_RECT;
+    }
+
     return (SDL_Rect){ pos.x-(pos.x%src->tileSize) - src->dim.dispOffset.pixels.x, //X
                        pos.y -(pos.y%src->tileSize) - src->dim.dispOffset.pixels.y, //Y
                        src->tileSize, //W
@@ -624,7 +734,14 @@ SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos)
 
 
 SDL_Rect CEV_mapWorldPointToWorldTile(CEV_TileMap *src, SDL_Point pos)
-{
+{//tile rect under position in world relative to world
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_RECT;
+    }
+
     SDL_Rect result;
 
     result.x = pos.x-(pos.x%src->tileSize);
@@ -636,24 +753,56 @@ SDL_Rect CEV_mapWorldPointToWorldTile(CEV_TileMap *src, SDL_Point pos)
 
 
 SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos)
-{
+{//rect pos in world to tile rect
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return CLEAR_RECT;
+    }
+
     SDL_Rect result;
 
-    result.x = pos.x / src->tileSize;
-    result.y = pos.y / src->tileSize;
-    /*old
-    result.w = ((pos.w) / src->tileSize) + (((pos.x % src->tileSize) + pos.w) > src->tileSize) + (pos.w < src->tileSize);
-    result.h = ((pos.h) / src->tileSize) + (((pos.y % src->tileSize) + pos.h) > src->tileSize) + (pos.h < src->tileSize);
-    */
-    result.w = ((pos.x + pos.w - 1)/src->tileSize) - result.x + 1;
-    result.h = ((pos.y + pos.h - 1)/src->tileSize) - result.y + 1;
+    if (!src->xScroll)
+    {
+        result.x = 0,
+        result.w = src->dim.world.tiles.w;
+    }
+    else
+    {
+        result.x = pos.x / src->tileSize;
+        result.w = ((pos.x + pos.w - 1)/src->tileSize) - result.x + 1;
+    }
+
+    if(!src->yScroll)
+    {
+        result.y = 0,
+        result.h = src->dim.world.tiles.h;
+    }
+    else
+    {
+        result.y = pos.y / src->tileSize;
+        /*old
+        result.w = ((pos.w) / src->tileSize) + (((pos.x % src->tileSize) + pos.w) > src->tileSize) + (pos.w < src->tileSize);
+        result.h = ((pos.h) / src->tileSize) + (((pos.y % src->tileSize) + pos.h) > src->tileSize) + (pos.h < src->tileSize);
+        */
+
+        result.h = ((pos.y + pos.h - 1)/src->tileSize) - result.y + 1;
+    }
 
     return result;
 }
 
 
 MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int layer)
-{
+{//fetches tile prperties
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return NULL;
+    }
+
     if ((tileX < 0) || (tileX >= src->dim.world.tiles.w))
         return NULL;
 
@@ -668,10 +817,39 @@ MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int 
 }
 
 
+MAP_Tile CEV_mapTileClear(void)
+{//returns clear MAP_Tile
+
+    MAP_Tile thisTile;
+    L_tileInit(&thisTile);
+
+    return thisTile;
+}
+
+
+MAP_TileAnim CEV_mapTileAnimClear(void)
+{//returns clear MAP_TileAnim
+
+    MAP_TileAnim thisAnim;
+
+    CEV_memSet(&thisAnim, 0, sizeof(thisAnim));
+
+    return thisAnim;
+}
+
     /***LOCALS***/
 
 static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now)
 {
+
+    if(IS_NULL(tile))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
+    else if (!tile->anim.delayMs || !tile->anim.picNum)
+        return;
+
     unsigned int picAct = tile->anim.picAct;
 
     tile->anim.picAct = (((now/tile->anim.delayMs)% tile->anim.picNum) + tile->anim.picStart)%tile->anim.picNum;
@@ -686,14 +864,31 @@ static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now)
 static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst)
 {//reads tile mapping from Vfile
 
-    for (int i=0; i<dst->numLayer; i++)
+    if(IS_NULL(src) || IS_NULL(dst))
     {
-        for(int j=0; j<dst->dim.world.tiles.w; j++)
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
+    //reading tiles matrix
+    for (int layer=0; layer<dst->numLayer; layer++)
+    {
+        for(int x=0; x<dst->dim.world.tiles.w; x++)
         {
-            for(int k=0; k<dst->dim.world.tiles.h; k++)
+            for(int y=0; y<dst->dim.world.tiles.h; y++)
             {
-                L_tileTypeRead_RW(src, &dst->tileMap[i][j][k]);
+                L_tileTypeRead_RW(src, &dst->tileMap[layer][x][y]);
             }
+        }
+    }
+
+    //reading profile matrix
+    for(int x = 0; x<dst->dim.world.tiles.w; x++)
+    {
+        for(int y=0; y<dst->dim.world.tiles.h; y++)
+        {
+            dst->tileProps[x][y].type = SDL_ReadLE32(src);
         }
     }
 }
@@ -702,20 +897,38 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst)
 static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst)
 {//writes mapping into file
 
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
+    //map parameters
     write_u32le(src->numLayer, dst);
-    write_u32le(src->tileSetIndex, dst);
+    write_u32le(src->tileSetId, dst);
 	write_u32le(src->dim.world.tiles.w, dst);
 	write_u32le(src->dim.world.tiles.h, dst);
 	write_u32le(src->tileSize, dst);
 
-    for(int i=0; i<src->numLayer; i++)
+    //tiles
+    for(int layer=0; layer<src->numLayer; layer++)
     {
-        for(int j = 0; j<src->dim.world.tiles.w; j++)
+        for(int x=0; x<src->dim.world.tiles.w; x++)
         {
-            for(int k=0; k<src->dim.world.tiles.h; k++)
+            for(int y=0; y<src->dim.world.tiles.h; y++)
             {
-                L_tileTypeWrite(&src->tileMap[i][j][k], dst);
+                L_tileTypeWrite(&src->tileMap[layer][x][y], dst);
             }
+        }
+    }
+
+    //profile
+    for(int x = 0; x<src->dim.world.tiles.w; x++)
+    {
+        for(int y=0; y<src->dim.world.tiles.h; y++)
+        {
+            write_s32le(src->tileProps[x][y].type, dst);
         }
     }
 }
@@ -723,6 +936,13 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst)
 
 static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst)
 {//reads tile from Vfile
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
 
 	dst->index  = SDL_ReadLE32(src);
 	dst->isHard = SDL_ReadU8(src);
@@ -743,6 +963,13 @@ static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst)
 static void L_tileTypeWrite(MAP_Tile* src, FILE* dst)
 {//writes tile into file
 
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
 	write_u32le(src->index, dst);
 	write_u8(src->isHard, dst);
 	write_u8(src->isAnim, dst);
@@ -761,6 +988,14 @@ static void L_tileTypeWrite(MAP_Tile* src, FILE* dst)
 
 static void L_tileAnimTypeRead_RW(SDL_RWops *src, MAP_TileAnim *dst)
 {//read animation setting from file
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
     dst->picNum     = SDL_ReadLE32(src);
     dst->picStart   = SDL_ReadLE32(src);
     dst->picAct     = dst->picStart;
@@ -770,6 +1005,14 @@ static void L_tileAnimTypeRead_RW(SDL_RWops *src, MAP_TileAnim *dst)
 
 static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst)
 {//writes animation settings to file
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
     write_u32le(src->picNum, dst);
     write_u32le(src->picStart, dst);
     write_u32le(src->delayMs, dst);
@@ -778,16 +1021,20 @@ static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst)
 
 static void L_tileInit(MAP_Tile* tile)
 {//tile default settings
+
+    if(IS_NULL(tile))
+    {
+        fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
+
     tile->index = -1;
     tile->isHard = false;
     tile->isAnim = false;
 
-    tile->anim.picAct   = 0;
-    tile->anim.delayMs  = 0;
-    tile->anim.picNum   = 0;
-    tile->anim.clip     = (SDL_Rect){0, 0, 0, 0};
+    tile->anim = CEV_mapTileAnimClear();
 
-    for(int i=0; i<10; i++)
+    for(int i=0; i<TILE_NUM_OPTION; i++)
         tile->option[i] = -1;
 }
 

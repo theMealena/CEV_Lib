@@ -54,7 +54,7 @@ SP_Anim* SP_animCreate(uint16_t nview, uint16_t xview, SDL_Texture* sheet);
 /** \brief fully free and destroy animation.
  *
  * \param anim : SP_Anim* to free.
- * \param freePic : let the function free the texture if not 0.
+ * \param freePic : let the function free the texture if true.
  *
  * \return N/A.
  */
@@ -75,7 +75,7 @@ SDL_Texture* SP_animTexture(SP_Anim *anim);
  *
  * \param anim : SP_Anim* to query from.
  * \param nView : uint16_t* ptr filled with number of nviews.
- * \param xView : uint16_t* ptr filled with number of nviews.
+ * \param xView : uint16_t* ptr filled with number of xviews.
  *
  * \return N/A.
  */

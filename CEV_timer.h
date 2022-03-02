@@ -74,12 +74,12 @@ char CEV_timerDelayOn(CEV_Timer* in);
 
 
 /**
- *  \brief Delay Off timer.
+ *  \brief Pulse timer.
  *  \param Timer to control as ptr.
  *  \return 1 When cmd is true 0 otherwise
  *  \note cmd = RE run || processing
  */
-char CEV_timerDelayOff(CEV_Timer* in);
+char CEV_timerPulse(CEV_Timer* in);
 
 
 /**

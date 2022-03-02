@@ -8,8 +8,9 @@
 //**   CEV    |  05-2018      |   1.0.2  | map added      **/
 //**   CEV    |  07-2019      |   1.0.3  | parallax added **/
 //**   CEV    |  01-2020      |   1.0.4  | weather added  **/
+//**   CEV    |  02-2022      |   1.0.4  | documentation  **/
 //**********************************************************/
-//- CEV 20210520- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
+//- CEV 2021 05 20- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
 
 #ifndef CEV_FILE_LOAD_H_INCLUDED
 #define CEV_FILE_LOAD_H_INCLUDED
@@ -27,7 +28,7 @@
 #include "CEV_selection.h"
 #include "CEV_maps.h"
 #include "CEV_weather.h"
-#include <parallax.h>
+#include "CEV_parallax.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,22 +56,22 @@ typedef enum FILE_TYPE
   IS_SCROLL = 11,
   IS_MAP    = 12,
   IS_MUSIC  = 13,
-  IS_PRALX  = 14,
+  IS_PLX    = 14,
   IS_WTHR   = 15
 }FILE_TYPE;
 
 
 
-/** \brief File encapsulation
- */
-typedef struct CEV_Capsule
-{/**structure containing data and associated informations **/
+//** \brief File encapsulation
+// */
+//typedef struct CEV_Capsule
+//{/**structure containing data and associated informations **/
 
-    uint32_t    type, /**< IS_BMP / IS_PNG... */
-                size; /**< data size in bytes */
-    void        *data;/**< raw data */
-}
-CEV_Capsule;
+//    uint32_t    type, /**< IS_BMP / IS_PNG... */
+//                size; /**< data size in bytes */
+//    void        *data;/**< raw data */
+//}
+//CEV_Capsule;
 
 
 
@@ -88,15 +89,15 @@ CEV_Capsule;
 void* CEV_anyFetch(unsigned int index, FILE* file);
 
 
-/** \brief fetches raw binary from file.
+/** \brief fetches CEV_Capsule from file.
  *
  * \param index : data index to fetch.
- * \param caps : CEV_Capsule* to receive raw memory.
- * \param file : FILE* to read from.
+* \param src : FILE* to read from.
+ * \param dst : CEV_Capsule* to receive raw memory.
  *
  * \return any of the functions status.
  */
-int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file);
+int CEV_capsuleFetch(unsigned int index, FILE* src, CEV_Capsule* dst);
 
 
 /** \brief loads file into memory as it
@@ -106,7 +107,7 @@ int CEV_rawFetch(unsigned int index, CEV_Capsule* caps, FILE* file);
  *
  * \return any of the function status.
  */
-int CEV_rawLoad(CEV_Capsule* caps, char* fileName);
+int CEV_capsuleLoad(CEV_Capsule* caps, const char* fileName);
 
 
 /** \brief Extract exploitable data from capsule
@@ -154,7 +155,6 @@ SDL_Surface* CEV_surfaceFetch(unsigned int index, const char* fileName);
  * \return SDL_Texture* on success, NULL on error.
  */
 SDL_Texture* CEV_textureLoad(const char* fileName);
-
 
 
 /** \brief fetch pic as SDL_Texture from compiled file.
@@ -295,27 +295,39 @@ CEV_Parallax *CEV_parallaxFetch(int index, char* fileName);
 CEV_Weather *CEV_weatherFetch(int index, char* fileName);
 
 
-/** \brief file to mem.
- *
- * \param caps : CEV_Capsule* to be filled.
- * \param src : FILE* to read from actual position.
- * \return readWriteErr is set.
- *
- */
-void CEV_capsuleRead(FILE *src, CEV_Capsule *caps);
-
+/*----- Encapsulation -----*/
 
 /** \brief mem to file.
  *
  * \param caps : CEV_Capsule* to be dumped.
  * \param dst: FILE* to write into at actual position.
- * \return readWriteErr is set.
+ * \return readWriteErr is set on error.
  *
  */
 void CEV_capsuleWrite(CEV_Capsule *caps, FILE *dst);
 
 
-/**clean content*/
+/** \brief file to mem.
+ *
+ * \param caps : CEV_Capsule* to be filled.
+ * \param src : FILE* to read from actual position.
+ *
+ * \return 0 on success, any value otherwise.
+ * \note readWriteErr is set.
+ */
+int CEV_capsuleRead(FILE *src, CEV_Capsule *caps);
+
+
+/** \brief file to mem.
+ *
+ * \param caps : CEV_Capsule* to be filled.
+ * \param src : SDL_RWops* to read from actual position.
+ *
+ * \return void.
+ */
+void CEV_capsuleRead_RW(SDL_RWops* src, CEV_Capsule* dst);
+
+
 /** \brief clean up / free fileInfo content.
  *
  * \param caps : CEV_Capsule* to clear.
@@ -325,7 +337,6 @@ void CEV_capsuleWrite(CEV_Capsule *caps, FILE *dst);
 void CEV_capsuleClear(CEV_Capsule *caps);
 
 
-/**free fileInfo*/
 /** \brief free content and itself.
  *
  * \param caps : CEV_Capsule* to free.
@@ -335,7 +346,6 @@ void CEV_capsuleClear(CEV_Capsule *caps);
 void CEV_capsuleDestroy(CEV_Capsule *caps);
 
 
-/**free fileInfo*/
 /** \brief filename to enum type.
  *
  * \param filename : name of file to deduce type from
@@ -344,6 +354,15 @@ void CEV_capsuleDestroy(CEV_Capsule *caps);
  */
 int CEV_fileToType(char* fileName);
 
+
+/** \brief Attributes file extension from file type.
+ *
+ * \param type : FILE_TYPE to fetch extension from.
+ *
+ * \return char* : string with extension.
+ * \note extension is given without '.' separator.
+ */
+char* CEV_fileTypeToExt(FILE_TYPE type);
 
 #ifdef __cplusplus
 }

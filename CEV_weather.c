@@ -353,7 +353,7 @@ int CEV_convertWeatherCSVToData(char* src, char* dst)
         fgets(fileLine, sizeof(fileLine), fSrc);
     while (fileLine[0]=='/');
 
-    sscanf(fileLine, "%s %d %d %d %s\n", type, &numOfParticles, &vx, &vy, picName);
+    sscanf(fileLine, "%s %u %d %d %s\n", type, &numOfParticles, &vx, &vy, picName);
 
     write_u8(L_weatherNameToType(type), fDst);
     write_u32le(numOfParticles, fDst);
@@ -427,7 +427,7 @@ CEV_Weather *CEV_weatherLoad_RW(SDL_RWops* ops, char freeSrc)
     int32_t vx = SDL_ReadLE32(ops),
             vy = SDL_ReadLE32(ops);
 
-    CEV_FileInfo picInfos;
+    CEV_Capsule picInfos;
 
     picInfos.type = SDL_ReadLE32(ops);
     picInfos.size = SDL_ReadLE32(ops);
@@ -482,11 +482,11 @@ void L_weatherPictureTypeWrite(char* fileName, FILE* dst)
 {//inserts pic
 
     printf("inserting picture %s...", fileName);
-    CEV_FileInfo buffer;
+    CEV_Capsule buffer;
 
-    CEV_rawLoad(&buffer, fileName);
+    CEV_capsuleLoad(&buffer, fileName);
 
-    CEV_fileInfoTypeWrite(&buffer, dst);
+    CEV_capsuleWrite(&buffer, dst);
 
     printf("%s\n", readWriteErr? "nok" : "ok");
 
