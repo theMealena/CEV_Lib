@@ -79,14 +79,13 @@ int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point poi
  * \param text : text to be displayed.
  * \param font : TTF_Font* to be applied.
  * \param colour : SDL_Color to be applied.
- * \param x : horizontal position.
- * \param y : vertical position.
- * \param mode : display align mode.
+ * \param point : blit position.
+ * \param mode : display align mode relative to point.
  * \param ratio : ratio of FONT_MAX.
  *
  * \return one of function status
  */
- int CEV_dispText(const char *text,TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio);
+ int CEV_dispText(const char *text, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio);
 
 
 /** \brief display simple warning box

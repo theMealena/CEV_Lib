@@ -61,7 +61,7 @@ void CEV_fontClose(CEV_Font* font);
 
 /** \brief Closes opened CEV_Chunk.
  *
- * \param font : CEV_Chunk* to close.
+ * \param chunk : CEV_Chunk* to close.
  *
  * \return N/A.
  */

@@ -90,7 +90,7 @@ char *CEV_gifComment(CEV_GifAnim *anim);
  *
  * \param anim : CEV_GifAnim* to extract version from.
  *
- * \return char* on version if any, on nul char '\0' otherwise.
+ * \return char* on version if any, on nul char "\0" otherwise.
  */
 char *CEV_gifVersion(CEV_GifAnim *anim);
 
@@ -99,7 +99,7 @@ char *CEV_gifVersion(CEV_GifAnim *anim);
  *
  * \param anim : CEV_GifAnim* to extract version from.
  *
- * \return char* on signature if any, on nul char '\0' otherwise.
+ * \return char* on signature if any, on nul char "\0" otherwise.
  */
 char *CEV_gifSignature(CEV_GifAnim *anim);
 

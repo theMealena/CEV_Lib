@@ -134,11 +134,13 @@ void SP_animListFree(SP_AnimList *set, char freePic);
 /*---animations and views settings---*/
 
 /**view global setting*/
+
 /** \brief view parameters set.
  *
  * \param anim : SP_Anim* to modify.
  * \param viewType : view type to modify.
  * \param viewIndex : view index to modify.
+ * \param frameNum : num of frame for this view.
  * \param clip : SDL_Rect as clipper.
  * \param hitBox : SDL_Rect as hit box.
  * \param time : time delay between frames (ms).
@@ -195,13 +197,13 @@ void SP_viewClip(SP_Anim* anim, uint8_t viewType, uint16_t viewIndex, SDL_Rect* 
 /** \brief hit box parameter
  *
  * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
  * \param viewIndex : view index to modify.
  * \param hbox : SDL_Rect as hit box.
  *
  * \return N/A.
  */
-void SP_viewHitBox(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox);
+void SP_hitBoxSet(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox);
+
 
 /**sets restart index*/
 /** \brief restart parameter

@@ -36,8 +36,8 @@ CEV_Text;
 
 /** \brief allocates a new text structure.
  *
- * \param number of lines to create.
- * \param longest line length.
+ * \param lines : unsigned int number of lines to create.
+ * \param maxLength : unsigned int longest line length.
  *
  * \return CEV_Text ptr on success, NULL on error.
  *
@@ -216,7 +216,7 @@ int CEV_fileStrSearch(FILE* file, char* src);
 
 
 /** \brief cleans file string into memory friendly string :
- * \note removes '/\r' and '/\n' replaced by '/\0'.
+ * \note removes "\r" and "\n" replaced by "\0".
  * \param in : char* to clean.
  *
  * \return N/A.

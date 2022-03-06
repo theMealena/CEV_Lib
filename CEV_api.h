@@ -369,8 +369,8 @@ double CEV_frand(double start, double end);
 
 /** \brief floating point equality.
  *
- * \param value : first value to compare.
- * \param target : second value to compare.
+ * \param value1 : first value to compare.
+ * \param value2 : second value to compare.
  * \param tolerence : acceptable gap.
  *
  * \return true if value is within (vtarget +/- tolerence)
@@ -437,8 +437,8 @@ SDL_Point CEV_fcoordToPoint(CEV_FCoord src);
 
 /** \brief point as center of rect.
  *
- * \param src : SDL_Rect to center point in.
- * \param dst : SDL_Point* to correct.
+ * \param rect : SDL_Rect to center point in.
+ * \param point : SDL_Point* to correct.
  *
  * \return SDL_Point* on point.
  */

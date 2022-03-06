@@ -110,7 +110,7 @@ void CEV_inputClear();
 
 /** \brief Saves Input structure as default for project.
  *
- * \param CEV_Input* to set.
+ * \param ptr : CEV_Input* to set.
  *
  * \return CEV_Input* that was recorded.
  */

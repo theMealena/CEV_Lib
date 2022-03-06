@@ -426,7 +426,7 @@ void SP_viewClip(SP_Anim* anim, uint8_t viewType, uint16_t viewIndex, SDL_Rect* 
 }
 
 
-void SP_viewHitBox(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox)
+void SP_hitBoxSet(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox)
 {//sets hitbox
     anim->view[SP_NVIEW][viewIndex].rect[SP_HBOX] = *hbox;
 }

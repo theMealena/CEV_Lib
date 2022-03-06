@@ -39,8 +39,8 @@ CEV_Timer;
 
 /**
  *  \brief Initialize timer.
- *  \param Timer to set as ptr.
- *  \param Time time in ms.
+ *  \param in : CEV_Timer* Timer to set.
+ *  \param val : Time time in ms.
  *  \return N/A.
  */
 void CEV_timerInit(CEV_Timer* in, unsigned int val);
@@ -48,74 +48,74 @@ void CEV_timerInit(CEV_Timer* in, unsigned int val);
 
 /**
  *  \brief TON timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true, 0 otherwise
- *  \note cmd = run && preset ms elapsed
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true, 0 otherwise.
+ *  \note cmd = run && preset ms elapsed.
  */
 char CEV_timerTon(CEV_Timer *in);
 
 
 /**
  *  \brief TOF timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note cmd = run || (!run && processing)
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note cmd = run || (!run && processing).
  */
 char CEV_timerTof(CEV_Timer *in);
 
 
 /**
  *  \brief Delay On timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note RE cmd = RE run + preset ms elapsed
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note RE cmd = RE run + preset ms elapsed.
  */
 char CEV_timerDelayOn(CEV_Timer* in);
 
 
 /**
  *  \brief Pulse timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note cmd = RE run || processing
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note cmd = RE run || processing.
  */
 char CEV_timerPulse(CEV_Timer* in);
 
 
 /**
  *  \brief repeat timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note RE cmd = RE run || (run && preset elapsed)
- *  \note runs like autofire loop
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note RE cmd = RE run || (run && preset elapsed).
+ *  \note runs like autofire loop.
  */
 char CEV_timerRepeat(CEV_Timer* in);
 
 
 /**
  *  \brief locked repeat timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note RE cmd = run && !processing
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note RE cmd = run && !processing.
  */
 char CEV_timerRepeatLocked(CEV_Timer* in);
 
 
 /**
  *  \brief blinking timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note cmd = square signal of period = preset while run
+ *  \param in : CEV_Timer* Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note cmd = square signal of period = preset while run.
  */
 char CEV_timerEverBlink(CEV_Timer *in);
 
 
 /**
  *  \brief blinking timer limited.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  \note cmd = RE run && square signal of period 200 while processing
- *  \note can repeat while run
+ *  \param in : CEV_Timer * Timer to control.
+ *  \return 1 When cmd is true 0 otherwise.
+ *  \note cmd = RE run && square signal of period 200 while processing.
+ *  \note can repeat while run.
  */
 char CEV_timerBlinkLimited(CEV_Timer *in);
 /*clignote pendant preset ms sur RE run*/
@@ -123,7 +123,7 @@ char CEV_timerBlinkLimited(CEV_Timer *in);
 
 /**
  *  \brief reset timer.
- *  \param Timer to control as ptr.
+ *  \param in : CEV_Timer * Timer to control.
  *  \return N/A
  */
 void CEV_timerReset(CEV_Timer *in);

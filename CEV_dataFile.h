@@ -177,7 +177,7 @@ SDL_Texture* CEV_textureFetch(unsigned int index, const char* fileName);
  *
  * \return CEV_Text* on success, NULL on error.
  */
-CEV_Text* CEV_textFetch(unsigned int index, const char* filename);
+CEV_Text* CEV_textFetch(unsigned int index, const char* fileName);
 
 
         /*---TTF_Font from compiled file---*/
@@ -320,8 +320,8 @@ int CEV_capsuleRead(FILE *src, CEV_Capsule *caps);
 
 /** \brief file to mem.
  *
- * \param caps : CEV_Capsule* to be filled.
  * \param src : SDL_RWops* to read from actual position.
+ * \param dst : CEV_Capsule* to be filled.
  *
  * \return void.
  */
@@ -348,7 +348,7 @@ void CEV_capsuleDestroy(CEV_Capsule *caps);
 
 /** \brief filename to enum type.
  *
- * \param filename : name of file to deduce type from
+ * \param fileName : name of file to deduce type from
  *
  * \return any of FILE_TYPE enum
  */
