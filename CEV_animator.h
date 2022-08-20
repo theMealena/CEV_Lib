@@ -33,6 +33,71 @@ typedef struct SP_AnimList SP_AnimList;
 
 typedef struct SP_Sprite SP_Sprite;
 
+/** \brief sp view structure.
+ */
+typedef struct SP_View
+{/*view structure*/
+
+    uint16_t picNum, /*number of picture*/
+             picTime,/*frame delay time ms*/
+             restart,/*restart frame index*/
+             stop,   /*stop frame index*/
+             mode;   /*read mode*/
+
+    SDL_Rect rect[2];/*clip and hitbox*/
+}
+SP_View;
+
+
+/** \brief sp animation structure.
+ */
+struct SP_Anim
+{/*animation structure*/
+
+    uint16_t  viewNum[2]; /*number of view / xtra */
+
+    SP_View* view[2];     /*2 tables of SP_View / extra*/
+
+    SDL_Texture* sheet;  /*spritesheet*/
+};
+
+// TODO (drx#1#): implémenter le stop dans les boucles
+
+/** \brief sp sprite structure.
+ */
+struct SP_Sprite
+{/*sprite structure*/
+
+    uint8_t     isLocked[2],   /*animation is locked*/
+                viewShow[2],   /*show view/xview*/
+                run;           /*is animated or freezed*/
+
+    int8_t      direction[2];  /*actual direction = +/-1 */
+
+    uint16_t    picAct[2],     /*active picture index*/
+                viewAct[2];    /*active view index*/
+
+    int16_t     viewReq[2][SP_NUM_OF_REQ_MAX];/*next view/xview requests*/
+
+    unsigned int timePrev[2];  /*last absolute frame change*/
+
+    double      scale;         /*display scale*/
+
+    SP_Anim*    anim;          /*base spritesheet*/
+};
+
+
+/** \brief sp animation set structure.
+ */
+struct SP_AnimList
+{/*set of animations strcuture*/
+
+    uint16_t    num;
+    SP_Anim**   animSet;
+};
+
+void SP_viewDump(SP_View* view);
+void SP_animDump(SP_Anim* anim);
 int SP_fetchMode(SP_Sprite *sprite);
 
 
@@ -80,6 +145,17 @@ SDL_Texture* SP_animTexture(SP_Anim *anim);
  * \return N/A.
  */
 void SP_animQuery(SP_Anim *anim, uint16_t* nView, uint16_t* xView);
+
+
+
+/** \brief Load single animation or 1st in list.
+ *
+ * \param fileName : const char*.
+ *
+ * \return SP_Anim* or NULL on error.
+ *
+ */
+SP_Anim* SP_AnimLoad(const char* fileName);
 
 
 /**extracts animation set from sps file*/
@@ -134,13 +210,11 @@ void SP_animListFree(SP_AnimList *set, char freePic);
 /*---animations and views settings---*/
 
 /**view global setting*/
-
 /** \brief view parameters set.
  *
  * \param anim : SP_Anim* to modify.
  * \param viewType : view type to modify.
  * \param viewIndex : view index to modify.
- * \param frameNum : num of frame for this view.
  * \param clip : SDL_Rect as clipper.
  * \param hitBox : SDL_Rect as hit box.
  * \param time : time delay between frames (ms).
@@ -197,13 +271,13 @@ void SP_viewClip(SP_Anim* anim, uint8_t viewType, uint16_t viewIndex, SDL_Rect* 
 /** \brief hit box parameter
  *
  * \param anim : SP_Anim* to modify.
+ * \param viewType : view type to modify.
  * \param viewIndex : view index to modify.
  * \param hbox : SDL_Rect as hit box.
  *
  * \return N/A.
  */
-void SP_hitBoxSet(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox);
-
+void SP_viewHitBox(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox);
 
 /**sets restart index*/
 /** \brief restart parameter
@@ -313,7 +387,7 @@ void SP_spriteBlitEx(SP_Sprite* sprite, SDL_Renderer* dst, const SDL_Point* pos,
 void SP_spriteBlit(SP_Sprite* sprite, SDL_Renderer* dst, const SDL_Point* pos);
 
 
-/**returns clip pos in sprite sheet*/
+/** returns clip pos in sprite sheet*/
 /** \brief gets clip position.
  *
  * \param sprite : SP_Sprite* to query from.
@@ -322,6 +396,17 @@ void SP_spriteBlit(SP_Sprite* sprite, SDL_Renderer* dst, const SDL_Point* pos);
  * \return SDL_Rect* on actual SDL_Rect clipper.
  */
 SDL_Rect* SP_clipGet(SP_Sprite* sprite, uint8_t viewType);
+
+
+/** \brief returns hitbox pos in spritesheet
+ *
+ * \param sprite : SP_Sprite* to fetch actual hitbox from.
+ * \param flip : flip status of sprite.
+ *
+ * \return SDL_Rect as hitBox pos relative to spritesheet.
+ * \note Does not treat horizontal/vertical flip.
+ */
+SDL_Rect SP_sheetHBoxGet(SP_Sprite* sprite, SDL_RendererFlip flip);
 
 
 /**returns absolute pos of scaled hitBox */

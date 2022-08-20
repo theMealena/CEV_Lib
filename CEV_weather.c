@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <SDL.h>
+#include <rwtypes.h>
 #include "CEV_weather.h"
 #include "CEV_mixSystem.h"
 #include "CEV_file.h"

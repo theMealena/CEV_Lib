@@ -34,32 +34,34 @@
 extern "C" {
 #endif
 
+
+/*
 #define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
 #define FILE_TYPE_NUM 16
 #define FILE_TYPE_LIST {"default", "dat", "txt", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr"}
 
 
 /** \brief defines file type
- */
-typedef enum FILE_TYPE
-{IS_DEFAULT = 0,
-  IS_DAT    = 1,
-  IS_TXT    = 2,
-  IS_BMP    = 3,
-  IS_PNG    = 4,
-  IS_JPG    = 5,
-  IS_GIF    = 6,
-  IS_WAV    = 7,
-  IS_FONT   = 8,
-  IS_SPS    = 9,
-  IS_MENU   = 10,
-  IS_SCROLL = 11,
-  IS_MAP    = 12,
-  IS_MUSIC  = 13,
-  IS_PLX    = 14,
-  IS_WTHR   = 15
-}FILE_TYPE;
 
+typedef enum FILE_TYPE
+{IS_DEFAULT = 0,    //unknow / undefined
+  IS_DAT    = 1,    //any data
+  IS_DTX    = 2,    //CEV_Text
+  IS_BMP    = 3,    //bmp
+  IS_PNG    = 4,    //png
+  IS_JPG    = 5,    //jpg
+  IS_GIF    = 6,    //gif
+  IS_WAV    = 7,    //wave
+  IS_FONT   = 8,    //font.ttf
+  IS_SPS    = 9,    //animation
+  IS_MENU   = 10,   //menu
+  IS_SCROLL = 11,   //text scroll
+  IS_MAP    = 12,   //map
+  IS_MUSIC  = 13,   //mp3
+  IS_PLX    = 14,   //parallax
+  IS_WTHR   = 15    //weather
+}FILE_TYPE;
+*/
 
 
 //** \brief File encapsulation
@@ -110,7 +112,7 @@ int CEV_capsuleFetch(unsigned int index, FILE* src, CEV_Capsule* dst);
 int CEV_capsuleLoad(CEV_Capsule* caps, const char* fileName);
 
 
-/** \brief Extract exploitable data from capsule
+/** \brief Extract exploitable data from capsule (texture, gif...)
  *
  * \param caps : CEV_Capsule* to extract file from
  * \param freeData : Destroys capsule content if true.
@@ -177,7 +179,7 @@ SDL_Texture* CEV_textureFetch(unsigned int index, const char* fileName);
  *
  * \return CEV_Text* on success, NULL on error.
  */
-CEV_Text* CEV_textFetch(unsigned int index, const char* fileName);
+CEV_Text* CEV_textFetch(unsigned int index, const char* filename);
 
 
         /*---TTF_Font from compiled file---*/
@@ -282,7 +284,7 @@ CEV_TileMap *CEV_mapFetch(int index, char* fileName);
  * \return CEV_Parallax* on success, NULL on error.
  *
  */
-CEV_Parallax *CEV_parallaxFetch(int index, char* fileName);
+CEV_Parallax* CEV_parallaxFetch(int index, char* fileName);
 
 
 /** \brief Loads weather from file
@@ -312,18 +314,28 @@ void CEV_capsuleWrite(CEV_Capsule *caps, FILE *dst);
  * \param caps : CEV_Capsule* to be filled.
  * \param src : FILE* to read from actual position.
  *
- * \return 0 on success, any value otherwise.
- * \note readWriteErr is set.
+ * \return readWriteErr is set.
  */
-int CEV_capsuleRead(FILE *src, CEV_Capsule *caps);
+void CEV_capsuleRead(FILE *src, CEV_Capsule *caps);
 
 
-/** \brief file to mem.
+/** \brief mem to virtual file
  *
+ * \param src : CEV_Capsule* to read from
+ * \param dst : SDL_RWops* to write into
+ *
+ * \return void
+ *
+ */
+void CEV_capsuleWrite_RW(CEV_Capsule* src, SDL_RWops* dst);
+
+
+/** \brief virtual file to mem.
+ *
+ * \param caps : CEV_Capsule* to be filled.
  * \param src : SDL_RWops* to read from actual position.
- * \param dst : CEV_Capsule* to be filled.
  *
- * \return void.
+ * \return readWriteErr is set.
  */
 void CEV_capsuleRead_RW(SDL_RWops* src, CEV_Capsule* dst);
 
@@ -348,7 +360,7 @@ void CEV_capsuleDestroy(CEV_Capsule *caps);
 
 /** \brief filename to enum type.
  *
- * \param fileName : name of file to deduce type from
+ * \param filename : name of file to deduce type from
  *
  * \return any of FILE_TYPE enum
  */
@@ -362,7 +374,7 @@ int CEV_fileToType(char* fileName);
  * \return char* : string with extension.
  * \note extension is given without '.' separator.
  */
-char* CEV_fileTypeToExt(FILE_TYPE type);
+char* CEV_fileTypeToExt(int type);
 
 #ifdef __cplusplus
 }

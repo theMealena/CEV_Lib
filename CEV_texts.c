@@ -7,11 +7,11 @@
 //**   CEV    |    02-2022    |   1.0.3  | sort added     **/
 //**********************************************************/
 /*
-- CEV 20210406 : modified clear / destroy functions to allow NULL as argument causing crash otherwise
-- CEV 20210522 : lines realloc'd if writing greater string.
+- CEV 2021_04_06 : modified clear / destroy functions to allow NULL as argument causing crash otherwise
+- CEV 2021_05_22 : lines realloc'd if writing greater string : CEV_TEXT_XTRA_ALLOC defined
     - single line alloc'd size is hidden in size_t behind '\0' char of the string
-
-  */
+- CEV 2022_07_24 : R/W fonctions revised or added / struct to capsule added / 0 lineNum tolerant / NULL tolerant
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,42 +21,114 @@
 #include "project_def.h"
 #include "CEV_api.h"
 #include "CEV_texts.h"
+#include "CEV_types.h"
 #include "rwtypes.h"
 
+
+#define CEV_TEXT_XTRA_ALLOC (sizeof(size_t) + 1) /**< num of bytes added to strlen in alloc */
 
 
 /*LOCAL FUNCTIONS DECLARATIONS**/
 
-/*fills text structure from rwops*/
-static void L_rwopsLineFieldRead(CEV_Text* text, SDL_RWops *ops);
 
-/*fills text field from data file**/
-static void L_dataLineFieldRead(FILE* src, CEV_Text* dst);
+/** \brief Fills CEV_Text's text lines from virtual file.
+ *
+ * \param src  : SDL_RWops* to read from.
+ * \param dst : CEV_Text* to write into.
+ *
+ * \return void
+ */
+static void L_LineFieldRead_RW( SDL_RWops *src, CEV_Text* dst);
 
-/*fills text field from natural file*/
-static int L_fileLineFieldRead(CEV_Text *text, FILE* file);
 
-/*num of line and max line size in natural file*/
+/** \brief fills CEV_Text's text lines from data file.
+ *
+ * \param src : FILE* to read from.
+ * \param dst : CEV_Text* to write into.
+ *
+ * \return void
+ * \note readWriteErr updated.
+ */
+static void L_LineFieldRead(FILE* src, CEV_Text* dst);
+
+
+/** \brief fills CEV_Text's text lines from text file.
+ *
+ * \param src : FILE* to read from.
+ * \param dst : CEV_Text* to write into.
+ *
+ * \return int of std function status.
+ */
+static int L_LineFieldReadTxt(FILE* src, CEV_Text *dst);
+
+
+/** \brief fills CEV_Text sizing fields from text file.
+ *
+ * \param text : CEV_Text* to fill with parameters.
+ * \param file : FILE* to take measurements from.
+ *
+ * \return int : of standard function status.
+ */
 static int L_fileDim(CEV_Text *text, FILE* file);
 
-/*creates suitable 2d array for char to be stored*/
+
+/** \brief creates suitable 2d array for char to be stored.
+ *
+ * \param lineNum : size_t as num of line to be allocated.
+ * \param lineSize : size_t as max length to store string.
+ *
+ * \return char** as allocated 2D array.
+ */
 static char** L_textAlloc(size_t lineNum, size_t lineSize);
 
-/*gets single line alloced capacity*/
-static size_t L_lineAllocSizeGet(char* src);
 
-/*hides line's alloces capacity*/
+/** \brief gets single line alloced capacity.
+ *
+ * \param src : char* to read allocation size from.
+ *
+ * \return size_t as allocated size (byte).
+ */
+static size_t L_lineAllocSizeRead(char* src);
+
+
+/** \brief hides line's alloced capacity.
+ *
+ * \param src : char* to write allocation size into.
+ * \param size : size_t as allocation size to write.
+ *
+ * \return void
+ */
 static void L_lineAllocSizeWrite(char* src, size_t size);
 
-/*Qsort compare function*/
+
+/** \brief Sorting lines AZ.
+ *
+ * \param q1 const void*
+ * \param q2 const void*
+ *
+ * \return int
+ *
+ * \note not to be used, is qsort dedicated.
+ */
 static int L_textCompareAZ(const void* q1, const void* q2);
-static int L_textCompareZA(const void* q1, const void* q2);
+
+
+/** \brief Sorting lines ZA.
+ *
+ * \param q1 const void*
+ * \param q2 const void*
+ *
+ * \return int
+ *
+ * \note not to be used, is qsort dedicated.
+ */
+ static int L_textCompareZA(const void* q1, const void* q2);
 
 
 /*USER END FUNCTIONS*/
 
 CEV_Text* CEV_textCreate(unsigned int lines, unsigned int maxLength)
-{/*allocate empty text structure*/
+{//allocate empty text structure
 
     CEV_Text *result = NULL;
 
@@ -71,9 +143,9 @@ CEV_Text* CEV_textCreate(unsigned int lines, unsigned int maxLength)
     result->fileTerminator  = '\0';
     result->linesNum        = lines;
     result->lineSize        = maxLength;
-    result->line            = L_textAlloc(lines, maxLength);
+    result->line            = lines? L_textAlloc(lines, maxLength) : NULL;
 
-    if(result->line == NULL)
+    if(lines && (result->line == NULL))
     {
         free(result);
         result = NULL;
@@ -85,21 +157,21 @@ exit:
 
 
 int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src)
-{/*writes one of the line*/
+{//writes one of the line
 
     if ((dst == NULL) || (src == NULL))
     {//bad arg
         fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
         return ARG_ERR;
     }
-    else if(index >= dst->linesNum)
+    else if(index >= dst->linesNum || IS_NULL(dst->line))
     {//new line
         return CEV_textAppend(dst, src);
     }
     else
     {//writes this line
 
-        size_t alloced  = L_lineAllocSizeGet(dst->line[index]), //alloc allowed
+        size_t alloced  = L_lineAllocSizeRead(dst->line[index]), //alloc allowed
                 len     = strlen(src),
                 lenRequested = len + CEV_TEXT_XTRA_ALLOC; //alloc needed
 
@@ -129,7 +201,7 @@ int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src)
 
 
 int CEV_textAppend(CEV_Text* dst, const char* src)
-{/*appends new string line*/
+{//appends new string line
 
     char**memo = realloc(dst->line, (dst->linesNum+1)*sizeof(char*));
 
@@ -161,9 +233,9 @@ int CEV_textAppend(CEV_Text* dst, const char* src)
 
 
 char* CEV_textRead(CEV_Text *src, unsigned int index)
-{/*reads one line*/
+{//reads one line
 
-    if ((src == NULL) || (index >= src->linesNum))
+    if ((src == NULL) || (index >= src->linesNum) || (src->line)== NULL)
     {
         fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
         return NULL;
@@ -174,23 +246,23 @@ char* CEV_textRead(CEV_Text *src, unsigned int index)
 
 
 void CEV_textSortAZ(CEV_Text *src)
-{/*sorts lines A to Z*/
+{//sorts lines A to Z
     qsort(src->line, src->linesNum, sizeof(char*), L_textCompareAZ);
 }
 
 
 void CEV_textSortZA(CEV_Text *src)
-{/*sorts lines Z to A*/
+{//sorts lines Z to A
     qsort(src->line, src->linesNum, sizeof(char*), L_textCompareZA);
 }
 
 
 int CEV_convertTextTxtToData(const char *srcName, const char *dstName)
-{/*convert natural text file into text capsule file .tdat*/
+{//convert natural text file into text capsule file .tdat
 
     int funcSts = FUNC_OK;
 
-    CEV_Text *lText = CEV_textLoad(srcName);
+    CEV_Text *lText = CEV_textTxtLoad(srcName);
 
      if(IS_NULL(lText))
     {
@@ -198,7 +270,7 @@ int CEV_convertTextTxtToData(const char *srcName, const char *dstName)
         return(FUNC_ERR);
     }
 
-    CEV_textToData(lText, dstName);
+    CEV_textSave(lText, dstName);
 
     if(readWriteErr)
         funcSts = FUNC_ERR;
@@ -210,7 +282,66 @@ int CEV_convertTextTxtToData(const char *srcName, const char *dstName)
 
 
 CEV_Text* CEV_textLoad(const char *fileName)
-{/*loads natural text file into text structure*/
+{//loads formated cevText file
+
+    FILE* src = fopen(fileName, "rb");
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to open %s : %s.\n", __FUNCTION__, __LINE__, fileName, strerror(errno));
+        return NULL;
+    }
+
+    CEV_Text* result = malloc(sizeof(CEV_Text));
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to allocate CEV_Text :%s  .\n", __FUNCTION__, __LINE__, strerror(errno));
+        goto end;
+    }
+
+    CEV_textTypeRead(src, result);
+
+
+end:
+    fclose(src);
+
+    return result;
+}
+
+
+CEV_Text* CEV_textLoad_RW(SDL_RWops* src, bool freeSrc)
+{//loads CEV_Text from virtual file
+
+    CEV_Text *result = NULL;
+
+    if(IS_NULL(src))
+        return NULL;
+
+    uint32_t numOfLine = SDL_ReadLE32(src),
+             maxLineLen = SDL_ReadLE32(src);
+
+    result = CEV_textCreate(numOfLine, maxLineLen);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to allocate CEV_Text : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        goto end;
+    }
+
+    L_LineFieldRead_RW(src, result);
+
+
+end:
+    if(freeSrc)
+        SDL_RWclose(src);
+
+    return result;
+}
+
+
+CEV_Text* CEV_textTxtLoad(const char *fileName)
+{//loads text file into text structure
 
     CEV_Text *result = NULL;
 
@@ -224,30 +355,44 @@ CEV_Text* CEV_textLoad(const char *fileName)
 
     rewind(file);
 
-    result = CEV_textLoadf(file);
+    result = CEV_textCreate(0, 0);//calloc(1, sizeof(CEV_Text));
+
+    if  (result == NULL)
+    {
+        fprintf(stderr, "Err at %s / %d : unable to allocate : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        return(NULL);
+    }
+
+    /****EXECUTION****/
+
+    //if (L_fileDim(result, file) != FUNC_OK)
+        //goto err_1;
+
+    if (L_LineFieldReadTxt(file, result) != FUNC_OK)
+        goto err_1;
 
     fclose(file);
 
     return result;
+
+err_1:
+    free(result);
+    return NULL;
 }
 
 
-CEV_Text* CEV_textLoadf(FILE* src)
-{/*create text structure from natural text opened file where it is*/
-
-    /****DECLARATIONS****/
+CEV_Text* CEV_textTxtLoadf(FILE* src)
+{//creates text structure from natural text opened file where it is
 
     CEV_Text *result = NULL;
 
-    /**contrôles*/
     if (src == NULL)
     {
         fprintf(stderr, "Err at %s / %d : argument error, file is NULL.\n", __FUNCTION__, __LINE__);
         return(NULL);
     }
 
-    /***prl**/
-    result = calloc(1, sizeof(CEV_Text));
+    result = CEV_textCreate(0, 0);
 
     if  (result == NULL)
     {
@@ -255,12 +400,10 @@ CEV_Text* CEV_textLoadf(FILE* src)
         goto err_1;
     }
 
-    /****EXECUTION****/
+    //if (L_fileDim(result, src) != FUNC_OK)
+        //goto err_2;/
 
-    if (L_fileDim(result, src) != FUNC_OK)
-        goto err_2;
-
-    if (L_fileLineFieldRead(result, src) != FUNC_OK)
+    if (L_LineFieldReadTxt(src, result) != FUNC_OK)
         goto err_2;
 
     return (result);
@@ -273,106 +416,11 @@ err_1:
 }
 
 
-void CEV_textTypeWrite(CEV_Text* text, FILE* dst)
-{/*saves text struct as text data at file position*/
-
-    int i = 0, j = 0;
-    readWriteErr = 0;
-
-    /**contrôles*/
-    if ((dst == NULL) || (text == NULL))
-    {
-        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
-        readWriteErr++;
-        return;
-    }
-
-    write_u32le(text->linesNum, dst);
-    write_u32le(text->lineSize, dst);
-
-    while( i < text->linesNum)
-    {
-        char temp = text->line[i][j];
-        write_u8(temp, dst);
-        j++;
-
-        if (temp == '\0')
-        {
-            i++;
-            j = 0;
-        }
-    }
-}
-
-
-void CEV_textTypeRead(FILE *src, CEV_Text* dst)
-{/*read text data file and fills text*/
-
-    readWriteErr = 0;
-
-    /**contrôles*/
-    if ((src == NULL) || (dst == NULL))
-    {
-        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
-        readWriteErr++;
-        return;
-    }
-
-    dst->linesNum = read_s32le(src);
-    dst->lineSize = read_s32le(src);
-
-    dst->line = L_textAlloc(dst->linesNum, dst->lineSize);
-
-    L_dataLineFieldRead(src, dst);
-
-}
-
-
-
-CEV_Text* CEV_textLoad_RW(SDL_RWops* ops, char freeData)
-{/*loads text rwops into text structure*/
-
-    CEV_Text *result = NULL;
-
-    /**contrôles*/
-    if (ops == NULL)
-    {
-        fprintf(stderr, "Err at %s / %d : argument error, ops is NULL.\n", __FUNCTION__, __LINE__);
-        return(NULL);
-    }
-
-    /***prl**/
-    result = calloc(1, sizeof(CEV_Text));
-
-    if  (result == NULL)
-    {
-        fprintf(stderr, "Err at %s / %d : allocation : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        goto err_1;
-    }
-
-    result->linesNum = SDL_ReadLE32(ops);
-    result->lineSize = SDL_ReadLE32(ops);
-
-    result->line = L_textAlloc(result->linesNum, result->lineSize);
-
-    L_rwopsLineFieldRead(result, ops);
-
-    if(freeData)
-        SDL_RWclose(ops);
-
-    return (result);
-
-
-err_1:
-    return NULL;
-
-}
-
-
-int CEV_textToData(CEV_Text *text, const char* fileName)
-{/*saves text struc and creates .tdat file*/
+int CEV_textSave(CEV_Text *text, const char* fileName)
+{//saves text struc and creates .tdat file
 
     int funcSts = FUNC_OK;
+    readWriteErr = 0;
 
     if((fileName == NULL) || (text == NULL))
     {
@@ -402,8 +450,158 @@ exit :
 }
 
 
+void CEV_textTypeWrite(CEV_Text* text, FILE* dst)
+{//saves text struct as text data at file position
+
+    int line = 0, car = 0;
+    readWriteErr = 0;
+
+    /**contrôles*/
+    if ((dst == NULL) || (text == NULL))
+    {
+        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
+        readWriteErr++;
+        return;
+    }
+
+    write_u32le(text->linesNum, dst);
+    write_u32le(text->lineSize, dst);
+
+    while(line < text->linesNum)
+    {
+        char temp = text->line[line][car];
+        write_u8(temp, dst);
+        car++;
+
+        if (temp == '\0')
+        {
+            line++;
+            car = 0;
+        }
+    }
+}
+
+
+int CEV_textTypeWrite_RW(CEV_Text* src, SDL_RWops* dst)
+{//saves text struct as text data at file position
+
+    int i = 0, j = 0;
+    readWriteErr = 0;
+
+    /**contrôles*/
+    if ((dst == NULL) || (src == NULL))
+    {
+        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
+        readWriteErr++;
+        return readWriteErr;
+    }
+
+    readWriteErr += SDL_WriteLE32(dst, src->linesNum);
+    readWriteErr += SDL_WriteLE32(dst, src->lineSize);
+
+    while( i < src->linesNum)
+    {
+        char temp = src->line[i][j];
+        readWriteErr += SDL_WriteU8(dst, temp);
+        j++;
+
+        if (temp == '\0')
+        {
+            i++;
+            j = 0;
+        }
+    }
+
+    return readWriteErr;
+}
+
+
+void CEV_textTypeRead(FILE *src, CEV_Text* dst)
+{//read text data file and fills text
+
+    readWriteErr = 0;
+
+    /**contrôles*/
+    if ((src == NULL) || (dst == NULL))
+    {
+        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
+        readWriteErr++;
+        return;
+    }
+
+    dst->linesNum = read_s32le(src);
+    dst->lineSize = read_s32le(src);
+
+    dst->line = L_textAlloc(dst->linesNum, dst->lineSize);
+
+    L_LineFieldRead(src, dst);
+
+}
+
+
+void CEV_textTypeRead_RW(SDL_RWops* src, CEV_Text* dst)
+{//reads CEV_Text from virtual file
+
+    CEV_Text *result = NULL;
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d :   .\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
+    dst->linesNum = SDL_ReadLE32(src),
+    dst->lineSize = SDL_ReadLE32(src);
+
+    L_LineFieldRead_RW(src, dst);
+
+    return;
+}
+
+
+int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst)
+{//creates capsule from CEV_Text
+
+    int funcSts = FUNC_OK;
+
+    //creating virtual file
+    SDL_RWops* vFile = SDL_AllocRW();
+
+    if(IS_NULL(vFile))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to allocate vFile : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        return FUNC_ERR;
+    }
+
+    if(CEV_textTypeWrite_RW(src, vFile))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to write into virtuel file.\n", __FUNCTION__, __LINE__ );
+        goto end;
+    }
+
+    size_t size = SDL_RWsize(vFile);
+    dst->size = size;
+    dst->type = IS_DTX;
+    dst->data = malloc(size);
+
+    if(IS_NULL(dst->data))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        funcSts = FUNC_ERR;
+        goto end;
+    }
+
+    SDL_RWread(vFile, dst->data, size, 1);
+
+end:
+    SDL_RWclose(vFile);
+    return funcSts;
+}
+
+
 void CEV_textDestroy(CEV_Text* in)
-{/*frees it all*/
+{//frees it all
 
     if(IS_NULL(in))
         return;
@@ -418,13 +616,16 @@ void CEV_textDestroy(CEV_Text* in)
 
 
 void CEV_textClear(CEV_Text* in)
-{/*frees and init content to 0 / NULL*/
+{//frees and init content to 0 / NULL
 
     if(IS_NULL(in))
         return;
 
-     for(int i = 0; i<in->linesNum; i++)
-        free(in->line[i]);
+    if(in->line)
+    {
+        for(int i = 0; i<in->linesNum; i++)
+            free(in->line[i]);
+    }
 
     free(in->line);
 
@@ -439,116 +640,100 @@ void CEV_textDump(CEV_Text* in)
 {//dumps structure content
 
     printf("text holds %u lines\n", in->linesNum);
+    printf("of max size %u char\n", in->lineSize);
 
     for(int i=0; i<in->linesNum; i++)
-        puts(CEV_textRead(in, i));
+    {
+        char* thisLine = CEV_textRead(in, i);
+        puts(thisLine);
+        printf("allocated for line : %u\n", L_lineAllocSizeRead(thisLine));
+    }
 }
+
 
 /********LOCAL FUNCTIONS*******/
 
-static void L_rwopsLineFieldRead(CEV_Text* text, SDL_RWops *ops)
-{/*fills texts fields from rwops*/
+static void L_LineFieldRead_RW(SDL_RWops* src, CEV_Text* dst)
+{//fills texts fields from rwops
 
     int line = 0,
-        car = 0;
+        car  = 0;
 
-    size_t alloced = L_lineAllocSizeGet(text->line[line]);
-
-    while(line < text->linesNum)
-    {
-        uint8_t temp = SDL_ReadU8(ops);
-        text->line[line][car] = temp;
-        car++;
-
-        if(temp == '\0')
-        {
-            //storing alloc size
-            L_lineAllocSizeWrite(text->line[line], alloced);
-
-            line++; //goto next line
-
-            if(line < text->linesNum)
-                alloced = L_lineAllocSizeGet(text->line[line]);
-
-            car = 0;//resets character index
-        }
-    }
-}
-
-
-static void L_dataLineFieldRead(FILE* src, CEV_Text* dst)
-{/*fills texts fields from dataFile*/
-
-    int line = 0,
-        car = 0;
-
-    size_t allocSize = L_lineAllocSizeGet(dst->line[line]);//reading alloc'd size for line
+    char lString[FILENAME_MAX] = "*";
 
     while(line < dst->linesNum)
     {
-        uint8_t temp = read_u8(src);
-        dst->line[line][car] = temp;
-        car++;
+        char temp ='*';
 
-        if(temp == '\0')
+        while(temp != '\0')
         {
-            //storing alloc size
-            L_lineAllocSizeWrite(dst->line[line], allocSize);
-            line++;
-
-            if(line < dst->linesNum)
-                allocSize = L_lineAllocSizeGet(dst->line[line]);
-
-            car = 0;
+            temp = lString[car] = SDL_ReadU8(src);
+            car++;
         }
+
+        CEV_textWrite(dst, line, lString);
+
+        line++; //goto next line
+        car = 0;//resets character index
     }
 }
 
 
-static int L_fileLineFieldRead(CEV_Text *text, FILE* file)
-{/*fills and clean text field*/
+static void L_LineFieldRead(FILE* src, CEV_Text* dst)
+{//fills texts fields from dataFile
 
-    /**DECLARATIONS**/
-    char** result;
+    int line = 0,
+        car = 0;
 
-    /**contrôles*/
-    if(!file)
-        return FUNC_ERR;
+    char lString[FILENAME_MAX] = "*";
 
-    /**EXECUTION**/
-    result = L_textAlloc(text->linesNum, text->lineSize);
 
-    if (!result)
-        goto exit;
-
-    for(int i=0; i < text->linesNum; i++)
+    while(line < dst->linesNum)
     {
-        size_t allocSize = L_lineAllocSizeGet(result[i]);//reading alloc'd size for line
-        fgets(result[i], text->lineSize+1, file);/*fgets reads num-1 char, asshole...*/
-        CEV_stringEndFormat(result[i]);
-        L_lineAllocSizeWrite(result[i], allocSize);//writing alloc'd size for line
+        char temp ='*';
+
+        while(temp != '\0')
+        {
+            temp = lString[car] = read_u8(src);
+            car++;
+        }
+
+        CEV_textWrite(dst, line, lString);
+
+        line++; //goto next line
+        car = 0;//resets character index
+
     }
+}
 
-    text->line = result;
 
-exit:
+static int L_LineFieldReadTxt(FILE* src, CEV_Text *dst)
+{//fills and clean text field from txt file
+
+    char lString[FILENAME_MAX] = "*";
+
+    if(IS_NULL(src) || IS_NULL(dst))
+        return ARG_ERR;
+
+
+    while(!IS_NULL(fgets(lString, sizeof(lString), src)))
+    {
+        CEV_stringEndFormat(lString);
+        CEV_textAppend(dst, lString);
+    }
 
     return FUNC_OK;
 }
 
 
 static int L_fileDim(CEV_Text *text, FILE* file)
-{/*needs rewind before call to scan full file*/
+{//needs rewind before call to scan full file
 
-    /****DECLARATIONS****/
-
-    int temp        = '*',   /*temporary var*/
-        maxLine     = 0,     /*largest line size*/
-        lineNb      = 0;     /*number of line in file*/
-    char lastChar   = 0;     /*last char of file for count*/
-    long pos        = 0;     /*mem to bring cursor back to where it was*/
-
-    /**PRL*/
+    int temp        = '*',   //temporary var
+        maxLine     = 0,     //largest line size
+        lineNb      = 0;     //number of line in file
+    char lastChar   = 0;     //last char of file for count
+    long pos        = 0;     //mem to bring cursor back to where it was
 
     if ((file == NULL) || (text == NULL))
     {
@@ -556,14 +741,13 @@ static int L_fileDim(CEV_Text *text, FILE* file)
         return(ARG_ERR);
     }
 
-    pos = ftell(file);/*records actual position in file*/
-    /*file ending type*/
-    fseek(file, -1, SEEK_END);/*LF,CR*/
+    pos = ftell(file);//records actual position in file
+
+    //file ending type
+    fseek(file, -1, SEEK_END);//LF,CR
     lastChar = fgetc(file);
 
-    /****EXECUTION****/
-
-    fseek(file, pos, SEEK_SET);/*go back to file pos*/
+    fseek(file, pos, SEEK_SET);//go back to file pos
 
     do
     {
@@ -592,14 +776,14 @@ static int L_fileDim(CEV_Text *text, FILE* file)
 
     text->linesNum         = lineNb;
     text->fileTerminator   = lastChar;
-    text->lineSize++; //20190514 line added
+    text->lineSize++; //2019 05 14 line added
 
     return (FUNC_OK);
 }
 
 
 static char** L_textAlloc(size_t lineNum, size_t lineSize)
-{/*allocs table of char**/
+{//allocs table of char
 
     char** result = NULL;/*return value*/
     lineSize += CEV_TEXT_XTRA_ALLOC;
@@ -644,8 +828,8 @@ err_1:
 }
 
 
-static size_t L_lineAllocSizeGet(char* src)
-{//returns line's allocated size
+static size_t L_lineAllocSizeRead(char* src)
+{//returns single line's allocated size
 
     size_t* ptr = (uint32_t*)(src + (strlen(src) + 1));
 
@@ -663,11 +847,12 @@ static void L_lineAllocSizeWrite(char* src, size_t size)
 
 
 static int L_textCompareAZ(const void* q1, const void* q2)
-{
+{//sorting sub func
     return strcmp(*(char**)q1, *(char**)q2);
 }
 
+
 static int L_textCompareZA(const void* q1, const void* q2)
-{
+{//sorting sub func
     return strcmp(*(char**)q2, *(char**)q1);
 }

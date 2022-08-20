@@ -14,9 +14,9 @@ extern "C" {
 
 typedef struct SWeather CEV_Weather;
 
-/** \brief Create a new weather instance.
+/** \brief Create a new weather instance
  *
- * \param texture : picture to open as particle.
+ * \param filename : picture to open as particle.
  * \param type : enum of weather type.
  * \param num : number of particles for this instance.
  * \param vx : horizontal amplitude for snow & fall, X speed for rain.
@@ -27,39 +27,39 @@ typedef struct SWeather CEV_Weather;
 CEV_Weather *CEV_weatherCreate(SDL_Texture *texture, uint8_t type, unsigned int num, int vx, int vy);
 
 
-/** \brief Free CEV_Weather allocations.
+/** \brief Free CEV_Weather allocations
  *
  * \param in : pointer to a CEV_Weather to free.
  * \param freePic : does function destroy embedded texture ?.
  *
- * \return N/A.
+ * \return N/A
  */
 void CEV_weatherFree(CEV_Weather *in, bool freePic);
 
 
-/** \brief Updates and display weather on screen.
+/** \brief Updates and display weather on screen
  *
  * \param in : CEV_Weather* of instance to display.
  *
- * \return void.
+ * \return void
  */
 void CEV_weatherShow(CEV_Weather*in);
 
 
-/** \brief Updates and display specified sized particles.
+/** \brief Updates and display specified sized particles
  *
- * \param in : CEV_Weather to display.
- * \param min : float value as minimum size to display [0.0 ; 1.0].
- * \param max : float value as maximum size to display [0.0 ; 1.0].
+ * \param in : CEV_Weather to display
+ * \param min : float value as minimum size to display [0.0 ; 1.0]
+ * \param max : float value as maximum size to display [0.0 ; 1.0]
  *
- * \return void.
+ * \return void
  */
 void CEV_weatherShowWithLayer(CEV_Weather*in, float min, float max);
 
 
-/** \brief Modify the number of particles to update/dsplay.
+/** \brief Modify the number of particles to update/dsplay
  *
- * \param in CEV_Weather* : instance to modify.
+ * \param in CEV_Weather* : instance to modify
  * \param num unsigned int : new number of particles to process.
  *
  * \return number of active particles.
@@ -67,7 +67,7 @@ void CEV_weatherShowWithLayer(CEV_Weather*in, float min, float max);
 unsigned int CEV_weatherNumSet(CEV_Weather *in, unsigned int num);
 
 
-/** \brief Modify number of particles to base value (as in weatherCreate).
+/** \brief Modify number of particles to base value (as in weatherCreate)
  *
  * \param in : CEV_Weather* to apply reset on.
  *
@@ -76,7 +76,7 @@ unsigned int CEV_weatherNumSet(CEV_Weather *in, unsigned int num);
 unsigned int CEV_weatherNumReset(CEV_Weather *in);
 
 
-/** \brief enable correction to follow scrolling on X axis.
+/** \brief enable correction to follow scrolling on X axis
  *
  * \param in : CEV_Weather* to be corrected.
  * \param ptr : int* to value of correction.
@@ -86,30 +86,30 @@ unsigned int CEV_weatherNumReset(CEV_Weather *in);
 void CEV_weatherPosCorrectX(CEV_Weather *in, int *ptr);
 
 
-/** \brief enable correction to follow scrolling on Y axis.
+/** \brief enable correction to follow scrolling on Y axis
  *
  * \param in : CEV_Weather* to be corrected.
  * \param ptr : int* to value of correction.
  *
- * \return void.
+ * \return void
  */
 void CEV_weatherPosCorrectY(CEV_Weather *in, int *ptr);
 
 
-/** \brief enables display.
+/** \brief enables display
  *
  * \param in : CEV_Weather* to be started.
  *
- * \return void.
+ * \return void
  */
 void CEV_weatherStart(CEV_Weather *in);
 
 
-/** \brief stop display.
+/** \brief stop display
  *
  * \param in : CEV_Weather* to be started.
  *
- * \return void.
+ * \return void
  */
 void CEV_weatherStop(CEV_Weather *in);
 
@@ -117,10 +117,10 @@ void CEV_weatherStop(CEV_Weather *in);
 
 /****** FILE CONSTRUCTOR ******/
 
-/** \brief turns csv file into weather data type file.
+/** \brief turns csv file into weather data type file
  *
- * \param src : name of source file to read from.
- * \param dst : name of output file.
+ * \param src : name of source file to read from
+ * \param dst : name of output file
  *
  * \return standard function status *
  */
@@ -129,21 +129,21 @@ int CEV_convertWeatherCSVToData(char* src, char* dst);
 
 /******FILE LOADING******/
 
-/** \brief loads weather file.
+/** \brief loads weather file
  *
- * \param fileName : name of the weather file to read from.
+ * \param fileName : name of the weather file to read from
  *
- * \return CEV_Weather* on success, NULL on failure.
+ * \return CEV_Weather* on success, NULL on failure
  */
 CEV_Weather *CEV_weatherLoad(char *fileName);
 
 
-/** \brief loads weather file from RWops.
+/** \brief loads weather file from RWops
  *
- * \param ops : RWops* to read from.
- * \param freeSrc : if true, function will free source ops.
+ * \param ops : RWops* to read from
+ * \param freeops : if true, function will free source ops
  *
- * \return CEV_Weather* on success, NULL on failure.
+ * \return CEV_Weather* on success, NULL on failure
  */
 CEV_Weather *CEV_weatherLoad_RW(SDL_RWops* ops, char freeSrc);
 

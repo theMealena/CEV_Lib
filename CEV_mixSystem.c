@@ -255,7 +255,7 @@ err_exit :
 static void L_videoSystemFree(void)
 {/*frees sdl window/renderer and quit*/
 
-    CEV_VideoSystem* video    = CEV_videoSystemGet();
+    CEV_VideoSystem* video = CEV_videoSystemGet();
 
     if (video != NULL)
     {
@@ -386,12 +386,12 @@ static bool L_videoAutoAdapt(CEV_VideoDisplay * cfg)
         cfg->logicH = SCREEN_HSMALL;
     }
 
-#elif SCREEN_DEFAULT_IS_DESKTOP
+    #if SCREEN_DEFAULT_IS_DESKTOP
     {
         cfg->type   = "desktop";
         cfg->logicW = cfg->screenW;
-        cfg->logicH = cfg->screenH;
-    }
+        cfg->logicH = cfg->screenH;    }
+    #endif // SCREEN_DEFAULT_IS_DESKTOP
 
 #else
     {

@@ -163,8 +163,7 @@ CEV_TileMap;
 /**
  *  \brief Load mapping from file
  *
- *  \param fileName : name of file to be loaded
- *
+ *  \param [in] fileName : name of file to be loaded
  *  \return ptr on CEV_TileMap on success, NULL on error
  *
  *  \details More details
@@ -175,23 +174,23 @@ CEV_TileMap* CEV_mapLoad(const char* fileName);
 /**
  *  \brief Load mapping from SDL_RWops filesystem
  *
- *  \param vfile : SDL_RWops ptr to read from
- *  \param freeSrc : Let decide whether close SDL_RWops or not.
+ *  \param [in] vfile : SDL_RWops ptr to read from
+ *  \param [in] freeSrc : Let decide whether close SDL_RWops or not.
+ *  \return Return ptr on CEV_TileMap on success, NULL on error
  *
- *  \return Return ptr on CEV_TileMap on success, NULL on error.
- *
+ *  \details More details
  */
 CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* vfile, char freeSrc);
 
 
 /**
- *  \brief saves map into file.
+ *  \brief saves map into file
  *
- *  \param map : CEV_TileMap ptr to structure to save.
- *  \param fileName : file name to save into.
- *
+ *  \param [in] map : CEV_TileMap ptr to structure to save
+ *  \param [in] fileName : file name to save into
  *  \return any CEV standard.
  *
+ *  \details More details
  */
 int CEV_mapSave(const CEV_TileMap* map, const char* fileName);
 
@@ -199,60 +198,65 @@ int CEV_mapSave(const CEV_TileMap* map, const char* fileName);
 /**
  *  \brief tile map creation
  *
- *  \param layers : number of layers in map.
- *  \param width : number of tiles.
- *  \param height : number of tiles.
- *  \param tilePix : tile size in pixel (16,32,64).
- *
+ *  \param [in] layer : number of layers in map.
+ *  \param [in] width : number of tiles.
+ *  \param [in] height : number of tiles.
+ *  \param [in] tilePix : tile size in pixel (16,32,64).
  *  \return Return a tile map pointer or NULL on failure.
  *
+ *  \details More details
  */
 CEV_TileMap* CEV_mapCreate(int layers, int width, int height, int tilePix);
 
 
 /**
- *  \brief free and destroy allocated CEV_TileMap structure.
+ *  \brief free and destroy allocated CEV_TileMap structure
  *
- *  \param map : CEV_TileMap ptr to free.
+ *  \param [in] map : CEV_TileMap ptr to free
  *
- *  \return N/A.
+ *  \return N/A
+ *
+ *  \details More details
  */
 void CEV_mapDestroy(CEV_TileMap *map);
 
 
 /**
- *  \brief frees CEV_TileMap structure content.
+ *  \brief frees CEV_TileMap structure content
  *
- *  \param map : CEV_TileMap ptr to clear.
+ *  \param [in] map : CEV_TileMap ptr to clear
  *
- *  \return N/A.
-
+ *  \return N/A
+ *
+ *  \details More details
  */
 void CEV_mapClear(CEV_TileMap *map);
 
 /**
- *  \brief associate texture containing tiles to a CEV_TileMap.
+ *  \brief associate texture containing tiles to a CEV_TileMap
  *
- *  \param  map : CEV_TileMap ptr to associate texture with.
- *  \param  texture : SDL_Texture ptr to assiciate map with.
+ *  \param [in] map : CEV_TileMap ptr to associate texture with
+ *  \param [in] texture : SDL_Texture ptr to assiciate map with
  *
  *  \return true if texture is succesfully applied.
  *
+ *  \details More details
  */
 bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture *texture);
 
 
 /**
- *  \brief Draws map.
+ *  \brief Draws map
  *
- *  \param src : CEV_TileMap ptr to be drawn.
- *  \param dst : SDL_Renderer to draw onto.
- *  \param dispX : Left position of map drawing (camera position).
- *  \param dispY : Top position of map drawing (camera position).
- *  \param layer : layer to display, negatif value show them all.
+ *  \param [in] map : CEV_TileMap ptr to be drawn
+ *  \param [in] dst : SDL_Renderer to draw onto
+ *  \param [in] x : Left position of map drawing
+ *  \param [in] y : Top position of map drawing
+ *  \param [in] layer : layer to display, negatif value show them all.
  *
  *  \return N/A
  *
+ *  \details More details
  */
 void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int layer);
 
@@ -266,34 +270,34 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 SDL_Rect CEV_mapWorldDimPxl(CEV_TileMap *src);
 
 
-/** \brief calculate tiles displayed.
+/** \brief calculate tiles displayed
  *
- * \param src : CEV_TileMap ptr to be drawn.
- * \param dispX : X position of display in world (pixels).
- * \param dispY : Y position of display in world (pixels).
+ * \param [in] src : CEV_TileMap ptr to be drawn
+ * \param [in] dispX : X position of display in world (pixels)
+ * \param [in] dispY : Y position of display in world (pixels)
  *
- * \return SDL_Rect filled with positions and dimensions (tiles).
+ * \return SDL_Rect filled with positions and dimensions (tiles)
  */
  SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY);
 
 
-/** \brief Detects if map needs scrolling.
+/** \brief Detects if map needs scrolling
  *
- * \param src : CEV_TileMap ptr to check.
- * \param dst : SDL_Renderer to draw onto.
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] dst : SDL_Renderer to draw onto
 
- * \return true if map is too big for renderer.
+ * \return true if map is too big for renderer
  */
 bool CEV_mapNeedScroll(CEV_TileMap *src, SDL_Renderer* dst);
 
 
 /** \brief tile position on display
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  tileX : tile X position (tile)
- * \param  tileY : tile Y position (tile)
- * \param  dispX : left position of display in map (pixel)
- * \param  dispY : top position of display in map (pixel)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] tileX : tile X position (tile)
+ * \param [in] tileY : tile Y position (tile)
+ * \param [in] dispX : left position of display in map (pixel)
+ * \param [in] dispY : top position of display in map (pixel)
  *
  * \return SDL_Rect as position an dimensions of tile(x,y) on display (pixel)
  */
@@ -302,8 +306,8 @@ SDL_Rect CEV_mapBlitPos(CEV_TileMap *src, int tileX, int tileY, int dispX, int d
 
 /** \brief tile hardness status
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  pos : position to check (in pixel)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] pos : position to check (in pixel)
  *
  * \return true if pos is on a hard tile
  */
@@ -312,10 +316,9 @@ bool CEV_mapIsHardTile(CEV_TileMap *src, SDL_Point pos);
 
 /** \brief fetch tile parameter value
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  pos : position in world to check (pixels)
- * \param  layer : which layer to check (pixels)
- * \param  index : which option to check (0-9)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] pos : position in world to check (pixels)
+ * \param [in] index : which option to check (0-9)
  *
  * \return parameter value
  */
@@ -324,10 +327,10 @@ int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index);
 
 /** \brief fetch tile properties
  *
- * \param  src : CEV_TileMap* to fetch tile from
- * \param  tileX : X position of tile in tile matrix
- * \param  tileY : Y position of tile in tile matrix
- * \param  layer : layer index of tile
+ * \param [in] src : CEV_TileMap* to fetch tile from
+ * \param [in] tileX : X position of tile in tile matrix
+ * \param [in] tileY : Y position of tile in tile matrix
+ * \param [in] layer : layer index of tile
  *
  * \return MAP_Tile* to requested tile.
  */
@@ -340,8 +343,8 @@ MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int 
 
 /** \brief world point to display point
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  pos : point position in map (pixel)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] pos : point position in map (pixel)
  *
  * \return SDL_Point as 'pos' position on screen (pixel)
  */
@@ -350,8 +353,8 @@ SDL_Point CEV_mapWorldPointToDisplayPoint(CEV_TileMap *src, SDL_Point pos);
 
 /** \brief world point to tile's world pos & dim
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  pos : point position in map (pixel)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] pos : point position in map (pixel)
  * \return SDL_Rect as world position of tile under 'pos'
  *
  */
@@ -360,8 +363,8 @@ SDL_Rect CEV_mapWorldPointToWorldTile(CEV_TileMap *src, SDL_Point pos);
 
 /** \brief world pos & dim to tiles matrix pos & dim
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  pos : rect position in map (pixel)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] pos : rect position in map (pixel)
  *
  * \return SDL_Rect as tiles position in tile matrix
  */
@@ -370,8 +373,8 @@ SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos);
 
 /** \brief world point to tile display pos & dim
  *
- * \param  src : CEV_TileMap ptr to check
- * \param  pos : point position in map (pixel)
+ * \param [in] src : CEV_TileMap ptr to check
+ * \param [in] pos : point position in map (pixel)
  *
  * \return SDL_Rect as display position of tile under 'pos'
  */

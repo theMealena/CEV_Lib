@@ -18,9 +18,10 @@
 #define PARALLAX_H_INCLUDED
 
 #include <SDL.h>
-#include <rwtypes.h>
 #include <stdbool.h>
 #include <CEV_gif.h>
+#include <CEV_types.h>
+
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ couche [N] :	float	ratio X
 Layer index 0 is the farmost layer.
 */
 
-typedef enum
+enum
 {
     PRLX_AUTO,
     PRLX_CENTERED,
@@ -58,8 +59,7 @@ typedef enum
     PRLX_RIGHT,
     PRLX_TOP,
     PRLX_BOTTOM
-}
-PrlxPosMode;
+};
 
 
 typedef struct
@@ -70,7 +70,7 @@ typedef struct
 
     bool isRepeat;/**< weither to repeat or proportionnal */
 
-    PrlxPosMode posMode;
+    uint8_t posMode;
 }
 PrlxAxis;
 
@@ -82,8 +82,8 @@ typedef struct CEV_ParaLayer
     SDL_Texture *texture;   /**< displayed texture */
     SDL_Rect picSize;       /**< picture size */
     PrlxAxis axisPar[2];    /**<axis parameters / instance*/
-    bool isGif;         /**< is animated as gif file */
-    CEV_GifAnim *anim;  /**< gif instance if so */
+    bool isGif;             /**< is animated as gif file */
+    CEV_GifAnim *anim;      /**< gif instance if so */
 }
 CEV_ParaLayer;
 
@@ -96,7 +96,7 @@ typedef struct CEV_Parallax
 
     SDL_Rect *cameraPos,    /**< ptr to camera position */
               worldDim;     /**< world dimension */
-    CEV_ParaLayer *layers;      /**< array of layers */
+    CEV_ParaLayer *layers;  /**< array of layers */
 }
 CEV_Parallax;
 
@@ -180,6 +180,7 @@ int CEV_convertParallaxCSVToData(const char* srcName, const char* dstName);
 /** \brief Loads parallax object from file.
  *
  * \param fileName : file to load.
+ *
  * \return ptr to allocated parallax object.
  */
 CEV_Parallax* CEV_parallaxLoad(const char* fileName);
@@ -187,12 +188,32 @@ CEV_Parallax* CEV_parallaxLoad(const char* fileName);
 
 /** \brief Loads parallax object from virtual RWops file.
  *
- * \param ops : SDL_RWops* to load from.
- * \param freeSrc : internaly frees ops if true.
+ * \param src : SDL_RWops* to load from.
+ * \param freeSrc : internaly frees src if true.
+ *
  * \return ptr to allocated parallax object.
+ * \note if freeSrc is true, src is freed weither the function succeed or not.
  */
-CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc);
+CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* src, uint8_t freeSrc);
 
 
+/** \brief Writes parallax structure into virtual file.
+ *
+ * \param src : CEV_Parallax* to save.
+ * \param dst : SDL_RWops* to write into.
+ *
+ * \return int : 0 on success, any value on error.
+ */
+int CEV_parallaxWrite_RW(CEV_Parallax* src, SDL_RWops* dst);
+
+
+/** \brief Builds CEV_Capsule from Parallax structure.
+ *
+ * \param src : CEV_Parallax* to encapsule.
+ * \param dst : CEV_Capsule* to fill with result.
+ *
+ * \return int : 0 on success, any value on error.
+ */
+int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst);
 
 #endif // PARALLAX_H_INCLUDED

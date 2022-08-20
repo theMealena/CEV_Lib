@@ -10,7 +10,7 @@
 /**LOG**/
 //21/12/2019 CEV : added to display GIF animation
 //06/04/2020 CEV : modified destroy functions to allow NULL as argument causing crash otherwise
-//17/05/2021 CEV : structure dump added
+//17/05/2021 CEV : structures dump added
 //06/06/2021 CEV : structure modified X/Y axis parallax with options.
 
 
@@ -18,21 +18,82 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL.h>
+#include <rwtypes.h>
 #include <CEV_mixSystem.h>
 #include <CEV_file.h>
-#include <CEV_dataFile.h>
+
 #include <CEV_api.h>
 #include <CEV_parallax.h>
+#include <CEV_dataFile.h>
 
 
-void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth);
-void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth);
+/** \brief Repeatedly blits texture on X
+ *
+ * \param render : SDL_Renderer* dst renderer.
+ * \param texture : SDL_Texture* src texture.
+ * \param blitPos : SDL_Rect as blit position on screen.
+ * \param camWidth : int as camera width in pxl.
+ *
+ * \return void
+ */
+static void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth);
 
-void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder);
 
-void L_parallaxPictureTypeWrite(char* fileName, FILE* dst);
+/** \brief Repeatedly blits texture on Y
+ *
+ * \param render : SDL_Renderer* dst renderer.
+ * \param texture : SDL_Texture* src texture.
+ * \param blitPos : SDL_Rect as blit position on screen.
+ * \param camHeight : int as camera height in pxl.
+ *
+ * \return void
+ */
+static void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camHeight);
 
-SDL_Texture *L_parallaxTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* layer);
+
+/** \brief Writes single layer into RWops file.
+ *
+ * \param thisLayer : CEV_ParaLayer* to write into file.
+ * \param dst : SDL_RWops* to write into.
+ *
+ * \return int : 0 on success, any value otherwise.
+ */
+static int L_paralayerWrite_RW(CEV_ParaLayer *thisLayer, SDL_RWops* dst);
+
+
+
+/** \brief convert CSV file into data file.
+ *
+ * \param src : FILE* as CSV_file to read from.
+ * \param dst : FILE* as file to write into.
+ * \param folder : char* folder name.
+ *
+ * \return void
+ *
+ */
+static void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder);
+
+
+/** \brief Inserts picture "fileName" into dst file.
+ *
+ * \param fileName : char* picture's file name.
+ * \param dst : FILE* to save picture into.
+ *
+ * \return void
+ */
+static void L_parallaxPictureTypeWrite(char* fileName, FILE* dst);
+
+
+/** \brief fetches layer pic from virtual file.
+ *
+ * \param src : SDL_RWops* to read from.
+ * \param dst : CEV_ParaLayer* to store result into.
+ *
+ * \return SDL_Texture* on success, NULL on failure.
+ *
+ */
+static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* src, CEV_ParaLayer* dst);
+
 
 
 CEV_Parallax* CEV_parallaxCreate(int numOfLayer, SDL_Rect *cameraPos)
@@ -103,7 +164,7 @@ void CEV_parallaxClear(CEV_Parallax *in)
 
 
 void CEV_parallaxLayerClear(CEV_ParaLayer* in)
-{//clears CEV_Parallax layer content
+{//clears CEV_Parallax layer content / sets to 0
 
     if(IS_NULL(in))
     {
@@ -113,7 +174,7 @@ void CEV_parallaxLayerClear(CEV_ParaLayer* in)
 
     if(in->isGif)
     {
-        CEV_gifAnimFree(in->anim);//destroys Texture
+        CEV_gifAnimFree(in->anim);//destroys gif + texture
     }
     else
     {
@@ -234,26 +295,6 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
     else
         SDL_RenderCopy(render, thisLayer->texture, NULL, &blitPos);
 
-}
-
-
-void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth)
-{
-    while(blitPos.x <= camWidth)
-        {
-            SDL_RenderCopy(render, texture, NULL, &blitPos);
-            blitPos.x += blitPos.w;
-        }
-}
-
-
-void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth)
-{
-    while(blitPos.y <= camWidth)
-        {
-            SDL_RenderCopy(render, texture, NULL, &blitPos);
-            blitPos.y += blitPos.h;
-        }
 }
 
 
@@ -443,16 +484,36 @@ CEV_Parallax* CEV_parallaxLoad(const char* fileName)
 }
 
 
+int CEV_parallaxSave(CEV_Parallax* src, const char* fileName)
+{//save parallax into file
+
+    int funcSts = FUNC_OK;
+
+    FILE* dst = fopen(fileName, "wb");
+
+    CEV_Capsule caps;
+
+    CEV_parallaxToCapsule(src, &caps);
+
+    if(fwrite(caps.data, 1, caps.size, dst) != caps.size)
+    {
+        fprintf(stderr, "Err at %s / %d : could not write into file %s : %d.\n", __FUNCTION__, __LINE__, fileName, ferror(dst));
+        funcSts = FUNC_ERR;
+    }
+
+    fclose(dst);
+    CEV_capsuleClear(&caps);
+
+    return funcSts;
+}
+
+
 CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
 {//loads parallax from RWops
-
-    /*---DECLARATIONS---*/
 
     CEV_Parallax* result = NULL;
     uint32_t temp32;
     float* toFloat = (float*)&temp32;
-
-    /*---PRL---*/
 
     result = malloc(sizeof(CEV_Parallax));
 
@@ -461,8 +522,6 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
         fprintf(stderr, "Err at %s / %d : unable to allocate result : %s\n", __FUNCTION__, __LINE__, strerror(errno));
         goto err_1;
     }
-
-    /*---EXECUTION---*/
 
     SDL_RWseek(ops, 0, RW_SEEK_SET);
 
@@ -493,7 +552,7 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
             result->layers[i].axisPar[j].posMode = SDL_ReadU8(ops);
         }
 
-        L_parallaxTextureGet_RW(ops, &result->layers[i]);
+        L_paraLayerTextureGet_RW(ops, &result->layers[i]);
 
         SDL_QueryTexture(result->layers[i].texture,
                             NULL,
@@ -502,8 +561,6 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
                             &result->layers[i].picSize.h);
 
     }
-
-    /*---POST---*/
 
     if (freeSrc)
         SDL_RWclose(ops);
@@ -523,10 +580,107 @@ err_1 :
 }
 
 
+int CEV_parallaxWrite_RW(CEV_Parallax* src, SDL_RWops* dst)
+{//writes parallax into RWops file
+
+    readWriteErr += SDL_WriteBE32(dst, src->numOfLayer);
+
+    for (int i=0; i<src->numOfLayer; i++)
+        readWriteErr += L_paralayerWrite_RW(&src->layers[i], dst);
+
+    return readWriteErr;
+}
+
+
+int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst)
+{//creates capsule from structure
+
+    int funcSts = FUNC_OK;
+
+    //creating virtual file
+    SDL_RWops* vFile = SDL_AllocRW();
+
+    if(IS_NULL(vFile))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to allocate vFile : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        return FUNC_ERR;
+    }
+
+    funcSts = CEV_parallaxWrite_RW(src, vFile);
+
+    if(funcSts != FUNC_OK)
+    {
+        fprintf(stderr, "Err at %s / %d : unable to write into virtuel file.\n", __FUNCTION__, __LINE__ );
+        goto end;
+    }
+
+    size_t size = SDL_RWsize(vFile);
+    dst->size = size;
+    dst->type = IS_PLX;
+    dst->data = malloc(size);
+
+    if(IS_NULL(dst->data))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        funcSts = FUNC_ERR;
+        goto end;
+    }
+
+    SDL_RWread(vFile, dst->data, size, 1);
+
+end:
+    SDL_RWclose(vFile);
+    return funcSts;
+}
+
+
 /*** Local functions ***/
 
-void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder)
-{//convert csv into data
+static void L_blitXrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camWidth)
+{//repeatedly blits texture on X
+
+    while(blitPos.x <= camWidth)
+    {
+        SDL_RenderCopy(render, texture, NULL, &blitPos);
+        blitPos.x += blitPos.w;
+    }
+}
+
+
+static void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect blitPos, int camHeight)
+{//repeatedly blits texture on Y
+
+    while(blitPos.y <= camHeight)
+    {
+        SDL_RenderCopy(render, texture, NULL, &blitPos);
+        blitPos.y += blitPos.h;
+    }
+}
+
+
+static int L_paralayerWrite_RW(CEV_ParaLayer *thisLayer, SDL_RWops* dst)
+{//writes parallax layer into RWops file
+
+    int sdlRWerr = 0;
+    uint32_t temp32 = 0;
+    float* toFloat = (float*)&temp32;
+
+    for (int i=0; i<2; i++)
+    {
+        *toFloat = thisLayer->axisPar[i].ratio;
+        sdlRWerr += SDL_WriteLE32(dst, temp32);
+        *toFloat = thisLayer->axisPar[i].vel;
+        sdlRWerr += SDL_WriteLE32(dst, temp32);
+        sdlRWerr += SDL_WriteU8(dst, thisLayer->axisPar[i].isRepeat);
+        sdlRWerr += SDL_WriteU8(dst, thisLayer->axisPar[i].posMode);
+    }
+
+    return sdlRWerr;
+}
+
+
+static void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder)
+{//converts csv into data
 
     float ratio, vel;
 
@@ -542,11 +696,11 @@ void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder)
             fgets(fileLine, sizeof(fileLine), src);
         while(fileLine[0]=='/');
 
-        sscanf(fileLine, "%f\t%f\t%d\t%d", &ratio, &vel, &repeat, &posMode);//reading X parameters
+        sscanf(fileLine, "%f\t%f\t%d\t%d", &ratio, &vel, &repeat, &posMode); //reading parameters
 
-        write_f32le(ratio, dst); //writing scroll ratio
-        write_f32le(vel, dst);   //writing velocity
-        write_u8(repeat, dst); //writting repeat mode
+        write_f32le(ratio, dst);//writing scroll ratio
+        write_f32le(vel, dst);  //writing velocity
+        write_u8(repeat, dst);  //writting repeat mode
         write_u8(posMode, dst); //writting position mode
     }
 
@@ -568,8 +722,8 @@ void L_parallaxTypeConvert(FILE *src, FILE *dst, char *folder)
 }
 
 
-void L_parallaxPictureTypeWrite(char* fileName, FILE* dst)
-{//inserts pic
+static void L_parallaxPictureTypeWrite(char* fileName, FILE* dst)
+{//inserts pic named fileName
 
     printf("inserting picture %s...", fileName);
     CEV_Capsule buffer;
@@ -584,13 +738,13 @@ void L_parallaxPictureTypeWrite(char* fileName, FILE* dst)
 }
 
 
-SDL_Texture *L_parallaxTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* layer)
+static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* layer)
 {//extract SDL_Texture from ops file
 
     /*---DECLARATIONS---*/
 
     uint32_t        textureSize = 0,
-                    type = 0;
+                    type        = 0;
     SDL_Renderer    *render     = CEV_videoSystemGet()->render;
     void            *rawData    = NULL;
 
@@ -602,9 +756,7 @@ SDL_Texture *L_parallaxTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* layer)
     /*---EXECUTION---*/
 
     type = SDL_ReadLE32(ops);
-
     textureSize = SDL_ReadLE32(ops);
-
     rawData = malloc(textureSize);
 
     if IS_NULL(rawData)

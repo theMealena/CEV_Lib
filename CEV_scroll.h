@@ -20,10 +20,34 @@
 extern "C" {
 #endif
 
+/*file format
+
+u32 : font size (pxl)
+
+text color :
+    u8  : r
+        : g
+        : b
+        : a
+
+u32 : scroll mode
+    : spacing (pxl)
+    : speed (pxl/frame)
+CEV_Text struct
+capsule : police.ttf
+
+*/
+
 
 /** \brief scroll direction instruction
  */
-enum {SCROLL_UP = 0, SCROLL_DOWN = 1, SCROLL_LEFT = 2, SCROLL_RIGHT = 3};
+enum
+{
+    SCROLL_UP       = 0,
+    SCROLL_DOWN     = 1,
+    SCROLL_LEFT     = 2,
+    SCROLL_RIGHT    = 3
+};
 
 
 /** \brief inner scroll structure
@@ -61,7 +85,7 @@ typedef struct CEV_ScrollText
 
     SDL_Color color;    /*text color*/
 
-    L_ScrollTextLine* texts;    /*pics instances*/
+    L_ScrollTextLine* texts;/*array of pics instances*/
 
 }
 CEV_ScrollText;
@@ -86,7 +110,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
  * \param in : CEV_ScrollText* to be freed.
  * \return N/A
  */
-void CEV_scrollFree(CEV_ScrollText *in);
+void CEV_scrollDestroy(CEV_ScrollText *in);
 
 
 /** \brief frees content and set to 0/nul/NULL
@@ -96,7 +120,16 @@ void CEV_scrollFree(CEV_ScrollText *in);
  * \return N/A
  *
  */
-void CEV_scrollRaz(CEV_ScrollText *in);
+void CEV_scrollClear(CEV_ScrollText *in);
+
+
+/** \brief dumps struct content into stdout.
+ *
+ * \param in : CEV_ScrollText* to dump.
+ *
+ * \return void.
+ */
+void CEV_scrollDump(CEV_ScrollText *in);
 
         /*CONTROL FUNCTIONS*/
 
@@ -164,7 +197,7 @@ int CEV_scrollUpdate(CEV_ScrollText *in);
 int CEV_convertScrollTxtToData(const char* srcName, const char* dstName);
 
 
-/** \brief loads scroll configuration .sdat file.
+/** \brief loads scroll configuration file.
  *
  * \param fileName : file to open.
  *
@@ -173,6 +206,16 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName);
 CEV_ScrollText* CEV_scrollLoad(const char* fileName);
 
 
+/** \brief loads scroll from virtual file.
+ *
+ * \param src : SDL_RWops* to read from.
+ * \param freeSrc : bool free src if true;
+ *
+ * \return CEV_ScrollText* on success, NUL on error.
+ * \note if freeSrc is true, src is freed weither function succeed or not.
+ */
+CEV_ScrollText* CEV_scrollLoad_RW(SDL_RWops* src, bool freeSrc);
+
 
 /** \brief loads scroll configuration .sdat from opened file.
  *
@@ -180,8 +223,16 @@ CEV_ScrollText* CEV_scrollLoad(const char* fileName);
  *
  * \return CEV_ScrollText* on success, NULL on error.
  */
-CEV_ScrollText* CEV_scrollLoadf(FILE* file);
+CEV_ScrollText* CEV_scrollTypeRead(FILE* file);
 
+
+/** \brief Loads scroller from virtual file.
+ *
+ * \param src : SDL_RWops* to read from.
+ *
+ * \return CEV_ScrollText* or NULL on failure.
+ */
+CEV_ScrollText* CEV_scrollTypeRead_RW(SDL_RWops* src);
 #ifdef __cplusplus
 }
 #endif

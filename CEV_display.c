@@ -7,8 +7,6 @@
 //**   CEV    |  11-2017      |   1.0.1  | diag improved  **/
 //**********************************************************/
 
-// TODO (drxvd#1#02/15/17): virer les zooms et menus de là
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -246,7 +244,7 @@ end:
 
 void CEV_dispBlitPos(SDL_Rect* pos, SDL_Point point, int mode, float ratio)
 {
-// TODO (drx#1#): mettre une valeur par défaut, j'ai oublié CEV_TOP en argument et ça n'affiche rien
+//TODO (drx#1#): mettre une valeur par défaut, j'ai oublié CEV_TOP en argument et ça n'affiche rien
     CEV_rectDimScale(pos, ratio);
 
     if (mode & CEV_LEFT)
@@ -277,63 +275,3 @@ void CEV_renderColorGet(SDL_Renderer* render, SDL_Color* color)
 {
     SDL_GetRenderDrawColor(render, &color->r, &color->g, &color->b, &color->a);
 }
-
-/*--ZOOM RELATED--*/
-
-
-CEV_Zoom CEV_zoomInit(int baseW, int baseH, float scaleMax, float step)
-{
-    CEV_Zoom result;
-
-    result.enable    = 0;
-    result.scaleMax  = scaleMax;
-    result.scaleAct  = 1.0;
-    result.pos.x     = 0;
-    result.pos.y     = 0;
-    result.pos.w     = baseW;
-    result.pos.h     = baseH;
-    result.step      = step;
-
-    return result;
-}
-
-
-SDL_Rect CEV_zoomOnCoord(CEV_Zoom *zoom, SDL_Point point)
-{/*retourne un SDL_Rect de découpe pour que le zoom semble centré sur les coordonnées envoyées*/
-
-    SDL_Rect funcSts;
-
-    CEV_zoomUpdate(zoom);
-
-    funcSts.w    = zoom->pos.w / zoom->scaleAct;
-    funcSts.h    = zoom->pos.h / zoom->scaleAct;
-    funcSts.x    = zoom->scaleAct * point.x - point.x;
-    funcSts.y    = zoom->scaleAct * point.y - point.y;
-
-    return funcSts;
-}
-
-
-void CEV_zoomUpdate(CEV_Zoom *zoom)
-{/**update zoom structure**/
-
-    switch (zoom->enable)
-    {
-        case 1 :
-            if(zoom->scaleAct < zoom->scaleMax)
-                zoom->scaleAct += zoom->step;
-        break;
-
-        case 0 :
-            if(zoom->scaleAct > 1)
-                zoom->scaleAct -= zoom->step;
-        break;
-    }
-
-    CEV_fconstraint(0.0, &zoom->scaleAct, zoom->scaleMax);
-}
-
-
-
-
-

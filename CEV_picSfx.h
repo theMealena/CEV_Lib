@@ -21,6 +21,7 @@ extern "C" {
 
 /** \brief Selects one of the available transition effect.
  *
+ * \param src  : SDL_Texture* which effect starts from.
  * \param dst : SDL_Texture* which effect leads to.
  * \param which : index of effect to apply, -1 for random.
  * \param time : time ms the transition lasts (approx).
@@ -28,7 +29,7 @@ extern "C" {
  * \return N/A
  *
  */
-void CEV_videoSfxSelect(SDL_Texture* dst, int which, uint32_t time);
+void CEV_videoSfxSelect(SDL_Texture* dst,int which, uint32_t time);
 
 
 

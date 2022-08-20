@@ -100,7 +100,7 @@ void CEV_anySwap(void* valOne, void* valTwo, size_t size)
          *src =(char*)valOne,
          *dst =(char*)valTwo;
 
-	for(int i=0; i<size; i++)
+	for(unsigned i=0; i<size; i++)
 	{
 		temp    =   dst[i];
 		dst[i]  =   src[i];
@@ -311,7 +311,10 @@ bool CEV_reachValue(float* value, float reach, float by)
         *value += by;
 
         if(*value > reach)
+        {
             *value = reach;
+            return true;
+        }
     }
 
     else if (*value > reach)
@@ -319,10 +322,13 @@ bool CEV_reachValue(float* value, float reach, float by)
         *value -= by;
 
         if(*value < reach)
+        {
             *value = reach;
+            return true;
+        }
     }
 
-    return (*value == reach);
+    return false;
 }
 
 
@@ -441,7 +447,7 @@ SDL_Point CEV_fcoordToPoint(CEV_FCoord src)
 }
 
 
-SDL_Point *CEV_rectMidToPoint(SDL_Rect src, SDL_Point *dst )
+SDL_Point* CEV_rectMidToPoint(SDL_Rect src, SDL_Point *dst)
 {/*set point to be gravity center of rect*/
 
     dst->x = src.x + src.w/2;
@@ -449,6 +455,7 @@ SDL_Point *CEV_rectMidToPoint(SDL_Rect src, SDL_Point *dst )
 
     return dst;
 }
+
 
 
 SDL_Point CEV_rectPosToPoint(SDL_Rect src)
@@ -505,7 +512,7 @@ SDL_Point CEV_pointSum(SDL_Point pta, SDL_Point ptb)
 /*** CEV_Icoord ***/
 
 bool CEV_IcoordAreEqual(CEV_ICoord* pta, CEV_ICoord* ptb)
-{
+{//two point are at same position
 
 	return ((pta->x == ptb->x) && (pta->y == ptb->y) && (pta->z == ptb->z));
 }
@@ -597,10 +604,12 @@ CEV_ICoord CEV_icoordSum(CEV_ICoord pta, CEV_ICoord ptb)
     return (CEV_ICoord){.x = pta.x + ptb.x, .y = pta.y + ptb.y, .z = pta.z + ptb.z};
 }
 
+
 /*** CEV_Fcoord ***/
 
 bool CEV_fcoordAreEqual(CEV_FCoord* pta, CEV_FCoord* ptb, double tolerance)
-{
+{//two points at same position within tolerance
+
 	return CEV_fcoordDist(*pta, *ptb) <= tolerance;
 }
 
@@ -763,23 +772,35 @@ SDL_Rect* CEV_rectDimCopy(SDL_Rect src, SDL_Rect* dst)
 }
 
 
+SDL_Rect* CEV_rectPosCopy(SDL_Rect src, SDL_Rect* dst)
+{//x, y copy
+    dst->x = src.x;
+    dst->y = src.y;
+
+    return dst;
+}
+
+
 SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, SDL_Rect border)
 {/*keeps rect inside border */
 
-    if ((rect->w > border.w) || (rect->h > border.h))
-        return NULL;
+    if(rect->w > border.w)
+        rect->w = border.w;
+
+    if(rect->h > border.h)
+        rect->h = border.h;
 
     if (rect->x < border.x)
         rect->x = border.x;
 
-    else if ((rect->x + rect->w) >= (border.x + border.w))
-        rect->x = border.w - rect->w - 1;
+    else if ((rect->x + rect->w) > (border.x + border.w))
+        rect->x = border.w - rect->w /*- 1*/;
 
     if (rect->y < border.y )
         rect->y = border.y;
 
-    else if ((rect->y + rect->h) >= (border.y + border.h))
-        rect->y = border.h - rect->h - 1;
+    else if ((rect->y + rect->h) > (border.y + border.h))
+        rect->y = border.h - rect->h /*- 1*/;
 
     return rect;
 }
@@ -808,6 +829,35 @@ SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale)
 }
 
 
+SDL_Rect CEV_rectFitScaledInRect(SDL_Rect *src, SDL_Rect into)
+{//modify src to fit into into keeping aspect ratio
+
+    if(src->w > into.w)
+    {
+        src->h *= (float)into.w / src->w;
+        src->w = into.w;
+    }
+
+    if(src->h > into.h)
+    {
+        src->w *= (float)into.h / src->h;
+        src->h = into.h;
+    }
+
+    if(src->w < into.w)
+        src->x = into.x + (into.w - src->w)/2;
+    else
+        src->x = into.x;
+
+    if(src->h < into.h)
+        src->y = into.y + (into.h - src->h)/2;
+    else
+        src->y = into.y;
+
+    return *src;
+}
+
+
 SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2)
 {//sums SDL_Rect
     SDL_Rect result;
@@ -830,17 +880,17 @@ SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2)
 
 void** CEV_allocate2d(size_t x, size_t y, size_t size)
 {
-    int i = 0;
+    unsigned i = 0;
     void** result = calloc(x, sizeof(void*));
 
-    if(IS_NULL(result))
+    if IS_NULL(result)
         return NULL;
 
     for(i = 0; i<x; i++)
     {
         result[i] = calloc(y, size);
 
-        if(IS_NULL(result[i]))
+        if IS_NULL(result[i])
             goto err;
     }
 
@@ -848,7 +898,7 @@ void** CEV_allocate2d(size_t x, size_t y, size_t size)
 
 err:
 
-    for(int j=0; j<i; j++)
+    for(unsigned j=0; j<i; j++)
         free(result[j]);
 
     return NULL;
@@ -857,17 +907,18 @@ err:
 
 void*** CEV_allocate3d(size_t x, size_t y, size_t z, size_t size)
 {
-    int i = 0;
+    unsigned i = 0;
+
     void*** result = calloc(x, sizeof(void**));
 
-    if(IS_NULL(result))
+    if IS_NULL(result)
         return NULL;
 
     for(i=0; i<x; i++)
     {
         result[i] = CEV_allocate2d(y, z, size);
 
-        if(IS_NULL(result[i]))
+        if IS_NULL(result[i])
             goto err;
     }
 
@@ -875,9 +926,9 @@ void*** CEV_allocate3d(size_t x, size_t y, size_t z, size_t size)
 
 err:
 
-    for(int j=0; j<i; j++)
+    for(unsigned j=0; j<i; j++)
     {
-        for(int k=0; k<y; k++)
+        for(unsigned k=0; k<y; k++)
             free(result[j][k]);
     }
 

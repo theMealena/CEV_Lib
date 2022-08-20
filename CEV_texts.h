@@ -5,23 +5,25 @@
 //**   CEV    |    05-2021    |   1.0    | Documentation  **/
 //**   CEV    |    02-2022    |   1.0.3  | sort added     **/
 //**********************************************************/
-//- CEV 20210522 : lines realloc'd if writing greater string : CEV_TEXT_XTRA_ALLOC defined
+/*
+- CEV 2022_07_24 : R/W fonctions revised or added / struct to capsule added
+*/
 
-
-#ifndef CEV_FILEFUNCS_H_INCLUDED
-#define CEV_FILEFUNCS_H_INCLUDED
+#ifndef CEV_TEXT_H_INCLUDED
+#define CEV_TEXT_H_INCLUDED
 
 #include <SDL.h>
 #include <stdio.h>
+#include <stdbool.h>
+#include "CEV_types.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define CEV_TEXT_XTRA_ALLOC (sizeof(size_t) + 1) /**< num of bytes added to strlen in alloc */
 
 /** \brief Easy text management.
- *  \note For each line, the alloc size is stored in size_t just after the '\0' char
+ *  \note For each line, the alloc size is stored in size_t just after the nul char
  */
 typedef struct CEV_Text
 {
@@ -36,8 +38,8 @@ CEV_Text;
 
 /** \brief allocates a new text structure.
  *
- * \param lines : unsigned int number of lines to create.
- * \param maxLength : unsigned int longest line length.
+ * \param number of lines to create.
+ * \param longest line length.
  *
  * \return CEV_Text ptr on success, NULL on error.
  *
@@ -110,6 +112,25 @@ void CEV_textSortZA(CEV_Text *src);
 int CEV_convertTextTxtToData(const char *srcName, const char *dstName);
 
 
+/** \brief Loads CEV_Text from file.
+ *
+ * \param fileName : const char* as file name to open.
+ *
+ * \return CEV_Text* on success, NULL on failure.
+ */
+CEV_Text* CEV_textLoad(const char *fileName);
+
+
+/** \brief Loads CEV_Text from virtual file.
+ *
+ * \param src : SDL_RWops* to read from.
+ * \param freeSrc : SDL_RWops is closed if true.
+ *
+ * \return : CEV_Text* on success, NULL on failure.
+ * \note : if freeScrc is true, src is freed weither the fonction succeeds or not.
+ */
+CEV_Text* CEV_textLoad_RW(SDL_RWops* src, bool freeSrc);
+
 
 /** \brief Loads user parameter file.
  *
@@ -117,9 +138,9 @@ int CEV_convertTextTxtToData(const char *srcName, const char *dstName);
  * \return CEV_Text* on succes, NULL on error.
  *
  * \note opens "natural" txt file.
- * \sa CEV_textLoadf()
+ * \sa CEV_textTxtLoadf()
  */
-CEV_Text* CEV_textLoad(const char *fileName);
+CEV_Text* CEV_textTxtLoad(const char *fileName);
 
 
 /** \brief Loads opened user parameter file.
@@ -128,21 +149,40 @@ CEV_Text* CEV_textLoad(const char *fileName);
  * \return CEV_Text* on succes, NULL on error.
  *
  * \note reads "natural" txt file.
- * \sa CEV_textLoad()
+ * \sa CEV_textTxtLoad()
  */
-CEV_Text* CEV_textLoadf(FILE* src);
+CEV_Text* CEV_textTxtLoadf(FILE* src);
 
+
+/** \brief Saves CEV_Text into file.
+ *
+ * \param text : CEV_Text* to save.
+ * \param fileName : const char* as file name.
+ *
+ * \return int as std function status.
+ */
+int CEV_textSave(CEV_Text *text, const char* fileName);
 
 
 /** \brief Writes CEV_Text into file at data format.
  *
- * \param src : CEV_Text* to write.
+ * \param src : CEV_Text* to read from.
  * \param dst : FILE* to write into.
  * \return readWriteError is incremented on error.
  *
  * \sa CEV_textTypeRead()
  */
 void CEV_textTypeWrite(CEV_Text* src, FILE* dst);
+
+
+/** \brief Writes CEV_Text into virtual file.
+ *
+ * \param text : CEV_Text* to read from.
+ * \param dst  : SDL_RWops* to write into
+ * \return int
+ *
+ */
+int CEV_textTypeWrite_RW(CEV_Text* src, SDL_RWops* dst);
 
 
 /** \brief Reads CEV_Text from opened data format file.
@@ -152,9 +192,30 @@ void CEV_textTypeWrite(CEV_Text* src, FILE* dst);
  *
  * \return readWriteError is incremented on error.
  *
- * \sa CEV_textTypeWrite()
+ * \sa CEV_textTypeWrite().
  */
 void CEV_textTypeRead(FILE *src, CEV_Text* dst);
+
+
+/** \brief Reads CEV_Text from virtual file.
+ *
+ * \param src : SDL_RWops* to read from.
+ * \param dst : CEV_Text* to fill.
+ *
+ * \return void
+ * \note readWriteErr is used.
+ */
+void CEV_textTypeRead_RW(SDL_RWops* src, CEV_Text* dst);
+
+/** \brief Fills capsule with CEV_Text.
+ *
+ * \param src : CEV_Text* to read from.
+ * \param dst : CEV_Capsule* to store result.
+ *
+ * \return int : of std function status.
+ *
+ */
+int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst);
 
 
 /** \brief Creates a CEV_Text from SDL_RWops (data format).
@@ -165,7 +226,7 @@ void CEV_textTypeRead(FILE *src, CEV_Text* dst);
  * \return CEV_Text* on succes, NULL on error.
  *
  */
-CEV_Text* CEV_textLoad_RW(SDL_RWops* src, char freeData);
+CEV_Text* CEV_textTxtLoad_RW(SDL_RWops* src, char freeData);
 
 
 /** \brief Creates a data format file from CEV_Text.
@@ -175,7 +236,7 @@ CEV_Text* CEV_textLoad_RW(SDL_RWops* src, char freeData);
  *
  * \return any of function status.
  */
-int CEV_textToData(CEV_Text *src, const char* dstFileName);
+int CEV_textSave(CEV_Text *src, const char* dstFileName);
 
 
 /** \brief Free allocated CEV_Text.
@@ -216,7 +277,7 @@ int CEV_fileStrSearch(FILE* file, char* src);
 
 
 /** \brief cleans file string into memory friendly string :
- * \note removes "\r" and "\n" replaced by "\0".
+ * \note removes '/\r' and '/\n' replaced by '/\0'.
  * \param in : char* to clean.
  *
  * \return N/A.
@@ -239,4 +300,4 @@ void CEV_stringGroup(char *src, unsigned int group);
 #endif
 
 
-#endif // CEV_FILEFUNCS_H_INCLUDED
+#endif // CEV_TEXT_H_INCLUDED

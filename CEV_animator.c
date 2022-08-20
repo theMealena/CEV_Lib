@@ -24,68 +24,7 @@
 #include "CEV_file.h"
 #include "rwtypes.h"
 
-/** \brief sp view structure.
- */
-typedef struct SP_View
-{/*view structure*/
 
-    uint16_t picNum, /*number of picture*/
-             picTime,/*frame delay time ms*/
-             restart,/*restart frame index*/
-             stop,   /*stop frame index*/
-             mode;   /*read mode*/
-
-    SDL_Rect rect[2];/*clip and hitbox*/
-}
-SP_View;
-
-
-/** \brief sp animation structure.
- */
-struct SP_Anim
-{/*animation structure*/
-
-    uint16_t  viewNum[2]; /*number of view / xtra */
-
-    SP_View* view[2];     /*views*/
-
-    SDL_Texture* sheet;  /*spritesheet*/
-};
-
-// TODO (drx#1#): implémenter le stop dans les boucles
-
-/** \brief sp sprite structure.
- */
-struct SP_Sprite
-{/*sprite structure*/
-
-    uint8_t     isLocked[2],   /*animation is locked*/
-                viewShow[2],   /*show view/xview*/
-                run;           /*is animated or freezed*/
-
-    int8_t      direction[2];  /*actual direction = +/-1 */
-
-    uint16_t    picAct[2],     /*active picture index*/
-                viewAct[2];    /*active view index*/
-
-    int16_t     viewReq[2][SP_NUM_OF_REQ_MAX];/*next view/xview requests*/
-
-    unsigned int timePrev[2];  /*last absolute frame change*/
-
-    double      scale;         /*display scale*/
-
-    SP_Anim*    anim;          /*base spritesheet*/
-};
-
-
-/** \brief sp animation set structure.
- */
-struct SP_AnimList
-{/*set of animations strcuture*/
-
-    uint16_t    num;
-    SP_Anim**   animSet;
-};
 
 /*---LOCAL FUNCTIONS DECLARATION---*/
 
@@ -128,6 +67,31 @@ static void L_animSpriteSheetTypeWrite(FILE *src, FILE *dst, char* folder);
 static void L_animPictureTypeWrite(char* fileName, FILE* dst);
 static void L_animViewTypeWrite(FILE *src, FILE *dst);
 static uint16_t L_animSPViewStringToValue(char* mode);
+
+
+void SP_viewDump(SP_View* view)
+{
+    printf("picn num = %d\n picTime = %d\n restart = %d\n stop = %d\n mode = %d\n",
+        view->picNum, view->picTime, view->restart, view->stop, view->mode);
+
+
+}
+
+void SP_animDump(SP_Anim* anim)
+{
+    printf("spritesheet at %p\n", anim->sheet);
+
+    for(int view = 0; view<=1; view++)
+    {
+        printf("For %s : %d views\n", view? "XVIEW" : "NVIEW", anim->viewNum[view]);
+        for(int i=0; i<anim->viewNum[view]; i++)
+        {
+            printf("View num %d\n", i);
+            SP_viewDump(&anim->view[view][i]);
+
+        }
+    }
+}
 
 
 /*------- USER END FUNCTIONS  ---------*/
@@ -244,6 +208,45 @@ void SP_animQuery(SP_Anim *anim, uint16_t* nView, uint16_t* xView)
 
 /*-- animation set functions--*/
 
+SP_Anim* SP_AnimLoad(const char* fileName)
+{
+
+
+    SP_AnimList* srcList = SP_animListLoad(fileName);
+
+    if(srcList->num > 1)
+    {
+        fprintf(stderr, "Err at %s / %d : fil contains multiple animations.\n", __FUNCTION__, __LINE__ );
+        SP_animListFree(srcList, 1);
+        return NULL;
+    }
+
+    SP_Anim *dst = malloc(sizeof(SP_Anim)),
+            *src = NULL;
+
+    if(IS_NULL(srcList))
+    {
+        fprintf(stderr, "Err at %s / %d : SrcList load failed.\n", __FUNCTION__, __LINE__ );
+        exit(-1);
+    }
+
+    dst = SP_animListGetIndex(srcList ,0);
+/*
+    puts("dumping src");
+    SP_animDump(SP_animListGetIndex(srcList ,0));
+    puts("dumping dst");
+    SP_animDump(dst);*/
+
+    free(srcList);
+/*
+    puts("dumping dst after free");
+    SP_animDump(dst);*/
+
+    //exit(0);
+
+    return dst;
+}
+
 
 SP_AnimList* SP_animListLoad(const char* fileName)
 {//loads animation set
@@ -350,7 +353,7 @@ err_1 :
 
 
 uint16_t SP_animListNum(SP_AnimList *set)
-{/*number of animation instance held*/
+{/*number of animation instance helds*/
 
     return set->num;
 }
@@ -360,9 +363,9 @@ SP_Anim* SP_animListGetIndex(SP_AnimList *set, unsigned int index)
 {/*fetches an anim instance*/
 
     if(index >= set->num)
-        return NULL;
-    else
-        return set->animSet[index];
+        index = 0;
+
+    return set->animSet[index];
 }
 
 
@@ -426,7 +429,7 @@ void SP_viewClip(SP_Anim* anim, uint8_t viewType, uint16_t viewIndex, SDL_Rect* 
 }
 
 
-void SP_hitBoxSet(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox)
+void SP_viewHitBox(SP_Anim* anim, uint16_t viewIndex, SDL_Rect* hbox)
 {//sets hitbox
     anim->view[SP_NVIEW][viewIndex].rect[SP_HBOX] = *hbox;
 }
@@ -508,7 +511,6 @@ double SP_spriteScaleGet(SP_Sprite* sprite)
 }
 
 
-
 void SP_spriteAnim(SP_Sprite* sprite)
 {//animation management // Ex L_animAuto()
 
@@ -539,7 +541,7 @@ void SP_spriteBlitEx(SP_Sprite* sprite, SDL_Renderer* dst, const SDL_Point* pos,
 
 
 void SP_spriteBlit(SP_Sprite* sprite, SDL_Renderer* dst, const SDL_Point* pos)
-{//blit animation
+{//blit animation & blit
 
     SDL_Rect scaledPos,
              clipPos;
@@ -569,6 +571,41 @@ SDL_Rect* SP_clipGet(SP_Sprite* sprite, uint8_t viewType)
         return &sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP];
     else
         return NULL;
+}
+
+
+SDL_Rect SP_sheetHBoxGet(SP_Sprite* sprite, SDL_RendererFlip flip)
+{//return hbox position on spritesheet
+
+    SDL_Rect box  = sprite->anim->view[SP_NVIEW][sprite->viewAct[SP_NVIEW]].rect[SP_HBOX],
+             clip = sprite->anim->view[SP_NVIEW][sprite->viewAct[SP_NVIEW]].rect[SP_CLIP],
+             result = box;
+
+/*
+    box.x *= sprite->scale;
+    box.y *= sprite->scale;
+    result.w = box.w *= sprite->scale;
+    result.h = box.h *= sprite->scale;
+*/
+    int leftX,
+        topY;
+
+    //L_animScalePos(sprite->scale, clip, pos, &clip);
+/*
+    if(flip & SDL_FLIP_HORIZONTAL)
+        leftX = clip.w - box.x - box.w;
+    else*/
+        leftX = box.x;
+/*
+    if(flip & SDL_FLIP_VERTICAL)
+        topY = clip.h - box.y - box.h;
+    else*/
+        topY = box.y;
+
+    result.x = clip.x + leftX + ((unsigned)sprite->picAct[SP_NVIEW] * clip.w);
+    result.y = clip.y + topY;
+
+    return result;
 }
 
 
@@ -983,9 +1020,8 @@ static void L_animScalePos(double scale, SDL_Rect clip, const SDL_Point display,
 
      result->w = clip.w * scale;
      result->h = clip.h * scale;
-     result->x = display.x-(result->w/2);
-     result->y = display.y-(result->h/2);
-
+     result->x = display.x - (result->w/2);
+     result->y = display.y - (result->h/2);
 }
 
 

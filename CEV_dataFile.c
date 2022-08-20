@@ -10,7 +10,8 @@
 //**   CEV    |  01-2020      |   1.0.4  | weather added  **/
 //**********************************************************/
 //- CEV 2021 05 20- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
-//- CEV 2022 03 02- CEV_capsuleRead() secured / returns readWriteErr
+//- CEV 2022 07 24- Added Capsule functions set
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,6 +58,9 @@ static SP_AnimList* L_capsuleToAnimSet(CEV_Capsule* caps);
 
 /*ram to tile map*/
 static CEV_TileMap* L_capsuleToMap(CEV_Capsule* caps);
+
+/*ram to text scroller*/
+static CEV_ScrollText* L_capsuleToScroll(CEV_Capsule* caps);
 
 /*ram to parallax background*/
 static CEV_Parallax* L_capsuleToParallax(CEV_Capsule* caps);
@@ -126,7 +130,7 @@ void* CEV_anyFetch(unsigned int index, FILE* src)
 
         break;
 
-        case IS_TXT : //returns CEV_Text ptr
+        case IS_DTX : //returns CEV_Text ptr
             returnVal = L_capsuleToTxt(&lCaps);
             CEV_capsuleClear(&lCaps);
         break;
@@ -167,7 +171,7 @@ void* CEV_anyFetch(unsigned int index, FILE* src)
 
             CEV_capsuleClear(&lCaps);//unused to extract scroll
             L_gotoAndDiscard(index, src);
-            returnVal = CEV_scrollLoadf(src);//extraction reads file directly
+            returnVal = CEV_scrollTypeRead(src);//extraction reads file directly
 
         break;
 
@@ -237,7 +241,7 @@ int CEV_capsuleFetch(unsigned int index, FILE* src, CEV_Capsule* dst)
 
 
 int CEV_capsuleLoad(CEV_Capsule* caps, const char* fileName)
-{/*fills Capsule from file*/
+{//fills Capsule from file
 
     FILE* file  = NULL;
     readWriteErr = 0;
@@ -289,7 +293,7 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
 
         break;
 
-        case IS_TXT : //returns CEV_Text ptr
+        case IS_DTX : //returns CEV_Text ptr
             returnVal = L_capsuleToTxt(caps);
         break;
 
@@ -319,12 +323,11 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
             L_gotoAndDiscard(index, file);
             returnVal = CEV_menuLoadf(file);//returns menu ptr
         break;
-
-        case IS_SCROLL :
-            L_gotoAndDiscard(index, file);
-            returnVal = CEV_scrollLoadf(file);//extraction reads file directly
-        break;
 */
+        case IS_SCROLL :
+            returnVal = L_capsuleToScroll(caps);//extraction reads file directly
+        break;
+
         case IS_MAP :
             returnVal = L_capsuleToMap(caps);
         break;
@@ -556,7 +559,7 @@ CEV_Text* CEV_textFetch(unsigned int index, const char* fileName)
     if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
        goto err_2;
 
-    if(lCaps.type == IS_TXT)
+    if(lCaps.type == IS_DTX)
         result = L_capsuleToTxt(&lCaps);
 
     else
@@ -578,15 +581,11 @@ err_1 :
 /*----TTF_Font from compiled file----*/
 
 CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
-{/*fetch font in compiled data file and fills lCaps*/
-
-    /*---DECLARATIONS---*/
+{//fetch font in compiled data file and fills lCaps
 
     CEV_Font* font       = NULL;
     FILE* file           = NULL;
     CEV_Capsule lCaps = {.type = 0, .size = 0, .data = NULL};
-
-        /*---PRL---*/
 
     if (fileName == NULL)
         return NULL;
@@ -599,8 +598,6 @@ CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
         goto end;
     }
 
-    /*---EXECUTION---*/
-
     if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
         goto err_1;
 
@@ -608,8 +605,6 @@ CEV_Font* CEV_fontFetch(unsigned int index, const char* fileName)
         font = L_capsuleToFont(&lCaps);
     else
         fprintf(stderr, "Err at %s / %d : index provided is not font.\n", __FUNCTION__, __LINE__);
-
-    /*---POST---*/
 
     CEV_capsuleClear(&lCaps);
 
@@ -670,7 +665,7 @@ end :
 
 /*---MUSIC from compiled file---*/
 
-CEV_Music *CEV_musicFetch(unsigned int index, const char* fileName)
+CEV_Music* CEV_musicFetch(unsigned int index, const char* fileName)
 {/*fetch data index as Mix_Music in compiled file T*/
 
      /*---DECLARATIONS---*/
@@ -815,59 +810,48 @@ end :
 
 /*----Scroll fetch----*/
 
-CEV_ScrollText *CEV_scrollFetch(unsigned int index, char* fileName)
-{/*fetch scroll text in compiled data file**/
-
-    /*---DECLARATIONS---*/
+CEV_ScrollText* CEV_scrollFetch(unsigned int index, char* fileName)
+{//fetches scroll text in compiled data file
 
     FILE            *file   = NULL;
     CEV_ScrollText  *result = NULL;
     CEV_Capsule    lCaps = {.data = NULL};
 
-    /*---PRL---*/
-
     if(fileName == NULL)
     {//bad arg
         fprintf(stderr, "Err at %s / %d : fileName arg is NULL.\n", __FUNCTION__, __LINE__);
-        goto exit;
+        goto end;
     }
 
-    /**openning file*/
+    //openning file
     file = fopen(fileName, "rb");
 
     if(file == NULL)
     {//bad arg
         fprintf(stderr, "Err at %s / %d : unable to open file %s : %s.\n", __FUNCTION__, __LINE__, fileName, strerror(errno));
-        goto exit;
+        goto end;
     }
 
-    /*---EXECUTION---*/
-
-    L_gotoDataIndex(index, file);
-
-    lCaps.type = read_u32le(file);//just to check
-    lCaps.size = read_u32le(file);//useless but has to be read
+    if (L_capsuleReadIndex(index, &lCaps, file) != FUNC_OK)
+        goto end;
 
     if(lCaps.type != IS_SCROLL)
     {
         fprintf(stderr, "Err at %s / %d : index provided is not scroll.\n", __FUNCTION__, __LINE__);
-        goto exit;
+        goto end;
     }
 
-    result = CEV_scrollLoadf(file);
+    result = L_capsuleToScroll(&lCaps);
 
     if(!result)
     {
         fprintf(stderr, "Err at %s / %d : unable to create scroll.\n", __FUNCTION__, __LINE__);
-        goto exit;
     }
 
-    /*---POST---*/
+end:
 
-exit :
-
-    if(file)
-        fclose(file);
+    CEV_capsuleClear(&lCaps);
+    fclose(file);
 
     return result;
 }
@@ -875,7 +859,7 @@ exit :
 
 /*-----menu fetch-----*/
 
-CEV_Menu *CEV_menuFetch(int index, char* fileName)
+CEV_Menu* CEV_menuFetch(int index, char* fileName)
 {/*fetch menu in compiled data file**/
 
     /*---DECLARATIONS---*/
@@ -916,7 +900,7 @@ end :
 
 /*---- map fetch ----*/
 
-CEV_TileMap *CEV_mapFetch(int index, char* fileName)
+CEV_TileMap* CEV_mapFetch(int index, char* fileName)
 {/*fetch tile map in compressed data file*/
 
     /*---DECLARATIONS---*/
@@ -987,7 +971,7 @@ exit :
 
 /*----background parallax fetch ----*/
 
-CEV_Parallax *CEV_parallaxFetch(int index, char* fileName)
+CEV_Parallax* CEV_parallaxFetch(int index, char* fileName)
 {/*fetch parallax background in compressed data file*/
     /*---DECLARATIONS---*/
 
@@ -1056,7 +1040,7 @@ exit :
 
 /*----weather fetch----*/
 
-CEV_Weather *CEV_weatherFetch(int index, char* fileName)
+CEV_Weather* CEV_weatherFetch(int index, char* fileName)
 {/*fetch weather in compressed data file*/
     /*---DECLARATIONS---*/
 
@@ -1136,18 +1120,25 @@ void CEV_capsuleWrite(CEV_Capsule* caps, FILE* dst)
 }
 
 
-int CEV_capsuleRead(FILE* src, CEV_Capsule* dst)
+void CEV_capsuleRead(FILE* src, CEV_Capsule* dst)
 {/*reads capsule from file*/
-
-    readWriteErr = 0;
 
     dst->type   = read_u32le(src);
     dst->size   = read_u32le(src);
 
     if(!readWriteErr)
         L_capsuleDataRead(src, dst);//allocs & fills data field
+}
 
-    return readWriteErr;
+
+void CEV_capsuleWrite_RW(CEV_Capsule* src, SDL_RWops* dst)
+{/*writes capsule into RWops*/
+
+    readWriteErr += SDL_WriteLE32(dst, src->type);
+    readWriteErr += SDL_WriteLE32(dst, src->size);
+
+    if(SDL_RWwrite(dst, src->data, 1, src->size) != src->size)
+        readWriteErr++;
 }
 
 
@@ -1163,6 +1154,9 @@ void CEV_capsuleRead_RW(SDL_RWops* src, CEV_Capsule* dst)
 
 void CEV_capsuleClear(CEV_Capsule* caps)
 {/*clears fileinfo content*/
+
+    if(IS_NULL(caps))
+        return;
 
     free(caps->data);
     caps->data = NULL;
@@ -1208,7 +1202,7 @@ int CEV_fileToType(char* fileName)
 }
 
 //attributes extension
-char* CEV_fileTypeToExt(FILE_TYPE type)
+char* CEV_fileTypeToExt(int type)
 {
     char *extList[FILE_TYPE_NUM] = FILE_TYPE_LIST;
 
@@ -1224,11 +1218,7 @@ char* CEV_fileTypeToExt(FILE_TYPE type)
 static CEV_Text* L_capsuleToTxt(CEV_Capsule* caps)
 {/**create table of pointers to lines*/
 
-    /*---DECLARATIONS---*/
-
-    CEV_Text    *result = NULL;
-
-    /*---PRL---*/
+    CEV_Text* result = NULL;
 
     if (caps==NULL || caps->size<=0 || caps->data==NULL)
     {//bad arg
@@ -1236,14 +1226,15 @@ static CEV_Text* L_capsuleToTxt(CEV_Capsule* caps)
         return NULL;
     }
 
-    /*---EXECUTION---*/
+    SDL_RWops* vFile = SDL_RWFromConstMem(caps->data, caps->size);
 
-    result = CEV_textLoad_RW(SDL_RWFromConstMem(caps->data, caps->size), 1);
+    if(IS_NULL(vFile))
+    {
+        fprintf(stderr, "Err at %s / %d :   .\n", __FUNCTION__, __LINE__ );
+        return NULL;
+    }
 
-    /*---POST---*/
-
-    //free(caps->data);
-    //caps->data = NULL;
+    result = CEV_textLoad_RW(vFile, 1);
 
     return(result);
 }
@@ -1272,9 +1263,6 @@ static SDL_Texture *L_capsuleToPic(CEV_Capsule* caps)
     }
 
     /*---POST---*/
-
-    //free(caps->data);
-    //caps->data = NULL;
 
     return pic;
 }
@@ -1541,44 +1529,40 @@ static CEV_TileMap* L_capsuleToMap(CEV_Capsule* caps)
 }
 
 
-static CEV_Parallax* L_capsuleToParallax(CEV_Capsule* caps)
-{/*convert to parallax*/
+static CEV_ScrollText* L_capsuleToScroll(CEV_Capsule* caps)
+{
+    CEV_ScrollText* result = CEV_scrollLoad_RW(SDL_RWFromConstMem(caps->data, caps->size), 1);
 
-    /*---DECLARATIONS---*/
+    if(IS_NULL(result))
+        fprintf(stderr, "Err at %s / %d : unable to create text scroll.\n", __FUNCTION__, __LINE__ );
+
+    return result;
+}
+
+
+static CEV_Parallax* L_capsuleToParallax(CEV_Capsule* caps)
+{//convert to parallax
 
     CEV_Parallax *bckgd = NULL;
 
-    /*---EXECUTION---*/
-
     bckgd = CEV_parallaxLoad_RW(SDL_RWFromConstMem(caps->data, caps->size), 1);
 
-    if ( bckgd == NULL)
+    if (bckgd == NULL)
         fprintf(stderr, "Err at %s / %d : unable to create parallax.\n", __FUNCTION__, __LINE__);
-
-    /*---POST---*/
-
-    //free(caps->data);
-    //caps->data = NULL;
 
     return  bckgd;
 }
 
 
 static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps)
-{/*convert to weather*/
-        /*---DECLARATIONS---*/
+{//convert to weather
+
     CEV_Weather *result = NULL;
 
-        /*---EXECUTION---*/
     result = CEV_weatherLoad_RW(SDL_RWFromConstMem(caps->data, caps->size), 1);
 
     if (IS_NULL(result))
         fprintf(stderr, "Err at %s / %d : unable to create weather.\n", __FUNCTION__, __LINE__);
-
-    /*---POST---*/
-
-    //free(caps->data);
-    //caps->data = NULL;
 
     return  result;
 }
@@ -1603,8 +1587,8 @@ static int L_capsuleReadIndex(unsigned int index, CEV_Capsule* caps, FILE* file)
 
     /*---EXECUTION---*/
 
-    L_gotoDataIndex(index, file);         //goto data offset
-    CEV_capsuleRead(file, caps); //fills caps
+    L_gotoDataIndex(index, file);   //goto data offset
+    CEV_capsuleRead(file, caps);    //fills caps
 
     if (readWriteErr)
     {/*on error*/
@@ -1619,13 +1603,11 @@ static int L_capsuleReadIndex(unsigned int index, CEV_Capsule* caps, FILE* file)
 
 
 static size_t L_gotoDataIndex(unsigned int index, FILE* file)
-{/*goes to index in file*/
+{//goes to index in file
 
-    size_t offset=0;
+    fseek(file, index * sizeof(uint32_t), SEEK_SET);
 
-    fseek(file, index*sizeof(uint32_t), SEEK_SET);
-
-    offset = read_u32le(file);
+    size_t offset = read_u32le(file);
 
     fseek(file, offset, SEEK_SET);
 
@@ -1634,16 +1616,12 @@ static size_t L_gotoDataIndex(unsigned int index, FILE* file)
 
 
 static void L_capsuleDataRead(FILE* src, CEV_Capsule* dst)
-{/*fills and allocate caps->data*//**1.0**/
-
-    /*---PRL---*/
+{//fills and allocate caps->data 1.0
 
     if(dst==NULL || src==NULL)
         readWriteErr++;
 
     dst->data = malloc(dst->size);
-
-    /*---EXECUTION---*/
 
     if (dst->data == NULL)
     {
@@ -1660,16 +1638,12 @@ static void L_capsuleDataRead(FILE* src, CEV_Capsule* dst)
 
 
 static void L_capsuleDataRead_RW(SDL_RWops* src, CEV_Capsule* dst)
-{/*fills and allocate dst->data*//**1.0**/
-
-    /*---PRL---*/
+{//fills and allocate dst->data 1.0
 
     if(dst==NULL || src==NULL)
         readWriteErr++;
 
     dst->data = malloc(dst->size);
-
-    /*---EXECUTION---*/
 
     if (dst->data == NULL)
     {
@@ -1688,13 +1662,15 @@ static void L_capsuleDataRead_RW(SDL_RWops* src, CEV_Capsule* dst)
 static size_t L_fileSize(FILE* file)
 {/*size of a file*/
 
+    //recording pos
     long pos = ftell(file),
          size = 0;
 
+    //getting file size
     fseek(file, 0, SEEK_END);
-
     size = ftell(file);
 
+    //back to recorded pos
     fseek(file, pos, SEEK_SET);
 
     return(size);

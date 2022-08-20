@@ -16,7 +16,6 @@ int CEV_fileNumOfLine(FILE *file);
 /** \brief sets file's cursor at begin of line line.
  *
  * \param line : which line to reach.
- * \param file : which file to work on.
  *
  * \return true on success, false otherwise.
  */
@@ -26,8 +25,7 @@ bool CEV_fileGotoLine(int line, FILE* file);
 /** \brief sets file's cursor after nums separator.
  *
  * \param num : num of separator to pass.
- * \param file : file to work on.
- * \param separator : separator identifier.
+ * \param seprator : separator identifier.
  *
  * \return true on success, false otherwise.
  */

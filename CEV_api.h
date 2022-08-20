@@ -39,12 +39,12 @@
  #define IS_NULL(x) (NULL == (x))
 #endif // IS_NULL
 
+#ifndef NOT_NULL
+ #define NOT_NULL(x) (NULL != (x))
+#endif // NOT_NULL
 
-#define CLEAR_POINT     (SDL_Point){.x = 0, .y = 0}
-#define CLEAR_ICOORD    (CEV_Icoord){.x = 0, .y = 0, .z = 0}
-#define CLEAR_FCOORD    (CEV_Fcoord){.x = 0.0, .y = 0.0, .z = 0.0}
-#define CLEAR_RECT      (SDL_Rect){.x = 0, .y = 0, .w = 0, .h = 0}
-#define CLEAR_EDGE      (CEV_Edge){.value = false, .memo = false, .re = false, .fe = false, .any = false .out = false}
+
+
 
 #define CEV_X 0
 #define CEV_Y 1
@@ -94,6 +94,12 @@ typedef struct CEV_Edge
             out;    /**< functions result / compatibiliy */
 }
 CEV_Edge;
+
+#define CLEAR_POINT     (SDL_Point){.x = 0, .y = 0}
+#define CLEAR_ICOORD    (CEV_ICoord){.x = 0, .y = 0, .z = 0}
+#define CLEAR_FCOORD    (CEV_FCoord){.x = 0.0, .y = 0.0, .z = 0.0}
+#define CLEAR_RECT      (SDL_Rect){.x = 0, .y = 0, .w = 0, .h = 0}
+#define CLEAR_EDGE      (CEV_Edge){.value = false, .memo = false, .re = false, .fe = false, .any = false .out = false}
 
 
 /**miscellanous**/
@@ -810,6 +816,16 @@ SDL_Rect* CEV_fcoordToRectPos(CEV_FCoord src, SDL_Rect* dst);
 SDL_Rect* CEV_rectDimCopy(SDL_Rect src, SDL_Rect* dst);
 
 
+/** \brief Copies only pos members.
+ *
+ * \param src : SDL_Rect to read x,y from.
+ * \param dst : SDL_Rect* to write x,y into.
+ *
+ * \return SDL_Rect* dst.
+ */
+SDL_Rect* CEV_rectPosCopy(SDL_Rect src, SDL_Rect* dst);
+
+
 /** \brief rect x,y corrected to stay within border.
  *
  * \param rect : SDL_Rect* to be corrected.
@@ -840,6 +856,16 @@ void CEV_pointRectConstraint(SDL_Point *point, SDL_Rect *rect, int w, int h);
  * \return SDL_Rect* on itself, resized.
  */
 SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale);
+
+
+/** \brief Fits / centers src within into
+ *
+ * \param src : SDL_Rect* to be fit.
+ * \param into : SDL_Rect* as container of src.
+ *
+ * \return SDL_Rect as src result.
+ */
+SDL_Rect CEV_rectFitScaledInRect(SDL_Rect *src, SDL_Rect into);
 
 
 /** \brief  sums 2 SDL_Rect.

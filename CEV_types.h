@@ -5,6 +5,33 @@
 #include <SDL_ttf.h>
 
 
+#define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
+#define FILE_TYPE_NUM 16
+#define FILE_TYPE_LIST {"default", "dat", "dxt", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr"}
+
+
+/** \brief defines file type
+ */
+typedef enum FILE_TYPE
+{IS_DEFAULT = 0,    //unknow / undefined
+  IS_DAT    = 1,    //any data  .dat
+  IS_DTX    = 2,    //CEV_Text  .dxt
+  IS_BMP    = 3,    //bmp       .bmp
+  IS_PNG    = 4,    //png       .png
+  IS_JPG    = 5,    //jpg       .jpg
+  IS_GIF    = 6,    //gif       .gif
+  IS_WAV    = 7,    //wave      .wav
+  IS_FONT   = 8,    //font.ttf  .ttf
+  IS_SPS    = 9,    //animation .sps
+  IS_MENU   = 10,   //menu      .men
+  IS_SCROLL = 11,   //scroller  .scl
+  IS_MAP    = 12,   //map       .map
+  IS_MUSIC  = 13,   //mp3       .mp3
+  IS_PLX    = 14,   //parallax  .plx
+  IS_WTHR   = 15    //weather   .wtr
+}FILE_TYPE;
+
+
 /** \brief File encapsulation
  */
 typedef struct CEV_Capsule
@@ -40,10 +67,10 @@ CEV_Chunk;
 
 
 /** \brief Mix music overlay
+ *  \note music overlay to keep track of allocated data ptr
  */
 typedef struct CEV_Music
-{/**music overlay to keep track of allocated data ptr*/
-
+{
     Mix_Music* music;   /**< Actual Mix_Music */
     void *virtualFile;  /**< Music raw data */
 }
@@ -80,12 +107,12 @@ void CEV_musicClose(CEV_Music* music);
 /** \brief Copies Texture into surface.
  *
  * \param src : SDL_Texture* to copy.
+ * \param ptr : filled with data filed ptr to store Surface pixel filed.
  *
  * \return SDL_Surface* as result, NULL on failure.
  *
  */
-SDL_Surface* CEV_textureToSurface(SDL_Texture* src);
-
+SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr);
 
 
 /** \brief Saves texture as png file.
@@ -118,5 +145,27 @@ int CEV_textureSavePNG_RW(SDL_Texture *src, SDL_RWops* dst);
  */
 int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst);
 
+
+/** \brief Gets texture dimension as SDL_Rect.
+ *
+ * \param src : SDL_Texture* to fetch dimensions from.
+ *
+ * \return SDL_Rect filled with dimensions.
+ * \note x,y set to 0.
+ */
+SDL_Rect CEV_textureDimGet(SDL_Texture* src);
+
+
+/** \brief BLits surface onto texture.
+ *
+ * \param src : SDL_Surface* as surface to read.
+ * \param dst : SDL_Texture* to blit onto.
+ * \param srcRect : SDL_Rect* src rect as clip.
+ * \param dstRect : SDL_Rect* dst rect as blit position.
+ *
+ * \return int of standard function status.
+ *
+ */
+int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRect, SDL_Rect* dstRect);
 
 #endif // CEV_TYPES_H_INCLUDED

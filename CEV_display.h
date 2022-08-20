@@ -31,21 +31,6 @@ extern "C" {
 
 
 
-
-typedef struct CEV_Zoom
-{
-    char        enable;
-
-    float       scaleMax,
-                scaleAct,
-                step;
-    SDL_Rect    pos;
-}
-CEV_Zoom;
-
-
-
-
 /*affichage des textes du menu**/
 //int dispMenu(CEV_Menu *menu, SDL_Rect* mseBox);
 /*
@@ -79,13 +64,14 @@ int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point poi
  * \param text : text to be displayed.
  * \param font : TTF_Font* to be applied.
  * \param colour : SDL_Color to be applied.
- * \param point : blit position.
- * \param mode : display align mode relative to point.
+ * \param x : horizontal position.
+ * \param y : vertical position.
+ * \param mode : display align mode.
  * \param ratio : ratio of FONT_MAX.
  *
  * \return one of function status
  */
- int CEV_dispText(const char *text, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio);
+ int CEV_dispText(const char *text,TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio);
 
 
 /** \brief display simple warning box
@@ -166,11 +152,11 @@ void CEV_renderColorSet(SDL_Renderer* render, SDL_Color color);
 /**adjusts display position*/
 void CEV_dispBlitPos(SDL_Rect* pos, SDL_Point point, int mode, float ratio);
 
-CEV_Zoom CEV_zoomInit(int baseW, int baseH, float scaleMax, float step);
+//CEV_Zoom CEV_zoomInit(int baseW, int baseH, float scaleMax, float step);
 
-SDL_Rect CEV_zoomOnCoord(CEV_Zoom *zoom, SDL_Point point);
+//SDL_Rect CEV_zoomOnCoord(CEV_Zoom *zoom, SDL_Point point);
 
-void CEV_zoomUpdate(CEV_Zoom *zoom);
+//void CEV_zoomScaleUpdate(CEV_Zoom *zoom);
 
 //SDL_Surface* switchFullScreen();
 /**fullscreen ou pas...**/
