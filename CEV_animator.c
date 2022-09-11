@@ -211,7 +211,6 @@ void SP_animQuery(SP_Anim *anim, uint16_t* nView, uint16_t* xView)
 SP_Anim* SP_AnimLoad(const char* fileName)
 {
 
-
     SP_AnimList* srcList = SP_animListLoad(fileName);
 
     if(srcList->num > 1)

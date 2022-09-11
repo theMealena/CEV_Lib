@@ -6,7 +6,7 @@
 //**   CEV    |    05-2019    |   2.1    |functions added **/
 //**   CEV    |    04-2020    |   2.1    |    revision    **/
 //**********************************************************/
-
+//CEV 2022/08/21 hotfix CEV_rectFitScaledInRect corrected
 
 #include <stdlib.h>
 #include <math.h>
@@ -832,17 +832,7 @@ SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale)
 SDL_Rect CEV_rectFitScaledInRect(SDL_Rect *src, SDL_Rect into)
 {//modify src to fit into into keeping aspect ratio
 
-    if(src->w > into.w)
-    {
-        src->h *= (float)into.w / src->w;
-        src->w = into.w;
-    }
-
-    if(src->h > into.h)
-    {
-        src->w *= (float)into.h / src->h;
-        src->h = into.h;
-    }
+    CEV_rectDimScale(src, MIN((float)into.h/src->h, (float)into.w/src->w));
 
     if(src->w < into.w)
         src->x = into.x + (into.w - src->w)/2;

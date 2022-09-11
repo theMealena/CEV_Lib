@@ -6,8 +6,8 @@
 
 
 #define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
-#define FILE_TYPE_NUM 16
-#define FILE_TYPE_LIST {"default", "dat", "dxt", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr"}
+#define FILE_TYPE_NUM 17
+#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt"}
 
 
 /** \brief defines file type
@@ -15,7 +15,7 @@
 typedef enum FILE_TYPE
 {IS_DEFAULT = 0,    //unknow / undefined
   IS_DAT    = 1,    //any data  .dat
-  IS_DTX    = 2,    //CEV_Text  .dxt
+  IS_DTX    = 2,    //CEV_Text  .dtx
   IS_BMP    = 3,    //bmp       .bmp
   IS_PNG    = 4,    //png       .png
   IS_JPG    = 5,    //jpg       .jpg
@@ -28,7 +28,8 @@ typedef enum FILE_TYPE
   IS_MAP    = 12,   //map       .map
   IS_MUSIC  = 13,   //mp3       .mp3
   IS_PLX    = 14,   //parallax  .plx
-  IS_WTHR   = 15    //weather   .wtr
+  IS_WTHR   = 15,   //weather   .wtr
+  IS_TXT    = 16    //text file .txt
 }FILE_TYPE;
 
 
@@ -107,10 +108,11 @@ void CEV_musicClose(CEV_Music* music);
 /** \brief Copies Texture into surface.
  *
  * \param src : SDL_Texture* to copy.
- * \param ptr : filled with data filed ptr to store Surface pixel filed.
+ * \param ptr : filled with Surface's pixel data.
  *
  * \return SDL_Surface* as result, NULL on failure.
  *
+ * \note ptr content is to be freed after Surface is freed.
  */
 SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr);
 

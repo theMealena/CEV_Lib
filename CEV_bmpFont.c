@@ -6,7 +6,7 @@
 #include <SDL.h>
 #include "CEV_api.h"
 #include "CEV_bmpFont.h"
-#include "CEV_blit.h"
+#include "CEV_types.h"
 
 
 
@@ -120,7 +120,7 @@ int CEV_bmpFontDispValue(CEV_BmpFont* font, SDL_Texture* dst, int value, SDL_Rec
 
 
 int CEV_bmpFontDispText(CEV_BmpFont* font, SDL_Texture* dst, const char* text, SDL_Rect pos)
-{//displays text
+{//displays text// TODO (drx#1#): erreur texture / surface
 
     if(IS_NULL(font))
     {
@@ -148,7 +148,7 @@ int CEV_bmpFontDispText(CEV_BmpFont* font, SDL_Texture* dst, const char* text, S
     while(text[index] != '\0')
     {
         clip.x = (toupper(text[index++]) - ' ') * clip.w;
-        CEV_blitSurfaceToTexture(font->font, &clip, dst, &pos);
+        CEV_blitSurfaceToTexture(font->font, dst, &clip, &pos);
         pos.x += clip.w;
     }
 

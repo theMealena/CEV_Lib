@@ -279,6 +279,9 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
                 //offset = camera.y * thisLayer->axisPar[1].ratio;
                 blitPos.y = -camera.y * thisLayer->axisPar[1].ratio;
             break;
+
+            case PRLX_CENTERED :
+            break;
         }
     }
 

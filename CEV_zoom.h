@@ -31,7 +31,7 @@ enum {ZOOM_NONE, ZOOM_IN, ZOOM_OUT};
  *
  * \return N/A.
  */
-CEV_zoomDump(CEV_Zoom src);
+void CEV_zoomDump(CEV_Zoom src);
 
 
 /** \brief Initialize zoom parameters

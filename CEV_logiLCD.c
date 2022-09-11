@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <errno.h>
 #include <wchar.h>
-#include "REV_logiLCD.h"
+#include "CEV_logiLCD.h"
 #include <LogitechLCDLib.h>
-#include "CEV_Lib/CEV_dataFile.h"
-#include "CEV_Lib/CEV_mixSystem.h"
+#include "CEV_dataFile.h"
+#include "CEV_mixSystem.h"
 
 
 /*---LOCAL FUNCTIONS DECLARATION---*/

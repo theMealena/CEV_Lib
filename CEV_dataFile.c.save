@@ -478,9 +478,9 @@ SDL_Texture* CEV_textureFetch(unsigned int index, const char* fileName)
 
      /*---DECLARATIONS---*/
 
-    SDL_Texture* texture    = NULL;
-    CEV_Capsule lCaps       = {.type = 0, .size = 0, .data = NULL};
-    FILE* file              = NULL;
+    SDL_Texture     *texture = NULL;
+    CEV_Capsule    lCaps  = {.type = 0, .size = 0, .data = NULL};
+    FILE            *file    = NULL;
 
     /*---PRELIMINAIRE---*/
 
@@ -1259,7 +1259,7 @@ static SDL_Texture* L_capsuleToPic(CEV_Capsule* caps)
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
-
+    
     SDL_Renderer* render    = CEV_videoSystemGet()->render;
     SDL_Texture* pic        = IMG_LoadTexture_RW(render, vFile, 1);//closes rwops
 
@@ -1288,7 +1288,7 @@ static CEV_GifAnim *L_capsuleToGif(CEV_Capsule* caps)
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
-
+    
     SDL_Renderer* render    = CEV_videoSystemGet()->render;
     CEV_GifAnim* result     = CEV_gifAnimLoadRW(vFile, render, 1); //closes rwops
 
@@ -1310,7 +1310,7 @@ static CEV_Chunk* L_capsuleToWav(CEV_Capsule* caps)
 
     SDL_RWops* vFile = SDL_RWFromMem(caps->data, caps->size);
 
-    if (IS_NULL(vFile))//MIX does not check SDL_RWops* != NULL better do it myself*/
+    if (IS_NULL(vFil))//MIX does not check SDL_RWops* != NULL better do it myself*/
     {
         fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
@@ -1487,7 +1487,7 @@ static CEV_TileMap* L_capsuleToMap(CEV_Capsule* caps)
 
 static CEV_ScrollText* L_capsuleToScroll(CEV_Capsule* caps)
 {//converts to scroller
-
+    
     if (IS_NULL(caps) || (caps->size <= 0) || IS_NULL(caps->data))
     {//bad arg
         fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
@@ -1501,7 +1501,7 @@ static CEV_ScrollText* L_capsuleToScroll(CEV_Capsule* caps)
         fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
-
+    
     CEV_ScrollText* result = CEV_scrollLoad_RW(vFile, 1);
 
     if(IS_NULL(result))
@@ -1540,26 +1540,14 @@ static CEV_Parallax* L_capsuleToParallax(CEV_Capsule* caps)
 static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps)
 {//converts to weather
 
-    if (IS_NULL(caps) || (caps->size <= 0) || IS_NULL(caps->data))
-    {//bad arg
-        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
-        return NULL;
-    }
+    CEV_Weather *result = NULL;
 
-    SDL_RWops* vFile = SDL_RWFromMem(caps->data, caps->size);
-
-    if (IS_NULL(vFile))
-    {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
-        return NULL;
-    }
-
-    CEV_Weather* result = CEV_weatherLoad_RW(vFile, 1);
+    result = CEV_weatherLoad_RW(SDL_RWFromConstMem(caps->data, caps->size), 1);
 
     if (IS_NULL(result))
         fprintf(stderr, "Err at %s / %d : unable to create weather.\n", __FUNCTION__, __LINE__);
 
-    return result;
+    return  result;
 }
 
 

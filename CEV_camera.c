@@ -14,7 +14,7 @@
 #include <CEV_mixSystem.h>
 #include <CEV_api.h>
 #include <rwtypes.h>
-#include "camera.h"
+#include "CEV_camera.h"
 
 //reads camera from virtual file
 static int L_cameraTypeRead_RW(SDL_RWops* src, CEV_Camera *dst);

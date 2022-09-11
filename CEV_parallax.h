@@ -48,17 +48,18 @@ couche [N] :	float	ratio X
                 Capsule image
 -----------------------------------------------------------------------------------------------
 
-Layer index 0 is the farmost layer.
+Layer index 0 is the farmost layer as in blit order.
 */
+
 
 enum
 {
-    PRLX_AUTO,
-    PRLX_CENTERED,
-    PRLX_LEFT,
-    PRLX_RIGHT,
-    PRLX_TOP,
-    PRLX_BOTTOM
+    PRLX_AUTO,      /**< Automatically handles background positioning */
+    PRLX_CENTERED,  /**< Unused */
+    PRLX_LEFT,      /**< Left border is refererence */
+    PRLX_RIGHT,     /**< Right border is reference */
+    PRLX_TOP,       /**< Top border is reference */
+    PRLX_BOTTOM     /**< Bottom border is reference */
 };
 
 

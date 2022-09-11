@@ -14,8 +14,6 @@
 #include "CEV_mixSystem.h"
 #include "CEV_dataFile.h"
 
-static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dstDim, SDL_Rect* dstBlit);
-
 
 void CEV_fontClose(CEV_Font* font)
 {/*closes overlay font*/
@@ -271,23 +269,21 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
         blit = dstDim;
     else
         blit = *dstRect;
-/*
+
     CEV_constraint(0, &clip.w, srcDim.w);
     CEV_constraint(0, &clip.h, srcDim.h);
     CEV_constraint(0, &blit.w, dstDim.w);
     CEV_constraint(0, &blit.h, dstDim.h);
-*/
+
 
     if (access != SDL_TEXTUREACCESS_STREAMING)
     {
         fprintf(stderr, "Err at %s / %d : Texture provided is not SDL_TEXTUREACCESS_STREAMING.\n", __FUNCTION__, __LINE__ );
         return FUNC_ERR;
     }
-	
-	L_blitRectCorrect(&srcDim, &clip, &dstDim, &blit);
 
     /*correcting source rect if out of dimensions*/
-/*    if(clip.x<0)
+    if(clip.x<0)
     {
         clip.w += clip.x;
         clip.x = 0;
@@ -305,7 +301,7 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
     if(clip.y + clip.h > srcDim.h)
         clip.h = srcDim.h - clip.y;
 
-    //correcting dst rect if out of dimensions
+    /*correcting dst rect if out of dimensions*/
     if(blit.x<0)
     {
         clip.w += blit.x;
@@ -327,7 +323,7 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
 
     if(blit.y + blit.h > dstDim.h)
         blit.h = dstDim.h - blit.y;
-*/
+
 
     int minW = MIN(clip.w, blit.w),
         minH = MIN(clip.h, blit.h),
@@ -355,53 +351,3 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
 }
 
 
-static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dstDim, SDL_Rect* dstBlit)
-{
-
-    CEV_constraint(0, &srcClip->w, srcDim->w);
-    CEV_constraint(0, &srcClip->h, srcDim->h);
-    CEV_constraint(0, &dstBlit->w, dstDim->w);
-    CEV_constraint(0, &dstBlit->h, dstDim->h);
-
-    /*correcting source rect if out of dimensions*/
-    if(srcClip->x<0)
-    {
-        srcClip->w += srcClip->x;
-        srcClip->x = 0;
-    }
-
-    if(srcClip->x + srcClip->w > srcDim->w)
-        srcClip->w = srcDim->w - srcClip->x;
-
-    if(srcClip->y<0)
-    {
-        srcClip->h += srcClip->y;
-        srcClip->y = 0;
-    }
-
-    if(srcClip->y + srcClip->h > srcDim->h)
-        srcClip->h = srcDim->h - srcClip->y;
-
-    /*correcting dst rect if out of dimensions*/
-    if(dstBlit->x<0)
-    {
-        srcClip->w += dstBlit->x;
-        srcClip->x -= dstBlit->x;
-        dstBlit->x = 0;
-    }
-
-    if(dstBlit->x + dstBlit->w > dstDim->w)
-    {
-        dstBlit->w = dstDim->w - dstBlit->x;
-    }
-
-    if(dstBlit->y<0)
-    {
-        srcClip->h += dstBlit->y;
-        srcClip->y -= dstBlit->y;
-        dstBlit->y = 0;
-    }
-
-    if(dstBlit->y + dstBlit->h > dstDim->h)
-        dstBlit->h = dstDim->h - dstBlit->y;
-}

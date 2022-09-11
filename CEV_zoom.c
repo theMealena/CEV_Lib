@@ -1,10 +1,11 @@
+#include <stdio.h>
 #include <stdbool.h>
 #include <SDL.h>
 #include "CEV_zoom.h"
 #include "CEV_api.h"
 
 
-CEV_zoomDump(CEV_Zoom src)
+void CEV_zoomDump(CEV_Zoom src)
 {
     printf("pos :  x=%d, y=%d, w=%d, h=%d\n", src.pos.x, src.pos.y, src.pos.w, src.pos.h);
 }

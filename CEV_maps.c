@@ -40,7 +40,7 @@ static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now);
  *
  *  \return N/A
  *
- *  \details Local function called by CEV_MapLoad_RW
+ *  \note Local function called by CEV_MapLoad_RW
  */
 static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst);
 
@@ -52,7 +52,7 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst);
  *
  *  \return Return description
  *
- *  \details More details
+ *  \note More details
  */
 static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst);
 
@@ -64,7 +64,7 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst);
  *
  *  \return N/A
  *
- *  \details Local function called by L_TMapReadFromFile_RW
+ *  \note Local function called by L_TMapReadFromFile_RW
  */
 static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst);
 
@@ -76,7 +76,7 @@ static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst);
  *
  * \return void
  *
- * \details Sets readWriteErr
+ * \note Sets readWriteErr
  */
 static void L_tileTypeWrite(MAP_Tile* src, FILE* dst);
 
@@ -98,7 +98,7 @@ static void L_tileAnimTypeRead_RW(SDL_RWops *src, MAP_TileAnim *dst);
  *
  * \return void
  *
- * \details Sets readWriteErr
+ * \note Sets readWriteErr
  */
 static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst);
 
@@ -148,7 +148,7 @@ CEV_TileMap* CEV_mapLoad(const char* fileName)
 }
 
 
-int CEV_mapSave(const CEV_TileMap* src, const char* dstFileName)
+int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
 {//saves map into file
 
 	/**PRL**/
@@ -168,24 +168,42 @@ int CEV_mapSave(const CEV_TileMap* src, const char* dstFileName)
 
 	readWriteErr = 0;
 
-	/**saving texture as png first**/
-
-	CEV_textureSavePNG(src->tileSetPic, dstFileName);
-	//now picking this file as capsule
 	CEV_Capsule caps;
-	CEV_capsuleLoad(&caps, dstFileName);
-	caps.type = IS_PNG;
 
-	FILE* dst = fopen(dstFileName, "wb");
+	//if tile set is to be embedded
+	if(embeddPic)
+    {
+        if NOT_NULL(src->tileSetPic)
+        {
+            //saving texture as png first
+            CEV_textureSavePNG(src->tileSetPic, dstFileName);
 
-	if IS_NULL(dst)
-	{
-		fprintf(stderr, "Err at %s / %d : unable to open file %s : %s", __FUNCTION__, __LINE__, dstFileName, strerror(errno));
-		return FUNC_ERR;
-	}
+            //now picking this file as capsule
+            CEV_capsuleLoad(&caps, dstFileName);
+            caps.type = IS_PNG; //forcing type as file extension might not fit
+            src->tileSetId = 0;
+        }
+        else
+        {
+            fprintf(stderr, "Err at %s / %d : Cannot embedd NULL tileSet.\n", __FUNCTION__, __LINE__ );
+            embeddPic = false;
+        }
+    }
+
+    FILE* dst = fopen(dstFileName, "wb");//will remove previous file
+
+    if IS_NULL(dst)
+    {
+        fprintf(stderr, "Err at %s / %d : unable to open file %s : %s", __FUNCTION__, __LINE__, dstFileName, strerror(errno));
+        return FUNC_ERR;
+    }
+
+    write_u8(embeddPic, dst);
 
 	L_mapTypeWrite(src, dst);
-	CEV_capsuleWrite(&caps, dst);
+
+	if(embeddPic)
+        CEV_capsuleWrite(&caps, dst);
 
 	fclose(dst);
 
@@ -198,11 +216,13 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
 
 	/**PRL**/
 
-	if(IS_NULL(src))
+	if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return NULL;
     }
+
+    uint8_t embed   = SDL_ReadU8(src);  //is tileset embedded ?
 
     uint32_t
             layer   = SDL_ReadLE32(src),    //reading num of layers
@@ -227,23 +247,27 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
 
 	CEV_Capsule caps = {0, 0, NULL};
 
-	CEV_capsuleRead_RW(src, &caps);
+	if(embed)
+    {//tileset is embedded, going to fetch it
 
-	if(!IS_PIC(caps.type))
-    {
-        fprintf(stderr, "Err at %s / %d : Capsule content is not picture.\n", __FUNCTION__, __LINE__ );
-        goto err;
+        CEV_capsuleRead_RW(src, &caps);
+
+        if(!IS_PIC(caps.type))
+        {
+            fprintf(stderr, "Err at %s / %d : Capsule content is not picture.\n", __FUNCTION__, __LINE__ );
+            goto err;
+        }
+
+        SDL_Texture *tex = CEV_capsuleExtract(&caps, true);
+
+        if IS_NULL(tex)
+        {
+            fprintf(stderr, "Err at %s / %d : Could not extract texture from capsule.\n", __FUNCTION__, __LINE__ );
+            goto err;
+        }
+
+        CEV_mapTilesTextureSet(result, tex);
     }
-
-    SDL_Texture *tex = CEV_capsuleExtract(&caps, true);
-
-	if(IS_NULL(tex))
-    {
-        fprintf(stderr, "Err at %s / %d : Could not extract texture from capsule.\n", __FUNCTION__, __LINE__ );
-        goto err;
-    }
-
-    CEV_mapTilesTextureSet(result, tex);
 
 	//close RWops if requested
 	if(freeSrc)
@@ -311,7 +335,7 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 
 
 	//allocating tilemap content matrix
-	result->tileMap = CEV_allocate3d(layer, width, height, sizeof(MAP_Tile));
+	result->tileMap = (MAP_Tile***)CEV_allocate3d(layer, width, height, sizeof(MAP_Tile));
 
 	if IS_NULL(result->tileMap)
 	{//on error
@@ -325,7 +349,7 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
                 result->tileMap[lay][x][y] = CEV_mapTileClear();
 
     //allocating properties matrix
-	result->tileProps = CEV_allocate2d(width, height, sizeof(MAP_TileProps));
+	result->tileProps = (MAP_TileProps**)CEV_allocate2d(width, height, sizeof(MAP_TileProps));
 
 	if IS_NULL(result->tileProps)
 	{//on error
@@ -361,7 +385,7 @@ err_1:
 void CEV_mapDestroy(CEV_TileMap *map)
 {//frees content and structur
 
-    if(IS_NULL(map))
+    if IS_NULL(map)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return;
@@ -375,7 +399,7 @@ void CEV_mapDestroy(CEV_TileMap *map)
 void CEV_mapClear(CEV_TileMap *map)
 {//frees TileMap content
 
-    if(IS_NULL(map))
+    if IS_NULL(map)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return;
@@ -550,7 +574,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 SDL_Rect CEV_mapBlitPos(CEV_TileMap *src, int tileX, int tileY, int dispX, int dispY)
 {//calculate tile blit position
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_RECT;
@@ -582,7 +606,7 @@ SDL_Rect CEV_mapBlitPos(CEV_TileMap *src, int tileX, int tileY, int dispX, int d
 SDL_Rect CEV_mapWorldDimPxl(CEV_TileMap *src)
 {//world size in pixels
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_RECT;
@@ -596,7 +620,7 @@ SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
 {//calculates tiles included in display
 
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_RECT;
@@ -668,7 +692,7 @@ bool CEV_mapNeedScroll(CEV_TileMap *src, SDL_Renderer* dst)
 bool CEV_mapIsHardTile(CEV_TileMap *src, SDL_Point pos)
 {//id that map pos hard ?
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return false;
@@ -681,7 +705,7 @@ bool CEV_mapIsHardTile(CEV_TileMap *src, SDL_Point pos)
 int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index)
 {//fetches tile option value
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return -1;
@@ -707,7 +731,7 @@ int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index)
 SDL_Point CEV_mapWorldPointToDisplayPoint(CEV_TileMap *src, SDL_Point pos)
 {//position in world to display position
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_POINT;
@@ -720,7 +744,7 @@ SDL_Point CEV_mapWorldPointToDisplayPoint(CEV_TileMap *src, SDL_Point pos)
 SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos)
 {//tile rect under position in world relative to display
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_RECT;
@@ -736,7 +760,7 @@ SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos)
 SDL_Rect CEV_mapWorldPointToWorldTile(CEV_TileMap *src, SDL_Point pos)
 {//tile rect under position in world relative to world
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_RECT;
@@ -755,7 +779,7 @@ SDL_Rect CEV_mapWorldPointToWorldTile(CEV_TileMap *src, SDL_Point pos)
 SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos)
 {//rect pos in world to tile rect
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return CLEAR_RECT;
@@ -797,7 +821,7 @@ SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos)
 MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int layer)
 {//fetches tile prperties
 
-    if(IS_NULL(src))
+    if IS_NULL(src)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return NULL;
@@ -842,7 +866,7 @@ MAP_TileAnim CEV_mapTileAnimClear(void)
 static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now)
 {
 
-    if(IS_NULL(tile))
+    if IS_NULL(tile)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return;
@@ -1022,7 +1046,7 @@ static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst)
 static void L_tileInit(MAP_Tile* tile)
 {//tile default settings
 
-    if(IS_NULL(tile))
+    if IS_NULL(tile)
     {
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return;
