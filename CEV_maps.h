@@ -36,7 +36,7 @@ per num of layer * width * height : single tile definition :
 profile layer width*height :
 type s32;
 
-tileSet     CEV_Capsule //to be implemented
+tileSet     CEV_Capsule
 -----------------------------------------------------------------------------------------------
 Layer index 0 is the farmost layer.
 layers blit from top left to bottom right
@@ -388,8 +388,23 @@ SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos);
 SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos);
 
 
+/** \brief provides a clear 0'ed single tile.
+ *
+ * \param void
+ *
+ * \return MAP_Tile as clear tile.
+ *
+ */
 MAP_Tile CEV_mapTileClear(void);
 
+
+/** \brief provides a clear O'ed tile animation instance.
+ *
+ * \param void
+ *
+ * \return MAP_TileAnim as clear tile animation.
+ *
+ */
 MAP_TileAnim CEV_mapTileAnimClear(void);
 
 #endif // CEV_TILES_H_INCLUDED

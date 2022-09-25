@@ -8,6 +8,7 @@
 //**********************************************************/
 //CEV 2022/08/21 hotfix CEV_rectFitScaledInRect corrected
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
@@ -457,7 +458,6 @@ SDL_Point* CEV_rectMidToPoint(SDL_Rect src, SDL_Point *dst)
 }
 
 
-
 SDL_Point CEV_rectPosToPoint(SDL_Rect src)
 {/*x, y copy*/
     return (SDL_Point){.x = src.x, .y = src.y};
@@ -701,6 +701,11 @@ CEV_FCoord CEV_fcoordSum(CEV_FCoord pta, CEV_FCoord ptb)
 
 /*** SDL_Rect ***/
 
+void CEV_rectDump(SDL_Rect in)
+{
+    printf("x=%d, y=%d, w=%d, h=%d\n", in.x, in.y, in.w, in.h);
+}
+
 
 SDL_Rect *CEV_rectAroundPoint(SDL_Point src, SDL_Rect *dst)
 {/*sets rect with point as gravity center*/
@@ -830,9 +835,10 @@ SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale)
 
 
 SDL_Rect CEV_rectFitScaledInRect(SDL_Rect *src, SDL_Rect into)
-{//modify src to fit into into keeping aspect ratio
+{//modify src to fit into "into" while keeping aspect ratio
 
     CEV_rectDimScale(src, MIN((float)into.h/src->h, (float)into.w/src->w));
+    //*src = CEV_rectCenteredInRect(*src, into);
 
     if(src->w < into.w)
         src->x = into.x + (into.w - src->w)/2;
@@ -845,6 +851,15 @@ SDL_Rect CEV_rectFitScaledInRect(SDL_Rect *src, SDL_Rect into)
         src->y = into.y;
 
     return *src;
+}
+
+
+SDL_Rect CEV_rectCenteredInRect(SDL_Rect src, SDL_Rect into)
+{//centers src into "into"
+    src.x = into.x + (into.w - src.w)/2;
+    src.y = into.y + (into.h - src.h)/2;
+
+    return src;
 }
 
 

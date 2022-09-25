@@ -1,9 +1,10 @@
 #ifndef TEST_ZOOM_H_INCLUDED
 #define TEST_ZOOM_H_INCLUDED
 
-#include <SDL_rect.h>
+#include <SDL.h>
 #include "stdbool.h"
 
+// TODO (drx#1#): voir comment gérer les zoom inférieurs à 1
 
 /** \brief Zoom structure definition
  */
@@ -16,8 +17,10 @@ typedef struct CEV_Zoom
             scaleAct,   /**< Actual zoom value */
             step;       /**< Zoom stepping */
 
-    SDL_Rect    pos,    /**< Zoom position */
-                baseDim;/**< Base texture dimensions */
+    SDL_Rect    clip,       /**< Zoom position in texture */
+                blit,       /**< blit position of texture */
+                baseDim,    /**< Base texture to zoom on dimensions */
+                renderDim;  /**< Render dimensions */
 }
 CEV_Zoom;
 
@@ -73,7 +76,7 @@ void CEV_zoomScaleSet(CEV_Zoom* dst, float scale);
  * \return SDL_Rect as actual clip position:
  *
  */
-SDL_Rect CEV_zoomClipGet(CEV_Zoom* src);
+SDL_Rect* CEV_zoomClipGet(CEV_Zoom* src);
 
 
 /** \brief Let the zoom behave automatically
@@ -86,7 +89,7 @@ SDL_Rect CEV_zoomClipGet(CEV_Zoom* src);
 SDL_Rect CEV_zoomAuto(CEV_Zoom* zoom, SDL_Point point);
 
 
-/** \brief Applies zoom
+/** \brief Applies zoom on reference texture
  *
  * \param zoom : CEV_Zoom* to apply.
  * \param point : SDL_Point to center zoom on.
@@ -105,5 +108,7 @@ SDL_Rect CEV_zoomOnCoord(CEV_Zoom *zoom, SDL_Point point, int direction);
  * \return bool : true when zoom is done.
  */
 bool CEV_zoomScaleUpdate(CEV_Zoom *zoom, int direction);
+
+bool CEV_zoomIsClip(CEV_Zoom *src);
 
 #endif // TEST_ZOOM_H_INCLUDED

@@ -156,7 +156,7 @@ float CEV_padAngle(Sint16 axisX, Sint16 axisY);
 
 
 /** \brief Analog stick zone divider as circular.
- * \note analog stick is divided by pad's num of zone.
+ * note : analog stick is divided by pad's num of zone.
  *
  * \param pad : Pad to divide value.
  *
@@ -166,7 +166,7 @@ int CEV_padCircularZone(const CEV_Pad *pad);
 
 
 /** \brief Dumps Pad status.
- * \note Result is dumped to stdout.
+ * note : Result is dumped to stdout.
  *
  * \param pad : Pad to display status from.
  *

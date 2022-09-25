@@ -123,7 +123,7 @@ void CEV_parallaxDestroy(CEV_Parallax *in);
  *
  * \param in : parallax object to clear.
  * \return N/A.
- * \note all ptr freed & set to NULL.
+ * note : all ptr freed & set to NULL.
  */
 void CEV_parallaxClear(CEV_Parallax *in);
 
@@ -132,7 +132,7 @@ void CEV_parallaxClear(CEV_Parallax *in);
  *
  * \param in : parallax layer to clear.
  * \return N/A.
- * \note all ptr freed & set to NULL.
+ * note : all ptr freed & set to NULL.
  */
 void CEV_parallaxLayerClear(CEV_ParaLayer* in);
 
@@ -193,7 +193,7 @@ CEV_Parallax* CEV_parallaxLoad(const char* fileName);
  * \param freeSrc : internaly frees src if true.
  *
  * \return ptr to allocated parallax object.
- * \note if freeSrc is true, src is freed weither the function succeed or not.
+ * note : if freeSrc is true, src is freed weither the function succeed or not.
  */
 CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* src, uint8_t freeSrc);
 

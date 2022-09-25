@@ -169,7 +169,7 @@ void CEV_scrollRestart(CEV_ScrollText* in);
  *
  * \return N/A.
  *
- * \note Position is automatically interpreted as x or y
+ * note : Position is automatically interpreted as x or y
  * according to display mode
  */
 void CEV_scrollPosSet(CEV_ScrollText* in, int pos);
@@ -212,7 +212,7 @@ CEV_ScrollText* CEV_scrollLoad(const char* fileName);
  * \param freeSrc : bool free src if true;
  *
  * \return CEV_ScrollText* on success, NUL on error.
- * \note if freeSrc is true, src is freed weither function succeed or not.
+ * note : if freeSrc is true, src is freed weither function succeed or not.
  */
 CEV_ScrollText* CEV_scrollLoad_RW(SDL_RWops* src, bool freeSrc);
 

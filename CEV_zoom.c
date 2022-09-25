@@ -1,13 +1,27 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <SDL.h>
-#include "CEV_zoom.h"
-#include "CEV_api.h"
+#include <CEV_zoom.h>
+#include <CEV_api.h>
+#include <CEV_mixSystem.h>
 
 
 void CEV_zoomDump(CEV_Zoom src)
 {
-    printf("pos :  x=%d, y=%d, w=%d, h=%d\n", src.pos.x, src.pos.y, src.pos.w, src.pos.h);
+    puts("Dumping CEV_Zoom");
+    printf("enable is %s\n", src.enable? "true": "false");
+    printf("minimum scale is %f", src.scaleMin);
+    printf("maximum scale is %f", src.scaleMax);
+    printf("actual scale is %f", src.scaleAct);
+    printf("stepping is is %f", src.step);
+    printf("reference rect is : ");
+    CEV_rectDump(src.baseDim);
+    printf("renderer rect is : ");
+    CEV_rectDump(src.renderDim);
+    printf("clip rect is : ");
+    CEV_rectDump(src.clip);
+    printf("blit rect is : ");
+    CEV_rectDump(src.blit);
 }
 
 
@@ -17,18 +31,26 @@ CEV_Zoom CEV_zoomInit(int baseW, int baseH, float scaleMax, float step)
 	{
 		.enable		= 0,
 		.scaleMax	= scaleMax,
-		.scaleMin	= 1.0,
+		.scaleMin   = 1.0,
 		.scaleAct   = 1.0,
+		.step       = step,
 		.baseDim.x  = 0,
 		.baseDim.y  = 0,
 		.baseDim.w  = baseW,
 		.baseDim.h  = baseH,
-		.pos.x      = 0,
-		.pos.y      = 0,
-		.pos.w      = baseW,
-		.pos.h      = baseH,
-		.step       = step
+		.renderDim.x  = 0,
+		.renderDim.y  = 0,
+		.renderDim.w  = SCREEN_WIDTH,
+		.renderDim.h  = SCREEN_HEIGHT
 	};
+
+    //setting clip
+    result.clip = result.baseDim; //at render dimension
+
+
+    //setting blit
+	CEV_rectDimCopy(result.baseDim, &result.blit); //at texture dim
+	result.blit = CEV_rectCenteredInRect(result.blit, result.baseDim); //centering blit in render
 
     return result;
 }
@@ -46,19 +68,36 @@ void CEV_zoomScaleSet(CEV_Zoom* dst, float scale)
 }
 
 
-
-SDL_Rect CEV_zoomClipGet(CEV_Zoom* zoom)
+bool CEV_zoomIsClip(CEV_Zoom *src)
 {
-    SDL_Rect result = zoom->pos;
-    CEV_rectDimScale(&result, 1/zoom->scaleAct); //scaling rect
-    return result;
+    return (src->scaleAct > 1.0);
+}
+
+
+SDL_Rect* CEV_zoomClipGet(CEV_Zoom* zoom)
+{
+
+    if(CEV_zoomIsClip(zoom)) //if cliping src texture
+        return &zoom->clip; //return clip
+    else
+        return NULL; //or blit all
+}
+
+
+SDL_Rect* CEV_zoomBlitGet(CEV_Zoom* zoom)
+{
+    if(CEV_zoomIsClip(zoom))
+        return NULL;
+    else
+        return &zoom->blit;
+
 }
 
 
 SDL_Rect CEV_zoomAuto(CEV_Zoom* zoom, SDL_Point point)
 {//automatic zoom
 
-    SDL_Rect result = zoom->pos;
+    SDL_Rect result = zoom->clip;
 
     result =  CEV_zoomOnCoord(zoom, point, zoom->enable? ZOOM_IN : ZOOM_OUT);
 
@@ -69,24 +108,34 @@ SDL_Rect CEV_zoomAuto(CEV_Zoom* zoom, SDL_Point point)
 SDL_Rect CEV_zoomOnCoord(CEV_Zoom *zoom, SDL_Point point, int direction)
 {//returns an SDL_Rect as clip centered on point
 
-    SDL_Rect funcSts = zoom->pos;
-
-    point.x = zoom->pos.x + point.x / zoom->scaleAct;
-    point.y = zoom->pos.y + point.y / zoom->scaleAct;
+    SDL_Rect result;
 
     if(direction)
-    {
         CEV_zoomScaleUpdate(zoom, direction); //scaling update
+
+    if(zoom->scaleAct>=1.0)
+    {//calculating clip
+
+        result = zoom->baseDim;
+
+        CEV_rectDimScale(&result, 1/zoom->scaleAct);        //scaling rect
+        CEV_rectAroundPoint(point, &result);   //centering rect on point
+        CEV_rectConstraint(&result, zoom->baseDim);         //keeping zoom in src rect
+
+        zoom->clip = result;
     }
 
-    CEV_rectDimScale(&funcSts, 1/zoom->scaleAct); //scaling rect
-    CEV_rectAroundPoint(point, &funcSts); //centering rect on point
-    CEV_rectConstraint(&funcSts, zoom->baseDim); //keeping zoom in src rect
+    {//zoom is blit
+        result = zoom->baseDim;
 
-    zoom->pos.x = funcSts.x;
-    zoom->pos.y = funcSts.y;
+        CEV_rectDimScale(&result, zoom->scaleAct); //scaling rect
 
-    return funcSts;
+        CEV_rectDimCopy(result,&zoom->blit);
+        zoom->blit.x = (zoom->renderDim.w/2) - (point.x * zoom->scaleAct);
+        zoom->blit.y = (zoom->renderDim.h/2) - (point.y * zoom->scaleAct);
+    }
+
+    return result;
 }
 
 

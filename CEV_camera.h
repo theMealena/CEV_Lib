@@ -31,10 +31,16 @@ open field will be kept as is until call to CEV_cameraOpenFieldSet() is called.
 */
 
 
-//character positionning half screen, third or quarter
+
+/** \brief Camera mode behaviour
+ *
+ * note : enable to show more or less field of view before point to follow.
+ */
 typedef enum S_CameraMode
 {
-    CAMERA_MED = 2, CAMERA_THIRD = 3, CAMERA_QUART = 4
+    CAMERA_MED = 2,     /**< follow point is kept centered */
+    CAMERA_THIRD = 3,   /**< follow point is kept at 1/3 */
+    CAMERA_QUART = 4    /**< follow point is kept at 1/4 */
 }
 CEV_CameraMode;
 
@@ -82,7 +88,7 @@ CEV_Camera;
  * \param mode : CEV_CameraMode as follow mode.
  *
  * \return void
- * \note Is to use with a declared camera VS camera loaded from file.
+ * note : Is to use with a declared camera VS camera loaded from file.
  */
 void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, unsigned int changeTime, CEV_CameraMode mode);
 
@@ -114,7 +120,7 @@ int CEV_cameraSave(CEV_Camera *src, const char* fileName);
  *
  * \return CEV_Camera* as loaded from Vfile, NULL on error.
  *
- * \note src will be treated as asked wether function is successful or not.
+ * note : src will be treated as asked wether function is successful or not.
  */
 CEV_Camera *CEV_cameraLoad_RW(SDL_RWops *src, bool freeSrc);
 
@@ -125,7 +131,7 @@ CEV_Camera *CEV_cameraLoad_RW(SDL_RWops *src, bool freeSrc);
  *
  * \return int : One direction if follow point is off camera, 0 otherwise.
  *
- * \note : If follow point was to be off camera at bottom, shall return CAMERA_DOWN
+ * note : If follow point was to be off camera at bottom, shall return CAMERA_DOWN
  */
 int CEV_cameraUpdate(CEV_Camera *in);
 
@@ -147,7 +153,7 @@ void CEV_cameraReset(CEV_Camera *in);
  *
  * \return void
  *
- * \note setting values of 0 or negative will set demension to be render dimension
+ * note : setting values of 0 or negative will set demension to be render dimension
  */
 void CEV_cameraDimensionSet(CEV_Camera *src, int w, int h);
 
@@ -171,7 +177,7 @@ void CEV_cameraOpenFieldAuto(CEV_Camera *in, unsigned int time, int axis);
  *
  * \return void
  *
- * \note Does not override automatic direction switch.
+ * note : Does not override automatic direction switch.
  */
 void CEV_cameraOpenFieldSet(CEV_Camera *in, int direction);
 
@@ -183,7 +189,7 @@ void CEV_cameraOpenFieldSet(CEV_Camera *in, int direction);
  *
  * \return void
  *
- * \note Can be used to disable backtracking.
+ * note : Can be used to disable backtracking.
  */
 void CEV_cameraDirectionLock(CEV_Camera *in, int direction);
 
@@ -196,7 +202,7 @@ void CEV_cameraDirectionLock(CEV_Camera *in, int direction);
  *
  * \return void
  *
- * \note any of CAMERA_RIGHT / CAMERA_LEFT sets horizontal maximum velocity.
+ * note : any of CAMERA_RIGHT / CAMERA_LEFT sets horizontal maximum velocity.
  * same for UP/DOWN.
  */
 void CEV_cameraMaxVelocitySet(CEV_Camera* in, int velMax, int direction);

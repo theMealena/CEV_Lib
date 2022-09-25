@@ -47,7 +47,7 @@ static void L_LineFieldRead_RW( SDL_RWops *src, CEV_Text* dst);
  * \param dst : CEV_Text* to write into.
  *
  * \return void
- * \note readWriteErr updated.
+ * note : readWriteErr updated.
  */
 static void L_LineFieldRead(FILE* src, CEV_Text* dst);
 
@@ -108,7 +108,7 @@ static void L_lineAllocSizeWrite(char* src, size_t size);
  *
  * \return int
  *
- * \note not to be used, is qsort dedicated.
+ * note : not to be used, is qsort dedicated.
  */
 static int L_textCompareAZ(const void* q1, const void* q2);
 
@@ -120,7 +120,7 @@ static int L_textCompareAZ(const void* q1, const void* q2);
  *
  * \return int
  *
- * \note not to be used, is qsort dedicated.
+ * note : not to be used, is qsort dedicated.
  */
  static int L_textCompareZA(const void* q1, const void* q2);
 

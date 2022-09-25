@@ -325,7 +325,7 @@ void SP_spriteLinkToAnim(SP_Sprite* sprite, SP_Anim *anim);
  *
  * \return N/A.
  *
- * \note link to spritesheet is kept as is.
+ *  link to spritesheet is kept as is.
  */
 void SP_spriteReset(SP_Sprite *sprite);
 
@@ -404,7 +404,7 @@ SDL_Rect* SP_clipGet(SP_Sprite* sprite, uint8_t viewType);
  * \param flip : flip status of sprite.
  *
  * \return SDL_Rect as hitBox pos relative to spritesheet.
- * \note Does not treat horizontal/vertical flip.
+ *  Does not treat horizontal/vertical flip.
  */
 SDL_Rect SP_sheetHBoxGet(SP_Sprite* sprite, SDL_RendererFlip flip);
 
@@ -415,6 +415,7 @@ SDL_Rect SP_sheetHBoxGet(SP_Sprite* sprite, SDL_RendererFlip flip);
  * \param sprite : SP_Sprite* to query from.
  * \param pos : SDL_Point as actual sprite position.
  * \param flip : SDL_renderFlip to correct H/V hitbox position.
+ *
  * \return SDL_Rect : as absolute hitBox position and dimension (scaled).
  */
 SDL_Rect SP_hBoxGet(SP_Sprite* sprite, SDL_Point pos, SDL_RendererFlip flip);
@@ -508,7 +509,6 @@ void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpi
  * \param dstName : data file to create.
  *
  * \return readWriteErr is filled.
- *
  */
 int SP_convertSpriteCSVToData(const char* srcName, const char* dstName);
 

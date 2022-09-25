@@ -72,7 +72,7 @@ bool CEV_fileFolderNameGet(const char *src, char *dst);
 
 
 /** \brief Modify str to parent folder.
- * \note subfolder char '/' or '\' is removed.
+ * note : subfolder char '/' or '\' is removed.
  * \param str : char* to path.
  *
  * \return true if str was modified.
@@ -96,7 +96,7 @@ void CEV_stringEndFormat(char* in);
  *
  * \return N/A.
  *
- * \note src must be long enough to be extended.
+ * note : src must be long enough to be extended.
  */
 void CEV_stringGroup(char *src, unsigned int group);
 
@@ -108,7 +108,7 @@ void CEV_stringGroup(char *src, unsigned int group);
  *
  * \return line index of where string was found, -1 otherwise.
  *
- * \note src must be long enough to be extended.
+ * note : src must be long enough to be extended.
  */
 int CEV_fileStrSearch(FILE* file, char* src);
 

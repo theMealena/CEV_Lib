@@ -6,8 +6,8 @@
 
 
 #define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
-#define FILE_TYPE_NUM 17
-#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt"}
+#define FILE_TYPE_NUM 18
+#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani"}
 
 
 /** \brief defines file type
@@ -29,8 +29,10 @@ typedef enum FILE_TYPE
   IS_MUSIC  = 13,   //mp3       .mp3
   IS_PLX    = 14,   //parallax  .plx
   IS_WTHR   = 15,   //weather   .wtr
-  IS_TXT    = 16    //text file .txt
-}FILE_TYPE;
+  IS_TXT    = 16,   //text file .txt
+  IS_ANI    = 17    //short animation .ani
+}
+FILE_TYPE;
 
 
 /** \brief File encapsulation
@@ -68,7 +70,7 @@ CEV_Chunk;
 
 
 /** \brief Mix music overlay
- *  \note music overlay to keep track of allocated data ptr
+ *  note : music overlay to keep track of allocated data ptr
  */
 typedef struct CEV_Music
 {
@@ -112,7 +114,7 @@ void CEV_musicClose(CEV_Music* music);
  *
  * \return SDL_Surface* as result, NULL on failure.
  *
- * \note ptr content is to be freed after Surface is freed.
+ * note : ptr content is to be freed after Surface is freed.
  */
 SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr);
 
@@ -153,7 +155,7 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst);
  * \param src : SDL_Texture* to fetch dimensions from.
  *
  * \return SDL_Rect filled with dimensions.
- * \note x,y set to 0.
+ * note : x,y set to 0.
  */
 SDL_Rect CEV_textureDimGet(SDL_Texture* src);
 

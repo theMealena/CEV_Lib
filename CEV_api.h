@@ -202,7 +202,7 @@ void CEV_anySwap(void* valOne, void* valTwo, size_t size);
  *
  * \return void* on dst.
  *
- * \note undefined behaviour if src and dst are on same mem field.
+ *  undefined behaviour if src and dst are on same mem field.
  */
 void* CEV_bitFieldDistribute(const void *src, int srcBit, void* dst, int dstBit, size_t length);
 
@@ -555,7 +555,7 @@ CEV_ICoord CEV_fcoordToIcoord(CEV_FCoord src);
  *
  * \return ptr on dst.
  *
- * \note z component is untouched.
+ *  z component is untouched.
  */
 CEV_ICoord* CEV_rectMidToIcoord(SDL_Rect src, CEV_ICoord *dst );
 
@@ -596,7 +596,7 @@ bool CEV_icoordIsInRect(CEV_ICoord point, SDL_Rect rect);
  *
  * \return distance between pta and ptb as double.
  *
- * \note z included.
+ *  z included.
  */
 double CEV_icoordDist(CEV_ICoord pta, CEV_ICoord ptb);
 
@@ -608,7 +608,7 @@ double CEV_icoordDist(CEV_ICoord pta, CEV_ICoord ptb);
  *
  * \return angle of pta->ptb in degres as double.
  *
- * \note : 2d: x,y computed only.
+ *  : 2d: x,y computed only.
  */
 double CEV_icoordAngle2d(CEV_ICoord pta, CEV_ICoord ptb);
 
@@ -674,7 +674,7 @@ CEV_FCoord CEV_icoordToFcoord(CEV_ICoord src);
  *
  * \return ptr on dst.
  *
- * \note z component is untouched.
+ *  z component is untouched.
  */
 CEV_FCoord* CEV_rectMidToFcoord(SDL_Rect src, CEV_FCoord *dst);
 
@@ -715,7 +715,7 @@ bool CEV_fcoordIsInRect(CEV_FCoord point, SDL_Rect rect);
  *
  * \return distance between pta and ptb as double.
  *
- * \note z included.
+ *  z included.
  */
 double CEV_fcoordDist(CEV_FCoord pta, CEV_FCoord ptb);
 
@@ -727,7 +727,7 @@ double CEV_fcoordDist(CEV_FCoord pta, CEV_FCoord ptb);
  *
  * \return angle of pta->ptb in degres as double.
  *
- * \note : 2d: x,y computed only.
+ *  2d: x,y computed only.
  */
 double CEV_fcoordAngle2d(CEV_FCoord pta, CEV_FCoord ptb);
 
@@ -744,6 +744,15 @@ CEV_FCoord CEV_fcoordSum(CEV_FCoord pta, CEV_FCoord ptb);
 
 
 /*** SDL_Rect ***/
+
+
+/** \brief dumps rect content values into stdout.
+ *
+ * \param in : SDL_Rect to dump.
+ *
+ * \return N/A.
+ */
+void CEV_rectDump(SDL_Rect in);
 
 
 /** \brief rect corrected around point as gravity center.
@@ -858,7 +867,7 @@ void CEV_pointRectConstraint(SDL_Point *point, SDL_Rect *rect, int w, int h);
 SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale);
 
 
-/** \brief Fits / centers src within into
+/** \brief Fits / centers src within "into" with aspect ratio
  *
  * \param src : SDL_Rect* to be fit.
  * \param into : SDL_Rect* as container of src.
@@ -866,6 +875,16 @@ SDL_Rect* CEV_rectDimScale(SDL_Rect *src, float scale);
  * \return SDL_Rect as src result.
  */
 SDL_Rect CEV_rectFitScaledInRect(SDL_Rect *src, SDL_Rect into);
+
+
+/** \brief Centers src into "into".
+ *
+ * \param src : SDL_rect to be centered.
+ * \param into : SDL_Rect to center into.
+ *
+ * \return SDL_Rect as result
+ */
+SDL_Rect CEV_rectCenteredInRect(SDL_Rect src, SDL_Rect into);
 
 
 /** \brief  sums 2 SDL_Rect.
@@ -889,7 +908,6 @@ SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2);
  * \param size : size_t as unit of allocation.
  *
  * \return void** to allocation / NULL on failure.
- *
  */
 void** CEV_allocate2d(size_t x, size_t y, size_t size);
 
@@ -902,7 +920,6 @@ void** CEV_allocate2d(size_t x, size_t y, size_t size);
  * \param size : size_t as unit of allocation.
  *
  * \return void** to allocation / NULL on failure.
- *
  */
 void*** CEV_allocate3d(size_t x, size_t y, size_t z, size_t size);
 

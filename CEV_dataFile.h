@@ -118,7 +118,7 @@ int CEV_capsuleLoad(CEV_Capsule* caps, const char* fileName);
  * \param freeData : Destroys capsule content if true.
  *
  * \return void* on resulting object. NULL on error.
- * \note Capsule content is kept as if extraction fails.
+ * note : Capsule content is kept as if extraction fails.
  */
 void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData);
 
@@ -372,7 +372,7 @@ int CEV_fileToType(char* fileName);
  * \param type : FILE_TYPE to fetch extension from.
  *
  * \return char* : string with extension.
- * \note extension is given without '.' separator.
+ * note : extension is given without '.' separator.
  */
 char* CEV_fileTypeToExt(int type);
 

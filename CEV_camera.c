@@ -62,13 +62,13 @@ void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, u
         CEV_timerInit(&in->param[i].timer, changeTime);
     }
 
-    in->param[CEV_X].camDim    = SCREEN_WIDTH;
+    in->param[CEV_X].camDim     = SCREEN_WIDTH;
     in->param[CEV_X].followThis = &followPt->x;
     in->param[CEV_X].dirAct     = CAMERA_POSITIVE;
     in->param[CEV_X].posAct     = &in->scrollActPos.x;
 
 
-    in->param[CEV_Y].camDim    = SCREEN_HEIGHT;
+    in->param[CEV_Y].camDim     = SCREEN_HEIGHT;
     in->param[CEV_Y].followThis = &followPt->y;
     in->param[CEV_Y].dirAct     = CAMERA_POSITIVE;
     in->param[CEV_Y].posAct     = &in->scrollActPos.y;

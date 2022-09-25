@@ -1,7 +1,8 @@
-//**********************************************************/
-//** Done by  |      Date     |  version |    comment     **/
-//**------------------------------------------------------**/
+//********************************************************
+//** Done by  |      Date     |  version |    comment
+//**------------------------------------------------------
 //**   CEV    |  20-02-2022   |   1.0    | added missing free
+//**   CEV    |  24-09-2022   |   1.1    | CEV_textureToCapsule corrected
 
 
 #include <stdlib.h>
@@ -13,6 +14,8 @@
 #include "CEV_types.h"
 #include "CEV_mixSystem.h"
 #include "CEV_dataFile.h"
+
+
 
 static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dstDim, SDL_Rect* dstBlit);
 
@@ -193,14 +196,30 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 {//texture into png file's CEV_Capsule
 
     int funcSts = FUNC_OK;
-    SDL_RWops* vFile = SDL_AllocRW();
 
-    if IS_NULL(vFile)
+    int width, height, fileSize;
+
+    SDL_QueryTexture(src, NULL, NULL, &width, &height);
+
+    fileSize = width*height*4; // TODO (drx#1#): much much overestimated
+
+    void *bufferFile = malloc(fileSize);
+
+    if(IS_NULL(bufferFile))
     {
-        fprintf(stderr, "Err at %s / %d :   .\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : unable to alloc : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         return FUNC_ERR;
     }
 
+
+    SDL_RWops* vFile = SDL_RWFromMem(bufferFile, fileSize);//SDL_RWFromFile("totoTest.png", "wb");//SDL_AllocRW();
+
+    if IS_NULL(vFile)
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        funcSts = FUNC_ERR;
+        goto err_1;
+    }
 
     if(CEV_textureSavePNG_RW(src, vFile))
     {
@@ -211,7 +230,7 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 
     size_t size = SDL_RWsize(vFile);
 
-    CEV_capsuleClear(dst);
+    printf("vFile size is : %d\n", size);
 
     dst->size = size;
     dst->type = IS_PNG;
@@ -224,10 +243,14 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
         goto end;
     }
 
+    SDL_RWseek(vFile, 0, SEEK_SET);
     SDL_RWread(vFile, dst->data, size, 1);
 
 end:
     SDL_RWclose(vFile);
+
+err_1:
+    free(bufferFile);
 
     return funcSts;
 }
@@ -235,9 +258,12 @@ end:
 
 SDL_Rect CEV_textureDimGet(SDL_Texture* src)
 {//texture size to SDL_Rect
+
+
     SDL_Rect result = CLEAR_RECT;
 
-    SDL_QueryTexture(src, NULL, NULL, &result.w, &result.h);
+    if(src)
+        SDL_QueryTexture(src, NULL, NULL, &result.w, &result.h);
 
     return result;
 }
@@ -271,63 +297,14 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
         blit = dstDim;
     else
         blit = *dstRect;
-/*
-    CEV_constraint(0, &clip.w, srcDim.w);
-    CEV_constraint(0, &clip.h, srcDim.h);
-    CEV_constraint(0, &blit.w, dstDim.w);
-    CEV_constraint(0, &blit.h, dstDim.h);
-*/
 
     if (access != SDL_TEXTUREACCESS_STREAMING)
     {
         fprintf(stderr, "Err at %s / %d : Texture provided is not SDL_TEXTUREACCESS_STREAMING.\n", __FUNCTION__, __LINE__ );
         return FUNC_ERR;
     }
-	
+
 	L_blitRectCorrect(&srcDim, &clip, &dstDim, &blit);
-
-    /*correcting source rect if out of dimensions*/
-/*    if(clip.x<0)
-    {
-        clip.w += clip.x;
-        clip.x = 0;
-    }
-
-    if(clip.x + clip.w > srcDim.w)
-        clip.w = srcDim.w - clip.x;
-
-    if(clip.y<0)
-    {
-        clip.h += clip.y;
-        clip.y = 0;
-    }
-
-    if(clip.y + clip.h > srcDim.h)
-        clip.h = srcDim.h - clip.y;
-
-    //correcting dst rect if out of dimensions
-    if(blit.x<0)
-    {
-        clip.w += blit.x;
-        clip.x -= blit.x;
-        blit.x = 0;
-    }
-
-    if(blit.x + blit.w > dstDim.w)
-    {
-        blit.w = dstDim.w - blit.x;
-    }
-
-    if(blit.y<0)
-    {
-        clip.h += blit.y;
-        clip.y -= blit.y;
-        blit.y = 0;
-    }
-
-    if(blit.y + blit.h > dstDim.h)
-        blit.h = dstDim.h - blit.y;
-*/
 
     int minW = MIN(clip.w, blit.w),
         minH = MIN(clip.h, blit.h),
@@ -405,3 +382,5 @@ static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dst
     if(dstBlit->y + dstBlit->h > dstDim->h)
         dstBlit->h = dstDim->h - dstBlit->y;
 }
+
+

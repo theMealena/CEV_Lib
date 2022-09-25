@@ -4,6 +4,8 @@
 //**   CEV    |    10-2017    |   1.0    |  creation/SDL2 **/
 //**   CEV    |    07-2021    |   1.1    |  pic embedded & NULL tolerance **/
 //**********************************************************/
+//2022/09/18 CEV : CEV_mapWorldPointToDisplayTile corrected
+
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -40,7 +42,7 @@ static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now);
  *
  *  \return N/A
  *
- *  \note Local function called by CEV_MapLoad_RW
+ *  note : Local function called by CEV_MapLoad_RW
  */
 static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst);
 
@@ -52,7 +54,7 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst);
  *
  *  \return Return description
  *
- *  \note More details
+ *  note : More details
  */
 static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst);
 
@@ -64,7 +66,7 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst);
  *
  *  \return N/A
  *
- *  \note Local function called by L_TMapReadFromFile_RW
+ *  note : Local function called by L_TMapReadFromFile_RW
  */
 static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst);
 
@@ -76,7 +78,7 @@ static void L_tileTypeRead_RW(SDL_RWops* src, MAP_Tile* dst);
  *
  * \return void
  *
- * \note Sets readWriteErr
+ * note : Sets readWriteErr
  */
 static void L_tileTypeWrite(MAP_Tile* src, FILE* dst);
 
@@ -98,7 +100,7 @@ static void L_tileAnimTypeRead_RW(SDL_RWops *src, MAP_TileAnim *dst);
  *
  * \return void
  *
- * \note Sets readWriteErr
+ * note : Sets readWriteErr
  */
 static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst);
 
@@ -176,11 +178,12 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
         if NOT_NULL(src->tileSetPic)
         {
             //saving texture as png first
-            CEV_textureSavePNG(src->tileSetPic, dstFileName);
+            //CEV_textureSavePNG(src->tileSetPic, dstFileName);
 
             //now picking this file as capsule
-            CEV_capsuleLoad(&caps, dstFileName);
-            caps.type = IS_PNG; //forcing type as file extension might not fit
+            //CEV_capsuleLoad(&caps, dstFileName);
+            //creating png capsule from texture
+            CEV_textureToCapsule(src->tileSetPic, &caps);
             src->tileSetId = 0;
         }
         else
@@ -206,6 +209,8 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
         CEV_capsuleWrite(&caps, dst);
 
 	fclose(dst);
+
+	CEV_capsuleClear(&caps);
 
 	return (readWriteErr)? FUNC_ERR : FUNC_OK ;
 }
@@ -332,7 +337,6 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 	result->dim.tileSet.pixels      = CLEAR_RECT;
 	result->tileSetPic              = NULL;
 	result->dim.dispOffset.pixels   = CLEAR_RECT;
-
 
 	//allocating tilemap content matrix
 	result->tileMap = (MAP_Tile***)CEV_allocate3d(layer, width, height, sizeof(MAP_Tile));
@@ -750,8 +754,8 @@ SDL_Rect CEV_mapWorldPointToDisplayTile(CEV_TileMap *src, SDL_Point pos)
         return CLEAR_RECT;
     }
 
-    return (SDL_Rect){ pos.x-(pos.x%src->tileSize) - src->dim.dispOffset.pixels.x, //X
-                       pos.y -(pos.y%src->tileSize) - src->dim.dispOffset.pixels.y, //Y
+    return (SDL_Rect){ pos.x -(pos.x%src->tileSize) + src->dim.dispOffset.pixels.x, //X
+                       pos.y -(pos.y%src->tileSize) + src->dim.dispOffset.pixels.y, //Y
                        src->tileSize, //W
                        src->tileSize};//H
 }
@@ -860,6 +864,7 @@ MAP_TileAnim CEV_mapTileAnimClear(void)
 
     return thisAnim;
 }
+
 
     /***LOCALS***/
 
