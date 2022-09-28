@@ -52,17 +52,18 @@ void CEV_waveClose(CEV_Chunk* chunk)
 void CEV_musicClose(CEV_Music* music)
 {/*closes overlay music*/
 
-    if(IS_NULL(music))
-        return;
+    CEV_musicClear(music);
 
-    if(music->music != NULL)
-        Mix_FreeMusic(music->music);
+    free(music);
 
-    if(music->virtualFile != NULL)
-        free(music->virtualFile);
+    CEV_soundSystemGet()->loadedMusic = NULL;
+}
 
-    if(music != NULL)
-        free(music);
+
+void CEV_musicClear(CEV_Music* music)
+{
+    Mix_FreeMusic(music->music);
+    free(music->virtualFile);
 
     CEV_soundSystemGet()->loadedMusic = NULL;
 }

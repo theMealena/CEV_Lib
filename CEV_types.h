@@ -98,6 +98,16 @@ void CEV_fontClose(CEV_Font* font);
 void CEV_waveClose(CEV_Chunk* chunk);
 
 
+/** \brief Creates CEV_Music from file (mp3)
+ *
+ * \param fileName : char* as name of file to open.
+ *
+ * \return CEV_Music* on success, NULL on error;
+ *
+ */
+CEV_Music* CEV_musicLoad(char *fileName);
+
+
 /** \brief Closes opened CEV_Music.
  *
  * \param music : CEV_Music* to close.
@@ -105,6 +115,15 @@ void CEV_waveClose(CEV_Chunk* chunk);
  * \return N/A.
  */
 void CEV_musicClose(CEV_Music* music);
+
+
+/** \brief Clear structure content.
+ *
+ * \param music : CEV_Music* to clear.
+ *
+ * \return void
+ */
+void CEV_musicClear(CEV_Music* music);
 
 
 /** \brief Copies Texture into surface.

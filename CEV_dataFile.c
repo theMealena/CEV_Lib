@@ -708,7 +708,7 @@ CEV_Music* CEV_musicFetch(unsigned int index, const char* fileName)
 
     /*---POST---*/
 
-    CEV_soundSystemGet()->loadedMusic = music;
+    //CEV_soundSystemGet()->loadedMusic = music;// TODO (drx#1#): à vérifier et contrôler gestion dans le mixSystem, attribuer music par fonction pour sécuriser la fermeture d'un éventuel fichier music déjà attribué
 
     CEV_capsuleClear(&lCaps);
 

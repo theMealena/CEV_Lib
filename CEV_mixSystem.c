@@ -204,7 +204,7 @@ int CEV_screenSwitch(void)
 static int L_videoSystemCreate(void)
 {/*creates SDL_window and renderer*/
 
-    CEV_VideoSystem  *sys    = CEV_videoSystemGet();
+    CEV_VideoSystem  *sys   = CEV_videoSystemGet();
     SDL_Renderer    *render = NULL;
     SDL_Window      *window = NULL;
 
