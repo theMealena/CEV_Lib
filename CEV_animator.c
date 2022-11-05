@@ -417,7 +417,7 @@ void SP_viewMode(SP_Anim* anim, uint8_t viewType, uint16_t viewIndex, uint16_t m
 
 
 int SP_fetchMode(SP_Sprite *sprite)
-{
+{//fetches playing mode
     return sprite->anim->view[SP_NVIEW][1].mode;
 }
 

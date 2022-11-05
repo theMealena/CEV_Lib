@@ -7,7 +7,7 @@
 #include <SDL_image.h>
 #include "project_def.h"
 #include "CEV_api.h"
-#include "CEV_selection.h"
+#include "CEV_menu.h"
 #include "CEV_mixSystem.h"
 #include "CEV_display.h"
 #include "CEV_dataFile.h"

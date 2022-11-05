@@ -54,6 +54,7 @@ REV_SystemLcd* REV_systemLcdGet(void);
  */
 void REV_lcdBackgroundSet(int index);
 
+
 void REV_lcdTitleSet(const char *src);
 
 /** \brief updates LCD display.

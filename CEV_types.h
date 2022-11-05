@@ -6,31 +6,33 @@
 
 
 #define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
-#define FILE_TYPE_NUM 18
-#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani"}
+#define FILE_TYPE_NUM 19
+#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani", "obj"}
 
 
 /** \brief defines file type
  */
 typedef enum FILE_TYPE
-{IS_DEFAULT = 0,    //unknow / undefined
-  IS_DAT    = 1,    //any data  .dat
-  IS_DTX    = 2,    //CEV_Text  .dtx
-  IS_BMP    = 3,    //bmp       .bmp
-  IS_PNG    = 4,    //png       .png
-  IS_JPG    = 5,    //jpg       .jpg
-  IS_GIF    = 6,    //gif       .gif
-  IS_WAV    = 7,    //wave      .wav
-  IS_FONT   = 8,    //font.ttf  .ttf
-  IS_SPS    = 9,    //animation .sps
-  IS_MENU   = 10,   //menu      .men
-  IS_SCROLL = 11,   //scroller  .scl
-  IS_MAP    = 12,   //map       .map
-  IS_MUSIC  = 13,   //mp3       .mp3
-  IS_PLX    = 14,   //parallax  .plx
-  IS_WTHR   = 15,   //weather   .wtr
-  IS_TXT    = 16,   //text file .txt
-  IS_ANI    = 17    //short animation .ani
+{
+    IS_DEFAULT  = 0,   /**< unknow / generic */
+    IS_DAT      = 1,    /**< any data  .dat */
+    IS_DTX      = 2,    /**< CEV_Text  .dtx */
+    IS_BMP      = 3,    /**< bmp       .bmp */
+    IS_PNG      = 4,    /**< png       .png */
+    IS_JPG      = 5,    /**< jpg       .jpg */
+    IS_GIF      = 6,    /**< gif       .gif */
+    IS_WAV      = 7,    /**< wave      .wav */
+    IS_FONT     = 8,    /**< font.ttf  .ttf */
+    IS_SPS      = 9,    /**< sprite    .sps */
+    IS_MENU     = 10,   /**< menu      .men */
+    IS_SCROLL   = 11,   /**< scroller  .scl */
+    IS_MAP      = 12,   /**< map       .map */
+    IS_MUSIC    = 13,   /**< mp3       .mp3 */
+    IS_PLX      = 14,   /**< parallax  .plx */
+    IS_WTHR     = 15,   /**< weather   .wtr */
+    IS_TXT      = 16,   /**< text file .txt */
+    IS_ANI      = 17,   /**< short animation .ani */
+    IS_OBJ      = 18    /**< is game object .obj */
 }
 FILE_TYPE;
 

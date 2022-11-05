@@ -4,6 +4,10 @@
 //**   CEV    |  28-09-2022   |   1.0    |    creation    **/
 //**********************************************************/
 
+//CEV   - 2022/10/29 - music control added (upon SDL_mixer)
+//      - play / stop / isPlaying
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -14,6 +18,7 @@
 #include <CEV_input.h>
 #include <CEV_mixSystem.h>
 #include <CEV_types.h>
+#include <CEV_dataFile.h>
 #include "CEV_mp3.h"
 
 // TODO (drx#1#): Tester plusieurs fichier, semble ok, nettoyer et finaliser ...
@@ -26,7 +31,7 @@
  * \return SDL_Texture* on success, NULL on failure.
  *
  */
-SDL_Texture *L_mp3TextureFetch(SDL_RWops* src, bool freeSrc);
+SDL_Texture *L_mp3TextureFetch(SDL_RWops* src);
 
 /** \brief fetches ID3V1 tags if available.
  *
@@ -155,7 +160,7 @@ void CEV_mp3TEST(void)
     printf("track is %s\n", music->track);
     //CEV_systemGet()->sound.loadedMusic = music;
 
-    Mix_PlayMusic(music->music, 1);
+    CEV_mp3MusicPlay(music, 1);
 
     SDL_Rect blit = CEV_textureDimGet(music->img);
     blit = CEV_rectCenteredInRect(blit, (SDL_Rect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
@@ -168,7 +173,7 @@ void CEV_mp3TEST(void)
     while(!stop)
     {
         CEV_inputUpdate();
-        stop = !Mix_PlayingMusic() || input->window.quitApp;
+        stop = !CEV_mp3IsPlaying() || input->window.quitApp;
         SDL_Delay(1000);
     }
 
@@ -214,7 +219,7 @@ CEV_Mp3* CEV_mp3Load_RW(SDL_RWops* src, bool freeSrc)
     CEV_Mp3* result = calloc(1, sizeof(CEV_Mp3));
 
     //doing my own business before givin vfile,
-    result->img = CEV_mp3TextureFetch(src, 0);
+    result->img = L_mp3TextureFetch(src);
 
     if(IS_NULL(result->img))
     {
@@ -224,11 +229,11 @@ CEV_Mp3* CEV_mp3Load_RW(SDL_RWops* src, bool freeSrc)
 
     //if(!CEV_mp3TagFetch(src, result))
     {//retrying with ID3 tags
-        CEV_mp3ArtistFetch(src, result->artist);
-        CEV_mp3TitleFetch(src, result->title);
-        CEV_mp3AlbumFetch(src, result->album);
-        CEV_mp3YearFetch(src, result->year);
-        CEV_mp3TrackFetch(src, result->track);
+        L_mp3ArtistFetch(src, result->artist);
+        L_mp3TitleFetch(src, result->title);
+        L_mp3AlbumFetch(src, result->album);
+        L_mp3YearFetch(src, result->year);
+        L_mp3TrackFetch(src, result->track);
     }
 
     SDL_RWseek(src, 0, SEEK_SET);
@@ -247,10 +252,37 @@ CEV_Mp3* CEV_mp3Load_RW(SDL_RWops* src, bool freeSrc)
 }
 
 
+SDL_Texture* CEV_mp3TextureFetch(CEV_Mp3* src)
+{//fetches embedded picture if any
+
+    return src->img;
+}
+
+
+void CEV_mp3MusicPlay(CEV_Mp3 *src, int loops)
+{//plays embedded music
+
+    Mix_PlayMusic(src->music, loops);
+}
+
+
+bool CEV_mp3IsPlaying(void)
+{//is mp3 actually playing ?
+
+    return Mix_PlayingMusic();
+}
+
+
+void CEV_mp3MusicStop(void)
+{//stops embedded music
+    Mix_HaltMusic();
+}
+
+
 void CEV_mp3Destroy(CEV_Mp3* src)
 {//Frees content and itself
 
-    CEV_Mp3Clear(src);
+    CEV_mp3Clear(src);
     free(src);
 }
 

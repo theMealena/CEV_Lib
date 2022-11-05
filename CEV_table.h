@@ -20,11 +20,11 @@ extern "C" {
  */
 typedef struct CEV_DynamicArray
 {
-    unsigned int inUse,     /*number of value in use*/
-                 capacity;  /*number of value it can store*/
+    unsigned int inUse,     /**< number of value in use*/
+                 capacity;  /**< number of value it can store*/
 
-    size_t elemSize;    /*byte length of one value*/
-    void *data;         /*the data array itself*/
+    size_t elemSize;    /**< byte length of one value*/
+    void *data;         /**< the data array itself*/
 }
 CEV_DynamicArray;
 

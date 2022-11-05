@@ -28,7 +28,7 @@
 #include "CEV_animator.h"
 #include "CEV_scroll.h"
 #include "CEV_texts.h"
-#include "CEV_selection.h"
+#include "CEV_menu.h"
 #include "CEV_maps.h"
 #include "CEV_parallax.h"
 #include "CEV_weather.h"

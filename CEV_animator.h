@@ -21,9 +21,23 @@ extern "C" {
 #define SP_MODE_NUM (5)
 
 
+/** \brief View type
+ */
 enum {SP_NONE =-1, SP_NVIEW = 0, SP_XVIEW = 1};
+
+
+/** \brief Rect type
+ */
 enum {SP_CLIP = 0, SP_HBOX = 1};
+
+
+/** \brief Playing mode
+ */
 enum {SP_LOOP_FOR = 0 , SP_FOR_REV = 1, SP_FOR_ONCE = 2, SP_FOR_REV_LOCK = 3, SP_FOR_LOCK = 4};
+
+
+/** \brief View display
+ */
 enum {SP_HIDE = 0, SP_SHOW = 1};
 
 
@@ -33,18 +47,19 @@ typedef struct SP_AnimList SP_AnimList;
 
 typedef struct SP_Sprite SP_Sprite;
 
+
 /** \brief sp view structure.
  */
 typedef struct SP_View
 {/*view structure*/
 
-    uint16_t picNum, /*number of picture*/
-             picTime,/*frame delay time ms*/
-             restart,/*restart frame index*/
-             stop,   /*stop frame index*/
-             mode;   /*read mode*/
+    uint16_t picNum, /**<number of picture*/
+             picTime,/**<frame delay time ms*/
+             restart,/**<restart frame index*/
+             stop,   /**<stop frame index*/
+             mode;   /**<read mode*/
 
-    SDL_Rect rect[2];/*clip and hitbox*/
+    SDL_Rect rect[2];/**<clip and hitbox*/
 }
 SP_View;
 
@@ -52,13 +67,10 @@ SP_View;
 /** \brief sp animation structure.
  */
 struct SP_Anim
-{/*animation structure*/
-
-    uint16_t  viewNum[2]; /*number of view / xtra */
-
-    SP_View* view[2];     /*2 tables of SP_View / extra*/
-
-    SDL_Texture* sheet;  /*spritesheet*/
+{
+    uint16_t  viewNum[2];   /**<number of view / xtra */
+    SP_View* view[2];       /**<2 tables of SP_View / xtra*/
+    SDL_Texture* sheet;     /**<spritesheet*/
 };
 
 // TODO (drx#1#): implémenter le stop dans les boucles
@@ -68,22 +80,22 @@ struct SP_Anim
 struct SP_Sprite
 {/*sprite structure*/
 
-    uint8_t     isLocked[2],   /*animation is locked*/
-                viewShow[2],   /*show view/xview*/
-                run;           /*is animated or freezed*/
+    uint8_t     isLocked[2],   /**<animation is locked*/
+                viewShow[2],   /**<show view/xview*/
+                run;           /**<is animated or freezed*/
 
-    int8_t      direction[2];  /*actual direction = +/-1 */
+    int8_t      direction[2];  /**<actual direction = +/-1 */
 
-    uint16_t    picAct[2],     /*active picture index*/
-                viewAct[2];    /*active view index*/
+    uint16_t    picAct[2],     /**<active picture index*/
+                viewAct[2];    /**<active view index*/
 
-    int16_t     viewReq[2][SP_NUM_OF_REQ_MAX];/*next view/xview requests*/
+    int16_t     viewReq[2][SP_NUM_OF_REQ_MAX];/**<next view/xview requests*/
 
-    unsigned int timePrev[2];  /*last absolute frame change*/
+    unsigned int timePrev[2];  /**<last absolute frame change*/
 
-    double      scale;         /*display scale*/
+    double      scale;         /**<display scale*/
 
-    SP_Anim*    anim;          /*base spritesheet*/
+    SP_Anim*    anim;          /**<base spritesheet*/
 };
 
 
@@ -91,13 +103,37 @@ struct SP_Sprite
  */
 struct SP_AnimList
 {/*set of animations strcuture*/
-
     uint16_t    num;
     SP_Anim**   animSet;
 };
 
+
+/** \brief Dumps view content.
+ *
+ * \param view : SP_View* to dump.
+ *
+ * \return void
+ */
 void SP_viewDump(SP_View* view);
+
+
+/** \brief Dumps animation content
+ *
+ * \param anim : SP_Anim* to dump.
+ *
+ * \return void
+ */
 void SP_animDump(SP_Anim* anim);
+
+
+/** \brief Fetches playing mode
+ *
+ * \param sprite : SP_Sprite* to fetch from.
+ *
+ * \return int as playing mode.
+ *
+ * note : result is from play mode enum.
+ */
 int SP_fetchMode(SP_Sprite *sprite);
 
 

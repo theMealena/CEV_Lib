@@ -25,7 +25,7 @@
 #include "CEV_scroll.h"
 #include "CEV_gif.h"
 #include "CEV_types.h"
-#include "CEV_selection.h"
+#include "CEV_menu.h"
 #include "CEV_maps.h"
 #include "CEV_weather.h"
 #include "CEV_parallax.h"
@@ -33,47 +33,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-
-/*
-#define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
-#define FILE_TYPE_NUM 16
-#define FILE_TYPE_LIST {"default", "dat", "txt", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr"}
-
-
-/** \brief defines file type
-
-typedef enum FILE_TYPE
-{IS_DEFAULT = 0,    //unknow / undefined
-  IS_DAT    = 1,    //any data
-  IS_DTX    = 2,    //CEV_Text
-  IS_BMP    = 3,    //bmp
-  IS_PNG    = 4,    //png
-  IS_JPG    = 5,    //jpg
-  IS_GIF    = 6,    //gif
-  IS_WAV    = 7,    //wave
-  IS_FONT   = 8,    //font.ttf
-  IS_SPS    = 9,    //animation
-  IS_MENU   = 10,   //menu
-  IS_SCROLL = 11,   //text scroll
-  IS_MAP    = 12,   //map
-  IS_MUSIC  = 13,   //mp3
-  IS_PLX    = 14,   //parallax
-  IS_WTHR   = 15    //weather
-}FILE_TYPE;
-*/
-
-
-//** \brief File encapsulation
-// */
-//typedef struct CEV_Capsule
-//{/**structure containing data and associated informations **/
-
-//    uint32_t    type, /**< IS_BMP / IS_PNG... */
-//                size; /**< data size in bytes */
-//    void        *data;/**< raw data */
-//}
-//CEV_Capsule;
 
 
 

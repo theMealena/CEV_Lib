@@ -34,11 +34,12 @@ U8  : nombre d'animation
     : num images animation 0
     : num images animation 1
 
-CEV_capsule : fichier image si embarquée
+CEV_capsule : fichier image
 */
 
 
 typedef struct CEV_AniMiniCst CEV_AniMiniCst;
+
 
 /** \brief short animation single instance.
  */
@@ -48,30 +49,34 @@ typedef struct CEV_aniMini
     bool switchAnim,    /**< enables 2nd line of animation */
          play;          /**< enables animation playing */
 
-    uint8_t picAct;     /**< active picture index */
+    uint32_t picAct,     /**< active picture index */
+            cstID;       /**< its constants ID */
 
     int timeOffset;     /**< time offset to sync */
 
-    SDL_Rect clip;      /**< single frame clip */
+    SDL_Rect clip,      /**< single frame clip */
+             blit;      /**< optional own blit position */
 
-    CEV_AniMiniCst *cst;  /**< link to its constants */
+    CEV_AniMiniCst *cst;/**< link to its constants */
 
 }
 CEV_AniMini;
 
 
 /** \brief short animation reference constants.
+ *
+ * note : holds a mini animation instance.
  */
 struct CEV_AniMiniCst
 {//animation constants
     //bool isSync;        /**< animation sync'ed with absolute time */
 
-    uint8_t numOfAnim,  /**< num of anim in animation */
-            numOfPic[2];/**< num of pic per animation */
-
     uint32_t ID,        /**< unique Id */
              delay,     /**< delay between pics (ms) */
              srcID;     /**< src picture ID if any */
+
+    uint8_t numOfAnim,  /**< num of anim in animation */
+            numOfPic[2];/**< num of pic per animation */
 
     int timeOffset;     /**< time offset to sync */
 
@@ -79,7 +84,7 @@ struct CEV_AniMiniCst
              picDim;    /**< texture dimensions */
 
     SDL_Texture *srcPic;/**< texture with animation */
-    CEV_AniMini anim; /**< self instance */
+    CEV_AniMini anim;   /**< self instance */
 };
 
 
@@ -110,35 +115,41 @@ void CEV_aniMiniCstDump(CEV_AniMiniCst* in);
 void CEV_aniMiniDump(CEV_AniMini* in);
 
 
+/** \brief Destroys constant content and itself.
+ *
+ * \param this CEV_AniMiniCst*
+ *
+ * \return void
+ */
+void CEV_aniMiniCstDestroy(CEV_AniMiniCst *this);
+
+
 /** \brief Clear / frees structure content.
  *
- * \param dst : CEV_AniMiniCst* to clear;
- * \param freePic : bool free embedded Texture if true:
+ * \param this : CEV_AniMiniCst* to clear;
  *
  * \return N/A.
  */
-void CEV_aniMiniCstClear(CEV_AniMiniCst *dst, bool freePic);
+void CEV_aniMiniCstClear(CEV_AniMiniCst *this);
 
 
-/** \brief Loads mini animation from file.
+/** \brief Loads mini animation cst from file.
  *
  * \param fileName : char* with name of file to be loaded.
- * \param dst : CEV_AniMiniCst* to hold loading result.
  *
- * \return int of standard function status.
+ * \return CEV_AniMiniCst* on success, NULL on error.
  */
-int CEV_aniMiniLoad(char *fileName, CEV_AniMiniCst *dst);
+CEV_AniMiniCst* CEV_aniMiniLoad(char *fileName);
 
 
 /** \brief Loads mini animation from virtual file.
  *
  * \param src : SDL_RWops* as virtual file to read from.
- * \param dst : CEV_AniMiniCst* to hold loading result.
  * \param freeSrc : bool closes RWops src if true.
  *
- * \return int of standard function status.
+ * \return CEV_AniMiniCst* on success, NULL on error.
  */
-int CEV_aniMiniLoad_RW(SDL_RWops* src, CEV_AniMiniCst *dst, bool freeSrc);
+CEV_AniMiniCst* CEV_aniMiniLoad_RW(SDL_RWops* src, bool freeSrc);
 
 
 /** \brief Saves mini animation to file.
@@ -149,7 +160,7 @@ int CEV_aniMiniLoad_RW(SDL_RWops* src, CEV_AniMiniCst *dst, bool freeSrc);
  *
  * \return int of standard function status.
  */
-int CEV_aniMiniSave(CEV_AniMiniCst *src, char *fileName, bool embedPic);
+int CEV_aniMiniCstSave(CEV_AniMiniCst *src, char *fileName, bool embedPic);
 
 
 /** \brief Writes CEV_AniMiniCst into file.
@@ -176,7 +187,7 @@ int CEV_aniMiniCstTypeWrite(CEV_AniMiniCst *src, FILE* dst, bool embedPic);
 int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMiniCst *dst);
 
 
-/** \brief Sets animation paraameters for animation.
+/** \brief Sets animation parameters for animation.
  *
  * \param picNum_0 : uint8_t as num of picture in first animation.
  * \param picNum_1 : uint8_t as num of picture in second animation.
@@ -191,6 +202,19 @@ int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMiniCst *dst);
 int CEV_aniMiniSetParam(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMiniCst* dst);
 
 
+/** \brief Force picture display
+ *
+ * \param dst : CEV_aniMini* to force view from.
+ * \param picIndex : int as which picture index to display.
+ * \param switchView : bool to show alternate view.
+ *
+ * \return void
+ *
+ * note will need CEV_aniMiniPlay to restart.
+ */
+void CEV_aniMiniPicForce(CEV_aniMini* dst, int picIndex, bool switchView);
+
+
 /** \brief New instance for this animation.
  *
  * \param src : CEV_AniMiniCst* to build instance from.
@@ -202,11 +226,11 @@ CEV_AniMini CEV_aniMiniCreateFrom(CEV_AniMiniCst* src);
 
 /** \brief Clears / reset structure content.
  *
- * \param src : CEV_AniMini* to be cleared.
+ * \param this : CEV_AniMini* to be cleared.
  *
  * \return void
  */
-void CEV_aniMiniClear(CEV_AniMini* src);
+void CEV_aniMiniClear(CEV_AniMini* this);
 
 
 /** \brief Updates structure status.
@@ -218,6 +242,16 @@ void CEV_aniMiniClear(CEV_AniMini* src);
  *
  */
 SDL_Rect CEV_aniMiniUpdate(CEV_AniMini* src, uint32_t now);
+
+
+/** \brief Enables / stops playing.
+ *
+ * \param src : CEV_AniMini* to control.
+ * \param play : true enbales playing / false stops.
+ *
+ * \return bool as playing status.
+ */
+bool CEV_aniMiniPlay(CEV_AniMini* src, bool play);
 
 
 /*

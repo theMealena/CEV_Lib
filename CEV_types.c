@@ -231,7 +231,7 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 
     size_t size = SDL_RWsize(vFile);
 
-    printf("vFile size is : %d\n", size);
+    //printf("vFile size is : %d\n", size);
 
     dst->size = size;
     dst->type = IS_PNG;
@@ -260,7 +260,6 @@ err_1:
 SDL_Rect CEV_textureDimGet(SDL_Texture* src)
 {//texture size to SDL_Rect
 
-
     SDL_Rect result = CLEAR_RECT;
 
     if(src)
@@ -268,7 +267,6 @@ SDL_Rect CEV_textureDimGet(SDL_Texture* src)
 
     return result;
 }
-
 
 
 int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRect, SDL_Rect* dstRect)

@@ -3,6 +3,11 @@
 //**------------------------------------------------------**/
 //**   CEV    |  28-09-2022   |   1.0    |    creation    **/
 //**********************************************************/
+
+//CEV   - 2022/10/29 - music control added (upon SDL_mixer)
+//      - play / stop / isPlaying
+
+
 #ifndef CEV_MP3_H_INCLUDED
 #define CEV_MP3_H_INCLUDED
 
@@ -46,6 +51,39 @@ CEV_Mp3* CEV_mp3Load(char *fileName);
  * \return CEV_Mp3* on success, NULL on error.
  */
 CEV_Mp3* CEV_mp3Load_RW(SDL_RWops* src, bool freeSrc);
+
+
+/** \brief Fetches embedded picture if any
+ *
+ * \param src : CEV_Mp3* to fetch texture from.
+ *
+ * \return SDL_Texture* on succes, NULL on failure.
+ */
+SDL_Texture* CEV_mp3TextureFetch(CEV_Mp3* src);
+
+
+/** \brief Plays mp3 music.
+ *
+ * \param src : CEV_Mp3* to play.
+ * \param loops : int as numner of loops to perform.
+ *
+ * \return void.
+ */
+void CEV_mp3MusicPlay(CEV_Mp3 *src, int loops);
+
+
+/** \brief Is mp3 actually plaing ?
+ *
+ * \return true if playing, false otherwise.
+ */
+bool CEV_mp3IsPlaying(void);
+
+
+/** \brief Stops playing music.
+ *
+ * \return void.
+ */
+void CEV_mp3MusicStop(void);
 
 
 /** \brief Destroys Mp3 structure and content.
