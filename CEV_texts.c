@@ -25,7 +25,7 @@
 #include "rwtypes.h"
 
 
-#define CEV_TEXT_XTRA_ALLOC (sizeof(size_t) + 1) /**< num of bytes added to strlen in alloc */
+#define CEV_TEXT_XTRA_ALLOC (sizeof(size_t) + 1) /**< num of bytes of extra alloc after strlen */
 
 
 /*LOCAL FUNCTIONS DECLARATIONS**/

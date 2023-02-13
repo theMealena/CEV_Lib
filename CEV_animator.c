@@ -77,6 +77,7 @@ void SP_viewDump(SP_View* view)
 
 }
 
+
 void SP_animDump(SP_Anim* anim)
 {
     printf("spritesheet at %p\n", anim->sheet);

@@ -89,6 +89,7 @@ bool CEV_edgeUpdate(CEV_Edge *edge)
 void CEV_intSwap(int* valOne, int* valTwo)
 {/*intervertie 2 int*/
     /*(*valOne)^=((*valTwo)^=((*valOne)^=(*valTwo)));*/
+	
     *valOne^=*valTwo;
     *valTwo^=*valOne;
     *valOne^=*valTwo;
@@ -341,7 +342,7 @@ bool CEV_constraint(int mini, int* value, int maxi)
         *value = mini;
         return true;
     }
-    else if (*value>maxi)
+    else if (*value > maxi)
     {
         *value = maxi;
         return true;
@@ -371,6 +372,7 @@ bool CEV_fconstraint(float mini, float* value, float maxi)
 
 double CEV_map(double realVal, double realMin, double realMax, double retMin, double retMax)
 {/*scaling*/
+
     if(((realMax-realMin) + retMin)!= 0)
         return((retMax-retMin)*(realVal-realMin)/(realMax-realMin) + retMin);
     else
@@ -407,7 +409,7 @@ bool CEV_floatIsEqual(double value, double target, double tolerance)
 
 double CEV_fModulo(double value, double mod)
 {/*floatting point modulo*/
-    return (value - ((int)(value/mod) * mod));
+    return (value - ((int)floor(value/mod) * mod));
 }
 
 

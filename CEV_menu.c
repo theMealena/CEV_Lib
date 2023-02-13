@@ -330,7 +330,7 @@ err_1:
 }
 
 
-CEV_Menu * CEV_menuLoad(const char* fileName)
+CEV_Menu* CEV_menuLoad(const char* fileName)
 {/*loads menu.mdat file*/
 
 /*---DECLARATIONS---*/
@@ -376,7 +376,7 @@ exit :
 }
 
 
-CEV_Menu * CEV_menuLoadf(FILE *src)
+CEV_Menu* CEV_menuLoadf(FILE *src)
 {/*loads from opened data file*/
 // TODO (drx#1#03/04/17): voir pour les ratios de texte à ajouter
 

@@ -16,33 +16,28 @@
 #include <rwtypes.h>
 
 
-static void L_shortAnimGetTextureDim(SDL_Texture* src, CEV_AniMiniCst* dst);
+static void L_shortAnimGetTextureDim(SDL_Texture* src, CEV_AniMini* dst);
 
 
 void TEST_shortAnim(void)
-{//testing / debug
-
+{
     bool load = true;
 
     CEV_Input *input = CEV_inputGet();
-    CEV_AniMiniCst* animCstPtr;
-    CEV_AniMiniCst animCst = {0};
+    CEV_AniMini* animCst = calloc(1, sizeof(*animCst));
 
     if(load)
-    {
-        animCstPtr = CEV_aniMiniLoad("testshortanim.ani");
-        animCst = *animCstPtr;
-    }
+        animCst = CEV_aniMiniLoad("testshortanim.ani");
     else
     {
-        CEV_aniMiniCstClear(&animCst);
+        CEV_aniMiniClear(animCst, false);
         SDL_Texture *picAnim = CEV_textureLoad("Sonic_SP.png");
-        CEV_aniMiniSetTexture(picAnim, &animCst);
-        animCst.delay = 150;
-        CEV_aniMiniSetParam(6, 4, &animCst);
+        CEV_aniMiniSetTexture(picAnim, animCst);
+        animCst->delay = 150;
+        CEV_aniMiniSetParam(6, 4, animCst);
     }
 
-    CEV_aniMiniCstDump(&animCst);
+    CEV_aniMiniDump(animCst);
 
     //CEV_aniMini anim[10] ;
 
@@ -55,11 +50,9 @@ void TEST_shortAnim(void)
         anim[i].timeOffset = CEV_map(i, 0, 9, 0, 600);
     }*/
 
-    //CEV_aniMiniCstDump(&animCst);
-    //CEV_aniMiniDump(&anim);
-    CEV_AniMini anim = {0};
-
-    anim = animCst.anim;
+    //CEV_aniMiniDump(&animCst);
+    //CEV_spriteMiniDump(&anim);
+    CEV_SpriteMini* anim = &animCst->sprite;
 
     bool quit = false;
 
@@ -70,7 +63,7 @@ void TEST_shortAnim(void)
 
         quit = input->window.quitApp;
 
-        //anim[5].switchAnim = input->key[SDL_SCANCODE_SPACE];
+        anim->switchAnim = input->key[SDL_SCANCODE_SPACE];
 /*
         for(int i=0; i<10; i++)
         {
@@ -79,9 +72,9 @@ void TEST_shortAnim(void)
             SDL_RenderCopy(render, animCst.srcPic, &clip, &blit);
 
         }*/
-            SDL_Rect clip = CEV_aniMiniUpdate(&animCst.anim, SDL_GetTicks());
-            SDL_Rect blit = {(animCst.clip.w+10)/**i*/, 350, clip.w, clip.h};
-            SDL_RenderCopy(render, animCst.srcPic, &clip, &blit);
+            SDL_Rect clip = CEV_spriteMiniUpdate(anim, SDL_GetTicks());
+            SDL_Rect blit = {(animCst->clip.w+10)/**i*/, 350, clip.w, clip.h};
+            SDL_RenderCopy(render, animCst->srcPic, &clip, &blit);
 
 
         SDL_RenderPresent(render);
@@ -90,25 +83,22 @@ void TEST_shortAnim(void)
         SDL_Delay(20);
     }
 
-    if(CEV_aniMiniCstSave(&animCst, "testshortanim.ani", true))
+    if(CEV_aniMiniSave(animCst, "testshortanim.ani", true))
     {
         puts("save failed !");
     }
 
-    if(load)
-        CEV_aniMiniCstDestroy(animCstPtr);
-    else
-        CEV_aniMiniCstClear(&animCst);
+    CEV_aniMiniDestroy(animCst);
 }
 
 
-void CEV_aniMiniCstDump(CEV_AniMiniCst* in)
+void CEV_aniMiniDump(CEV_AniMini* in)
 {//dumps structure content
 
     puts("***STARTS DUMPING SHORT ANIMATION CONSTANTS***");
     printf("\tis at %p\n", in);
     printf("\tID : %X\n", in->ID);
-    printf("\tressources ID : %X\n", in->srcID);
+    printf("\tpicture ID : %X\n", in->srcID);
     printf("\tNum of animation : %d\n", in->numOfAnim);
 
     for(int i=0; i<in->numOfAnim; i++)
@@ -128,7 +118,7 @@ void CEV_aniMiniCstDump(CEV_AniMiniCst* in)
 }
 
 
-void CEV_aniMiniDump(CEV_AniMini* in)
+void CEV_spriteMiniDump(CEV_SpriteMini* in)
 {//dumps structure content
 
     puts("***STARTS DUMPING SHORT ANIMATION INSTANCE***");
@@ -136,77 +126,108 @@ void CEV_aniMiniDump(CEV_AniMini* in)
     printf("\tactive anim : %s\n", in->switchAnim? "true" : "false");
     printf("\tactive picture : %d\n", in->picAct);
     printf("\ttime offset : %d\n", in->timeOffset);
-    printf("\tclip is : "); CEV_rectDump(in->clip);
-    printf("\tblit is : "); CEV_rectDump(in->blit);
     printf("\tlinked to constants : %p\n", in->cst);
     puts("***ENDS DUMPING SHORT ANIMATION INSTANCE***");
 }
 
 
-void CEV_aniMiniCstDestroy(CEV_AniMiniCst *this)
-{//destroys content and itself
+void CEV_aniMiniDestroy(CEV_AniMini *src)
+{//destroys aniMini and content
 
-    if(IS_NULL(this))
-        return;
+    CEV_aniMiniClear(src, !src->srcID);
 
-    CEV_aniMiniCstClear(this);
-    free(this);
+    free(src);
 }
 
-void CEV_aniMiniCstClear(CEV_AniMiniCst *this)
+
+void CEV_aniMiniClear(CEV_AniMini *dst, bool freePic)
 {//clears cst structure content
 
-    if(IS_NULL(this))
-        return;
-
-    this->numOfAnim  = 0;
-    this->ID         = 0;
-    this->srcID      = 0;
-    this->delay      = 0;
-    this->timeOffset = 0;
-    this->clip       = CLEAR_RECT;
-    this->picDim     = CLEAR_RECT;
+    dst->numOfAnim  = 0;
+    dst->ID         = 0;
+    dst->srcID      = 0;
+    dst->delay      = 0;
+    dst->timeOffset = 0;
+    dst->clip       = CLEAR_RECT;
+    dst->picDim     = CLEAR_RECT;
 
     for(int i=0; i<2; i++)
-        this->numOfPic[i] = 0;
+        dst->numOfPic[i] = 0;
 
-    SDL_DestroyTexture(this->srcPic);
-    this->srcPic = NULL;
-
-    CEV_aniMiniClear(&this->anim);
+    if(freePic)
+    {
+        SDL_DestroyTexture(dst->srcPic);
+        dst->srcPic = NULL;
+    }
 }
 
 
-CEV_AniMiniCst* CEV_aniMiniLoad(char *fileName)
-{//loads short animation (cst) from file
+/*
+CEV_AniMini* CEV_aniMiniLoadCreate(char *fileName)
+{//loads an and alloc aniMini from file
+
+    CEV_AniMini*result = malloc(sizeof(CEV_AniMini));
+
+    if (IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        return NULL;
+    }
+
+    if(CEV_aniMiniLoad(fileName, result) != FUNC_OK)
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load %s.\n", __FUNCTION__, __LINE__, fileName);
+        free(result);
+        result = NULL;
+    }
+
+    return result;
+}
+*/
+
+
+CEV_AniMini* CEV_aniMiniLoad(char *fileName)
+{//loads short animation from file
 
     SDL_RWops *src = SDL_RWFromFile(fileName, "rb");
 
     if(IS_NULL(src))
     {
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
-        return FUNC_ERR;
+        return NULL;
     }
 
-    if(CEV_aniMiniLoad_RW(src, true))
-        fprintf(stderr, "Err at %s / %d : CEV_aniMiniLoad_RW failed.\n", __FUNCTION__, __LINE__ );
+    return CEV_aniMiniLoad_RW(src, true);
 }
 
 
-CEV_AniMiniCst* CEV_aniMiniLoad_RW(SDL_RWops* src,  bool freeSrc)
+CEV_AniMini CEV_aniMiniRead_RW(SDL_RWops* src)
+{
+    CEV_AniMini result = {0},
+                *temp  = NULL;
+
+    temp = CEV_aniMiniLoad_RW(src, false);
+    result = *temp;
+
+    CEV_aniMiniDestroy(temp);
+
+    return result;
+}
+
+
+CEV_AniMini* CEV_aniMiniLoad_RW(SDL_RWops* src, bool freeSrc)
 {//loads animation from virtual file
 
-    CEV_Capsule picCap = {0};
-
-    CEV_AniMiniCst* result = calloc(1, sizeof(CEV_AniMiniCst));
+    CEV_AniMini* result = calloc(1, sizeof(CEV_AniMini));
 
     if(IS_NULL(result))
     {
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        goto err;
+        goto err_1;
     }
 
-    result->clip       = CLEAR_RECT;
+    CEV_Capsule picCap = {0};
+
     result->ID         = SDL_ReadLE32(src);
     result->srcID      = SDL_ReadLE32(src);
     result->delay      = SDL_ReadLE32(src);
@@ -224,7 +245,7 @@ CEV_AniMiniCst* CEV_aniMiniLoad_RW(SDL_RWops* src,  bool freeSrc)
         if(!IS_PIC(picCap.type))
         {
             fprintf(stderr, "Err at %s / %d : Embedded file is not picture.\n", __FUNCTION__, __LINE__ );
-            goto err_1;
+            goto end;
         }
 
         SDL_Texture *texture = CEV_capsuleExtract(&picCap, true);
@@ -232,44 +253,29 @@ CEV_AniMiniCst* CEV_aniMiniLoad_RW(SDL_RWops* src,  bool freeSrc)
         if(IS_NULL(texture))
         {
             fprintf(stderr, "Err at %s / %d : Picture extraction failed.\n", __FUNCTION__, __LINE__ );
-            goto err_2;
+            goto end;
         }
 
         CEV_aniMiniSetTexture(texture, result);
     }
-    else
-    {
-        NULL;
-    }
 
     CEV_aniMiniSetParam(result->numOfPic[0], result->numOfPic[1], result);
 
-    result->anim = CEV_aniMiniCreateFrom(result);
+    result->sprite = CEV_spriteMiniFrom(result);
 
-//end
+end:
     CEV_capsuleClear(&picCap);
 
+err_1:
     if(freeSrc)
         SDL_RWclose(src);
 
     return result;
-
-//quitting on error
-err_2:
-    CEV_capsuleClear(&picCap);
-
-err_1:
-    free(result);
-
-err:
-    if(freeSrc)
-        SDL_RWclose(src);
-
-    return NULL;
 }
 
 
-int CEV_aniMiniCstSave(CEV_AniMiniCst *src, char *fileName, bool embedPic)
+
+int CEV_aniMiniSave(CEV_AniMini *src, char *fileName, bool embedPic)
 {//save short animation into file
 
     FILE* dst = fopen(fileName, "wb");
@@ -280,7 +286,7 @@ int CEV_aniMiniCstSave(CEV_AniMiniCst *src, char *fileName, bool embedPic)
         return FUNC_ERR;
     }
 
-    CEV_aniMiniCstTypeWrite(src, dst, embedPic);
+    CEV_aniMiniTypeWrite(src, dst, embedPic);
 
     fclose(dst);
 
@@ -288,8 +294,9 @@ int CEV_aniMiniCstSave(CEV_AniMiniCst *src, char *fileName, bool embedPic)
 }
 
 
-int CEV_aniMiniCstTypeWrite(CEV_AniMiniCst *src, FILE* dst, bool embedPic)
+int CEV_aniMiniTypeWrite(CEV_AniMini *src, FILE* dst, bool embedPic)
 {//write short animation into file
+
 
     readWriteErr = 0;
     CEV_Capsule picCap;
@@ -314,13 +321,19 @@ int CEV_aniMiniCstTypeWrite(CEV_AniMiniCst *src, FILE* dst, bool embedPic)
 }
 
 
-int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMiniCst *dst)
+int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMini *dst)
 {//setting texture as tileset
 
     if(IS_NULL(src) || IS_NULL(dst))
     {
         fprintf(stderr, "Err at %s / %d : NULL argument provided.\n", __FUNCTION__, __LINE__ );
         return ARG_ERR;
+    }
+
+    if(NOT_NULL(dst->srcPic))
+    {
+        SDL_DestroyTexture(dst->srcPic);
+        dst->srcPic = NULL;
     }
 
     dst->picDim = CEV_textureDimGet(src);
@@ -330,7 +343,7 @@ int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMiniCst *dst)
 }
 
 
-int CEV_aniMiniSetParam(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMiniCst* dst)
+int CEV_aniMiniSetParam(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMini* dst)
 {//setting animation parameters
 
     dst->numOfAnim = picNum_1? 2 : 1;
@@ -349,18 +362,27 @@ int CEV_aniMiniSetParam(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMiniCst* dst)
 }
 
 
-void CEV_aniMiniPicForce(CEV_aniMini* dst, int picIndex, bool switchView)
-{//forces pic display
-    dst->switchAnim = switchView;
-    dst->picAct = (picIndex < dst->cst->numOfPic[switchView])? picIndex : 0;
-    dst->play = false;
+CEV_SpriteMini* CEV_spriteMiniCreateFrom(CEV_AniMini* src)
+{//alloc and fills struct from constants
+
+    CEV_SpriteMini* result = malloc(sizeof(CEV_SpriteMini));
+
+    if (IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        return NULL;
+    }
+
+    *result = CEV_spriteMiniFrom(src);
+
+    return result;
 }
 
 
-CEV_AniMini CEV_aniMiniCreateFrom(CEV_AniMiniCst* src)
+CEV_SpriteMini CEV_spriteMiniFrom(CEV_AniMini* src)
 {//fills new struct from constants
 
-    CEV_AniMini result;
+    CEV_SpriteMini result;
     result.switchAnim  = false;
     result.play        = true;
     result.cst         = src;
@@ -371,23 +393,19 @@ CEV_AniMini CEV_aniMiniCreateFrom(CEV_AniMiniCst* src)
 }
 
 
-void CEV_aniMiniClear(CEV_AniMini* this)
-{//clears / init this content to default
+void CEV_spriteMiniClear(CEV_SpriteMini* src)
+{//clears / init src content to default
 
-    if(IS_NULL(this))
-        return;
-
-    this->switchAnim = false;
-    this->play       = true;
-    this->timeOffset = 0;
-    this->clip       = CLEAR_RECT;
-    this->blit       = CLEAR_RECT;
-    this->cst        = NULL;
+    src->switchAnim = false;
+    src->play       = true;
+    src->timeOffset = 0;
+    src->clip       = CLEAR_RECT;
+    src->cst        = NULL;
 }
 
 
-SDL_Rect CEV_aniMiniUpdate(CEV_AniMini* src, uint32_t now)
-{//updates src animation clip and return clip
+SDL_Rect CEV_spriteMiniUpdate(CEV_SpriteMini* src, uint32_t now)
+{//updates src animation clip and returns clip
 
     if(IS_NULL(src->cst))
         return CLEAR_RECT;
@@ -397,9 +415,15 @@ SDL_Rect CEV_aniMiniUpdate(CEV_AniMini* src, uint32_t now)
 
 
     uint32_t    cycleTime   = src->cst->numOfPic[src->switchAnim] * src->cst->delay, //time for src loop
-                timeInCycle = (now + src->timeOffset) %cycleTime; //time inside loop
+                timeInCycle = 0; //time inside loop
 
-    src->picAct = timeInCycle / src->cst->delay;
+    if(cycleTime)
+        timeInCycle = (now + src->timeOffset) %cycleTime;
+
+    if(src->cst->delay)
+        src->picAct = timeInCycle / src->cst->delay;
+    else
+        src->picAct = 0;
 
     if(src->play)
     {
@@ -410,8 +434,3 @@ SDL_Rect CEV_aniMiniUpdate(CEV_AniMini* src, uint32_t now)
     return src->clip;
 }
 
-
-bool CEV_aniMiniPlay(CEV_AniMini* src, bool play)
-{//enables / disable animation
-    return (src->play = play);
-}

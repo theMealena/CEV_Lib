@@ -202,7 +202,7 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 
     SDL_QueryTexture(src, NULL, NULL, &width, &height);
 
-    fileSize = width*height*4; // TODO (drx#1#): much much overestimated
+    fileSize = width*height*4; // TODO (drx#1#): much much overestimated is BMP type at worst
 
     void *bufferFile = malloc(fileSize);
 

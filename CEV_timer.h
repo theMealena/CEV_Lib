@@ -22,16 +22,16 @@ extern "C" {
  */
 typedef struct CEV_Timer
 {
-	uint8_t     run,        /*run order*/
-                processing, /*counting down*/
-                cmd;        /*command*/
+	uint8_t     run,        /**< run order*/
+                processing, /**< counting down*/
+                cmd;        /**< command*/
 
-    int64_t     accu;   /*accumulator*/
+    int64_t     accu;   /**< accumulator from preset to 0*/
 
-	uint32_t     preset,/*preset value*/
-                 lst;   /*previous absolute time*/
+	uint32_t     preset,/**< preset value*/
+                 lst;   /**< previous absolute time*/
 
-    CEV_Edge    edge;   /*edge*/
+    CEV_Edge    edge;   /**< edge*/
 }
 CEV_Timer;
 
