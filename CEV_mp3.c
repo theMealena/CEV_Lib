@@ -19,7 +19,7 @@
 #include <CEV_mixSystem.h>
 #include <CEV_types.h>
 #include <CEV_dataFile.h>
-#include "CEV_mp3.h"
+#include <CEV_mp3.h>
 
 // TODO (drx#1#): Tester plusieurs fichier, semble ok, nettoyer et finaliser ...
 

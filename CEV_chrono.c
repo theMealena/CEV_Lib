@@ -16,7 +16,7 @@
 #include <stdint.h>
 #include <CEV_mixSystem.h>
 
-TEST_cevChrono(void)
+void TEST_cevChrono(void)
 {//functions stress and testing
 
     CEV_Chrono chrono;
@@ -66,7 +66,9 @@ CEV_Chrono* CEV_chronoSet(CEV_Chrono *in)
     static CEV_Chrono *this = NULL;
 
     if(NOT_NULL(in))
+    {
         this = in;
+    }
 
     return this;
 }
@@ -78,9 +80,9 @@ CEV_Chrono* CEV_chronoGet(void)
 }
 
 
-uint32_t CEV_chronoTicks(void)
+uint32_t* CEV_chronoTicks(void)
 {
-    return CEV_chronoSet(NULL)->timeElapsed;
+    return &CEV_chronoSet(NULL)->timeElapsed;
 }
 
 
@@ -93,7 +95,7 @@ void CEV_chronoStart(CEV_Chrono *in)
 
 uint32_t CEV_chronoUpdate(CEV_Chrono *in)
 {
-    in->timeElapsed = SDL_GetTicks() - in->timeStart;
+    return in->timeElapsed = SDL_GetTicks() - in->timeStart;
 }
 
 

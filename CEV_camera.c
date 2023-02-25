@@ -47,6 +47,54 @@ static int L_cameraOffScene(CEV_Camera *src);
 static void L_cameraTheoricPos(CEV_CameraParam *in);
 
 
+void TEST_camera(void)
+{
+
+    SDL_Renderer* render = CEV_videoSystemGet()->render;
+    CEV_Input *input = CEV_inputGet();
+
+    CEV_FCoord followThis = CLEAR_FCOORD;
+    SDL_Rect constraint   = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
+    CEV_Camera camera;
+    CEV_cameraInit(&camera, &followThis, constraint, 500, CAMERA_THIRD);
+    CEV_cameraDimensionSet(&camera, SCREEN_WIDTH /10, SCREEN_HEIGHT /10);
+
+    camera.param[CEV_X].velMax = camera.param[CEV_Y].velMax = 10;
+    CEV_cameraDirectionLock(&camera, CAMERA_NONE);
+    //CEV_cameraScrollSet(&camera, 1, CAMERA_RIGHT, 2);
+    CEV_cameraOpenFieldAuto(&camera, 500, CEV_X);
+    bool quit = false;
+
+    while (!quit)
+    {
+        CEV_inputUpdate();
+
+        quit = input->window.quitApp || input->key[SDL_SCANCODE_ESCAPE];
+
+        followThis = CEV_pointToFcoord(input->mouse.pos);
+        CEV_cameraUpdate(&camera);
+
+        SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(render);
+
+        SDL_SetRenderDrawColor(render, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderFillRect(render, &camera.scrollActPos);
+        SDL_RenderPresent(render);
+
+        if(input->key[SDL_SCANCODE_SPACE])
+        {
+            printf("Rect %d, %d, %d, %d\n", camera.scrollActPos.x, camera.scrollActPos.y, camera.scrollActPos.w, camera.scrollActPos.h);
+            printf("Follow me : %f.2, %f.2\n", followThis.x, followThis.y);
+            CEV_cameraOpenFieldSet(&camera, CAMERA_LEFT);
+            input->key[SDL_SCANCODE_SPACE] = false;
+        }
+
+        SDL_Delay(100);
+    }
+}
+
+
 void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, unsigned int changeTime, CEV_CameraMode mode)
 {//Init new camera
 

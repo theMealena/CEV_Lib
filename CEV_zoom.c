@@ -5,6 +5,79 @@
 #include <CEV_api.h>
 #include <CEV_mixSystem.h>
 
+void TEST_zoom(void)
+{
+    SDL_Renderer *render = CEV_videoSystemGet()->render;
+    SDL_Texture* texture = CEV_textureLoad("AngelsDemon.png");
+    CEV_Input *input = CEV_inputGet();
+
+    CEV_Zoom zoom = CEV_zoomInit(320, 240, 5.0, 0.1);
+    //zoom.scaleMax = 0.5;
+    //zoom.scaleMin = 1.0/10.0;
+    SDL_Rect clip = {0, 0, 320, 240};
+    SDL_Point point = {16, 12};
+
+    while(!input->key[SDL_SCANCODE_ESCAPE])
+    {
+
+        CEV_inputUpdate();
+
+        //zoom.enable = input->mouse.button[SDL_BUTTON_LEFT];
+            //clip = CEV_zoomOnCoord(&zoom, input->mouse.pos, ZOOM_IN);
+
+        if(input->mouse.button[SDL_BUTTON_WHEELUP])
+        {
+            CEV_zoomScaleUpdate(&zoom, ZOOM_IN);
+            printf("zoom * %f\n", zoom.scaleAct);
+        }
+        else if(input->mouse.button[SDL_BUTTON_WHEELDOWN])
+        {
+            CEV_zoomScaleUpdate(&zoom, ZOOM_OUT);
+            printf("zoom * %f\n", zoom.scaleAct);
+        }
+
+        if(CEV_zoomIsClip(&zoom))
+        {
+            if(input->key[SDL_SCANCODE_UP])
+                point.y -=2;
+            if(input->key[SDL_SCANCODE_DOWN])
+                point.y +=2;
+            if(input->key[SDL_SCANCODE_LEFT])
+                point.x -=2;
+            if(input->key[SDL_SCANCODE_RIGHT])
+                point.x +=2;
+
+            CEV_constraint(0, &point.x, 320);
+            CEV_constraint(0, &point.y, 240);
+
+            //CEV_rectConstraint(&zoom.clip, zoom.baseDim);
+        }
+
+
+
+        clip = CEV_zoomOnCoord(&zoom, point, ZOOM_NONE);
+
+        //printf("zoom is %s\n", CEV_zoomIsClip(&zoom)? "clip" : "blit");
+        //CEV_rectConstraint(&clip, (SDL_Rect){0, 0, 320, 240});
+
+        /*if(CEV_zoomIsClip(&zoom))*/
+            printf("clip is : ");
+            CEV_rectDump(zoom.clip);
+
+        if(input->key[SDL_SCANCODE_SPACE])
+        {
+            printf("zoom at %d, %d, %d, %d\n", zoom.clip.x, zoom.clip.y, zoom.clip.w, zoom.clip.h);
+        }
+
+        SDL_RenderCopy(render, texture, &zoom.clip, &zoom.blit);
+        SDL_RenderPresent(render);
+        SDL_RenderClear(render);
+        SDL_Delay(20);
+    }
+
+    SDL_DestroyTexture(texture);
+}
+
 
 void CEV_zoomDump(CEV_Zoom src)
 {

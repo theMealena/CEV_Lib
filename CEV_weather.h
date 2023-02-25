@@ -1,7 +1,25 @@
+//**********************************************************/
+//** Done by  |      Date     |  version |    comment     **/
+//**------------------------------------------------------**/
+//**   CEV    |    02-2017    |   1.0    |    creation    **/
+//**********************************************************/
+
+/*
+landmark used is as :
+    0
+    .___x
+   /|
+  / |
+ z  y
+
+with (float)Z = 1.0 as nearest, 0.0.. as furthest
+*/
+
 #ifndef WEATHER_H_INCLUDED
 #define WEATHER_H_INCLUDED
 
 #include <SDL.h>
+#include <CEV_camera.h>
 
 #define WEATHER_SNOW 0
 #define WEATHER_RAIN 1
@@ -14,15 +32,16 @@ extern "C" {
 
 typedef struct SWeather CEV_Weather;
 
+
 /** \brief Create a new weather instance
  *
- * \param filename : picture to open as particle.
- * \param type : enum of weather type.
+ * \param texture : SDL_Texture* to use as particle.
+ * \param type : uint8_t of enum of weather type.
  * \param num : number of particles for this instance.
- * \param vx : horizontal amplitude for snow & fall, X speed for rain.
+ * \param vx : horizontal amplitude (delta x) for snow & fall, X velocity for rain.
  * \param vy : vertical speed.
  *
- * \return pointer to a CEV_Weather instance.
+ * \return pointer to a CEV_Weather instance, NULL on failure.
  */
 CEV_Weather *CEV_weatherCreate(SDL_Texture *texture, uint8_t type, unsigned int num, int vx, int vy);
 
@@ -33,8 +52,10 @@ CEV_Weather *CEV_weatherCreate(SDL_Texture *texture, uint8_t type, unsigned int 
  * \param freePic : does function destroy embedded texture ?.
  *
  * \return N/A
+ *
+ * \note NULL compliant.
  */
-void CEV_weatherFree(CEV_Weather *in, bool freePic);
+void CEV_weatherDestroy(CEV_Weather *in, bool freePic);
 
 
 /** \brief Updates and display weather on screen
@@ -76,42 +97,41 @@ unsigned int CEV_weatherNumSet(CEV_Weather *in, unsigned int num);
 unsigned int CEV_weatherNumReset(CEV_Weather *in);
 
 
-/** \brief enable correction to follow scrolling on X axis
- *
- * \param in : CEV_Weather* to be corrected.
- * \param ptr : int* to value of correction.
- *
- * \return void
- */
-void CEV_weatherPosCorrectX(CEV_Weather *in, int *ptr);
 
-
-/** \brief enable correction to follow scrolling on Y axis
+/** \brief Sets / attach camera to be used for scrolling effect.
  *
- * \param in : CEV_Weather* to be corrected.
- * \param ptr : int* to value of correction.
+ * \param src : CEV_Camera* to be followed.
+ * \param dst : CEV_Weather* to follow camera.
  *
  * \return void
+ *
+ * \note weather behave like on fix screen if no camera is attached.
  */
-void CEV_weatherPosCorrectY(CEV_Weather *in, int *ptr);
+void CEV_weatherCameraSet(CEV_Camera *src, CEV_Weather* dst);
 
 
-/** \brief enables display
+/** \brief Starts weather effect.
  *
  * \param in : CEV_Weather* to be started.
  *
- * \return void
+ * \return void.
+ *
+ * \note Effect starts softly.
  */
 void CEV_weatherStart(CEV_Weather *in);
 
 
 /** \brief stop display
  *
- * \param in : CEV_Weather* to be started.
+ * \param in : CEV_Weather* to be stopped.
  *
  * \return void
  */
 void CEV_weatherStop(CEV_Weather *in);
+void CEV_weatherMaxSize(float src, CEV_Weather* dst, SDL_Rect textureDim);
+void CEV_weatherMinSize(float src, CEV_Weather* dst, SDL_Rect textureDim);
+
+
 
 
 
@@ -141,7 +161,7 @@ CEV_Weather *CEV_weatherLoad(char *fileName);
 /** \brief loads weather file from RWops
  *
  * \param ops : RWops* to read from
- * \param freeops : if true, function will free source ops
+ * \param freeSrc : if true, function will free source ops
  *
  * \return CEV_Weather* on success, NULL on failure
  */

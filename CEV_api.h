@@ -519,7 +519,7 @@ SDL_Point CEV_pointSum(SDL_Point pta, SDL_Point ptb);
  *
  * \return true if both point at same position.
  */
-bool CEV_IcoordAreEqual(CEV_ICoord* pta, CEV_ICoord* ptb);
+bool CEV_icoordAreEqual(CEV_ICoord* pta, CEV_ICoord* ptb);
 
 /** \brief empty Icoord.
  *

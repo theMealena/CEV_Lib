@@ -18,7 +18,7 @@ typedef struct CEV_Chrono
 CEV_Chrono;
 
 
-TEST_cevChrono(void);
+void TEST_cevChrono(void);
 
 
 /** \brief Sets any chrono for global access.
@@ -47,7 +47,7 @@ CEV_Chrono* CEV_chronoGet(void);
  *
  * \return uint32_t as elapsed time.
  */
-uint32_t CEV_chronoTicks(void);
+uint32_t* CEV_chronoTicks(void);
 
 
 /** \brief Starts / resets chrono.

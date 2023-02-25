@@ -95,6 +95,73 @@ static void L_parallaxPictureTypeWrite(char* fileName, FILE* dst);
 static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* src, CEV_ParaLayer* dst);
 
 
+void TEST_parallax(void)
+{
+
+    CEV_convertParallaxCSVToData("prlx\\bcgd01.txt", "prlx\\bcgd01.plx");
+
+    CEV_Parallax * thisPrlx = CEV_parallaxLoad("prlx\\bcgd01.plx");//CEV_parallaxLoad("background00000.plx");
+
+    SDL_Rect
+        world  = {0, 0, 5*SCREEN_WIDTH, 10*SCREEN_HEIGHT},
+        camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
+    thisPrlx->cameraPos = &camera;
+    thisPrlx->worldDim  = world;
+
+    CEV_Input* input = CEV_inputGet();
+    SDL_Renderer *render = CEV_videoSystemGet()->render;
+
+    bool quit = false;
+
+    while(!quit)
+    {
+        CEV_inputUpdate();
+
+        if(input->key[SDL_SCANCODE_RIGHT])
+        {
+            camera.x+=10;
+            printf("cam.x = %d\n", camera.x);
+        }
+
+        if(input->key[SDL_SCANCODE_LEFT])
+        {
+            camera.x-=10;
+            printf("cam.x = %d\n", camera.x);
+        }
+
+        if(input->key[SDL_SCANCODE_UP])
+        {
+            camera.y-=10;
+            printf("cam.y = %d\n", camera.y);
+        }
+
+        if(input->key[SDL_SCANCODE_DOWN])
+        {
+            camera.y+=10;
+            printf("cam.y = %d\n", camera.y);
+        }
+
+        if(input->key[SDL_SCANCODE_ESCAPE])
+            quit = true;
+
+        if(input->key[SDL_SCANCODE_F10])
+        {
+            CEV_screenSwitch();
+            input->key[SDL_SCANCODE_F10] = false;
+        }
+
+        CEV_rectConstraint(&camera, world);
+
+        CEV_parallaxShowAll(thisPrlx);
+
+        SDL_RenderPresent(render);
+
+        SDL_Delay(10);
+    }
+}
+
+
 
 CEV_Parallax* CEV_parallaxCreate(int numOfLayer, SDL_Rect *cameraPos)
 {//allocates new parallax structure

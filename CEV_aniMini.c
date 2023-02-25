@@ -16,12 +16,10 @@
 #include <rwtypes.h>
 
 
-static void L_shortAnimGetTextureDim(SDL_Texture* src, CEV_AniMini* dst);
-
 
 void TEST_shortAnim(void)
 {
-    bool load = true;
+    bool load = false;
 
     CEV_Input *input = CEV_inputGet();
     CEV_AniMini* animCst = calloc(1, sizeof(*animCst));
@@ -34,7 +32,8 @@ void TEST_shortAnim(void)
         SDL_Texture *picAnim = CEV_textureLoad("Sonic_SP.png");
         CEV_aniMiniSetTexture(picAnim, animCst);
         animCst->delay = 150;
-        CEV_aniMiniSetParam(6, 4, animCst);
+        CEV_aniMiniSetParam(6, 1, animCst);
+        animCst->sprite = CEV_spriteMiniFrom(animCst);
     }
 
     CEV_aniMiniDump(animCst);
@@ -73,7 +72,7 @@ void TEST_shortAnim(void)
 
         }*/
             SDL_Rect clip = CEV_spriteMiniUpdate(anim, SDL_GetTicks());
-            SDL_Rect blit = {(animCst->clip.w+10)/**i*/, 350, clip.w, clip.h};
+            SDL_Rect blit = {20/**i*/, 350, clip.w, clip.h};
             SDL_RenderCopy(render, animCst->srcPic, &clip, &blit);
 
 
@@ -95,6 +94,12 @@ void TEST_shortAnim(void)
 void CEV_aniMiniDump(CEV_AniMini* in)
 {//dumps structure content
 
+	if(IS_NULL(in))
+	{
+		printf("This AniMini is NULL\n");
+        return;
+	}
+
     puts("***STARTS DUMPING SHORT ANIMATION CONSTANTS***");
     printf("\tis at %p\n", in);
     printf("\tID : %X\n", in->ID);
@@ -113,6 +118,10 @@ void CEV_aniMiniDump(CEV_AniMini* in)
     CEV_rectDump(in->picDim);
 
     printf("\ttexture is at %p\n", in->srcPic);
+	printf("\town sprite's content is : \n");
+
+    CEV_spriteMiniDump(&in->sprite);
+	
     puts("***ENDS DUMPING SHORT ANIMATION CONSTANTS***");
 
 }
@@ -120,6 +129,12 @@ void CEV_aniMiniDump(CEV_AniMini* in)
 
 void CEV_spriteMiniDump(CEV_SpriteMini* in)
 {//dumps structure content
+
+	if(IS_NULL(in))
+	{
+		printf("This SpriteMini is NULL\n");
+        return;
+	}
 
     puts("***STARTS DUMPING SHORT ANIMATION INSTANCE***");
     printf("\tis playing : %s\n", in->play? "true" : "false");
@@ -133,7 +148,10 @@ void CEV_spriteMiniDump(CEV_SpriteMini* in)
 
 void CEV_aniMiniDestroy(CEV_AniMini *src)
 {//destroys aniMini and content
-
+	
+	if(IS_NULL(src))
+        return;
+		
     CEV_aniMiniClear(src, !src->srcID);
 
     free(src);
@@ -330,7 +348,7 @@ int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMini *dst)
         return ARG_ERR;
     }
 
-    if(NOT_NULL(dst->srcPic))
+    if(NOT_NULL(dst->srcPic) && !dst->srcID)
     {
         SDL_DestroyTexture(dst->srcPic);
         dst->srcPic = NULL;

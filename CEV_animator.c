@@ -221,8 +221,7 @@ SP_Anim* SP_AnimLoad(const char* fileName)
         return NULL;
     }
 
-    SP_Anim *dst = malloc(sizeof(SP_Anim)),
-            *src = NULL;
+    SP_Anim *dst = malloc(sizeof(SP_Anim));
 
     if(IS_NULL(srcList))
     {

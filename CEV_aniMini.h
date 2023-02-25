@@ -194,6 +194,7 @@ int CEV_aniMiniTypeWrite(CEV_AniMini *src, FILE* dst, bool embedPic);
  *
  * note : Caculation are performed, thus direct attribution of SDL_Texture
  * into structure may fail.
+ * Any existing texture is destroyed and replaced if nor referenced (srcID = nul).
  */
 int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMini *dst);
 

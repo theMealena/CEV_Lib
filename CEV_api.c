@@ -89,7 +89,7 @@ bool CEV_edgeUpdate(CEV_Edge *edge)
 void CEV_intSwap(int* valOne, int* valTwo)
 {/*intervertie 2 int*/
     /*(*valOne)^=((*valTwo)^=((*valOne)^=(*valTwo)));*/
-	
+
     *valOne^=*valTwo;
     *valTwo^=*valOne;
     *valOne^=*valTwo;
@@ -513,7 +513,7 @@ SDL_Point CEV_pointSum(SDL_Point pta, SDL_Point ptb)
 
 /*** CEV_Icoord ***/
 
-bool CEV_IcoordAreEqual(CEV_ICoord* pta, CEV_ICoord* ptb)
+bool CEV_icoordAreEqual(CEV_ICoord* pta, CEV_ICoord* ptb)
 {//two point are at same position
 
 	return ((pta->x == ptb->x) && (pta->y == ptb->y) && (pta->z == ptb->z));
