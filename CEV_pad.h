@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <SDL.h>
 
+
 #define PAD_ANA_MAX_VAL 0x7FFF  /**< Max analog Value (32767) */
 #define PAD_ANA_MIN_VAL 0x8000  /**< Min analog Value (-32768) */
 #define PAD_ANA_DEADBOUND 0x400 /**< Default dead bound */

@@ -1,0 +1,2026 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_animator.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__animator_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Définitions de type</a> &#124;
+<a href="#enum-members">Énumérations</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_animator.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;SDL.h&quot;</code><br />
+<code>#include &quot;stdint.h&quot;</code><br />
+</div>
+<p><a href="_c_e_v__animator_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p___view.html">SP_View</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">sp view structure.  <a href="struct_s_p___view.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p___anim.html">SP_Anim</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">sp animation structure.  <a href="struct_s_p___anim.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">sp sprite structure.  <a href="struct_s_p___sprite.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">sp animation set structure.  <a href="struct_s_p___anim_list.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3e698a8ab8e9375f1fb49e0992a27d12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a3e698a8ab8e9375f1fb49e0992a27d12">SP_NUM_OF_REQ_MAX</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="separator:a3e698a8ab8e9375f1fb49e0992a27d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c3d7b446e391b05b4ebaa679c6a181"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a34c3d7b446e391b05b4ebaa679c6a181">SP_MODE_LIST</a>&#160;&#160;&#160;{&quot;SP_LOOP_FOR&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a6acdb5cd8ee2f160846ab19d153f5ac6">SP_FOR_REV</a>&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5ad8c159312e846aa43946a5bb93ce1ee9">SP_FOR_ONCE</a>&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a76389136ca4c59072135e18f1a69f58d">SP_FOR_REV_LOCK</a>&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a80d7199832567fd79101b37d0e56b08c">SP_FOR_LOCK</a>&quot;}</td></tr>
+<tr class="separator:a34c3d7b446e391b05b4ebaa679c6a181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc6597a323ec98612f5e6b1d91579585"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#acc6597a323ec98612f5e6b1d91579585">SP_MODE_NUM</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="separator:acc6597a323ec98612f5e6b1d91579585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Définitions de type</h2></td></tr>
+<tr class="memitem:a3f9d740a7dcf05dc679bae31e3a8a3d8"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s_p___anim.html">SP_Anim</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a3f9d740a7dcf05dc679bae31e3a8a3d8">SP_Anim</a></td></tr>
+<tr class="separator:a3f9d740a7dcf05dc679bae31e3a8a3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d8a6bfd023ac06cd703bf73009669a3"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1d8a6bfd023ac06cd703bf73009669a3">SP_AnimList</a></td></tr>
+<tr class="separator:a1d8a6bfd023ac06cd703bf73009669a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab40177e1f2d1895940d1626260f8aa42"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s_p___sprite.html">SP_Sprite</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#ab40177e1f2d1895940d1626260f8aa42">SP_Sprite</a></td></tr>
+<tr class="separator:ab40177e1f2d1895940d1626260f8aa42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d9a7c903c20b5c8b6ac5b8e4c602048"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s_p___view.html">SP_View</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a2d9a7c903c20b5c8b6ac5b8e4c602048">SP_View</a></td></tr>
+<tr class="memdesc:a2d9a7c903c20b5c8b6ac5b8e4c602048"><td class="mdescLeft">&#160;</td><td class="mdescRight">sp view structure.  <a href="_c_e_v__animator_8h.html#a2d9a7c903c20b5c8b6ac5b8e4c602048">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2d9a7c903c20b5c8b6ac5b8e4c602048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="_c_e_v__animator_8h.html#a06fc87d81c62e9abb8790b6e5713c55baf67d7b4a7b36c332e9c48f85e0746b73">SP_NONE</a> =-1
+, <a class="el" href="_c_e_v__animator_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba272a8b2947fb20f247f8c3053e8c25bb">SP_NVIEW</a> = 0
+, <a class="el" href="_c_e_v__animator_8h.html#a06fc87d81c62e9abb8790b6e5713c55baf0d0c151da83c5751760ff366bdbc843">SP_XVIEW</a> = 1
+ }</td></tr>
+<tr class="memdesc:a06fc87d81c62e9abb8790b6e5713c55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">View type.  <a href="_c_e_v__animator_8h.html#a06fc87d81c62e9abb8790b6e5713c55b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="_c_e_v__animator_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a08dd5d222ad83c2c41eb6feebb640570">SP_CLIP</a> = 0
+, <a class="el" href="_c_e_v__animator_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a11e68d5b895b4f284c58960802e35f22">SP_HBOX</a> = 1
+ }</td></tr>
+<tr class="memdesc:adf764cbdea00d65edcd07bb9953ad2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rect type.  <a href="_c_e_v__animator_8h.html#adf764cbdea00d65edcd07bb9953ad2b7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a473299e0bc047f73c16f1ce3a5b6ddc8">SP_LOOP_FOR</a> = 0
+, <a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a6acdb5cd8ee2f160846ab19d153f5ac6">SP_FOR_REV</a> = 1
+, <a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5ad8c159312e846aa43946a5bb93ce1ee9">SP_FOR_ONCE</a> = 2
+, <a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a76389136ca4c59072135e18f1a69f58d">SP_FOR_REV_LOCK</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a80d7199832567fd79101b37d0e56b08c">SP_FOR_LOCK</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:a99fb83031ce9923c84392b4e92f956b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Playing mode.  <a href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a99fb83031ce9923c84392b4e92f956b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc6126af1d45847bc59afa0aa3216b04"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="_c_e_v__animator_8h.html#abc6126af1d45847bc59afa0aa3216b04a071b876055fdebaa58c8a9d10d65be1a">SP_HIDE</a> = 0
+, <a class="el" href="_c_e_v__animator_8h.html#abc6126af1d45847bc59afa0aa3216b04aa68b36ec0adf076dce49132417410fb8">SP_SHOW</a> = 1
+ }</td></tr>
+<tr class="memdesc:abc6126af1d45847bc59afa0aa3216b04"><td class="mdescLeft">&#160;</td><td class="mdescRight">View display.  <a href="_c_e_v__animator_8h.html#abc6126af1d45847bc59afa0aa3216b04">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abc6126af1d45847bc59afa0aa3216b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a4578e0a2cfb813e15f19ed725154b60e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a4578e0a2cfb813e15f19ed725154b60e">SP_viewDump</a> (<a class="el" href="struct_s_p___view.html">SP_View</a> *view)</td></tr>
+<tr class="memdesc:a4578e0a2cfb813e15f19ed725154b60e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps view content.  <a href="_c_e_v__animator_8h.html#a4578e0a2cfb813e15f19ed725154b60e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4578e0a2cfb813e15f19ed725154b60e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f6eb01212696b4855ebaeba26387da7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1f6eb01212696b4855ebaeba26387da7">SP_animDump</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim)</td></tr>
+<tr class="memdesc:a1f6eb01212696b4855ebaeba26387da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps animation content.  <a href="_c_e_v__animator_8h.html#a1f6eb01212696b4855ebaeba26387da7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1f6eb01212696b4855ebaeba26387da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade83bd535ec086b1ffe60be9666d2047"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#ade83bd535ec086b1ffe60be9666d2047">SP_fetchMode</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:ade83bd535ec086b1ffe60be9666d2047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches playing mode.  <a href="_c_e_v__animator_8h.html#ade83bd535ec086b1ffe60be9666d2047">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ade83bd535ec086b1ffe60be9666d2047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb3d8fb9dfa16822657799f5efa59c98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#acb3d8fb9dfa16822657799f5efa59c98">SP_animCreate</a> (uint16_t nview, uint16_t xview, SDL_Texture *sheet)</td></tr>
+<tr class="memdesc:acb3d8fb9dfa16822657799f5efa59c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates animation instance.  <a href="_c_e_v__animator_8h.html#acb3d8fb9dfa16822657799f5efa59c98">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acb3d8fb9dfa16822657799f5efa59c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc2634a74fb0725a704a426c8ce818d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a8cc2634a74fb0725a704a426c8ce818d">SP_animFree</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, char freePic)</td></tr>
+<tr class="memdesc:a8cc2634a74fb0725a704a426c8ce818d"><td class="mdescLeft">&#160;</td><td class="mdescRight">fully free and destroy animation.  <a href="_c_e_v__animator_8h.html#a8cc2634a74fb0725a704a426c8ce818d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8cc2634a74fb0725a704a426c8ce818d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0253c540cefce1b4987c830465fda9c2"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a0253c540cefce1b4987c830465fda9c2">SP_animTexture</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim)</td></tr>
+<tr class="memdesc:a0253c540cefce1b4987c830465fda9c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">getting embedded Texture.  <a href="_c_e_v__animator_8h.html#a0253c540cefce1b4987c830465fda9c2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0253c540cefce1b4987c830465fda9c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28d704a3cb2d95d3181e05deb3130329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a28d704a3cb2d95d3181e05deb3130329">SP_animQuery</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint16_t *nView, uint16_t *xView)</td></tr>
+<tr class="memdesc:a28d704a3cb2d95d3181e05deb3130329"><td class="mdescLeft">&#160;</td><td class="mdescRight">query animation.  <a href="_c_e_v__animator_8h.html#a28d704a3cb2d95d3181e05deb3130329">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a28d704a3cb2d95d3181e05deb3130329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43ba32e916a4e5598f7f1511a0797390"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a43ba32e916a4e5598f7f1511a0797390">SP_AnimLoad</a> (const char *fileName)</td></tr>
+<tr class="memdesc:a43ba32e916a4e5598f7f1511a0797390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load single animation or 1st in list.  <a href="_c_e_v__animator_8h.html#a43ba32e916a4e5598f7f1511a0797390">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a43ba32e916a4e5598f7f1511a0797390"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bd2e9129e6da1ace09ab17a2cce34f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1bd2e9129e6da1ace09ab17a2cce34f4">SP_animListLoad</a> (const char *fileName)</td></tr>
+<tr class="memdesc:a1bd2e9129e6da1ace09ab17a2cce34f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads multiple spritesheets file.  <a href="_c_e_v__animator_8h.html#a1bd2e9129e6da1ace09ab17a2cce34f4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1bd2e9129e6da1ace09ab17a2cce34f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd7bb7ec921372b83197a6d2d0e16f98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#acd7bb7ec921372b83197a6d2d0e16f98">SP_animListLoad_RW</a> (SDL_RWops *ops, uint8_t freeSrc)</td></tr>
+<tr class="memdesc:acd7bb7ec921372b83197a6d2d0e16f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads multiple spritesheets file.  <a href="_c_e_v__animator_8h.html#acd7bb7ec921372b83197a6d2d0e16f98">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acd7bb7ec921372b83197a6d2d0e16f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dcf201162c4ec6856e76b13209e1388"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a7dcf201162c4ec6856e76b13209e1388">SP_animListNum</a> (<a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *set)</td></tr>
+<tr class="memdesc:a7dcf201162c4ec6856e76b13209e1388"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of spritesheet in struture.  <a href="_c_e_v__animator_8h.html#a7dcf201162c4ec6856e76b13209e1388">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7dcf201162c4ec6856e76b13209e1388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70bf373a5022588b687be7ad4b0b59a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a70bf373a5022588b687be7ad4b0b59a9">SP_animListGetIndex</a> (<a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *set, unsigned int index)</td></tr>
+<tr class="memdesc:a70bf373a5022588b687be7ad4b0b59a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetches the Nth spritesheet in list.  <a href="_c_e_v__animator_8h.html#a70bf373a5022588b687be7ad4b0b59a9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a70bf373a5022588b687be7ad4b0b59a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1fdda3be37ace60616b2367eff2b0d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#ab1fdda3be37ace60616b2367eff2b0d9">SP_animListFree</a> (<a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *set, char freePic)</td></tr>
+<tr class="memdesc:ab1fdda3be37ace60616b2367eff2b0d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">frees and destroy animation set  <a href="_c_e_v__animator_8h.html#ab1fdda3be37ace60616b2367eff2b0d9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab1fdda3be37ace60616b2367eff2b0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066a9c23077f6b9a6e8ec0f310000f64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a066a9c23077f6b9a6e8ec0f310000f64">SP_viewSet</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint8_t viewType, uint16_t viewIndex, uint16_t frameNum, SDL_Rect clip, SDL_Rect hitBox, uint16_t time, uint16_t mode, uint16_t restart, uint16_t stop)</td></tr>
+<tr class="memdesc:a066a9c23077f6b9a6e8ec0f310000f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">view parameters set.  <a href="_c_e_v__animator_8h.html#a066a9c23077f6b9a6e8ec0f310000f64">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a066a9c23077f6b9a6e8ec0f310000f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7c104496541aee88f51623e330214c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#acc7c104496541aee88f51623e330214c">SP_viewTime</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint8_t viewType, uint8_t viewIndex, uint16_t time)</td></tr>
+<tr class="memdesc:acc7c104496541aee88f51623e330214c"><td class="mdescLeft">&#160;</td><td class="mdescRight">frame delay parameter  <a href="_c_e_v__animator_8h.html#acc7c104496541aee88f51623e330214c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acc7c104496541aee88f51623e330214c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77854de31dd1fbe6ac5ae413ad56a6dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a77854de31dd1fbe6ac5ae413ad56a6dc">SP_viewMode</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint8_t viewType, uint16_t viewIndex, uint16_t mode)</td></tr>
+<tr class="memdesc:a77854de31dd1fbe6ac5ae413ad56a6dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">display mode parameter  <a href="_c_e_v__animator_8h.html#a77854de31dd1fbe6ac5ae413ad56a6dc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a77854de31dd1fbe6ac5ae413ad56a6dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab97b3a4ebdb128ec8b18a024d7d14bc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#ab97b3a4ebdb128ec8b18a024d7d14bc2">SP_viewClip</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint8_t viewType, uint16_t viewIndex, SDL_Rect *clip)</td></tr>
+<tr class="memdesc:ab97b3a4ebdb128ec8b18a024d7d14bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">display mode parameter  <a href="_c_e_v__animator_8h.html#ab97b3a4ebdb128ec8b18a024d7d14bc2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab97b3a4ebdb128ec8b18a024d7d14bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ea357bc6374250579c0f6ba1161f1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a02ea357bc6374250579c0f6ba1161f1f">SP_viewHitBox</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint16_t viewIndex, SDL_Rect *hbox)</td></tr>
+<tr class="memdesc:a02ea357bc6374250579c0f6ba1161f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">hit box parameter  <a href="_c_e_v__animator_8h.html#a02ea357bc6374250579c0f6ba1161f1f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a02ea357bc6374250579c0f6ba1161f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7489f9f595af017501d1e9187ce04f5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a7489f9f595af017501d1e9187ce04f5a">SP_viewRestart</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim, uint8_t viewType, uint16_t viewIndex, uint16_t restart)</td></tr>
+<tr class="memdesc:a7489f9f595af017501d1e9187ce04f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">restart parameter  <a href="_c_e_v__animator_8h.html#a7489f9f595af017501d1e9187ce04f5a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7489f9f595af017501d1e9187ce04f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56785a6fe09a951c05bfc6f80b8faddf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a56785a6fe09a951c05bfc6f80b8faddf">SP_spriteCreateFromAnim</a> (<a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim)</td></tr>
+<tr class="memdesc:a56785a6fe09a951c05bfc6f80b8faddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">new sprite.  <a href="_c_e_v__animator_8h.html#a56785a6fe09a951c05bfc6f80b8faddf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a56785a6fe09a951c05bfc6f80b8faddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f513992144c87a3c04e4af146078ffe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1f513992144c87a3c04e4af146078ffe">SP_spriteLinkToAnim</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, <a class="el" href="struct_s_p___anim.html">SP_Anim</a> *anim)</td></tr>
+<tr class="memdesc:a1f513992144c87a3c04e4af146078ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">links sprite to anim.  <a href="_c_e_v__animator_8h.html#a1f513992144c87a3c04e4af146078ffe">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1f513992144c87a3c04e4af146078ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3113e71634bbda7922df558d42b39635"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a3113e71634bbda7922df558d42b39635">SP_spriteReset</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a3113e71634bbda7922df558d42b39635"><td class="mdescLeft">&#160;</td><td class="mdescRight">resets sprite.  <a href="_c_e_v__animator_8h.html#a3113e71634bbda7922df558d42b39635">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3113e71634bbda7922df558d42b39635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a109cd27bf97d3f2963a79ce995e887e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a109cd27bf97d3f2963a79ce995e887e3">SP_spriteScale</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, double scale)</td></tr>
+<tr class="memdesc:a109cd27bf97d3f2963a79ce995e887e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">parameter a sprite's scale.  <a href="_c_e_v__animator_8h.html#a109cd27bf97d3f2963a79ce995e887e3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a109cd27bf97d3f2963a79ce995e887e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e74c5edab45e4946be733c1f07a6d3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a64e74c5edab45e4946be733c1f07a6d3">SP_spriteScaleGet</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a64e74c5edab45e4946be733c1f07a6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve a sprite's scale.  <a href="_c_e_v__animator_8h.html#a64e74c5edab45e4946be733c1f07a6d3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a64e74c5edab45e4946be733c1f07a6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f5032c3435f16387a60781fb4ff782"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a07f5032c3435f16387a60781fb4ff782">SP_spriteAnim</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a07f5032c3435f16387a60781fb4ff782"><td class="mdescLeft">&#160;</td><td class="mdescRight">performs aniamtion aka next picture selection  <a href="_c_e_v__animator_8h.html#a07f5032c3435f16387a60781fb4ff782">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a07f5032c3435f16387a60781fb4ff782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f6d23b9e31066c4f79d811a82311edc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a3f6d23b9e31066c4f79d811a82311edc">SP_spriteBlitEx</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, SDL_Renderer *dst, const SDL_Point *pos, const double angle, const SDL_Point *center, const SDL_RendererFlip flip)</td></tr>
+<tr class="memdesc:a3f6d23b9e31066c4f79d811a82311edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">blits sprite.  <a href="_c_e_v__animator_8h.html#a3f6d23b9e31066c4f79d811a82311edc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3f6d23b9e31066c4f79d811a82311edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8f4ee95db292733ae7d2e2ddc534111"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#ac8f4ee95db292733ae7d2e2ddc534111">SP_spriteBlit</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, SDL_Renderer *dst, const SDL_Point *pos)</td></tr>
+<tr class="memdesc:ac8f4ee95db292733ae7d2e2ddc534111"><td class="mdescLeft">&#160;</td><td class="mdescRight">blits sprite.  <a href="_c_e_v__animator_8h.html#ac8f4ee95db292733ae7d2e2ddc534111">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac8f4ee95db292733ae7d2e2ddc534111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19970b00d47d4eb944de31a89c7e8c88"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a19970b00d47d4eb944de31a89c7e8c88">SP_clipGet</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, uint8_t viewType)</td></tr>
+<tr class="memdesc:a19970b00d47d4eb944de31a89c7e8c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets clip position.  <a href="_c_e_v__animator_8h.html#a19970b00d47d4eb944de31a89c7e8c88">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a19970b00d47d4eb944de31a89c7e8c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6f194eb0b8d714409ce44551232727"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#aca6f194eb0b8d714409ce44551232727">SP_sheetHBoxGet</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, SDL_RendererFlip flip)</td></tr>
+<tr class="memdesc:aca6f194eb0b8d714409ce44551232727"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns hitbox pos in spritesheet  <a href="_c_e_v__animator_8h.html#aca6f194eb0b8d714409ce44551232727">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aca6f194eb0b8d714409ce44551232727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d977ccfebf0bb0a2e3785390f69de3e"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1d977ccfebf0bb0a2e3785390f69de3e">SP_hBoxGet</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, SDL_Point pos, SDL_RendererFlip flip)</td></tr>
+<tr class="memdesc:a1d977ccfebf0bb0a2e3785390f69de3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">queries hit box  <a href="_c_e_v__animator_8h.html#a1d977ccfebf0bb0a2e3785390f69de3e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1d977ccfebf0bb0a2e3785390f69de3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e9487d9896ee73ca574242ebfc08773"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1e9487d9896ee73ca574242ebfc08773">SP_viewForce</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, uint8_t viewType, uint16_t viewIndex, uint16_t frameIndex)</td></tr>
+<tr class="memdesc:a1e9487d9896ee73ca574242ebfc08773"><td class="mdescLeft">&#160;</td><td class="mdescRight">forces view display  <a href="_c_e_v__animator_8h.html#a1e9487d9896ee73ca574242ebfc08773">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1e9487d9896ee73ca574242ebfc08773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeda8820bcc4573b78323ff2f51b5086"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#abeda8820bcc4573b78323ff2f51b5086">SP_viewRequest</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, uint8_t viewType, uint16_t viewIndex)</td></tr>
+<tr class="memdesc:abeda8820bcc4573b78323ff2f51b5086"><td class="mdescLeft">&#160;</td><td class="mdescRight">view request  <a href="_c_e_v__animator_8h.html#abeda8820bcc4573b78323ff2f51b5086">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abeda8820bcc4573b78323ff2f51b5086"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6215af2e128a8a897b70377a953dd502"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a6215af2e128a8a897b70377a953dd502">SP_viewDisplay</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, uint8_t viewType, uint8_t display)</td></tr>
+<tr class="memdesc:a6215af2e128a8a897b70377a953dd502"><td class="mdescLeft">&#160;</td><td class="mdescRight">show a view  <a href="_c_e_v__animator_8h.html#a6215af2e128a8a897b70377a953dd502">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6215af2e128a8a897b70377a953dd502"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40952d1075661625fc347215761e0c36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a40952d1075661625fc347215761e0c36">SP_spriteStop</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a40952d1075661625fc347215761e0c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">freezes animation : pause.  <a href="_c_e_v__animator_8h.html#a40952d1075661625fc347215761e0c36">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a40952d1075661625fc347215761e0c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb2b51a7cf209543763edfdbd12e8be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a5bb2b51a7cf209543763edfdbd12e8be">SP_spriteStart</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a5bb2b51a7cf209543763edfdbd12e8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">plays animation  <a href="_c_e_v__animator_8h.html#a5bb2b51a7cf209543763edfdbd12e8be">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5bb2b51a7cf209543763edfdbd12e8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a497477838ac77e367c39bf1ed7db79d7"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a497477838ac77e367c39bf1ed7db79d7">SP_spriteIsLocked</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite)</td></tr>
+<tr class="memdesc:a497477838ac77e367c39bf1ed7db79d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">is animation locked  <a href="_c_e_v__animator_8h.html#a497477838ac77e367c39bf1ed7db79d7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a497477838ac77e367c39bf1ed7db79d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0041ee63a54b4be5d408dfc09c3c953a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a0041ee63a54b4be5d408dfc09c3c953a">SP_spriteQuery</a> (<a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *sprite, int *actNview, int *actXview, int *actNpic, int *actXpic)</td></tr>
+<tr class="memdesc:a0041ee63a54b4be5d408dfc09c3c953a"><td class="mdescLeft">&#160;</td><td class="mdescRight">queries sprite status.  <a href="_c_e_v__animator_8h.html#a0041ee63a54b4be5d408dfc09c3c953a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0041ee63a54b4be5d408dfc09c3c953a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f94174851c950bd3617f0415e44c268"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__animator_8h.html#a1f94174851c950bd3617f0415e44c268">SP_spriteCSVToData</a> (const char *srcName, const char *dstName)</td></tr>
+<tr class="memdesc:a1f94174851c950bd3617f0415e44c268"><td class="mdescLeft">&#160;</td><td class="mdescRight">user config file to data file  <a href="_c_e_v__animator_8h.html#a1f94174851c950bd3617f0415e44c268">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1f94174851c950bd3617f0415e44c268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des macros</h2>
+<a id="a34c3d7b446e391b05b4ebaa679c6a181" name="a34c3d7b446e391b05b4ebaa679c6a181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c3d7b446e391b05b4ebaa679c6a181">&#9670;&nbsp;</a></span>SP_MODE_LIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SP_MODE_LIST&#160;&#160;&#160;{&quot;SP_LOOP_FOR&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a6acdb5cd8ee2f160846ab19d153f5ac6">SP_FOR_REV</a>&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5ad8c159312e846aa43946a5bb93ce1ee9">SP_FOR_ONCE</a>&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a76389136ca4c59072135e18f1a69f58d">SP_FOR_REV_LOCK</a>&quot;, &quot;<a class="el" href="_c_e_v__animator_8h.html#a99fb83031ce9923c84392b4e92f956b5a80d7199832567fd79101b37d0e56b08c">SP_FOR_LOCK</a>&quot;}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc6597a323ec98612f5e6b1d91579585" name="acc6597a323ec98612f5e6b1d91579585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc6597a323ec98612f5e6b1d91579585">&#9670;&nbsp;</a></span>SP_MODE_NUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SP_MODE_NUM&#160;&#160;&#160;(5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e698a8ab8e9375f1fb49e0992a27d12" name="a3e698a8ab8e9375f1fb49e0992a27d12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e698a8ab8e9375f1fb49e0992a27d12">&#9670;&nbsp;</a></span>SP_NUM_OF_REQ_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SP_NUM_OF_REQ_MAX&#160;&#160;&#160;(5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des définitions de type</h2>
+<a id="a3f9d740a7dcf05dc679bae31e3a8a3d8" name="a3f9d740a7dcf05dc679bae31e3a8a3d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9d740a7dcf05dc679bae31e3a8a3d8">&#9670;&nbsp;</a></span>SP_Anim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s_p___anim.html">SP_Anim</a> <a class="el" href="struct_s_p___anim.html">SP_Anim</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d8a6bfd023ac06cd703bf73009669a3" name="a1d8a6bfd023ac06cd703bf73009669a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d8a6bfd023ac06cd703bf73009669a3">&#9670;&nbsp;</a></span>SP_AnimList</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> <a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab40177e1f2d1895940d1626260f8aa42" name="ab40177e1f2d1895940d1626260f8aa42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40177e1f2d1895940d1626260f8aa42">&#9670;&nbsp;</a></span>SP_Sprite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> <a class="el" href="struct_s_p___sprite.html">SP_Sprite</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d9a7c903c20b5c8b6ac5b8e4c602048" name="a2d9a7c903c20b5c8b6ac5b8e4c602048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d9a7c903c20b5c8b6ac5b8e4c602048">&#9670;&nbsp;</a></span>SP_View</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s_p___view.html">SP_View</a> <a class="el" href="struct_s_p___view.html">SP_View</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sp view structure. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a id="a06fc87d81c62e9abb8790b6e5713c55b" name="a06fc87d81c62e9abb8790b6e5713c55b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06fc87d81c62e9abb8790b6e5713c55b">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>View type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="a06fc87d81c62e9abb8790b6e5713c55baf67d7b4a7b36c332e9c48f85e0746b73" name="a06fc87d81c62e9abb8790b6e5713c55baf67d7b4a7b36c332e9c48f85e0746b73"></a>SP_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a06fc87d81c62e9abb8790b6e5713c55ba272a8b2947fb20f247f8c3053e8c25bb" name="a06fc87d81c62e9abb8790b6e5713c55ba272a8b2947fb20f247f8c3053e8c25bb"></a>SP_NVIEW&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a06fc87d81c62e9abb8790b6e5713c55baf0d0c151da83c5751760ff366bdbc843" name="a06fc87d81c62e9abb8790b6e5713c55baf0d0c151da83c5751760ff366bdbc843"></a>SP_XVIEW&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="adf764cbdea00d65edcd07bb9953ad2b7" name="adf764cbdea00d65edcd07bb9953ad2b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf764cbdea00d65edcd07bb9953ad2b7">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rect type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a08dd5d222ad83c2c41eb6feebb640570" name="adf764cbdea00d65edcd07bb9953ad2b7a08dd5d222ad83c2c41eb6feebb640570"></a>SP_CLIP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf764cbdea00d65edcd07bb9953ad2b7a11e68d5b895b4f284c58960802e35f22" name="adf764cbdea00d65edcd07bb9953ad2b7a11e68d5b895b4f284c58960802e35f22"></a>SP_HBOX&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a99fb83031ce9923c84392b4e92f956b5" name="a99fb83031ce9923c84392b4e92f956b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99fb83031ce9923c84392b4e92f956b5">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Playing mode. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="a99fb83031ce9923c84392b4e92f956b5a473299e0bc047f73c16f1ce3a5b6ddc8" name="a99fb83031ce9923c84392b4e92f956b5a473299e0bc047f73c16f1ce3a5b6ddc8"></a>SP_LOOP_FOR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a99fb83031ce9923c84392b4e92f956b5a6acdb5cd8ee2f160846ab19d153f5ac6" name="a99fb83031ce9923c84392b4e92f956b5a6acdb5cd8ee2f160846ab19d153f5ac6"></a>SP_FOR_REV&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a99fb83031ce9923c84392b4e92f956b5ad8c159312e846aa43946a5bb93ce1ee9" name="a99fb83031ce9923c84392b4e92f956b5ad8c159312e846aa43946a5bb93ce1ee9"></a>SP_FOR_ONCE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a99fb83031ce9923c84392b4e92f956b5a76389136ca4c59072135e18f1a69f58d" name="a99fb83031ce9923c84392b4e92f956b5a76389136ca4c59072135e18f1a69f58d"></a>SP_FOR_REV_LOCK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a99fb83031ce9923c84392b4e92f956b5a80d7199832567fd79101b37d0e56b08c" name="a99fb83031ce9923c84392b4e92f956b5a80d7199832567fd79101b37d0e56b08c"></a>SP_FOR_LOCK&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="abc6126af1d45847bc59afa0aa3216b04" name="abc6126af1d45847bc59afa0aa3216b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc6126af1d45847bc59afa0aa3216b04">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>View display. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="abc6126af1d45847bc59afa0aa3216b04a071b876055fdebaa58c8a9d10d65be1a" name="abc6126af1d45847bc59afa0aa3216b04a071b876055fdebaa58c8a9d10d65be1a"></a>SP_HIDE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abc6126af1d45847bc59afa0aa3216b04aa68b36ec0adf076dce49132417410fb8" name="abc6126af1d45847bc59afa0aa3216b04aa68b36ec0adf076dce49132417410fb8"></a>SP_SHOW&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="acb3d8fb9dfa16822657799f5efa59c98" name="acb3d8fb9dfa16822657799f5efa59c98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb3d8fb9dfa16822657799f5efa59c98">&#9670;&nbsp;</a></span>SP_animCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> * SP_animCreate </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>nview</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>xview</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>sheet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>creates animation instance. </p>
+<p >creation and alloc of animation</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nview</td><td>: uint16_t number of Nview to create. </td></tr>
+    <tr><td class="paramname">xview</td><td>: uint16_t number of Xview to create </td></tr>
+    <tr><td class="paramname">sheet</td><td>: SDL_Texture* aka spritesheet.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_Anim* if success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a1f6eb01212696b4855ebaeba26387da7" name="a1f6eb01212696b4855ebaeba26387da7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f6eb01212696b4855ebaeba26387da7">&#9670;&nbsp;</a></span>SP_animDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_animDump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dumps animation content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to dump.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a8cc2634a74fb0725a704a426c8ce818d" name="a8cc2634a74fb0725a704a426c8ce818d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc2634a74fb0725a704a426c8ce818d">&#9670;&nbsp;</a></span>SP_animFree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_animFree </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>freePic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fully free and destroy animation. </p>
+<p >free it all</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to free. </td></tr>
+    <tr><td class="paramname">freePic</td><td>: let the function free the texture if true.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="ab1fdda3be37ace60616b2367eff2b0d9" name="ab1fdda3be37ace60616b2367eff2b0d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1fdda3be37ace60616b2367eff2b0d9">&#9670;&nbsp;</a></span>SP_animListFree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_animListFree </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *&#160;</td>
+          <td class="paramname"><em>set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>freePic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>frees and destroy animation set </p>
+<p >frees animation set</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">set</td><td>: SP_AnimList* to free. </td></tr>
+    <tr><td class="paramname">freePic</td><td>: let the function free the texture if not 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a70bf373a5022588b687be7ad4b0b59a9" name="a70bf373a5022588b687be7ad4b0b59a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70bf373a5022588b687be7ad4b0b59a9">&#9670;&nbsp;</a></span>SP_animListGetIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> * SP_animListGetIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *&#160;</td>
+          <td class="paramname"><em>set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetches the Nth spritesheet in list. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">set</td><td>: SP_AnimList* to fetch from. </td></tr>
+    <tr><td class="paramname">index</td><td>: wich one to fetch.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_Anim* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a1bd2e9129e6da1ace09ab17a2cce34f4" name="a1bd2e9129e6da1ace09ab17a2cce34f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bd2e9129e6da1ace09ab17a2cce34f4">&#9670;&nbsp;</a></span>SP_animListLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> * SP_animListLoad </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads multiple spritesheets file. </p>
+<p >extracts animation set from sps file</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: the file name to open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_AnimList* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="acd7bb7ec921372b83197a6d2d0e16f98" name="acd7bb7ec921372b83197a6d2d0e16f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd7bb7ec921372b83197a6d2d0e16f98">&#9670;&nbsp;</a></span>SP_animListLoad_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> * SP_animListLoad_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>ops</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>freeSrc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads multiple spritesheets file. </p>
+<p >loads animation set from sps SDL_RWops</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ops</td><td>: SDL_RWops* to use as file. </td></tr>
+    <tr><td class="paramname">freeSrc</td><td>: let the function close the SDL_RWops if not 0.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_AnimList* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a7dcf201162c4ec6856e76b13209e1388" name="a7dcf201162c4ec6856e76b13209e1388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dcf201162c4ec6856e76b13209e1388">&#9670;&nbsp;</a></span>SP_animListNum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t SP_animListNum </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *&#160;</td>
+          <td class="paramname"><em>set</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>number of spritesheet in struture. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">set</td><td>: SP_AnimList* to query.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>number of <a class="el" href="struct_s_p___anim.html" title="sp animation structure.">SP_Anim</a> held within. </dd></dl>
+
+</div>
+</div>
+<a id="a43ba32e916a4e5598f7f1511a0797390" name="a43ba32e916a4e5598f7f1511a0797390"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43ba32e916a4e5598f7f1511a0797390">&#9670;&nbsp;</a></span>SP_AnimLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> * SP_AnimLoad </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load single animation or 1st in list. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: const char*.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_Anim* or NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a28d704a3cb2d95d3181e05deb3130329" name="a28d704a3cb2d95d3181e05deb3130329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28d704a3cb2d95d3181e05deb3130329">&#9670;&nbsp;</a></span>SP_animQuery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_animQuery </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>nView</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>xView</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>query animation. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to query from. </td></tr>
+    <tr><td class="paramname">nView</td><td>: uint16_t* ptr filled with number of nviews. </td></tr>
+    <tr><td class="paramname">xView</td><td>: uint16_t* ptr filled with number of xviews.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a0253c540cefce1b4987c830465fda9c2" name="a0253c540cefce1b4987c830465fda9c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0253c540cefce1b4987c830465fda9c2">&#9670;&nbsp;</a></span>SP_animTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture * SP_animTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>getting embedded Texture. </p>
+<p >gets texture</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to fetch texture from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Texture* if any, NULL otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a19970b00d47d4eb944de31a89c7e8c88" name="a19970b00d47d4eb944de31a89c7e8c88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19970b00d47d4eb944de31a89c7e8c88">&#9670;&nbsp;</a></span>SP_clipGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * SP_clipGet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>gets clip position. </p>
+<p >returns clip pos in sprite sheet</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to query from. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: type view to query.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect* on actual SDL_Rect clipper. </dd></dl>
+
+</div>
+</div>
+<a id="ade83bd535ec086b1ffe60be9666d2047" name="ade83bd535ec086b1ffe60be9666d2047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade83bd535ec086b1ffe60be9666d2047">&#9670;&nbsp;</a></span>SP_fetchMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SP_fetchMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches playing mode. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as playing mode.</dd></dl>
+<p>note : result is from play mode enum. </p>
+
+</div>
+</div>
+<a id="a1d977ccfebf0bb0a2e3785390f69de3e" name="a1d977ccfebf0bb0a2e3785390f69de3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d977ccfebf0bb0a2e3785390f69de3e">&#9670;&nbsp;</a></span>SP_hBoxGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect SP_hBoxGet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_RendererFlip&#160;</td>
+          <td class="paramname"><em>flip</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>queries hit box </p>
+<p >returns absolute pos of scaled hitBox</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to query from. </td></tr>
+    <tr><td class="paramname">pos</td><td>: SDL_Point as actual sprite position. </td></tr>
+    <tr><td class="paramname">flip</td><td>: SDL_renderFlip to correct H/V hitbox position.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect : as absolute hitBox position and dimension (scaled). </dd></dl>
+
+</div>
+</div>
+<a id="aca6f194eb0b8d714409ce44551232727" name="aca6f194eb0b8d714409ce44551232727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6f194eb0b8d714409ce44551232727">&#9670;&nbsp;</a></span>SP_sheetHBoxGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect SP_sheetHBoxGet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_RendererFlip&#160;</td>
+          <td class="paramname"><em>flip</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>returns hitbox pos in spritesheet </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to fetch actual hitbox from. </td></tr>
+    <tr><td class="paramname">flip</td><td>: flip status of sprite.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as hitBox pos relative to spritesheet. Does not treat horizontal/vertical flip. </dd></dl>
+
+</div>
+</div>
+<a id="a07f5032c3435f16387a60781fb4ff782" name="a07f5032c3435f16387a60781fb4ff782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07f5032c3435f16387a60781fb4ff782">&#9670;&nbsp;</a></span>SP_spriteAnim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteAnim </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>performs aniamtion aka next picture selection </p>
+<p >animation</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to animate</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void N/A </dd></dl>
+
+</div>
+</div>
+<a id="ac8f4ee95db292733ae7d2e2ddc534111" name="ac8f4ee95db292733ae7d2e2ddc534111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8f4ee95db292733ae7d2e2ddc534111">&#9670;&nbsp;</a></span>SP_spriteBlit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteBlit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SDL_Point *&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>blits sprite. </p>
+<p >blits animation</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to blit. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Renderer* to blit into. </td></tr>
+    <tr><td class="paramname">pos</td><td>: SDL_Point* as blit position (gravity of sprite).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a3f6d23b9e31066c4f79d811a82311edc" name="a3f6d23b9e31066c4f79d811a82311edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f6d23b9e31066c4f79d811a82311edc">&#9670;&nbsp;</a></span>SP_spriteBlitEx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteBlitEx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SDL_Point *&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SDL_Point *&#160;</td>
+          <td class="paramname"><em>center</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const SDL_RendererFlip&#160;</td>
+          <td class="paramname"><em>flip</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>blits sprite. </p>
+<p >blits animation with ex</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to blit. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Renderer* to blit into. </td></tr>
+    <tr><td class="paramname">pos</td><td>: SDL_Point* as blit position (gravity of sprite). </td></tr>
+    <tr><td class="paramname">angle</td><td>: applied rotation angle. </td></tr>
+    <tr><td class="paramname">center</td><td>: SDL_Point* to rotate around. </td></tr>
+    <tr><td class="paramname">flip</td><td>: one or combination of any SDL_RendererFlip.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a56785a6fe09a951c05bfc6f80b8faddf" name="a56785a6fe09a951c05bfc6f80b8faddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56785a6fe09a951c05bfc6f80b8faddf">&#9670;&nbsp;</a></span>SP_spriteCreateFromAnim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> * SP_spriteCreateFromAnim </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>new sprite. </p>
+<p >creates new sprite based on anim</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* sprite is based upon.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_Sprite* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a1f94174851c950bd3617f0415e44c268" name="a1f94174851c950bd3617f0415e44c268"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f94174851c950bd3617f0415e44c268">&#9670;&nbsp;</a></span>SP_spriteCSVToData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SP_spriteCSVToData </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>srcName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>dstName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>user config file to data file </p>
+<p >converts CSV file into sps file</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">srcName</td><td>: edition file to read from. </td></tr>
+    <tr><td class="paramname">dstName</td><td>: data file to create.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>readWriteErr is filled. </dd></dl>
+
+</div>
+</div>
+<a id="a497477838ac77e367c39bf1ed7db79d7" name="a497477838ac77e367c39bf1ed7db79d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a497477838ac77e367c39bf1ed7db79d7">&#9670;&nbsp;</a></span>SP_spriteIsLocked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char SP_spriteIsLocked </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>is animation locked </p>
+<p >queries locked status</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to query.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>1 if locked, 0 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a1f513992144c87a3c04e4af146078ffe" name="a1f513992144c87a3c04e4af146078ffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f513992144c87a3c04e4af146078ffe">&#9670;&nbsp;</a></span>SP_spriteLinkToAnim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteLinkToAnim </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>links sprite to anim. </p>
+<p >links existing sprite to anim</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to modify. </td></tr>
+    <tr><td class="paramname">anim</td><td>: SP_Anim* the sprite will be related to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a0041ee63a54b4be5d408dfc09c3c953a" name="a0041ee63a54b4be5d408dfc09c3c953a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0041ee63a54b4be5d408dfc09c3c953a">&#9670;&nbsp;</a></span>SP_spriteQuery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteQuery </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>actNview</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>actXview</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>actNpic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>actXpic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>queries sprite status. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to query. </td></tr>
+    <tr><td class="paramname">actNview</td><td>: int* filled with actual NVIEW view index.(or NULL) </td></tr>
+    <tr><td class="paramname">actXview</td><td>: int* filled with actual XVIEW view index.(or NULL) </td></tr>
+    <tr><td class="paramname">actNpic</td><td>: int* filled with actual NVIEW picture index.(or NULL) </td></tr>
+    <tr><td class="paramname">actXpic</td><td>: int* filled with actual XVIEW picture.(or NULL)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a3113e71634bbda7922df558d42b39635" name="a3113e71634bbda7922df558d42b39635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3113e71634bbda7922df558d42b39635">&#9670;&nbsp;</a></span>SP_spriteReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteReset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>resets sprite. </p>
+<p >resets sprite struct to default</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to reset.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A.</dd></dl>
+<p>link to spritesheet is kept as is. </p>
+
+</div>
+</div>
+<a id="a109cd27bf97d3f2963a79ce995e887e3" name="a109cd27bf97d3f2963a79ce995e887e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a109cd27bf97d3f2963a79ce995e887e3">&#9670;&nbsp;</a></span>SP_spriteScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteScale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>scale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>parameter a sprite's scale. </p>
+<p >sets scale</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to scale. </td></tr>
+    <tr><td class="paramname">scale</td><td>: double as scale value.(0.5=half, 2.0=twice).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a64e74c5edab45e4946be733c1f07a6d3" name="a64e74c5edab45e4946be733c1f07a6d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e74c5edab45e4946be733c1f07a6d3">&#9670;&nbsp;</a></span>SP_spriteScaleGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SP_spriteScaleGet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>retrieve a sprite's scale. </p>
+<p >fetches scale</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to fetch scale from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>double as scale value.(0.5=half, 2.0=twice). </dd></dl>
+
+</div>
+</div>
+<a id="a5bb2b51a7cf209543763edfdbd12e8be" name="a5bb2b51a7cf209543763edfdbd12e8be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb2b51a7cf209543763edfdbd12e8be">&#9670;&nbsp;</a></span>SP_spriteStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>plays animation </p>
+<p >starts playing sprite</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to animate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a40952d1075661625fc347215761e0c36" name="a40952d1075661625fc347215761e0c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40952d1075661625fc347215761e0c36">&#9670;&nbsp;</a></span>SP_spriteStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_spriteStop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>freezes animation : pause. </p>
+<p >stops playing sprite</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to pause.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="ab97b3a4ebdb128ec8b18a024d7d14bc2" name="ab97b3a4ebdb128ec8b18a024d7d14bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab97b3a4ebdb128ec8b18a024d7d14bc2">&#9670;&nbsp;</a></span>SP_viewClip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewClip </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>clip</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display mode parameter </p>
+<p >sets clip</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: view type to modify. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: view index to modify. </td></tr>
+    <tr><td class="paramname">clip</td><td>: SDL_Rect as clipper.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a6215af2e128a8a897b70377a953dd502" name="a6215af2e128a8a897b70377a953dd502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6215af2e128a8a897b70377a953dd502">&#9670;&nbsp;</a></span>SP_viewDisplay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewDisplay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>display</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>show a view </p>
+<p >enable / disable the display of a view</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: which view type to change. </td></tr>
+    <tr><td class="paramname">display</td><td>: 0 disables display, any other value enables display.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a4578e0a2cfb813e15f19ed725154b60e" name="a4578e0a2cfb813e15f19ed725154b60e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4578e0a2cfb813e15f19ed725154b60e">&#9670;&nbsp;</a></span>SP_viewDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewDump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___view.html">SP_View</a> *&#160;</td>
+          <td class="paramname"><em>view</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dumps view content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view</td><td>: SP_View* to dump.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a1e9487d9896ee73ca574242ebfc08773" name="a1e9487d9896ee73ca574242ebfc08773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e9487d9896ee73ca574242ebfc08773">&#9670;&nbsp;</a></span>SP_viewForce()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewForce </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>frameIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>forces view display </p>
+<p >asynchroneous view change</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: which view type to change. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: which view to display. </td></tr>
+    <tr><td class="paramname">frameIndex</td><td>: which frame to display.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a02ea357bc6374250579c0f6ba1161f1f" name="a02ea357bc6374250579c0f6ba1161f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02ea357bc6374250579c0f6ba1161f1f">&#9670;&nbsp;</a></span>SP_viewHitBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewHitBox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>hbox</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>hit box parameter </p>
+<p >sets hitbox</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: view type to modify. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: view index to modify. </td></tr>
+    <tr><td class="paramname">hbox</td><td>: SDL_Rect as hit box.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a77854de31dd1fbe6ac5ae413ad56a6dc" name="a77854de31dd1fbe6ac5ae413ad56a6dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77854de31dd1fbe6ac5ae413ad56a6dc">&#9670;&nbsp;</a></span>SP_viewMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display mode parameter </p>
+<p >sets view play mode</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: view type to modify. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: view index to modify. </td></tr>
+    <tr><td class="paramname">mode</td><td>: play mode.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="abeda8820bcc4573b78323ff2f51b5086" name="abeda8820bcc4573b78323ff2f51b5086"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeda8820bcc4573b78323ff2f51b5086">&#9670;&nbsp;</a></span>SP_viewRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char SP_viewRequest </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___sprite.html">SP_Sprite</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>view request </p>
+<p >synchroneous view request</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>: SP_Sprite* to request view from. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: which view type to change. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: which view to request.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>index position of request in stack or -1 if stack is full. </dd></dl>
+
+</div>
+</div>
+<a id="a7489f9f595af017501d1e9187ce04f5a" name="a7489f9f595af017501d1e9187ce04f5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7489f9f595af017501d1e9187ce04f5a">&#9670;&nbsp;</a></span>SP_viewRestart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewRestart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>restart</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>restart parameter </p>
+<p >sets restart index</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: view type to modify. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: view index to modify. </td></tr>
+    <tr><td class="paramname">restart</td><td>: img index from which view will restart.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a066a9c23077f6b9a6e8ec0f310000f64" name="a066a9c23077f6b9a6e8ec0f310000f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a066a9c23077f6b9a6e8ec0f310000f64">&#9670;&nbsp;</a></span>SP_viewSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>frameNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>clip</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>hitBox</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>restart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>stop</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>view parameters set. </p>
+<p >view global setting</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: view type to modify. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: view index to modify. </td></tr>
+    <tr><td class="paramname">clip</td><td>: SDL_Rect as clipper. </td></tr>
+    <tr><td class="paramname">hitBox</td><td>: SDL_Rect as hit box. </td></tr>
+    <tr><td class="paramname">time</td><td>: time delay between frames (ms). </td></tr>
+    <tr><td class="paramname">mode</td><td>: play mode. </td></tr>
+    <tr><td class="paramname">restart</td><td>: restart pic index. </td></tr>
+    <tr><td class="paramname">stop</td><td>: stop pic index.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="acc7c104496541aee88f51623e330214c" name="acc7c104496541aee88f51623e330214c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc7c104496541aee88f51623e330214c">&#9670;&nbsp;</a></span>SP_viewTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SP_viewTime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_s_p___anim.html">SP_Anim</a> *&#160;</td>
+          <td class="paramname"><em>anim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>viewIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>frame delay parameter </p>
+<p >sets view time</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">anim</td><td>: SP_Anim* to modify. </td></tr>
+    <tr><td class="paramname">viewType</td><td>: view type to modify. </td></tr>
+    <tr><td class="paramname">viewIndex</td><td>: view index to modify. </td></tr>
+    <tr><td class="paramname">time</td><td>: time delay between frames (ms).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__animator_8h.html">CEV_animator.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

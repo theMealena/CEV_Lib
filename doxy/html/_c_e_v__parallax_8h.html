@@ -1,0 +1,668 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_parallax.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__parallax_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#typedef-members">Définitions de type</a> &#124;
+<a href="#enum-members">Énumérations</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_parallax.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__gif_8h_source.html">CEV_gif.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__types_8h_source.html">CEV_types.h</a>&gt;</code><br />
+</div>
+<p><a href="_c_e_v__parallax_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_prlx_axis.html">PrlxAxis</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parallax single layer.  <a href="struct_c_e_v___para_layer.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parallax definition.  <a href="struct_c_e_v___parallax.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Définitions de type</h2></td></tr>
+<tr class="memitem:a08ec3c81ce23a3252de681506b75c2dd"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#a08ec3c81ce23a3252de681506b75c2dd">CEV_ParaLayer</a></td></tr>
+<tr class="memdesc:a08ec3c81ce23a3252de681506b75c2dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parallax single layer.  <a href="_c_e_v__parallax_8h.html#a08ec3c81ce23a3252de681506b75c2dd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a08ec3c81ce23a3252de681506b75c2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae699d82ffc77ab472dba32169b5bf55b"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#ae699d82ffc77ab472dba32169b5bf55b">CEV_Parallax</a></td></tr>
+<tr class="memdesc:ae699d82ffc77ab472dba32169b5bf55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parallax definition.  <a href="_c_e_v__parallax_8h.html#ae699d82ffc77ab472dba32169b5bf55b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae699d82ffc77ab472dba32169b5bf55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:abc5c98fcc1211af2b80116dd6e0a035d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<a class="el" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51">PRLX_AUTO</a>
+, <a class="el" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc">PRLX_CENTERED</a>
+, <a class="el" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf">PRLX_LEFT</a>
+, <a class="el" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a">PRLX_RIGHT</a>
+, <br />
+&#160;&#160;<a class="el" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6">PRLX_TOP</a>
+, <a class="el" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683">PRLX_BOTTOM</a>
+<br />
+ }</td></tr>
+<tr class="separator:abc5c98fcc1211af2b80116dd6e0a035d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:af359a69cfbdb1f9a672157768c183574"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#af359a69cfbdb1f9a672157768c183574">CEV_parallaxCreate</a> (int numOfLayer, SDL_Rect *cameraPos)</td></tr>
+<tr class="memdesc:af359a69cfbdb1f9a672157768c183574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates new parallax object.  <a href="_c_e_v__parallax_8h.html#af359a69cfbdb1f9a672157768c183574">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af359a69cfbdb1f9a672157768c183574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f63742596b593c446189774d246c39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#af0f63742596b593c446189774d246c39">CEV_parallaxDestroy</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in)</td></tr>
+<tr class="memdesc:af0f63742596b593c446189774d246c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys parallax object and its content.  <a href="_c_e_v__parallax_8h.html#af0f63742596b593c446189774d246c39">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af0f63742596b593c446189774d246c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaabeb83a2945a60e3d443af6bda297c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#aaabeb83a2945a60e3d443af6bda297c9">CEV_parallaxClear</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in)</td></tr>
+<tr class="memdesc:aaabeb83a2945a60e3d443af6bda297c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears parallax object content.  <a href="_c_e_v__parallax_8h.html#aaabeb83a2945a60e3d443af6bda297c9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaabeb83a2945a60e3d443af6bda297c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f40f10f40670f1df0f726812aee3ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#a71f40f10f40670f1df0f726812aee3ae">CEV_parallaxLayerClear</a> (<a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a> *in)</td></tr>
+<tr class="memdesc:a71f40f10f40670f1df0f726812aee3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears parallax layer object content.  <a href="_c_e_v__parallax_8h.html#a71f40f10f40670f1df0f726812aee3ae">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a71f40f10f40670f1df0f726812aee3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88cd8bd385af90bdd98ee25fae5fd03e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#a88cd8bd385af90bdd98ee25fae5fd03e">CEV_parallaxShowAll</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in)</td></tr>
+<tr class="memdesc:a88cd8bd385af90bdd98ee25fae5fd03e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays all parallax layers.  <a href="_c_e_v__parallax_8h.html#a88cd8bd385af90bdd98ee25fae5fd03e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a88cd8bd385af90bdd98ee25fae5fd03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf9b3010f36178ada53d3cf5a46d2ea1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#acf9b3010f36178ada53d3cf5a46d2ea1">CEV_parallaxShowLayer</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in, unsigned index)</td></tr>
+<tr class="memdesc:acf9b3010f36178ada53d3cf5a46d2ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays selected parallax layer.  <a href="_c_e_v__parallax_8h.html#acf9b3010f36178ada53d3cf5a46d2ea1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acf9b3010f36178ada53d3cf5a46d2ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d08bb10ebba4bbd6b6b2acb4aeabf8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#a3d08bb10ebba4bbd6b6b2acb4aeabf8a">CEV_parallaxDump</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in)</td></tr>
+<tr class="memdesc:a3d08bb10ebba4bbd6b6b2acb4aeabf8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps structure into stdout.  <a href="_c_e_v__parallax_8h.html#a3d08bb10ebba4bbd6b6b2acb4aeabf8a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3d08bb10ebba4bbd6b6b2acb4aeabf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad297f191640ac594b4e1a6aa3c3fa155"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#ad297f191640ac594b4e1a6aa3c3fa155">CEV_parallaxLayerDump</a> (<a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a> *in)</td></tr>
+<tr class="memdesc:ad297f191640ac594b4e1a6aa3c3fa155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps structure into stdout.  <a href="_c_e_v__parallax_8h.html#ad297f191640ac594b4e1a6aa3c3fa155">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad297f191640ac594b4e1a6aa3c3fa155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abde15a46d0b055513bda2cd045b8cb7c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#abde15a46d0b055513bda2cd045b8cb7c">CEV_convertParallaxCSVToData</a> (const char *srcName, const char *dstName)</td></tr>
+<tr class="memdesc:abde15a46d0b055513bda2cd045b8cb7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts CSV descritpor file into data file.  <a href="_c_e_v__parallax_8h.html#abde15a46d0b055513bda2cd045b8cb7c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abde15a46d0b055513bda2cd045b8cb7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9042d825b7faeedbfa5f765448267913"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#a9042d825b7faeedbfa5f765448267913">CEV_parallaxLoad</a> (const char *fileName)</td></tr>
+<tr class="memdesc:a9042d825b7faeedbfa5f765448267913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads parallax object from file.  <a href="_c_e_v__parallax_8h.html#a9042d825b7faeedbfa5f765448267913">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9042d825b7faeedbfa5f765448267913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a004014bca23bd357e9578fa07f83981e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#a004014bca23bd357e9578fa07f83981e">CEV_parallaxLoad_RW</a> (SDL_RWops *src, uint8_t freeSrc)</td></tr>
+<tr class="memdesc:a004014bca23bd357e9578fa07f83981e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads parallax object from virtual RWops file.  <a href="_c_e_v__parallax_8h.html#a004014bca23bd357e9578fa07f83981e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a004014bca23bd357e9578fa07f83981e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3bd90a0e20b78c0ca813bc70a158147"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#ac3bd90a0e20b78c0ca813bc70a158147">CEV_parallaxWrite_RW</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *src, SDL_RWops *dst)</td></tr>
+<tr class="memdesc:ac3bd90a0e20b78c0ca813bc70a158147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes parallax structure into virtual file.  <a href="_c_e_v__parallax_8h.html#ac3bd90a0e20b78c0ca813bc70a158147">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac3bd90a0e20b78c0ca813bc70a158147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad029cec6062137fe73f3ee82752a7dd7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__parallax_8h.html#ad029cec6062137fe73f3ee82752a7dd7">CEV_parallaxToCapsule</a> (<a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *src, <a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *dst)</td></tr>
+<tr class="memdesc:ad029cec6062137fe73f3ee82752a7dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds <a class="el" href="struct_c_e_v___capsule.html" title="File encapsulation.">CEV_Capsule</a> from Parallax structure.  <a href="_c_e_v__parallax_8h.html#ad029cec6062137fe73f3ee82752a7dd7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad029cec6062137fe73f3ee82752a7dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des définitions de type</h2>
+<a id="a08ec3c81ce23a3252de681506b75c2dd" name="a08ec3c81ce23a3252de681506b75c2dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08ec3c81ce23a3252de681506b75c2dd">&#9670;&nbsp;</a></span>CEV_ParaLayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a> <a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parallax single layer. </p>
+
+</div>
+</div>
+<a id="ae699d82ffc77ab472dba32169b5bf55b" name="ae699d82ffc77ab472dba32169b5bf55b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae699d82ffc77ab472dba32169b5bf55b">&#9670;&nbsp;</a></span>CEV_Parallax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> <a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parallax definition. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a id="abc5c98fcc1211af2b80116dd6e0a035d" name="abc5c98fcc1211af2b80116dd6e0a035d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5c98fcc1211af2b80116dd6e0a035d">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >LOG </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51" name="abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51"></a>PRLX_AUTO&#160;</td><td class="fielddoc"><p >Automatically handles background positioning </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc" name="abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc"></a>PRLX_CENTERED&#160;</td><td class="fielddoc"><p >Unused </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf" name="abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf"></a>PRLX_LEFT&#160;</td><td class="fielddoc"><p >Left border is refererence </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a" name="abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a"></a>PRLX_RIGHT&#160;</td><td class="fielddoc"><p >Right border is reference </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6" name="abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6"></a>PRLX_TOP&#160;</td><td class="fielddoc"><p >Top border is reference </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683" name="abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683"></a>PRLX_BOTTOM&#160;</td><td class="fielddoc"><p >Bottom border is reference </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="abde15a46d0b055513bda2cd045b8cb7c" name="abde15a46d0b055513bda2cd045b8cb7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abde15a46d0b055513bda2cd045b8cb7c">&#9670;&nbsp;</a></span>CEV_convertParallaxCSVToData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_convertParallaxCSVToData </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>srcName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>dstName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts CSV descritpor file into data file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">srcName</td><td>: CSV file to read. </td></tr>
+    <tr><td class="paramname">dstName</td><td>: prlx file to create. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>any of standard return value. </dd></dl>
+
+</div>
+</div>
+<a id="aaabeb83a2945a60e3d443af6bda297c9" name="aaabeb83a2945a60e3d443af6bda297c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaabeb83a2945a60e3d443af6bda297c9">&#9670;&nbsp;</a></span>CEV_parallaxClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxClear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears parallax object content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax object to clear. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. note : all ptr freed &amp; set to NULL. </dd></dl>
+
+</div>
+</div>
+<a id="af359a69cfbdb1f9a672157768c183574" name="af359a69cfbdb1f9a672157768c183574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af359a69cfbdb1f9a672157768c183574">&#9670;&nbsp;</a></span>CEV_parallaxCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> * CEV_parallaxCreate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numOfLayer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>cameraPos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates new parallax object. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">numOfLayer</td><td>: number of layer. </td></tr>
+    <tr><td class="paramname">cameraPos</td><td>: ptr to the camera position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Parallax* on success, NULL otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="af0f63742596b593c446189774d246c39" name="af0f63742596b593c446189774d246c39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0f63742596b593c446189774d246c39">&#9670;&nbsp;</a></span>CEV_parallaxDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxDestroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys parallax object and its content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax object to destroy. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a3d08bb10ebba4bbd6b6b2acb4aeabf8a" name="a3d08bb10ebba4bbd6b6b2acb4aeabf8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d08bb10ebba4bbd6b6b2acb4aeabf8a">&#9670;&nbsp;</a></span>CEV_parallaxDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxDump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dumps structure into stdout. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax object to dump. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a71f40f10f40670f1df0f726812aee3ae" name="a71f40f10f40670f1df0f726812aee3ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71f40f10f40670f1df0f726812aee3ae">&#9670;&nbsp;</a></span>CEV_parallaxLayerClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxLayerClear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears parallax layer object content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax layer to clear. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. note : all ptr freed &amp; set to NULL. </dd></dl>
+
+</div>
+</div>
+<a id="ad297f191640ac594b4e1a6aa3c3fa155" name="ad297f191640ac594b4e1a6aa3c3fa155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad297f191640ac594b4e1a6aa3c3fa155">&#9670;&nbsp;</a></span>CEV_parallaxLayerDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxLayerDump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dumps structure into stdout. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax layer to dump. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a9042d825b7faeedbfa5f765448267913" name="a9042d825b7faeedbfa5f765448267913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9042d825b7faeedbfa5f765448267913">&#9670;&nbsp;</a></span>CEV_parallaxLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> * CEV_parallaxLoad </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads parallax object from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: file to load.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr to allocated parallax object. </dd></dl>
+
+</div>
+</div>
+<a id="a004014bca23bd357e9578fa07f83981e" name="a004014bca23bd357e9578fa07f83981e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a004014bca23bd357e9578fa07f83981e">&#9670;&nbsp;</a></span>CEV_parallaxLoad_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> * CEV_parallaxLoad_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>freeSrc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads parallax object from virtual RWops file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to load from. </td></tr>
+    <tr><td class="paramname">freeSrc</td><td>: internaly frees src if true.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr to allocated parallax object. note : if freeSrc is true, src is freed weither the function succeed or not. </dd></dl>
+
+</div>
+</div>
+<a id="a88cd8bd385af90bdd98ee25fae5fd03e" name="a88cd8bd385af90bdd98ee25fae5fd03e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88cd8bd385af90bdd98ee25fae5fd03e">&#9670;&nbsp;</a></span>CEV_parallaxShowAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxShowAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays all parallax layers. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax object to display. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="acf9b3010f36178ada53d3cf5a46d2ea1" name="acf9b3010f36178ada53d3cf5a46d2ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf9b3010f36178ada53d3cf5a46d2ea1">&#9670;&nbsp;</a></span>CEV_parallaxShowLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_parallaxShowLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays selected parallax layer. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: parallax object to display layer from. </td></tr>
+    <tr><td class="paramname">index</td><td>: layer to display. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="ad029cec6062137fe73f3ee82752a7dd7" name="ad029cec6062137fe73f3ee82752a7dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad029cec6062137fe73f3ee82752a7dd7">&#9670;&nbsp;</a></span>CEV_parallaxToCapsule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_parallaxToCapsule </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds <a class="el" href="struct_c_e_v___capsule.html" title="File encapsulation.">CEV_Capsule</a> from Parallax structure. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Parallax* to encapsule. </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Capsule* to fill with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : 0 on success, any value on error. </dd></dl>
+
+</div>
+</div>
+<a id="ac3bd90a0e20b78c0ca813bc70a158147" name="ac3bd90a0e20b78c0ca813bc70a158147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3bd90a0e20b78c0ca813bc70a158147">&#9670;&nbsp;</a></span>CEV_parallaxWrite_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_parallaxWrite_RW </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes parallax structure into virtual file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Parallax* to save. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_RWops* to write into.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : 0 on success, any value on error. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__parallax_8h.html">CEV_parallax.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

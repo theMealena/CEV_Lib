@@ -12,7 +12,6 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include <SDL.h>
 
 #ifdef __cplusplus
 extern "C" {

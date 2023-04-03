@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_camera.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__camera_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_camera.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__camera_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  2022/03/06   |   1.0    | rev &amp; test / added to CEV_lib</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef CAMERA_H_INCLUDED</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define CAMERA_H_INCLUDED</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__timer_8h.html">CEV_timer.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__api_8h.html">CEV_api.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">/*moving direction*/</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#ac04420b4bacea34db0a758c985ae578e">   17</a></span><span class="preprocessor">#define CAMERA_LEFT     0x1 </span><span class="comment">//0001</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a0bf2ae57094b7ed4f9adba02b5bdadd1">   18</a></span><span class="preprocessor">#define CAMERA_RIGHT    0x2 </span><span class="comment">//0010</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#aa9bd7f29d61624f6019acfc2cfce96b5">   19</a></span><span class="preprocessor">#define CAMERA_UP       0x4 </span><span class="comment">//0100</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a460b3c8b7078333b418cbcf6cfa64af5">   20</a></span><span class="preprocessor">#define CAMERA_DOWN     0x8 </span><span class="comment">//1000</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a52ded948f9e8785765de1ba2270632f4">   21</a></span><span class="preprocessor">#define CAMERA_ALL      0xF</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#ad000ce6d57788c10f4b530154e41e6ad">   22</a></span><span class="preprocessor">#define CAMERA_NONE     0x0</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a2990df8260e98415de2dbd11c60421ad">   23</a></span><span class="preprocessor">#define CAMERA_NEGATIVE      0x1 </span><span class="comment">//going right, up in world</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#ad554134a3e1dc415d0aed69310e6cc9e">   24</a></span><span class="preprocessor">#define CAMERA_POSITIVE      0x2 </span><span class="comment">//going left, down in world</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/*open field is layed out in front of target point to follow</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">- is automatic by default, can be disabled with autoReverse = false.</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">open field will be kept as is until call to CEV_cameraOpenFieldSet() is called.</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"></span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">- direction lock is shifted 2 bytes for Y axis</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">   39</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code hl_enumeration" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">S_CameraMode</a></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13">   41</a></span>    <a class="code hl_enumvalue" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13">CAMERA_MED</a> = 2,     </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024">   42</a></span>    <a class="code hl_enumvalue" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024">CAMERA_THIRD</a> = 3,   </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_enumvalue" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86">CAMERA_QUART</a> = 4    </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86">   44</a></span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">   45</a></span><a class="code hl_typedef" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html">   48</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_s___camera_param.html">S_CameraParam</a></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#adc4c3462aaa0b1e0df6b151ca83b4ad9">   50</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_s___camera_param.html#adc4c3462aaa0b1e0df6b151ca83b4ad9">velMax</a>,         </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a8a678a7a7319e207ef0615d24c24fa55">   51</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#a8a678a7a7319e207ef0615d24c24fa55">dirAutoScroll</a>,  </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a77ea4bac8103917547baf3fa59e90f33">   52</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#a77ea4bac8103917547baf3fa59e90f33">dirAct</a>,         </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#aa8b2960b0d7135e6ce930aef920e7855">   53</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#aa8b2960b0d7135e6ce930aef920e7855">dirCalc</a>,        </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#ab3e54ef8b50bd948da12418fc60a82ac">   54</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#ab3e54ef8b50bd948da12418fc60a82ac">dirLock</a>,        </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#ae5c50c4538665b8d886ae2b7a517219e">   55</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#ae5c50c4538665b8d886ae2b7a517219e">camDim</a>,         </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#ae8476cdd25a67dbe653b864b25c331ee">   56</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#ae8476cdd25a67dbe653b864b25c331ee">posCalc</a>,        </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#ab3a4b69ad1b8c71dbfffcba00c3d77b5">   57</a></span>        *<a class="code hl_variable" href="struct_s___camera_param.html#ab3a4b69ad1b8c71dbfffcba00c3d77b5">posAct</a>,        </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a727bf3ac7497e995f72b3c106b9c0851">   58</a></span>        <a class="code hl_variable" href="struct_s___camera_param.html#a727bf3ac7497e995f72b3c106b9c0851">autoScrollVel</a>; </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a4721980fb080121f8bd6b82e16c39c64">   60</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_s___camera_param.html#a4721980fb080121f8bd6b82e16c39c64">autoReverse</a>;   </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a7c20b725989b04d269ca97c60c971e49">   62</a></span>    <span class="keywordtype">float</span> *<a class="code hl_variable" href="struct_s___camera_param.html#a7c20b725989b04d269ca97c60c971e49">followThis</a>,  </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a95fc1086d24ee279896c90ad42959698">   63</a></span>           <a class="code hl_variable" href="struct_s___camera_param.html#a95fc1086d24ee279896c90ad42959698">followPrev</a>;  </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a3d3052681230043c347dc76bfba92d28">   65</a></span>    <a class="code hl_typedef" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a> <a class="code hl_variable" href="struct_s___camera_param.html#a3d3052681230043c347dc76bfba92d28">mode</a>; </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="struct_s___camera_param.html#a9e5a319461bc777cd116262388037105">   67</a></span>    <a class="code hl_struct" href="struct_c_e_v___timer.html">CEV_Timer</a> <a class="code hl_variable" href="struct_s___camera_param.html#a9e5a319461bc777cd116262388037105">timer</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#afddb4f1e5d2eb9c64292d227a4cf3f84">   69</a></span><a class="code hl_typedef" href="_c_e_v__camera_8h.html#afddb4f1e5d2eb9c64292d227a4cf3f84">CEV_CameraParam</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="struct_s___camera.html">   72</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_s___camera.html">S_Camera</a></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_s___camera.html#a22729837a843b7563ee81cd3f19ed65c">   74</a></span>    <a class="code hl_struct" href="struct_s___camera_param.html">CEV_CameraParam</a> <a class="code hl_variable" href="struct_s___camera.html#a22729837a843b7563ee81cd3f19ed65c">param</a>[2]; </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="struct_s___camera.html#a548c734abfda98c3c4252d508657eb0b">   76</a></span>    SDL_Rect <a class="code hl_variable" href="struct_s___camera.html#a548c734abfda98c3c4252d508657eb0b">scrollActPos</a>, </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_s___camera.html#a1eafb1ac3563fa65abe81d77f5281e9d">   77</a></span>             <a class="code hl_variable" href="struct_s___camera.html#a1eafb1ac3563fa65abe81d77f5281e9d">constraint</a>; </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">   79</a></span><a class="code hl_typedef" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#a95d3cfd9c27e8d74e07b25aaae01b548">CEV_cameraInit</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in, <a class="code hl_struct" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>* followPt, SDL_Rect constraint, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> changeTime, <a class="code hl_typedef" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a> mode);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *<a class="code hl_function" href="_c_e_v__camera_8h.html#aadc1e10d2bd4119fa037456b289b6e87">CEV_cameraLoad</a>(<span class="keywordtype">char</span> *fileName);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#a4073d96b820c49d8642d78d312f8e261">CEV_cameraSave</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *src, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *<a class="code hl_function" href="_c_e_v__camera_8h.html#a44e88c7741ec8c40b6f24ead02748012">CEV_cameraLoad_RW</a>(SDL_RWops *src, <span class="keywordtype">bool</span> freeSrc);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#a1c75522f67eea9daf9a1e860a4e330ba">CEV_cameraUpdate</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#a15a7ba643e681eb14fd185b26344b0a7">CEV_cameraReset</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#ad4255d1a0b889f93675328f9ccda230a">CEV_cameraDimensionSet</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *src, <span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#ab24f8097f4b40ad9b7003d6195e394bd">CEV_cameraOpenFieldAuto</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> time, <span class="keywordtype">int</span> axis);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#ab1f881baa3ada9a14b31d73066c39042">CEV_cameraOpenFieldSet</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in, <span class="keywordtype">int</span> direction);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#ad2b7d895212387c78dab316b012c22b3">CEV_cameraDirectionLock</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in, <span class="keywordtype">int</span> direction);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#a515d2d448da50ed4dedf5a863e69e30a">CEV_cameraMaxVelocitySet</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a>* in, <span class="keywordtype">int</span> velMax, <span class="keywordtype">int</span> direction);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#aa98bdb4a6b2a0bae3824ab84b3b12f4c">CEV_cameraFollowModeSet</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a> *in, <a class="code hl_typedef" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a> mode, <span class="keywordtype">int</span> axis);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__camera_8h.html#abd68c03e02ebad074bcb8b74e9ccc7e6">CEV_cameraScrollSet</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a>* in, <span class="keywordtype">bool</span> autoScroll, <span class="keywordtype">int</span> direction, <span class="keywordtype">int</span> velocity);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#endif </span><span class="comment">// CAMERA_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__api_8h_html"><div class="ttname"><a href="_c_e_v__api_8h.html">CEV_api.h</a></div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a15a7ba643e681eb14fd185b26344b0a7"><div class="ttname"><a href="_c_e_v__camera_8h.html#a15a7ba643e681eb14fd185b26344b0a7">CEV_cameraReset</a></div><div class="ttdeci">void CEV_cameraReset(CEV_Camera *in)</div><div class="ttdoc">Brings camera back on follow point.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:244</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a1c75522f67eea9daf9a1e860a4e330ba"><div class="ttname"><a href="_c_e_v__camera_8h.html#a1c75522f67eea9daf9a1e860a4e330ba">CEV_cameraUpdate</a></div><div class="ttdeci">int CEV_cameraUpdate(CEV_Camera *in)</div><div class="ttdoc">Automatic camera update.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:219</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a4073d96b820c49d8642d78d312f8e261"><div class="ttname"><a href="_c_e_v__camera_8h.html#a4073d96b820c49d8642d78d312f8e261">CEV_cameraSave</a></div><div class="ttdeci">int CEV_cameraSave(CEV_Camera *src, const char *fileName)</div><div class="ttdoc">Saves camera into file.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:162</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a44e88c7741ec8c40b6f24ead02748012"><div class="ttname"><a href="_c_e_v__camera_8h.html#a44e88c7741ec8c40b6f24ead02748012">CEV_cameraLoad_RW</a></div><div class="ttdeci">CEV_Camera * CEV_cameraLoad_RW(SDL_RWops *src, bool freeSrc)</div><div class="ttdoc">Loads camera from vrtual file.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:186</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a515d2d448da50ed4dedf5a863e69e30a"><div class="ttname"><a href="_c_e_v__camera_8h.html#a515d2d448da50ed4dedf5a863e69e30a">CEV_cameraMaxVelocitySet</a></div><div class="ttdeci">void CEV_cameraMaxVelocitySet(CEV_Camera *in, int velMax, int direction)</div><div class="ttdoc">Sets camera maximum velocity (pxl/frame)</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:329</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a668aa0e7eb8257e2c0f4e0d76b576a63"><div class="ttname"><a href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">S_CameraMode</a></div><div class="ttdeci">S_CameraMode</div><div class="ttdoc">Camera mode behaviour.</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:40</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024"><div class="ttname"><a href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024">CAMERA_THIRD</a></div><div class="ttdeci">@ CAMERA_THIRD</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:42</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13"><div class="ttname"><a href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13">CAMERA_MED</a></div><div class="ttdeci">@ CAMERA_MED</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:41</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86"><div class="ttname"><a href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86">CAMERA_QUART</a></div><div class="ttdeci">@ CAMERA_QUART</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:43</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a6c58ac995100d62c8c6479bf4d254198"><div class="ttname"><a href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a></div><div class="ttdeci">enum S_CameraMode CEV_CameraMode</div><div class="ttdoc">Camera mode behaviour.</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_a95d3cfd9c27e8d74e07b25aaae01b548"><div class="ttname"><a href="_c_e_v__camera_8h.html#a95d3cfd9c27e8d74e07b25aaae01b548">CEV_cameraInit</a></div><div class="ttdeci">void CEV_cameraInit(CEV_Camera *in, CEV_FCoord *followPt, SDL_Rect constraint, unsigned int changeTime, CEV_CameraMode mode)</div><div class="ttdoc">Inits new camera / sets parameters for camera.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:98</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_aa98bdb4a6b2a0bae3824ab84b3b12f4c"><div class="ttname"><a href="_c_e_v__camera_8h.html#aa98bdb4a6b2a0bae3824ab84b3b12f4c">CEV_cameraFollowModeSet</a></div><div class="ttdeci">void CEV_cameraFollowModeSet(CEV_Camera *in, CEV_CameraMode mode, int axis)</div><div class="ttdoc">Set camera following mode.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:340</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_aadc1e10d2bd4119fa037456b289b6e87"><div class="ttname"><a href="_c_e_v__camera_8h.html#aadc1e10d2bd4119fa037456b289b6e87">CEV_cameraLoad</a></div><div class="ttdeci">CEV_Camera * CEV_cameraLoad(char *fileName)</div><div class="ttdoc">Laods camera from file.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:139</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_ab1f881baa3ada9a14b31d73066c39042"><div class="ttname"><a href="_c_e_v__camera_8h.html#ab1f881baa3ada9a14b31d73066c39042">CEV_cameraOpenFieldSet</a></div><div class="ttdeci">void CEV_cameraOpenFieldSet(CEV_Camera *in, int direction)</div><div class="ttdoc">Sets/forces camera open field direction.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:284</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_ab24f8097f4b40ad9b7003d6195e394bd"><div class="ttname"><a href="_c_e_v__camera_8h.html#ab24f8097f4b40ad9b7003d6195e394bd">CEV_cameraOpenFieldAuto</a></div><div class="ttdeci">void CEV_cameraOpenFieldAuto(CEV_Camera *in, unsigned int time, int axis)</div><div class="ttdoc">Enables automatic open field.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:274</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_abd68c03e02ebad074bcb8b74e9ccc7e6"><div class="ttname"><a href="_c_e_v__camera_8h.html#abd68c03e02ebad074bcb8b74e9ccc7e6">CEV_cameraScrollSet</a></div><div class="ttdeci">void CEV_cameraScrollSet(CEV_Camera *in, bool autoScroll, int direction, int velocity)</div><div class="ttdoc">Activate/deactivate camera auto scrolling.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:350</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_ad2b566b789f3588b9fdc405e4df096ee"><div class="ttname"><a href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a></div><div class="ttdeci">struct S_Camera CEV_Camera</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_ad2b7d895212387c78dab316b012c22b3"><div class="ttname"><a href="_c_e_v__camera_8h.html#ad2b7d895212387c78dab316b012c22b3">CEV_cameraDirectionLock</a></div><div class="ttdeci">void CEV_cameraDirectionLock(CEV_Camera *in, int direction)</div><div class="ttdoc">Locks camera direction.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:304</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_ad4255d1a0b889f93675328f9ccda230a"><div class="ttname"><a href="_c_e_v__camera_8h.html#ad4255d1a0b889f93675328f9ccda230a">CEV_cameraDimensionSet</a></div><div class="ttdeci">void CEV_cameraDimensionSet(CEV_Camera *src, int w, int h)</div><div class="ttdoc">Sets camera Dimensions.</div><div class="ttdef"><b>Definition:</b> CEV_camera.c:257</div></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html_afddb4f1e5d2eb9c64292d227a4cf3f84"><div class="ttname"><a href="_c_e_v__camera_8h.html#afddb4f1e5d2eb9c64292d227a4cf3f84">CEV_CameraParam</a></div><div class="ttdeci">struct S_CameraParam CEV_CameraParam</div></div>
+<div class="ttc" id="a_c_e_v__timer_8h_html"><div class="ttname"><a href="_c_e_v__timer_8h.html">CEV_timer.h</a></div></div>
+<div class="ttc" id="astruct_c_e_v___f_coord_html"><div class="ttname"><a href="struct_c_e_v___f_coord.html">CEV_FCoord</a></div><div class="ttdoc">float 3D coords</div><div class="ttdef"><b>Definition:</b> CEV_api.h:77</div></div>
+<div class="ttc" id="astruct_c_e_v___timer_html"><div class="ttname"><a href="struct_c_e_v___timer.html">CEV_Timer</a></div><div class="ttdoc">Timer instance.</div><div class="ttdef"><b>Definition:</b> CEV_timer.h:24</div></div>
+<div class="ttc" id="astruct_s___camera_html"><div class="ttname"><a href="struct_s___camera.html">S_Camera</a></div><div class="ttdef"><b>Definition:</b> CEV_camera.h:73</div></div>
+<div class="ttc" id="astruct_s___camera_html_a1eafb1ac3563fa65abe81d77f5281e9d"><div class="ttname"><a href="struct_s___camera.html#a1eafb1ac3563fa65abe81d77f5281e9d">S_Camera::constraint</a></div><div class="ttdeci">SDL_Rect constraint</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:77</div></div>
+<div class="ttc" id="astruct_s___camera_html_a22729837a843b7563ee81cd3f19ed65c"><div class="ttname"><a href="struct_s___camera.html#a22729837a843b7563ee81cd3f19ed65c">S_Camera::param</a></div><div class="ttdeci">CEV_CameraParam param[2]</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:74</div></div>
+<div class="ttc" id="astruct_s___camera_html_a548c734abfda98c3c4252d508657eb0b"><div class="ttname"><a href="struct_s___camera.html#a548c734abfda98c3c4252d508657eb0b">S_Camera::scrollActPos</a></div><div class="ttdeci">SDL_Rect scrollActPos</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:76</div></div>
+<div class="ttc" id="astruct_s___camera_param_html"><div class="ttname"><a href="struct_s___camera_param.html">S_CameraParam</a></div><div class="ttdef"><b>Definition:</b> CEV_camera.h:49</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a3d3052681230043c347dc76bfba92d28"><div class="ttname"><a href="struct_s___camera_param.html#a3d3052681230043c347dc76bfba92d28">S_CameraParam::mode</a></div><div class="ttdeci">CEV_CameraMode mode</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:65</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a4721980fb080121f8bd6b82e16c39c64"><div class="ttname"><a href="struct_s___camera_param.html#a4721980fb080121f8bd6b82e16c39c64">S_CameraParam::autoReverse</a></div><div class="ttdeci">bool autoReverse</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:60</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a727bf3ac7497e995f72b3c106b9c0851"><div class="ttname"><a href="struct_s___camera_param.html#a727bf3ac7497e995f72b3c106b9c0851">S_CameraParam::autoScrollVel</a></div><div class="ttdeci">int autoScrollVel</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:58</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a77ea4bac8103917547baf3fa59e90f33"><div class="ttname"><a href="struct_s___camera_param.html#a77ea4bac8103917547baf3fa59e90f33">S_CameraParam::dirAct</a></div><div class="ttdeci">int dirAct</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:52</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a7c20b725989b04d269ca97c60c971e49"><div class="ttname"><a href="struct_s___camera_param.html#a7c20b725989b04d269ca97c60c971e49">S_CameraParam::followThis</a></div><div class="ttdeci">float * followThis</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:62</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a8a678a7a7319e207ef0615d24c24fa55"><div class="ttname"><a href="struct_s___camera_param.html#a8a678a7a7319e207ef0615d24c24fa55">S_CameraParam::dirAutoScroll</a></div><div class="ttdeci">int dirAutoScroll</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:51</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a95fc1086d24ee279896c90ad42959698"><div class="ttname"><a href="struct_s___camera_param.html#a95fc1086d24ee279896c90ad42959698">S_CameraParam::followPrev</a></div><div class="ttdeci">float followPrev</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:63</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_a9e5a319461bc777cd116262388037105"><div class="ttname"><a href="struct_s___camera_param.html#a9e5a319461bc777cd116262388037105">S_CameraParam::timer</a></div><div class="ttdeci">CEV_Timer timer</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:67</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_aa8b2960b0d7135e6ce930aef920e7855"><div class="ttname"><a href="struct_s___camera_param.html#aa8b2960b0d7135e6ce930aef920e7855">S_CameraParam::dirCalc</a></div><div class="ttdeci">int dirCalc</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:53</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_ab3a4b69ad1b8c71dbfffcba00c3d77b5"><div class="ttname"><a href="struct_s___camera_param.html#ab3a4b69ad1b8c71dbfffcba00c3d77b5">S_CameraParam::posAct</a></div><div class="ttdeci">int * posAct</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:57</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_ab3e54ef8b50bd948da12418fc60a82ac"><div class="ttname"><a href="struct_s___camera_param.html#ab3e54ef8b50bd948da12418fc60a82ac">S_CameraParam::dirLock</a></div><div class="ttdeci">int dirLock</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:54</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_adc4c3462aaa0b1e0df6b151ca83b4ad9"><div class="ttname"><a href="struct_s___camera_param.html#adc4c3462aaa0b1e0df6b151ca83b4ad9">S_CameraParam::velMax</a></div><div class="ttdeci">int velMax</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:50</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_ae5c50c4538665b8d886ae2b7a517219e"><div class="ttname"><a href="struct_s___camera_param.html#ae5c50c4538665b8d886ae2b7a517219e">S_CameraParam::camDim</a></div><div class="ttdeci">int camDim</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:55</div></div>
+<div class="ttc" id="astruct_s___camera_param_html_ae8476cdd25a67dbe653b864b25c331ee"><div class="ttname"><a href="struct_s___camera_param.html#ae8476cdd25a67dbe653b864b25c331ee">S_CameraParam::posCalc</a></div><div class="ttdeci">int posCalc</div><div class="ttdef"><b>Definition:</b> CEV_camera.h:56</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__camera_8h.html">CEV_camera.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

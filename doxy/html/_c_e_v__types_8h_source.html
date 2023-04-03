@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_types.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__types_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_types.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__types_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef CEV_TYPES_H_INCLUDED</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define CEV_TYPES_H_INCLUDED</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;SDL_mixer.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;SDL_ttf.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a4aa530218b3b22d1bd6b6dc1ab9558f8">    8</a></span><span class="preprocessor">#define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a70a5f8fef9ee5a6fd5598d87a1a104c7">    9</a></span><span class="preprocessor">#define FILE_TYPE_NUM 19</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#aff14babecc1fcef9eb86d00e7613ac77">   10</a></span><span class="preprocessor">#define FILE_TYPE_LIST {&quot;default&quot;</span>, &quot;dat&quot;, &quot;dtx&quot;, &quot;bmp&quot;, &quot;png&quot;, &quot;jpg&quot;, &quot;gif&quot;, &quot;wav&quot;, &quot;ttf&quot;, &quot;sps&quot;, &quot;men&quot;, &quot;scl&quot;, &quot;map&quot;, &quot;mp3&quot;, &quot;plx&quot;, &quot;wtr&quot;, &quot;txt&quot;, &quot;ani&quot;, &quot;obj&quot;}</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312a">   15</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code hl_enumeration" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312a">FILE_TYPE</a></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa9bfca2c5c8674a8e9c37243eef503be9">   17</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa9bfca2c5c8674a8e9c37243eef503be9">IS_DEFAULT</a>  = 0,   </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa3365e81d36c1256b6dd86d431c0550c8">   18</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa3365e81d36c1256b6dd86d431c0550c8">IS_DAT</a>      = 1,    </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aadd94049712d09b0cbead5eb1e8c1affc">   19</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aadd94049712d09b0cbead5eb1e8c1affc">IS_DTX</a>      = 2,    </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa6c476d62a5a125807faad08275b3f7e0">   20</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa6c476d62a5a125807faad08275b3f7e0">IS_BMP</a>      = 3,    </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa4d0e3310c0acaba66b7252fdbff88060">   21</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa4d0e3310c0acaba66b7252fdbff88060">IS_PNG</a>      = 4,    </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa0df1b3f7b33be04004b7ace9dd80babb">   22</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa0df1b3f7b33be04004b7ace9dd80babb">IS_JPG</a>      = 5,    </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aaa5d898c42661275d5dddcb21528dbcc6">   23</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aaa5d898c42661275d5dddcb21528dbcc6">IS_GIF</a>      = 6,    </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa4c3f6d2d5e938decce517e941a594885">   24</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa4c3f6d2d5e938decce517e941a594885">IS_WAV</a>      = 7,    </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aaa73c611071b25fa32fc47c6f2a1fca9d">   25</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aaa73c611071b25fa32fc47c6f2a1fca9d">IS_FONT</a>     = 8,    </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa06ab31b96a216763b5ddd2e52468e9a3">   26</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa06ab31b96a216763b5ddd2e52468e9a3">IS_SPS</a>      = 9,    </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa823c4a52b5fdbd7dcedc7103759d67e5">   27</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa823c4a52b5fdbd7dcedc7103759d67e5">IS_MENU</a>     = 10,   </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa937281435dc01b5e4efe5f819106ce91">   28</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa937281435dc01b5e4efe5f819106ce91">IS_SCROLL</a>   = 11,   </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa285836d43b4e1e33b4980b9b878260a5">   29</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa285836d43b4e1e33b4980b9b878260a5">IS_MAP</a>      = 12,   </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aacbfbc7df45b700f839028b832f9152c0">   30</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aacbfbc7df45b700f839028b832f9152c0">IS_MUSIC</a>    = 13,   </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa537fb4e089cde942fe6667c9da1aa532">   31</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa537fb4e089cde942fe6667c9da1aa532">IS_PLX</a>      = 14,   </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aad6d568d420ba3a12087054d2eae68b00">   32</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aad6d568d420ba3a12087054d2eae68b00">IS_WTHR</a>     = 15,   </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa624e46424b8f3f36424956cb688deac8">   33</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa624e46424b8f3f36424956cb688deac8">IS_TXT</a>      = 16,   </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa44a4cf8067365b23f087dc9bb0821447">   34</a></span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa44a4cf8067365b23f087dc9bb0821447">IS_ANI</a>      = 17,   </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_enumvalue" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aacb28ef41baa1879af780361a04849a86">IS_OBJ</a>      = 18    </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aacb28ef41baa1879af780361a04849a86">   36</a></span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a36416ace46afae46042994c806dd0da5">   37</a></span><a class="code hl_enumeration" href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312a">FILE_TYPE</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="struct_c_e_v___capsule.html">   42</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_c_e_v___capsule.html#ad44b615021ed3ccb734fcaf583ef4a03">   45</a></span>    uint32_t    <a class="code hl_variable" href="struct_c_e_v___capsule.html#ad44b615021ed3ccb734fcaf583ef4a03">type</a>, </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="struct_c_e_v___capsule.html#ab2c6b258f02add8fdf4cfc7c371dd772">   46</a></span>                <a class="code hl_variable" href="struct_c_e_v___capsule.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a>; </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="struct_c_e_v___capsule.html#a735984d41155bc1032e09bece8f8d66d">   47</a></span>    <span class="keywordtype">void</span>        *<a class="code hl_variable" href="struct_c_e_v___capsule.html#a735984d41155bc1032e09bece8f8d66d">data</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#af69141e498229205a956e7175060d860">   49</a></span><a class="code hl_typedef" href="_c_e_v__types_8h.html#af69141e498229205a956e7175060d860">CEV_Capsule</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="struct_c_e_v___font.html">   54</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___font.html">CEV_Font</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_c_e_v___font.html#abf5bfa705e66ffc1ddaa6ce46c960873">   57</a></span>    TTF_Font * <a class="code hl_variable" href="struct_c_e_v___font.html#abf5bfa705e66ffc1ddaa6ce46c960873">font</a>;    </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_c_e_v___font.html#a3fca4cba13c7f356c823d3d612faffef">   58</a></span>    <span class="keywordtype">void</span> *<a class="code hl_variable" href="struct_c_e_v___font.html#a3fca4cba13c7f356c823d3d612faffef">virtualFile</a>;  </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a80e0ff0fed6462dced613cad2d0bec85">   60</a></span><a class="code hl_typedef" href="_c_e_v__types_8h.html#a80e0ff0fed6462dced613cad2d0bec85">CEV_Font</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="struct_c_e_v___chunk.html">   65</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___chunk.html">CEV_Chunk</a></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_c_e_v___chunk.html#a0bb45d52afdd032f48e17a8519361d54">   68</a></span>    Mix_Chunk* <a class="code hl_variable" href="struct_c_e_v___chunk.html#a0bb45d52afdd032f48e17a8519361d54">sound</a>;   </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="struct_c_e_v___chunk.html#a3fca4cba13c7f356c823d3d612faffef">   69</a></span>    <span class="keywordtype">void</span> *<a class="code hl_variable" href="struct_c_e_v___chunk.html#a3fca4cba13c7f356c823d3d612faffef">virtualFile</a>;  </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a8fdbf17205a505746cb23e00221cb9b8">   71</a></span><a class="code hl_typedef" href="_c_e_v__types_8h.html#a8fdbf17205a505746cb23e00221cb9b8">CEV_Chunk</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_c_e_v___music.html">   77</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="struct_c_e_v___music.html#ab203ceba3699c997bf63f13bbc33b33a">   79</a></span>    Mix_Music* <a class="code hl_variable" href="struct_c_e_v___music.html#ab203ceba3699c997bf63f13bbc33b33a">music</a>;   </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="struct_c_e_v___music.html#a3fca4cba13c7f356c823d3d612faffef">   80</a></span>    <span class="keywordtype">void</span> *<a class="code hl_variable" href="struct_c_e_v___music.html#a3fca4cba13c7f356c823d3d612faffef">virtualFile</a>;  </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#a9245f104520541f346cf66fd62dd4236">   82</a></span><a class="code hl_typedef" href="_c_e_v__types_8h.html#a9245f104520541f346cf66fd62dd4236">CEV_Music</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__types_8h.html#a038e8ad9f6c28c42a48508983bc4417d">CEV_fontClose</a>(<a class="code hl_struct" href="struct_c_e_v___font.html">CEV_Font</a>* font);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__types_8h.html#aa096c89711927a83eb8bb46999c4caa6">CEV_waveClose</a>(<a class="code hl_struct" href="struct_c_e_v___chunk.html">CEV_Chunk</a>* chunk);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="_c_e_v__types_8h.html#ae40860efb0d4cca74659d8a1c38306f1">  110</a></span><a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a>* <a class="code hl_function" href="_c_e_v__types_8h.html#ae40860efb0d4cca74659d8a1c38306f1">CEV_musicLoad</a>(<span class="keywordtype">char</span> *fileName);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__types_8h.html#a0ec1a414b50b7272cb046ed1c1341702">CEV_musicClose</a>(<a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a>* music);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__types_8h.html#a1d4bb5cae8c65275b73eb86a16d84a9f">CEV_musicClear</a>(<a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a>* music);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>SDL_Surface* <a class="code hl_function" href="_c_e_v__types_8h.html#adafb9d277013130e7a2dd8fdd4490128">CEV_textureToSurface</a>(SDL_Texture* src, <span class="keywordtype">void</span>** ptr);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__types_8h.html#a0157e43243d4e75274664c70426f381d">CEV_textureSavePNG</a>(SDL_Texture *src, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__types_8h.html#a0a652dc651f7033f6a9409f74d868d49">CEV_textureSavePNG_RW</a>(SDL_Texture *src, SDL_RWops* dst);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__types_8h.html#aa53f5d301ae01f6e91dd64fdcac80c44">CEV_textureToCapsule</a>(SDL_Texture* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* dst);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>SDL_Rect <a class="code hl_function" href="_c_e_v__types_8h.html#a4e33536142d8028dbbcfe2d6af7065bf">CEV_textureDimGet</a>(SDL_Texture* src);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__types_8h.html#a26f9c7720a9fd33c6a6584a975c36f11">CEV_blitSurfaceToTexture</a>(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRect, SDL_Rect* dstRect);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="preprocessor">#endif </span><span class="comment">// CEV_TYPES_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a0157e43243d4e75274664c70426f381d"><div class="ttname"><a href="_c_e_v__types_8h.html#a0157e43243d4e75274664c70426f381d">CEV_textureSavePNG</a></div><div class="ttdeci">int CEV_textureSavePNG(SDL_Texture *src, char *fileName)</div><div class="ttdoc">Saves texture as png file.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:142</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a038e8ad9f6c28c42a48508983bc4417d"><div class="ttname"><a href="_c_e_v__types_8h.html#a038e8ad9f6c28c42a48508983bc4417d">CEV_fontClose</a></div><div class="ttdeci">void CEV_fontClose(CEV_Font *font)</div><div class="ttdoc">Closes opened CEV_Font.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:23</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a0a652dc651f7033f6a9409f74d868d49"><div class="ttname"><a href="_c_e_v__types_8h.html#a0a652dc651f7033f6a9409f74d868d49">CEV_textureSavePNG_RW</a></div><div class="ttdeci">int CEV_textureSavePNG_RW(SDL_Texture *src, SDL_RWops *dst)</div><div class="ttdoc">Saves texture as png into SDL_virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:169</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a0ec1a414b50b7272cb046ed1c1341702"><div class="ttname"><a href="_c_e_v__types_8h.html#a0ec1a414b50b7272cb046ed1c1341702">CEV_musicClose</a></div><div class="ttdeci">void CEV_musicClose(CEV_Music *music)</div><div class="ttdoc">Closes opened CEV_Music.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:52</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a1d4bb5cae8c65275b73eb86a16d84a9f"><div class="ttname"><a href="_c_e_v__types_8h.html#a1d4bb5cae8c65275b73eb86a16d84a9f">CEV_musicClear</a></div><div class="ttdeci">void CEV_musicClear(CEV_Music *music)</div><div class="ttdoc">Clear structure content.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:63</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a26f9c7720a9fd33c6a6584a975c36f11"><div class="ttname"><a href="_c_e_v__types_8h.html#a26f9c7720a9fd33c6a6584a975c36f11">CEV_blitSurfaceToTexture</a></div><div class="ttdeci">int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture *dst, SDL_Rect *srcRect, SDL_Rect *dstRect)</div><div class="ttdoc">BLits surface onto texture.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:275</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a4e33536142d8028dbbcfe2d6af7065bf"><div class="ttname"><a href="_c_e_v__types_8h.html#a4e33536142d8028dbbcfe2d6af7065bf">CEV_textureDimGet</a></div><div class="ttdeci">SDL_Rect CEV_textureDimGet(SDL_Texture *src)</div><div class="ttdoc">Gets texture dimension as SDL_Rect.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:263</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a80e0ff0fed6462dced613cad2d0bec85"><div class="ttname"><a href="_c_e_v__types_8h.html#a80e0ff0fed6462dced613cad2d0bec85">CEV_Font</a></div><div class="ttdeci">struct CEV_Font CEV_Font</div><div class="ttdoc">TTF Font overlay.</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a8fdbf17205a505746cb23e00221cb9b8"><div class="ttname"><a href="_c_e_v__types_8h.html#a8fdbf17205a505746cb23e00221cb9b8">CEV_Chunk</a></div><div class="ttdeci">struct CEV_Chunk CEV_Chunk</div><div class="ttdoc">Mix chunk overlay.</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a9245f104520541f346cf66fd62dd4236"><div class="ttname"><a href="_c_e_v__types_8h.html#a9245f104520541f346cf66fd62dd4236">CEV_Music</a></div><div class="ttdeci">struct CEV_Music CEV_Music</div><div class="ttdoc">Mix music overlay note : music overlay to keep track of allocated data ptr.</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312a"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312a">FILE_TYPE</a></div><div class="ttdeci">FILE_TYPE</div><div class="ttdoc">defines file type</div><div class="ttdef"><b>Definition:</b> CEV_types.h:16</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa06ab31b96a216763b5ddd2e52468e9a3"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa06ab31b96a216763b5ddd2e52468e9a3">IS_SPS</a></div><div class="ttdeci">@ IS_SPS</div><div class="ttdef"><b>Definition:</b> CEV_types.h:26</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa0df1b3f7b33be04004b7ace9dd80babb"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa0df1b3f7b33be04004b7ace9dd80babb">IS_JPG</a></div><div class="ttdeci">@ IS_JPG</div><div class="ttdef"><b>Definition:</b> CEV_types.h:22</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa285836d43b4e1e33b4980b9b878260a5"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa285836d43b4e1e33b4980b9b878260a5">IS_MAP</a></div><div class="ttdeci">@ IS_MAP</div><div class="ttdef"><b>Definition:</b> CEV_types.h:29</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa3365e81d36c1256b6dd86d431c0550c8"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa3365e81d36c1256b6dd86d431c0550c8">IS_DAT</a></div><div class="ttdeci">@ IS_DAT</div><div class="ttdef"><b>Definition:</b> CEV_types.h:18</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa44a4cf8067365b23f087dc9bb0821447"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa44a4cf8067365b23f087dc9bb0821447">IS_ANI</a></div><div class="ttdeci">@ IS_ANI</div><div class="ttdef"><b>Definition:</b> CEV_types.h:34</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa4c3f6d2d5e938decce517e941a594885"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa4c3f6d2d5e938decce517e941a594885">IS_WAV</a></div><div class="ttdeci">@ IS_WAV</div><div class="ttdef"><b>Definition:</b> CEV_types.h:24</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa4d0e3310c0acaba66b7252fdbff88060"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa4d0e3310c0acaba66b7252fdbff88060">IS_PNG</a></div><div class="ttdeci">@ IS_PNG</div><div class="ttdef"><b>Definition:</b> CEV_types.h:21</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa537fb4e089cde942fe6667c9da1aa532"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa537fb4e089cde942fe6667c9da1aa532">IS_PLX</a></div><div class="ttdeci">@ IS_PLX</div><div class="ttdef"><b>Definition:</b> CEV_types.h:31</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa624e46424b8f3f36424956cb688deac8"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa624e46424b8f3f36424956cb688deac8">IS_TXT</a></div><div class="ttdeci">@ IS_TXT</div><div class="ttdef"><b>Definition:</b> CEV_types.h:33</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa6c476d62a5a125807faad08275b3f7e0"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa6c476d62a5a125807faad08275b3f7e0">IS_BMP</a></div><div class="ttdeci">@ IS_BMP</div><div class="ttdef"><b>Definition:</b> CEV_types.h:20</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa823c4a52b5fdbd7dcedc7103759d67e5"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa823c4a52b5fdbd7dcedc7103759d67e5">IS_MENU</a></div><div class="ttdeci">@ IS_MENU</div><div class="ttdef"><b>Definition:</b> CEV_types.h:27</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa937281435dc01b5e4efe5f819106ce91"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa937281435dc01b5e4efe5f819106ce91">IS_SCROLL</a></div><div class="ttdeci">@ IS_SCROLL</div><div class="ttdef"><b>Definition:</b> CEV_types.h:28</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aa9bfca2c5c8674a8e9c37243eef503be9"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aa9bfca2c5c8674a8e9c37243eef503be9">IS_DEFAULT</a></div><div class="ttdeci">@ IS_DEFAULT</div><div class="ttdef"><b>Definition:</b> CEV_types.h:17</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aaa5d898c42661275d5dddcb21528dbcc6"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aaa5d898c42661275d5dddcb21528dbcc6">IS_GIF</a></div><div class="ttdeci">@ IS_GIF</div><div class="ttdef"><b>Definition:</b> CEV_types.h:23</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aaa73c611071b25fa32fc47c6f2a1fca9d"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aaa73c611071b25fa32fc47c6f2a1fca9d">IS_FONT</a></div><div class="ttdeci">@ IS_FONT</div><div class="ttdef"><b>Definition:</b> CEV_types.h:25</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aacb28ef41baa1879af780361a04849a86"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aacb28ef41baa1879af780361a04849a86">IS_OBJ</a></div><div class="ttdeci">@ IS_OBJ</div><div class="ttdef"><b>Definition:</b> CEV_types.h:35</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aacbfbc7df45b700f839028b832f9152c0"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aacbfbc7df45b700f839028b832f9152c0">IS_MUSIC</a></div><div class="ttdeci">@ IS_MUSIC</div><div class="ttdef"><b>Definition:</b> CEV_types.h:30</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aad6d568d420ba3a12087054d2eae68b00"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aad6d568d420ba3a12087054d2eae68b00">IS_WTHR</a></div><div class="ttdeci">@ IS_WTHR</div><div class="ttdef"><b>Definition:</b> CEV_types.h:32</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_a96c970a7db1d402a64b518ec5146312aadd94049712d09b0cbead5eb1e8c1affc"><div class="ttname"><a href="_c_e_v__types_8h.html#a96c970a7db1d402a64b518ec5146312aadd94049712d09b0cbead5eb1e8c1affc">IS_DTX</a></div><div class="ttdeci">@ IS_DTX</div><div class="ttdef"><b>Definition:</b> CEV_types.h:19</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_aa096c89711927a83eb8bb46999c4caa6"><div class="ttname"><a href="_c_e_v__types_8h.html#aa096c89711927a83eb8bb46999c4caa6">CEV_waveClose</a></div><div class="ttdeci">void CEV_waveClose(CEV_Chunk *chunk)</div><div class="ttdoc">Closes opened CEV_Chunk.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:36</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_aa53f5d301ae01f6e91dd64fdcac80c44"><div class="ttname"><a href="_c_e_v__types_8h.html#aa53f5d301ae01f6e91dd64fdcac80c44">CEV_textureToCapsule</a></div><div class="ttdeci">int CEV_textureToCapsule(SDL_Texture *src, CEV_Capsule *dst)</div><div class="ttdoc">Fills CEV_Capsule with png from texture.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:196</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_adafb9d277013130e7a2dd8fdd4490128"><div class="ttname"><a href="_c_e_v__types_8h.html#adafb9d277013130e7a2dd8fdd4490128">CEV_textureToSurface</a></div><div class="ttdeci">SDL_Surface * CEV_textureToSurface(SDL_Texture *src, void **ptr)</div><div class="ttdoc">Copies Texture into surface.</div><div class="ttdef"><b>Definition:</b> CEV_types.c:72</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_ae40860efb0d4cca74659d8a1c38306f1"><div class="ttname"><a href="_c_e_v__types_8h.html#ae40860efb0d4cca74659d8a1c38306f1">CEV_musicLoad</a></div><div class="ttdeci">CEV_Music * CEV_musicLoad(char *fileName)</div><div class="ttdoc">Creates CEV_Music from file (mp3)</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html_af69141e498229205a956e7175060d860"><div class="ttname"><a href="_c_e_v__types_8h.html#af69141e498229205a956e7175060d860">CEV_Capsule</a></div><div class="ttdeci">struct CEV_Capsule CEV_Capsule</div><div class="ttdoc">File encapsulation.</div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html"><div class="ttname"><a href="struct_c_e_v___capsule.html">CEV_Capsule</a></div><div class="ttdoc">File encapsulation.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:43</div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html_a735984d41155bc1032e09bece8f8d66d"><div class="ttname"><a href="struct_c_e_v___capsule.html#a735984d41155bc1032e09bece8f8d66d">CEV_Capsule::data</a></div><div class="ttdeci">void * data</div><div class="ttdef"><b>Definition:</b> CEV_types.h:47</div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html_ab2c6b258f02add8fdf4cfc7c371dd772"><div class="ttname"><a href="struct_c_e_v___capsule.html#ab2c6b258f02add8fdf4cfc7c371dd772">CEV_Capsule::size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdef"><b>Definition:</b> CEV_types.h:46</div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html_ad44b615021ed3ccb734fcaf583ef4a03"><div class="ttname"><a href="struct_c_e_v___capsule.html#ad44b615021ed3ccb734fcaf583ef4a03">CEV_Capsule::type</a></div><div class="ttdeci">uint32_t type</div><div class="ttdef"><b>Definition:</b> CEV_types.h:45</div></div>
+<div class="ttc" id="astruct_c_e_v___chunk_html"><div class="ttname"><a href="struct_c_e_v___chunk.html">CEV_Chunk</a></div><div class="ttdoc">Mix chunk overlay.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:66</div></div>
+<div class="ttc" id="astruct_c_e_v___chunk_html_a0bb45d52afdd032f48e17a8519361d54"><div class="ttname"><a href="struct_c_e_v___chunk.html#a0bb45d52afdd032f48e17a8519361d54">CEV_Chunk::sound</a></div><div class="ttdeci">Mix_Chunk * sound</div><div class="ttdef"><b>Definition:</b> CEV_types.h:68</div></div>
+<div class="ttc" id="astruct_c_e_v___chunk_html_a3fca4cba13c7f356c823d3d612faffef"><div class="ttname"><a href="struct_c_e_v___chunk.html#a3fca4cba13c7f356c823d3d612faffef">CEV_Chunk::virtualFile</a></div><div class="ttdeci">void * virtualFile</div><div class="ttdef"><b>Definition:</b> CEV_types.h:69</div></div>
+<div class="ttc" id="astruct_c_e_v___font_html"><div class="ttname"><a href="struct_c_e_v___font.html">CEV_Font</a></div><div class="ttdoc">TTF Font overlay.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:55</div></div>
+<div class="ttc" id="astruct_c_e_v___font_html_a3fca4cba13c7f356c823d3d612faffef"><div class="ttname"><a href="struct_c_e_v___font.html#a3fca4cba13c7f356c823d3d612faffef">CEV_Font::virtualFile</a></div><div class="ttdeci">void * virtualFile</div><div class="ttdef"><b>Definition:</b> CEV_types.h:58</div></div>
+<div class="ttc" id="astruct_c_e_v___font_html_abf5bfa705e66ffc1ddaa6ce46c960873"><div class="ttname"><a href="struct_c_e_v___font.html#abf5bfa705e66ffc1ddaa6ce46c960873">CEV_Font::font</a></div><div class="ttdeci">TTF_Font * font</div><div class="ttdef"><b>Definition:</b> CEV_types.h:57</div></div>
+<div class="ttc" id="astruct_c_e_v___music_html"><div class="ttname"><a href="struct_c_e_v___music.html">CEV_Music</a></div><div class="ttdoc">Mix music overlay note : music overlay to keep track of allocated data ptr.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:78</div></div>
+<div class="ttc" id="astruct_c_e_v___music_html_a3fca4cba13c7f356c823d3d612faffef"><div class="ttname"><a href="struct_c_e_v___music.html#a3fca4cba13c7f356c823d3d612faffef">CEV_Music::virtualFile</a></div><div class="ttdeci">void * virtualFile</div><div class="ttdef"><b>Definition:</b> CEV_types.h:80</div></div>
+<div class="ttc" id="astruct_c_e_v___music_html_ab203ceba3699c997bf63f13bbc33b33a"><div class="ttname"><a href="struct_c_e_v___music.html#ab203ceba3699c997bf63f13bbc33b33a">CEV_Music::music</a></div><div class="ttdeci">Mix_Music * music</div><div class="ttdef"><b>Definition:</b> CEV_types.h:79</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__types_8h.html">CEV_types.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

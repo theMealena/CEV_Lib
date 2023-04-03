@@ -1,0 +1,3308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_api.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__api_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_api.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__api_8h_source.html">CEV_api.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:adc4f01e884ce7d89bea634db94d4a6c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#adc4f01e884ce7d89bea634db94d4a6c1">CEV_bitGet</a> (int flag, int bitIndex)</td></tr>
+<tr class="memdesc:adc4f01e884ce7d89bea634db94d4a6c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">extracts bitIndex from flag.  <a href="_c_e_v__api_8c.html#adc4f01e884ce7d89bea634db94d4a6c1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adc4f01e884ce7d89bea634db94d4a6c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a516dd91e6322bd1d3f31fd120f1981cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a516dd91e6322bd1d3f31fd120f1981cd">CEV_bitSet</a> (int *flag, int bitIndex)</td></tr>
+<tr class="memdesc:a516dd91e6322bd1d3f31fd120f1981cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets bit (1) in flag.  <a href="_c_e_v__api_8c.html#a516dd91e6322bd1d3f31fd120f1981cd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a516dd91e6322bd1d3f31fd120f1981cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a47d25f321d68e3566864c9a5355123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a0a47d25f321d68e3566864c9a5355123">CEV_bitClear</a> (int *flag, int bitIndex)</td></tr>
+<tr class="memdesc:a0a47d25f321d68e3566864c9a5355123"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset bit (0) in flag.  <a href="_c_e_v__api_8c.html#a0a47d25f321d68e3566864c9a5355123">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0a47d25f321d68e3566864c9a5355123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67154169c43a400f8a481ce2d1e61798"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a67154169c43a400f8a481ce2d1e61798">CEV_edgeRise</a> (<a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *edge)</td></tr>
+<tr class="memdesc:a67154169c43a400f8a481ce2d1e61798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rising edge.  <a href="_c_e_v__api_8c.html#a67154169c43a400f8a481ce2d1e61798">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a67154169c43a400f8a481ce2d1e61798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37783ac4878f048657d22750de7bb970"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a37783ac4878f048657d22750de7bb970">CEV_edgeFall</a> (<a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *edge)</td></tr>
+<tr class="memdesc:a37783ac4878f048657d22750de7bb970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Falling edge.  <a href="_c_e_v__api_8c.html#a37783ac4878f048657d22750de7bb970">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a37783ac4878f048657d22750de7bb970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54843cb3c93d0fa47cd5c42579b3f4a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a54843cb3c93d0fa47cd5c42579b3f4a4">CEV_edgeAny</a> (<a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *edge)</td></tr>
+<tr class="memdesc:a54843cb3c93d0fa47cd5c42579b3f4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any edge.  <a href="_c_e_v__api_8c.html#a54843cb3c93d0fa47cd5c42579b3f4a4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a54843cb3c93d0fa47cd5c42579b3f4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1608bd49354f2c45407f33d8143bab1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a1608bd49354f2c45407f33d8143bab1b">CEV_edgeUpdate</a> (<a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *edge)</td></tr>
+<tr class="memdesc:a1608bd49354f2c45407f33d8143bab1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every edge / Update structure content.  <a href="_c_e_v__api_8c.html#a1608bd49354f2c45407f33d8143bab1b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1608bd49354f2c45407f33d8143bab1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409147049dbb95d9c23da6e8b7ceafc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a409147049dbb95d9c23da6e8b7ceafc9">CEV_intSwap</a> (int *valOne, int *valTwo)</td></tr>
+<tr class="memdesc:a409147049dbb95d9c23da6e8b7ceafc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">int swap valOne &lt;-&gt; valTwo.  <a href="_c_e_v__api_8c.html#a409147049dbb95d9c23da6e8b7ceafc9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a409147049dbb95d9c23da6e8b7ceafc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b025538bec3001bd0f0fd7fb2df253b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a0b025538bec3001bd0f0fd7fb2df253b">CEV_anySwap</a> (void *valOne, void *valTwo, size_t size)</td></tr>
+<tr class="memdesc:a0b025538bec3001bd0f0fd7fb2df253b"><td class="mdescLeft">&#160;</td><td class="mdescRight">swaps size bytes valOne&lt;-&gt;valTwo.  <a href="_c_e_v__api_8c.html#a0b025538bec3001bd0f0fd7fb2df253b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0b025538bec3001bd0f0fd7fb2df253b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a052917bb79d844b4331b381a15bd7499"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a052917bb79d844b4331b381a15bd7499">CEV_bitFieldDistribute</a> (const void *src, int srcBit, void *dst, int dstBit, size_t length)</td></tr>
+<tr class="memdesc:a052917bb79d844b4331b381a15bd7499"><td class="mdescLeft">&#160;</td><td class="mdescRight">bit field copy.  <a href="_c_e_v__api_8c.html#a052917bb79d844b4331b381a15bd7499">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a052917bb79d844b4331b381a15bd7499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af64bae512d3f62743ad1643fb14220bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#af64bae512d3f62743ad1643fb14220bc">CEV_2dCoordToRowIndex</a> (int x, int y, int width)</td></tr>
+<tr class="memdesc:af64bae512d3f62743ad1643fb14220bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index from row as 2d matrix.  <a href="_c_e_v__api_8c.html#af64bae512d3f62743ad1643fb14220bc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af64bae512d3f62743ad1643fb14220bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeca49c26fafda42236de217e89cd4e7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aeca49c26fafda42236de217e89cd4e7b">CEV_rowIndexTo2dCoord</a> (int index, int width)</td></tr>
+<tr class="memdesc:aeca49c26fafda42236de217e89cd4e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">x,y from row as 2d matrix  <a href="_c_e_v__api_8c.html#aeca49c26fafda42236de217e89cd4e7b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aeca49c26fafda42236de217e89cd4e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983c59e03dee8ae20ce21df39a496302"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a983c59e03dee8ae20ce21df39a496302">CEV_3dCoordToRowIndex</a> (int x, int y, int z, int width, int height)</td></tr>
+<tr class="memdesc:a983c59e03dee8ae20ce21df39a496302"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index from row as 3d matrix.  <a href="_c_e_v__api_8c.html#a983c59e03dee8ae20ce21df39a496302">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a983c59e03dee8ae20ce21df39a496302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac98e433ab92e28689abd6c1cf85b0695"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ac98e433ab92e28689abd6c1cf85b0695">CEV_rowIndexTo3dCoord</a> (int index, int width, int height)</td></tr>
+<tr class="memdesc:ac98e433ab92e28689abd6c1cf85b0695"><td class="mdescLeft">&#160;</td><td class="mdescRight">x,y,z from row as 3d matrix  <a href="_c_e_v__api_8c.html#ac98e433ab92e28689abd6c1cf85b0695">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac98e433ab92e28689abd6c1cf85b0695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f724a609b632e343e00c747370d2ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a07f724a609b632e343e00c747370d2ae">CEV_addModulo</a> (int mode, int *val, int modulo)</td></tr>
+<tr class="memdesc:a07f724a609b632e343e00c747370d2ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">inc/dec by 1 with modulo.  <a href="_c_e_v__api_8c.html#a07f724a609b632e343e00c747370d2ae">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a07f724a609b632e343e00c747370d2ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60eae086c9f8e17d09bc456d451b6f16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a60eae086c9f8e17d09bc456d451b6f16">CEV_addLimited</a> (int mode, int *val, int num)</td></tr>
+<tr class="memdesc:a60eae086c9f8e17d09bc456d451b6f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">inc/dec by 1 with limits.  <a href="_c_e_v__api_8c.html#a60eae086c9f8e17d09bc456d451b6f16">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a60eae086c9f8e17d09bc456d451b6f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6b5dc5fde65d2b8ae57d166fa533153"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#af6b5dc5fde65d2b8ae57d166fa533153">CEV_memSet</a> (void *ptr, char value, size_t size)</td></tr>
+<tr class="memdesc:af6b5dc5fde65d2b8ae57d166fa533153"><td class="mdescLeft">&#160;</td><td class="mdescRight">memset implementation.  <a href="_c_e_v__api_8c.html#af6b5dc5fde65d2b8ae57d166fa533153">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af6b5dc5fde65d2b8ae57d166fa533153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab52c186b43abc17bd4d48cab9d60f87a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab52c186b43abc17bd4d48cab9d60f87a">CEV_memCopy</a> (void *src, void *dst, size_t count)</td></tr>
+<tr class="memdesc:ab52c186b43abc17bd4d48cab9d60f87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">memcopy imlpementation.  <a href="_c_e_v__api_8c.html#ab52c186b43abc17bd4d48cab9d60f87a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab52c186b43abc17bd4d48cab9d60f87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae637ac1b43aeebeb9c17cbe2e8a9181e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ae637ac1b43aeebeb9c17cbe2e8a9181e">CEV_lim</a> (int limInf, int val, int limSup)</td></tr>
+<tr class="memdesc:ae637ac1b43aeebeb9c17cbe2e8a9181e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Circular comparator.  <a href="_c_e_v__api_8c.html#ae637ac1b43aeebeb9c17cbe2e8a9181e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae637ac1b43aeebeb9c17cbe2e8a9181e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65861d2471667b858b0d475f83c7532"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aa65861d2471667b858b0d475f83c7532">CEV_reachValue</a> (float *value, float reach, float by)</td></tr>
+<tr class="memdesc:aa65861d2471667b858b0d475f83c7532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value inc /dec.  <a href="_c_e_v__api_8c.html#aa65861d2471667b858b0d475f83c7532">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa65861d2471667b858b0d475f83c7532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4be36390a37f8c57a89c807ea57d1a34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a4be36390a37f8c57a89c807ea57d1a34">CEV_constraint</a> (int mini, int *value, int maxi)</td></tr>
+<tr class="memdesc:a4be36390a37f8c57a89c807ea57d1a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value corrected within [mini, maxi].  <a href="_c_e_v__api_8c.html#a4be36390a37f8c57a89c807ea57d1a34">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4be36390a37f8c57a89c807ea57d1a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a987a86ce6d882672644a5811aa132d70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a987a86ce6d882672644a5811aa132d70">CEV_fconstraint</a> (float mini, float *value, float maxi)</td></tr>
+<tr class="memdesc:a987a86ce6d882672644a5811aa132d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value corrected within [mini, maxi].  <a href="_c_e_v__api_8c.html#a987a86ce6d882672644a5811aa132d70">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a987a86ce6d882672644a5811aa132d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a56eaa7f28de796c8d84cbd264974b3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a1a56eaa7f28de796c8d84cbd264974b3">CEV_map</a> (double realVal, double realMin, double realMax, double retMin, double retMax)</td></tr>
+<tr class="memdesc:a1a56eaa7f28de796c8d84cbd264974b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">value scaling.  <a href="_c_e_v__api_8c.html#a1a56eaa7f28de796c8d84cbd264974b3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1a56eaa7f28de796c8d84cbd264974b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66e1d9dad6d2087abbeb83fff6dac76"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aa66e1d9dad6d2087abbeb83fff6dac76">CEV_irand</a> (int start, int end)</td></tr>
+<tr class="memdesc:aa66e1d9dad6d2087abbeb83fff6dac76"><td class="mdescLeft">&#160;</td><td class="mdescRight">random int value in [start, end[.  <a href="_c_e_v__api_8c.html#aa66e1d9dad6d2087abbeb83fff6dac76">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa66e1d9dad6d2087abbeb83fff6dac76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebf6d88dffc45cda83933d00ea769b82"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aebf6d88dffc45cda83933d00ea769b82">CEV_frand</a> (double start, double end)</td></tr>
+<tr class="memdesc:aebf6d88dffc45cda83933d00ea769b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">random double value.  <a href="_c_e_v__api_8c.html#aebf6d88dffc45cda83933d00ea769b82">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aebf6d88dffc45cda83933d00ea769b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf234cf63aa0c0442007c28f6aada2c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aaf234cf63aa0c0442007c28f6aada2c6">CEV_floatIsEqual</a> (double value, double target, double tolerance)</td></tr>
+<tr class="memdesc:aaf234cf63aa0c0442007c28f6aada2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">floating point equality.  <a href="_c_e_v__api_8c.html#aaf234cf63aa0c0442007c28f6aada2c6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaf234cf63aa0c0442007c28f6aada2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a100e339681e4d52efee3115152453706"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a100e339681e4d52efee3115152453706">CEV_fModulo</a> (double value, double mod)</td></tr>
+<tr class="memdesc:a100e339681e4d52efee3115152453706"><td class="mdescLeft">&#160;</td><td class="mdescRight">double modulo.  <a href="_c_e_v__api_8c.html#a100e339681e4d52efee3115152453706">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a100e339681e4d52efee3115152453706"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c2819552a7ebf942fa6e1b3d2ee884e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a5c2819552a7ebf942fa6e1b3d2ee884e">CEV_vectAngle</a> (double x, double y)</td></tr>
+<tr class="memdesc:a5c2819552a7ebf942fa6e1b3d2ee884e"><td class="mdescLeft">&#160;</td><td class="mdescRight">angle of vector.  <a href="_c_e_v__api_8c.html#a5c2819552a7ebf942fa6e1b3d2ee884e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5c2819552a7ebf942fa6e1b3d2ee884e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dccf63fc2397a519c2f3151a6d1ee12"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a8dccf63fc2397a519c2f3151a6d1ee12">CEV_pointAreEqual</a> (SDL_Point *pta, SDL_Point *ptb)</td></tr>
+<tr class="memdesc:a8dccf63fc2397a519c2f3151a6d1ee12"><td class="mdescLeft">&#160;</td><td class="mdescRight">same point.  <a href="_c_e_v__api_8c.html#a8dccf63fc2397a519c2f3151a6d1ee12">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8dccf63fc2397a519c2f3151a6d1ee12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a817af0524c2410135695470c8ae3d6b5"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a817af0524c2410135695470c8ae3d6b5">CEV_pointClear</a> (void)</td></tr>
+<tr class="memdesc:a817af0524c2410135695470c8ae3d6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">cleared point.  <a href="_c_e_v__api_8c.html#a817af0524c2410135695470c8ae3d6b5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a817af0524c2410135695470c8ae3d6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6135da636a2dae45d251f1b3dc59e7"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a8c6135da636a2dae45d251f1b3dc59e7">CEV_icoordToPoint</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> src)</td></tr>
+<tr class="memdesc:a8c6135da636a2dae45d251f1b3dc59e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">CEV_Icoord to SDL_point.  <a href="_c_e_v__api_8c.html#a8c6135da636a2dae45d251f1b3dc59e7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8c6135da636a2dae45d251f1b3dc59e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd11e02d572aab89b8917fb0fcef1ff4"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#afd11e02d572aab89b8917fb0fcef1ff4">CEV_fcoordToPoint</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> src)</td></tr>
+<tr class="memdesc:afd11e02d572aab89b8917fb0fcef1ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">CEV_Fcoord to SDL_point.  <a href="_c_e_v__api_8c.html#afd11e02d572aab89b8917fb0fcef1ff4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afd11e02d572aab89b8917fb0fcef1ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a715c458616ebeac28b21e6e9b7a62308"><td class="memItemLeft" align="right" valign="top">SDL_Point *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a715c458616ebeac28b21e6e9b7a62308">CEV_rectMidToPoint</a> (SDL_Rect src, SDL_Point *dst)</td></tr>
+<tr class="memdesc:a715c458616ebeac28b21e6e9b7a62308"><td class="mdescLeft">&#160;</td><td class="mdescRight">point as center of rect.  <a href="_c_e_v__api_8c.html#a715c458616ebeac28b21e6e9b7a62308">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a715c458616ebeac28b21e6e9b7a62308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecfb4da3a73dd25456002c6b0497c5b5"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aecfb4da3a73dd25456002c6b0497c5b5">CEV_rectPosToPoint</a> (SDL_Rect src)</td></tr>
+<tr class="memdesc:aecfb4da3a73dd25456002c6b0497c5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect to point (x,y) copy.  <a href="_c_e_v__api_8c.html#aecfb4da3a73dd25456002c6b0497c5b5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aecfb4da3a73dd25456002c6b0497c5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a592b5d36ca431aea9d6733ad9dee61aa"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a592b5d36ca431aea9d6733ad9dee61aa">CEV_pointMedian</a> (SDL_Point pta, SDL_Point ptb)</td></tr>
+<tr class="memdesc:a592b5d36ca431aea9d6733ad9dee61aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">median between SDL_Points  <a href="_c_e_v__api_8c.html#a592b5d36ca431aea9d6733ad9dee61aa">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a592b5d36ca431aea9d6733ad9dee61aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80f18ee191f99366c6c67568699a91dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a80f18ee191f99366c6c67568699a91dc">CEV_pointIsInRect</a> (SDL_Point point, SDL_Rect rect)</td></tr>
+<tr class="memdesc:a80f18ee191f99366c6c67568699a91dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">point in rect.  <a href="_c_e_v__api_8c.html#a80f18ee191f99366c6c67568699a91dc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a80f18ee191f99366c6c67568699a91dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a023890a1f07d537585a3f6996426474c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a023890a1f07d537585a3f6996426474c">CEV_pointDist</a> (SDL_Point pta, SDL_Point ptb)</td></tr>
+<tr class="memdesc:a023890a1f07d537585a3f6996426474c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance between 2 SDL_Point.  <a href="_c_e_v__api_8c.html#a023890a1f07d537585a3f6996426474c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a023890a1f07d537585a3f6996426474c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a324038898ce2c919820f0053be3dadbf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a324038898ce2c919820f0053be3dadbf">CEV_pointAngle</a> (SDL_Point pta, SDL_Point ptb)</td></tr>
+<tr class="memdesc:a324038898ce2c919820f0053be3dadbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">angle from pta to ptb.  <a href="_c_e_v__api_8c.html#a324038898ce2c919820f0053be3dadbf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a324038898ce2c919820f0053be3dadbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a682f1db516c745d13d06518f97aa964f"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a682f1db516c745d13d06518f97aa964f">CEV_pointSum</a> (SDL_Point pta, SDL_Point ptb)</td></tr>
+<tr class="memdesc:a682f1db516c745d13d06518f97aa964f"><td class="mdescLeft">&#160;</td><td class="mdescRight">sums 2 SDL_Point.  <a href="_c_e_v__api_8c.html#a682f1db516c745d13d06518f97aa964f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a682f1db516c745d13d06518f97aa964f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a16f708c2859c19e683e292dc309fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a58a16f708c2859c19e683e292dc309fd">CEV_icoordAreEqual</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *pta, <a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *ptb)</td></tr>
+<tr class="memdesc:a58a16f708c2859c19e683e292dc309fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">same point.  <a href="_c_e_v__api_8c.html#a58a16f708c2859c19e683e292dc309fd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a58a16f708c2859c19e683e292dc309fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb4b37f4cfc348bf86898ba749023546"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aeb4b37f4cfc348bf86898ba749023546">CEV_icoordClear</a> (void)</td></tr>
+<tr class="memdesc:aeb4b37f4cfc348bf86898ba749023546"><td class="mdescLeft">&#160;</td><td class="mdescRight">empty Icoord.  <a href="_c_e_v__api_8c.html#aeb4b37f4cfc348bf86898ba749023546">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aeb4b37f4cfc348bf86898ba749023546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319e6d9abf7febdf78263deb12c9741b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a319e6d9abf7febdf78263deb12c9741b">CEV_pointToIcoord</a> (SDL_Point src)</td></tr>
+<tr class="memdesc:a319e6d9abf7febdf78263deb12c9741b"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDL_Point to Icoord.  <a href="_c_e_v__api_8c.html#a319e6d9abf7febdf78263deb12c9741b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a319e6d9abf7febdf78263deb12c9741b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a210c322c36b24bf0e68d5dcb36060299"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a210c322c36b24bf0e68d5dcb36060299">CEV_fcoordToIcoord</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> src)</td></tr>
+<tr class="memdesc:a210c322c36b24bf0e68d5dcb36060299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fcoord to Icoord.  <a href="_c_e_v__api_8c.html#a210c322c36b24bf0e68d5dcb36060299">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a210c322c36b24bf0e68d5dcb36060299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa77003838af76157412bb9a8a094388"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#aaa77003838af76157412bb9a8a094388">CEV_rectMidToIcoord</a> (SDL_Rect src, <a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *dst)</td></tr>
+<tr class="memdesc:aaa77003838af76157412bb9a8a094388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Icoord as center of rect.  <a href="_c_e_v__api_8c.html#aaa77003838af76157412bb9a8a094388">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaa77003838af76157412bb9a8a094388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab28f05f11bbb55a66bf7f5d8dd48fee7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab28f05f11bbb55a66bf7f5d8dd48fee7">CEV_rectPosToIcoord</a> (SDL_Rect src)</td></tr>
+<tr class="memdesc:ab28f05f11bbb55a66bf7f5d8dd48fee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect to Icoord (x,y) copy.  <a href="_c_e_v__api_8c.html#ab28f05f11bbb55a66bf7f5d8dd48fee7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab28f05f11bbb55a66bf7f5d8dd48fee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae74adef90e945f55e8fe6ba01a6e2ea9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ae74adef90e945f55e8fe6ba01a6e2ea9">CEV_icoordMedian</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> pta, <a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> ptb)</td></tr>
+<tr class="memdesc:ae74adef90e945f55e8fe6ba01a6e2ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">median between Icoord  <a href="_c_e_v__api_8c.html#ae74adef90e945f55e8fe6ba01a6e2ea9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae74adef90e945f55e8fe6ba01a6e2ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e4aa94d1030022b0f9a2adf52fab7de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a6e4aa94d1030022b0f9a2adf52fab7de">CEV_icoordIsInRect</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> point, SDL_Rect rect)</td></tr>
+<tr class="memdesc:a6e4aa94d1030022b0f9a2adf52fab7de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Icoord in rect.  <a href="_c_e_v__api_8c.html#a6e4aa94d1030022b0f9a2adf52fab7de">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6e4aa94d1030022b0f9a2adf52fab7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a080f31c09d6995447272954a976263"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a8a080f31c09d6995447272954a976263">CEV_icoordDist</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> pta, <a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> ptb)</td></tr>
+<tr class="memdesc:a8a080f31c09d6995447272954a976263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance between 2 Icoord.  <a href="_c_e_v__api_8c.html#a8a080f31c09d6995447272954a976263">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8a080f31c09d6995447272954a976263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d907a5e61adc94243ba4c6f5e81221"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a02d907a5e61adc94243ba4c6f5e81221">CEV_icoordAngle2d</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> pta, <a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> ptb)</td></tr>
+<tr class="memdesc:a02d907a5e61adc94243ba4c6f5e81221"><td class="mdescLeft">&#160;</td><td class="mdescRight">angle from pta to ptb.  <a href="_c_e_v__api_8c.html#a02d907a5e61adc94243ba4c6f5e81221">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a02d907a5e61adc94243ba4c6f5e81221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5055e9e598f9a62560ad787532c74245"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a5055e9e598f9a62560ad787532c74245">CEV_icoordSum</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> pta, <a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> ptb)</td></tr>
+<tr class="memdesc:a5055e9e598f9a62560ad787532c74245"><td class="mdescLeft">&#160;</td><td class="mdescRight">sums 2 Icoord.  <a href="_c_e_v__api_8c.html#a5055e9e598f9a62560ad787532c74245">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5055e9e598f9a62560ad787532c74245"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0515f8e866c1c0bf0d8cb5b575489df5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a0515f8e866c1c0bf0d8cb5b575489df5">CEV_fcoordAreEqual</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *pta, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *ptb, double tolerance)</td></tr>
+<tr class="memdesc:a0515f8e866c1c0bf0d8cb5b575489df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">same point.  <a href="_c_e_v__api_8c.html#a0515f8e866c1c0bf0d8cb5b575489df5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0515f8e866c1c0bf0d8cb5b575489df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b6f7a8a0fd796073b141d535d3dfe78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a5b6f7a8a0fd796073b141d535d3dfe78">CEV_fcoordClear</a> (void)</td></tr>
+<tr class="memdesc:a5b6f7a8a0fd796073b141d535d3dfe78"><td class="mdescLeft">&#160;</td><td class="mdescRight">empty Fcoord.  <a href="_c_e_v__api_8c.html#a5b6f7a8a0fd796073b141d535d3dfe78">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5b6f7a8a0fd796073b141d535d3dfe78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c0dbc5186296511eb3e8a4036e7633"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a79c0dbc5186296511eb3e8a4036e7633">CEV_pointToFcoord</a> (SDL_Point src)</td></tr>
+<tr class="memdesc:a79c0dbc5186296511eb3e8a4036e7633"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDL_Point to Fcoord.  <a href="_c_e_v__api_8c.html#a79c0dbc5186296511eb3e8a4036e7633">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a79c0dbc5186296511eb3e8a4036e7633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2536fce294ce6922a3cc211970587a21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a2536fce294ce6922a3cc211970587a21">CEV_icoordToFcoord</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> src)</td></tr>
+<tr class="memdesc:a2536fce294ce6922a3cc211970587a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Icoord to Fcoord.  <a href="_c_e_v__api_8c.html#a2536fce294ce6922a3cc211970587a21">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2536fce294ce6922a3cc211970587a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af119bc8ef05c61e132d84dafd5698dad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#af119bc8ef05c61e132d84dafd5698dad">CEV_rectMidToFcoord</a> (SDL_Rect src, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *dst)</td></tr>
+<tr class="memdesc:af119bc8ef05c61e132d84dafd5698dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fcoord as center of rect.  <a href="_c_e_v__api_8c.html#af119bc8ef05c61e132d84dafd5698dad">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af119bc8ef05c61e132d84dafd5698dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d9e73f8285fe454789d62c8a6eeece"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab8d9e73f8285fe454789d62c8a6eeece">CEV_rectPosToFcoord</a> (SDL_Rect src)</td></tr>
+<tr class="memdesc:ab8d9e73f8285fe454789d62c8a6eeece"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect to Fcoord (x,y) copy.  <a href="_c_e_v__api_8c.html#ab8d9e73f8285fe454789d62c8a6eeece">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab8d9e73f8285fe454789d62c8a6eeece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a717bdf029238f1df3820decfa838adbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a717bdf029238f1df3820decfa838adbc">CEV_fcoordMedian</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> pta, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> ptb)</td></tr>
+<tr class="memdesc:a717bdf029238f1df3820decfa838adbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">median between Fcoord  <a href="_c_e_v__api_8c.html#a717bdf029238f1df3820decfa838adbc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a717bdf029238f1df3820decfa838adbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9320b03fa40614c799212cc632c88d95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a9320b03fa40614c799212cc632c88d95">CEV_fcoordIsInRect</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> point, SDL_Rect rect)</td></tr>
+<tr class="memdesc:a9320b03fa40614c799212cc632c88d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fcoord in rect.  <a href="_c_e_v__api_8c.html#a9320b03fa40614c799212cc632c88d95">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9320b03fa40614c799212cc632c88d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a869b9566faf36a0e86f575912f1fda6e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a869b9566faf36a0e86f575912f1fda6e">CEV_fcoordDist</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> pta, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> ptb)</td></tr>
+<tr class="memdesc:a869b9566faf36a0e86f575912f1fda6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance between 2 Fcoord.  <a href="_c_e_v__api_8c.html#a869b9566faf36a0e86f575912f1fda6e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a869b9566faf36a0e86f575912f1fda6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4732968f2ad776e15b10158cb6eac1e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab4732968f2ad776e15b10158cb6eac1e">CEV_fcoordAngle2d</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> pta, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> ptb)</td></tr>
+<tr class="memdesc:ab4732968f2ad776e15b10158cb6eac1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">angle from pta to ptb.  <a href="_c_e_v__api_8c.html#ab4732968f2ad776e15b10158cb6eac1e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab4732968f2ad776e15b10158cb6eac1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5fd87c3eeff75b91d44280d1e06ee30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#af5fd87c3eeff75b91d44280d1e06ee30">CEV_fcoordSum</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> pta, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> ptb)</td></tr>
+<tr class="memdesc:af5fd87c3eeff75b91d44280d1e06ee30"><td class="mdescLeft">&#160;</td><td class="mdescRight">sums 2 Fcoord.  <a href="_c_e_v__api_8c.html#af5fd87c3eeff75b91d44280d1e06ee30">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af5fd87c3eeff75b91d44280d1e06ee30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db4717a59eead6872213e20c48a923f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a9db4717a59eead6872213e20c48a923f">CEV_rectDump</a> (SDL_Rect in)</td></tr>
+<tr class="memdesc:a9db4717a59eead6872213e20c48a923f"><td class="mdescLeft">&#160;</td><td class="mdescRight">dumps rect content values into stdout.  <a href="_c_e_v__api_8c.html#a9db4717a59eead6872213e20c48a923f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9db4717a59eead6872213e20c48a923f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a143dcd14dc630b6e72a7f4cde7cefb1f"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a143dcd14dc630b6e72a7f4cde7cefb1f">CEV_rectAroundPoint</a> (SDL_Point src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:a143dcd14dc630b6e72a7f4cde7cefb1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect corrected around point as gravity center.  <a href="_c_e_v__api_8c.html#a143dcd14dc630b6e72a7f4cde7cefb1f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a143dcd14dc630b6e72a7f4cde7cefb1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3a308018a01aa638411d18604ac4691"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab3a308018a01aa638411d18604ac4691">CEV_rectAroundIcoord</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:ab3a308018a01aa638411d18604ac4691"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect corrected around point as gravity center.  <a href="_c_e_v__api_8c.html#ab3a308018a01aa638411d18604ac4691">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab3a308018a01aa638411d18604ac4691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18b7944b95adca0e10d47f838a41734"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab18b7944b95adca0e10d47f838a41734">CEV_rectAroundFcoord</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:ab18b7944b95adca0e10d47f838a41734"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect corrected around point as gravity center.  <a href="_c_e_v__api_8c.html#ab18b7944b95adca0e10d47f838a41734">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab18b7944b95adca0e10d47f838a41734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cc3f49234825a3202e7cf1c277331e7"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a0cc3f49234825a3202e7cf1c277331e7">CEV_pointToRectPos</a> (SDL_Point src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:a0cc3f49234825a3202e7cf1c277331e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rect pos from point.  <a href="_c_e_v__api_8c.html#a0cc3f49234825a3202e7cf1c277331e7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0cc3f49234825a3202e7cf1c277331e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9501b3f5759c6853cdf24f37f843bd6"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab9501b3f5759c6853cdf24f37f843bd6">CEV_icoordToRectPos</a> (<a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:ab9501b3f5759c6853cdf24f37f843bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rect pos from Icoord.  <a href="_c_e_v__api_8c.html#ab9501b3f5759c6853cdf24f37f843bd6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab9501b3f5759c6853cdf24f37f843bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c057ded2fa9c9d7cf9f63feed6df89"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a77c057ded2fa9c9d7cf9f63feed6df89">CEV_fcoordToRectPos</a> (<a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:a77c057ded2fa9c9d7cf9f63feed6df89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rect pos from Fcoord.  <a href="_c_e_v__api_8c.html#a77c057ded2fa9c9d7cf9f63feed6df89">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a77c057ded2fa9c9d7cf9f63feed6df89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189d8333ba74909042e96d116c3fc825"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a189d8333ba74909042e96d116c3fc825">CEV_rectDimCopy</a> (SDL_Rect src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:a189d8333ba74909042e96d116c3fc825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies only rects dimensions.  <a href="_c_e_v__api_8c.html#a189d8333ba74909042e96d116c3fc825">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a189d8333ba74909042e96d116c3fc825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e3b1bf993ff9f8625be77f369dec961"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a7e3b1bf993ff9f8625be77f369dec961">CEV_rectPosCopy</a> (SDL_Rect src, SDL_Rect *dst)</td></tr>
+<tr class="memdesc:a7e3b1bf993ff9f8625be77f369dec961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies only pos members.  <a href="_c_e_v__api_8c.html#a7e3b1bf993ff9f8625be77f369dec961">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7e3b1bf993ff9f8625be77f369dec961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2a2959f879926b79c72018de55557a9"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab2a2959f879926b79c72018de55557a9">CEV_rectConstraint</a> (SDL_Rect *rect, SDL_Rect border)</td></tr>
+<tr class="memdesc:ab2a2959f879926b79c72018de55557a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">rect x,y corrected to stay within border.  <a href="_c_e_v__api_8c.html#ab2a2959f879926b79c72018de55557a9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab2a2959f879926b79c72018de55557a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a086c68b05dc245ea211e06cb1e99b161"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a086c68b05dc245ea211e06cb1e99b161">CEV_pointRectConstraint</a> (SDL_Point *point, SDL_Rect *rect, int w, int h)</td></tr>
+<tr class="memdesc:a086c68b05dc245ea211e06cb1e99b161"><td class="mdescLeft">&#160;</td><td class="mdescRight">point and rect corrected.  <a href="_c_e_v__api_8c.html#a086c68b05dc245ea211e06cb1e99b161">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a086c68b05dc245ea211e06cb1e99b161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f2cb063c080039ada94b49105c65b92"><td class="memItemLeft" align="right" valign="top">SDL_Rect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a9f2cb063c080039ada94b49105c65b92">CEV_rectDimScale</a> (SDL_Rect *src, float scale)</td></tr>
+<tr class="memdesc:a9f2cb063c080039ada94b49105c65b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">rescale SDL_Rect dimensions.  <a href="_c_e_v__api_8c.html#a9f2cb063c080039ada94b49105c65b92">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9f2cb063c080039ada94b49105c65b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad65551cd788c7b3763d9fc72973300fe"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ad65551cd788c7b3763d9fc72973300fe">CEV_rectFitScaledInRect</a> (SDL_Rect *src, SDL_Rect into)</td></tr>
+<tr class="memdesc:ad65551cd788c7b3763d9fc72973300fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fits / centers src within "into" with aspect ratio.  <a href="_c_e_v__api_8c.html#ad65551cd788c7b3763d9fc72973300fe">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad65551cd788c7b3763d9fc72973300fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e45ead95634ea0ac0d0a31c5343ea36"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a2e45ead95634ea0ac0d0a31c5343ea36">CEV_rectCenteredInRect</a> (SDL_Rect src, SDL_Rect into)</td></tr>
+<tr class="memdesc:a2e45ead95634ea0ac0d0a31c5343ea36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centers src into "into".  <a href="_c_e_v__api_8c.html#a2e45ead95634ea0ac0d0a31c5343ea36">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2e45ead95634ea0ac0d0a31c5343ea36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a889131eca3ed2aa2614e5da1b9bc37cb"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a889131eca3ed2aa2614e5da1b9bc37cb">CEV_rectSum</a> (SDL_Rect rect1, SDL_Rect rect2)</td></tr>
+<tr class="memdesc:a889131eca3ed2aa2614e5da1b9bc37cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">sums 2 SDL_Rect.  <a href="_c_e_v__api_8c.html#a889131eca3ed2aa2614e5da1b9bc37cb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a889131eca3ed2aa2614e5da1b9bc37cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a205ba70690d207710e47a70fdd6d0780"><td class="memItemLeft" align="right" valign="top">void **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#a205ba70690d207710e47a70fdd6d0780">CEV_allocate2d</a> (size_t x, size_t y, size_t size)</td></tr>
+<tr class="memdesc:a205ba70690d207710e47a70fdd6d0780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates 2d matrix.  <a href="_c_e_v__api_8c.html#a205ba70690d207710e47a70fdd6d0780">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a205ba70690d207710e47a70fdd6d0780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7f49caaaf3cb48d13e9b9c78933d48b"><td class="memItemLeft" align="right" valign="top">void ***&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__api_8c.html#ab7f49caaaf3cb48d13e9b9c78933d48b">CEV_allocate3d</a> (size_t x, size_t y, size_t z, size_t size)</td></tr>
+<tr class="memdesc:ab7f49caaaf3cb48d13e9b9c78933d48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates 3d cube.  <a href="_c_e_v__api_8c.html#ab7f49caaaf3cb48d13e9b9c78933d48b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab7f49caaaf3cb48d13e9b9c78933d48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="af64bae512d3f62743ad1643fb14220bc" name="af64bae512d3f62743ad1643fb14220bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af64bae512d3f62743ad1643fb14220bc">&#9670;&nbsp;</a></span>CEV_2dCoordToRowIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_2dCoordToRowIndex </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Index from row as 2d matrix. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>: x coord in matrix. </td></tr>
+    <tr><td class="paramname">y</td><td>: y coord in matrix. </td></tr>
+    <tr><td class="paramname">width</td><td>: matrix single row width.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : linear index of (x,y). </dd></dl>
+
+</div>
+</div>
+<a id="a983c59e03dee8ae20ce21df39a496302" name="a983c59e03dee8ae20ce21df39a496302"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a983c59e03dee8ae20ce21df39a496302">&#9670;&nbsp;</a></span>CEV_3dCoordToRowIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_3dCoordToRowIndex </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Index from row as 3d matrix. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>: x coord in matrix. </td></tr>
+    <tr><td class="paramname">y</td><td>: y coord in matrix. </td></tr>
+    <tr><td class="paramname">z</td><td>: z coord in matrix. </td></tr>
+    <tr><td class="paramname">width</td><td>: matrix single row width. </td></tr>
+    <tr><td class="paramname">height</td><td>: matrix single row height.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : linear index of (x,y,z). </dd></dl>
+
+</div>
+</div>
+<a id="a60eae086c9f8e17d09bc456d451b6f16" name="a60eae086c9f8e17d09bc456d451b6f16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60eae086c9f8e17d09bc456d451b6f16">&#9670;&nbsp;</a></span>CEV_addLimited()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_addLimited </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inc/dec by 1 with limits. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>: incremental method (INC/DEC). </td></tr>
+    <tr><td class="paramname">val</td><td>: int* to modify. </td></tr>
+    <tr><td class="paramname">num</td><td>: number of value val can take [0; num[.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if val was inc/dec, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a07f724a609b632e343e00c747370d2ae" name="a07f724a609b632e343e00c747370d2ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07f724a609b632e343e00c747370d2ae">&#9670;&nbsp;</a></span>CEV_addModulo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_addModulo </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>modulo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inc/dec by 1 with modulo. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>: incremental method (INC/DEC). </td></tr>
+    <tr><td class="paramname">val</td><td>: int* to modify. </td></tr>
+    <tr><td class="paramname">modulo</td><td>: modulo to apply.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if modulo has been applied, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a205ba70690d207710e47a70fdd6d0780" name="a205ba70690d207710e47a70fdd6d0780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a205ba70690d207710e47a70fdd6d0780">&#9670;&nbsp;</a></span>CEV_allocate2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ** CEV_allocate2d </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates 2d matrix. </p>
+<p >Allocations</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>: size_t as num of columns. </td></tr>
+    <tr><td class="paramname">y</td><td>: size_t as num of rows. </td></tr>
+    <tr><td class="paramname">size</td><td>: size_t as unit of allocation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void** to allocation / NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="ab7f49caaaf3cb48d13e9b9c78933d48b" name="ab7f49caaaf3cb48d13e9b9c78933d48b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7f49caaaf3cb48d13e9b9c78933d48b">&#9670;&nbsp;</a></span>CEV_allocate3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void *** CEV_allocate3d </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates 3d cube. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>: size_t as num of columns. </td></tr>
+    <tr><td class="paramname">y</td><td>: size_t as num of rows. </td></tr>
+    <tr><td class="paramname">z</td><td>: size_t as depth. </td></tr>
+    <tr><td class="paramname">size</td><td>: size_t as unit of allocation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void** to allocation / NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a0b025538bec3001bd0f0fd7fb2df253b" name="a0b025538bec3001bd0f0fd7fb2df253b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b025538bec3001bd0f0fd7fb2df253b">&#9670;&nbsp;</a></span>CEV_anySwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_anySwap </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>valOne</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>valTwo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>swaps size bytes valOne&lt;-&gt;valTwo. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">valOne</td><td>: void* to content to be swapped with valTwo*. </td></tr>
+    <tr><td class="paramname">valTwo</td><td>: void* to content to be swapped with valOne*. </td></tr>
+    <tr><td class="paramname">size</td><td>: size_t of volume to be swapped.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a0a47d25f321d68e3566864c9a5355123" name="a0a47d25f321d68e3566864c9a5355123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a47d25f321d68e3566864c9a5355123">&#9670;&nbsp;</a></span>CEV_bitClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_bitClear </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>flag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bitIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>reset bit (0) in flag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>: int* to clear bit into. </td></tr>
+    <tr><td class="paramname">bitIndex</td><td>: bit index to clear.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a052917bb79d844b4331b381a15bd7499" name="a052917bb79d844b4331b381a15bd7499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a052917bb79d844b4331b381a15bd7499">&#9670;&nbsp;</a></span>CEV_bitFieldDistribute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * CEV_bitFieldDistribute </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>srcBit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dstBit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>bit field copy. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: const void* to read from. </td></tr>
+    <tr><td class="paramname">srcBit</td><td>: start bit index to read from (low). </td></tr>
+    <tr><td class="paramname">dst</td><td>: void* to write into. </td></tr>
+    <tr><td class="paramname">dstBit</td><td>: start bit index to write at (low). </td></tr>
+    <tr><td class="paramname">length</td><td>: size_t number of bit to copy.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void* on dst.</dd></dl>
+<p>undefined behaviour if src and dst are on same mem field. </p>
+
+</div>
+</div>
+<a id="adc4f01e884ce7d89bea634db94d4a6c1" name="adc4f01e884ce7d89bea634db94d4a6c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc4f01e884ce7d89bea634db94d4a6c1">&#9670;&nbsp;</a></span>CEV_bitGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_bitGet </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bitIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>extracts bitIndex from flag. </p>
+<p >miscellanous </p>
+
+</div>
+</div>
+<a id="a516dd91e6322bd1d3f31fd120f1981cd" name="a516dd91e6322bd1d3f31fd120f1981cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516dd91e6322bd1d3f31fd120f1981cd">&#9670;&nbsp;</a></span>CEV_bitSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_bitSet </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>flag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>bitIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sets bit (1) in flag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>: int* to set bit into. </td></tr>
+    <tr><td class="paramname">bitIndex</td><td>: bit index to set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a4be36390a37f8c57a89c807ea57d1a34" name="a4be36390a37f8c57a89c807ea57d1a34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be36390a37f8c57a89c807ea57d1a34">&#9670;&nbsp;</a></span>CEV_constraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_constraint </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mini</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value corrected within [mini, maxi]. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mini</td><td>: minimum value can take. </td></tr>
+    <tr><td class="paramname">value</td><td>: value to test. </td></tr>
+    <tr><td class="paramname">maxi</td><td>: maximum value can take.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if value was corrected. </dd></dl>
+
+</div>
+</div>
+<a id="a54843cb3c93d0fa47cd5c42579b3f4a4" name="a54843cb3c93d0fa47cd5c42579b3f4a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54843cb3c93d0fa47cd5c42579b3f4a4">&#9670;&nbsp;</a></span>CEV_edgeAny()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_edgeAny </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *&#160;</td>
+          <td class="paramname"><em>edge</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Any edge. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edge</td><td>: CEV_Edge* to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if RE or FE occured, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a37783ac4878f048657d22750de7bb970" name="a37783ac4878f048657d22750de7bb970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37783ac4878f048657d22750de7bb970">&#9670;&nbsp;</a></span>CEV_edgeFall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_edgeFall </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *&#160;</td>
+          <td class="paramname"><em>edge</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Falling edge. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edge</td><td>: CEV_Edge* to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if falling edge occured, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a67154169c43a400f8a481ce2d1e61798" name="a67154169c43a400f8a481ce2d1e61798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67154169c43a400f8a481ce2d1e61798">&#9670;&nbsp;</a></span>CEV_edgeRise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_edgeRise </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *&#160;</td>
+          <td class="paramname"><em>edge</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rising edge. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edge</td><td>: CEV_Edge* to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if rising edge occured, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a1608bd49354f2c45407f33d8143bab1b" name="a1608bd49354f2c45407f33d8143bab1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1608bd49354f2c45407f33d8143bab1b">&#9670;&nbsp;</a></span>CEV_edgeUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_edgeUpdate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___edge.html">CEV_Edge</a> *&#160;</td>
+          <td class="paramname"><em>edge</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Every edge / Update structure content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edge</td><td>: CEV_Edge* to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true on any edge. </dd></dl>
+
+</div>
+</div>
+<a id="a987a86ce6d882672644a5811aa132d70" name="a987a86ce6d882672644a5811aa132d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a987a86ce6d882672644a5811aa132d70">&#9670;&nbsp;</a></span>CEV_fconstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_fconstraint </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>mini</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value corrected within [mini, maxi]. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mini</td><td>: minimum value can take. </td></tr>
+    <tr><td class="paramname">value</td><td>: value to test. </td></tr>
+    <tr><td class="paramname">maxi</td><td>: maximum value can take.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>1 if value was corrected. </dd></dl>
+
+</div>
+</div>
+<a id="ab4732968f2ad776e15b10158cb6eac1e" name="ab4732968f2ad776e15b10158cb6eac1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4732968f2ad776e15b10158cb6eac1e">&#9670;&nbsp;</a></span>CEV_fcoordAngle2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_fcoordAngle2d </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>angle from pta to ptb. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>Fcoord as "center". </td></tr>
+    <tr><td class="paramname">ptb</td><td>Fcoord as angle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>angle of pta-&gt;ptb in degres as double.</dd></dl>
+<p>2d: x,y computed only. </p>
+
+</div>
+</div>
+<a id="a0515f8e866c1c0bf0d8cb5b575489df5" name="a0515f8e866c1c0bf0d8cb5b575489df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0515f8e866c1c0bf0d8cb5b575489df5">&#9670;&nbsp;</a></span>CEV_fcoordAreEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_fcoordAreEqual </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *&#160;</td>
+          <td class="paramname"><em>ptb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tolerance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>same point. </p>
+<p >CEV_FCOORD</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: <a class="el" href="struct_c_e_v___f_coord.html" title="float 3D coords">CEV_FCoord</a>. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: <a class="el" href="struct_c_e_v___f_coord.html" title="float 3D coords">CEV_FCoord</a>. </td></tr>
+    <tr><td class="paramname">tolerance</td><td>: error acceptance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if both point at same position within tolerance. </dd></dl>
+
+</div>
+</div>
+<a id="a5b6f7a8a0fd796073b141d535d3dfe78" name="a5b6f7a8a0fd796073b141d535d3dfe78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b6f7a8a0fd796073b141d535d3dfe78">&#9670;&nbsp;</a></span>CEV_fcoordClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> CEV_fcoordClear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>empty Fcoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">N/A.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_c_e_v___f_coord.html" title="float 3D coords">CEV_FCoord</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a869b9566faf36a0e86f575912f1fda6e" name="a869b9566faf36a0e86f575912f1fda6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a869b9566faf36a0e86f575912f1fda6e">&#9670;&nbsp;</a></span>CEV_fcoordDist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_fcoordDist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distance between 2 Fcoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: Fcoord. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: Fcoord.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>distance between pta and ptb as double.</dd></dl>
+<p>z included. </p>
+
+</div>
+</div>
+<a id="a9320b03fa40614c799212cc632c88d95" name="a9320b03fa40614c799212cc632c88d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9320b03fa40614c799212cc632c88d95">&#9670;&nbsp;</a></span>CEV_fcoordIsInRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_fcoordIsInRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>rect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fcoord in rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>: Fcoord to test. </td></tr>
+    <tr><td class="paramname">rect</td><td>: SDL_Rect to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if point is within rect. </dd></dl>
+
+</div>
+</div>
+<a id="a717bdf029238f1df3820decfa838adbc" name="a717bdf029238f1df3820decfa838adbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a717bdf029238f1df3820decfa838adbc">&#9670;&nbsp;</a></span>CEV_fcoordMedian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> CEV_fcoordMedian </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>median between Fcoord </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: Fcoord </td></tr>
+    <tr><td class="paramname">ptb</td><td>: Fcoord</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Fcoord as median point. </dd></dl>
+
+</div>
+</div>
+<a id="af5fd87c3eeff75b91d44280d1e06ee30" name="af5fd87c3eeff75b91d44280d1e06ee30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5fd87c3eeff75b91d44280d1e06ee30">&#9670;&nbsp;</a></span>CEV_fcoordSum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> CEV_fcoordSum </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sums 2 Fcoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: Fcoord. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: Fcoord.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Fcoord filled with sum. </dd></dl>
+
+</div>
+</div>
+<a id="a210c322c36b24bf0e68d5dcb36060299" name="a210c322c36b24bf0e68d5dcb36060299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a210c322c36b24bf0e68d5dcb36060299">&#9670;&nbsp;</a></span>CEV_fcoordToIcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_fcoordToIcoord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fcoord to Icoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: Fcoord to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_c_e_v___i_coord.html" title="integer 3D coords.">CEV_ICoord</a>. </dd></dl>
+
+</div>
+</div>
+<a id="afd11e02d572aab89b8917fb0fcef1ff4" name="afd11e02d572aab89b8917fb0fcef1ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd11e02d572aab89b8917fb0fcef1ff4">&#9670;&nbsp;</a></span>CEV_fcoordToPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_fcoordToPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CEV_Fcoord to SDL_point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Fcoord to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point at same pos. </dd></dl>
+
+</div>
+</div>
+<a id="a77c057ded2fa9c9d7cf9f63feed6df89" name="a77c057ded2fa9c9d7cf9f63feed6df89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77c057ded2fa9c9d7cf9f63feed6df89">&#9670;&nbsp;</a></span>CEV_fcoordToRectPos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_fcoordToRectPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rect pos from Fcoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: Fcoord to place rect at. </td></tr>
+    <tr><td class="paramname">dst</td><td>: destination *Rect.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on dst; </dd></dl>
+
+</div>
+</div>
+<a id="aaf234cf63aa0c0442007c28f6aada2c6" name="aaf234cf63aa0c0442007c28f6aada2c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf234cf63aa0c0442007c28f6aada2c6">&#9670;&nbsp;</a></span>CEV_floatIsEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_floatIsEqual </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>value1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>value2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tolerence</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>floating point equality. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value1</td><td>: first value to compare. </td></tr>
+    <tr><td class="paramname">value2</td><td>: second value to compare. </td></tr>
+    <tr><td class="paramname">tolerence</td><td>: acceptable gap.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if value is within (vtarget +/- tolerence) </dd></dl>
+
+</div>
+</div>
+<a id="a100e339681e4d52efee3115152453706" name="a100e339681e4d52efee3115152453706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a100e339681e4d52efee3115152453706">&#9670;&nbsp;</a></span>CEV_fModulo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_fModulo </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>mod</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>double modulo. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>: reference value. </td></tr>
+    <tr><td class="paramname">mod</td><td>: modulo to be applied.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>double as valuemod. </dd></dl>
+
+</div>
+</div>
+<a id="aebf6d88dffc45cda83933d00ea769b82" name="aebf6d88dffc45cda83933d00ea769b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebf6d88dffc45cda83933d00ea769b82">&#9670;&nbsp;</a></span>CEV_frand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_frand </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>random double value. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>: minimum value. </td></tr>
+    <tr><td class="paramname">end</td><td>: maximum value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>double </dd></dl>
+
+</div>
+</div>
+<a id="a02d907a5e61adc94243ba4c6f5e81221" name="a02d907a5e61adc94243ba4c6f5e81221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02d907a5e61adc94243ba4c6f5e81221">&#9670;&nbsp;</a></span>CEV_icoordAngle2d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_icoordAngle2d </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>angle from pta to ptb. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>Icoord as "center". </td></tr>
+    <tr><td class="paramname">ptb</td><td>Icoord as angle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>angle of pta-&gt;ptb in degres as double.</dd></dl>
+<p>: 2d: x,y computed only. </p>
+
+</div>
+</div>
+<a id="a58a16f708c2859c19e683e292dc309fd" name="a58a16f708c2859c19e683e292dc309fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a16f708c2859c19e683e292dc309fd">&#9670;&nbsp;</a></span>CEV_icoordAreEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_icoordAreEqual </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>same point. </p>
+<p >CEV_ICOORD</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: <a class="el" href="struct_c_e_v___i_coord.html" title="integer 3D coords.">CEV_ICoord</a>. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: <a class="el" href="struct_c_e_v___i_coord.html" title="integer 3D coords.">CEV_ICoord</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if both point at same position. </dd></dl>
+
+</div>
+</div>
+<a id="aeb4b37f4cfc348bf86898ba749023546" name="aeb4b37f4cfc348bf86898ba749023546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb4b37f4cfc348bf86898ba749023546">&#9670;&nbsp;</a></span>CEV_icoordClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_icoordClear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>empty Icoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">N/A.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_c_e_v___i_coord.html" title="integer 3D coords.">CEV_ICoord</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a8a080f31c09d6995447272954a976263" name="a8a080f31c09d6995447272954a976263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a080f31c09d6995447272954a976263">&#9670;&nbsp;</a></span>CEV_icoordDist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_icoordDist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distance between 2 Icoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: Icoord. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: Icoord.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>distance between pta and ptb as double.</dd></dl>
+<p>z included. </p>
+
+</div>
+</div>
+<a id="a6e4aa94d1030022b0f9a2adf52fab7de" name="a6e4aa94d1030022b0f9a2adf52fab7de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e4aa94d1030022b0f9a2adf52fab7de">&#9670;&nbsp;</a></span>CEV_icoordIsInRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_icoordIsInRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>rect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Icoord in rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>: Icoord to test. </td></tr>
+    <tr><td class="paramname">rect</td><td>: SDL_Rect to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if point is within rect. </dd></dl>
+
+</div>
+</div>
+<a id="ae74adef90e945f55e8fe6ba01a6e2ea9" name="ae74adef90e945f55e8fe6ba01a6e2ea9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae74adef90e945f55e8fe6ba01a6e2ea9">&#9670;&nbsp;</a></span>CEV_icoordMedian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_icoordMedian </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>median between Icoord </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: Icoord </td></tr>
+    <tr><td class="paramname">ptb</td><td>: Icoord</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Icoord as median point. </dd></dl>
+
+</div>
+</div>
+<a id="a5055e9e598f9a62560ad787532c74245" name="a5055e9e598f9a62560ad787532c74245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5055e9e598f9a62560ad787532c74245">&#9670;&nbsp;</a></span>CEV_icoordSum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_icoordSum </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sums 2 Icoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: Icoord. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: Icoord.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Icoord filled with sum. </dd></dl>
+
+</div>
+</div>
+<a id="a2536fce294ce6922a3cc211970587a21" name="a2536fce294ce6922a3cc211970587a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2536fce294ce6922a3cc211970587a21">&#9670;&nbsp;</a></span>CEV_icoordToFcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> CEV_icoordToFcoord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Icoord to Fcoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: Icoord to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_c_e_v___f_coord.html" title="float 3D coords">CEV_FCoord</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a8c6135da636a2dae45d251f1b3dc59e7" name="a8c6135da636a2dae45d251f1b3dc59e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c6135da636a2dae45d251f1b3dc59e7">&#9670;&nbsp;</a></span>CEV_icoordToPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_icoordToPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>CEV_Icoord to SDL_point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Icoord to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point at same pos. </dd></dl>
+
+</div>
+</div>
+<a id="ab9501b3f5759c6853cdf24f37f843bd6" name="ab9501b3f5759c6853cdf24f37f843bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9501b3f5759c6853cdf24f37f843bd6">&#9670;&nbsp;</a></span>CEV_icoordToRectPos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_icoordToRectPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rect pos from Icoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: Icoord to place rect at. </td></tr>
+    <tr><td class="paramname">dst</td><td>: destination *Rect.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on dst; </dd></dl>
+
+</div>
+</div>
+<a id="a409147049dbb95d9c23da6e8b7ceafc9" name="a409147049dbb95d9c23da6e8b7ceafc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a409147049dbb95d9c23da6e8b7ceafc9">&#9670;&nbsp;</a></span>CEV_intSwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_intSwap </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>valOne</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>valTwo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>int swap valOne &lt;-&gt; valTwo. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">valOne</td><td>: int* to be swapped with valTwo*. </td></tr>
+    <tr><td class="paramname">valTwo</td><td>: int* to be swapped with valOne*.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="aa66e1d9dad6d2087abbeb83fff6dac76" name="aa66e1d9dad6d2087abbeb83fff6dac76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66e1d9dad6d2087abbeb83fff6dac76">&#9670;&nbsp;</a></span>CEV_irand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_irand </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>random int value in [start, end[. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>: minimum value. </td></tr>
+    <tr><td class="paramname">end</td><td>: maximum value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int </dd></dl>
+
+</div>
+</div>
+<a id="ae637ac1b43aeebeb9c17cbe2e8a9181e" name="ae637ac1b43aeebeb9c17cbe2e8a9181e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae637ac1b43aeebeb9c17cbe2e8a9181e">&#9670;&nbsp;</a></span>CEV_lim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_lim </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>limInf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>limSup</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Circular comparator. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">limInf</td><td>: low limit. </td></tr>
+    <tr><td class="paramname">val</td><td>: value to test. </td></tr>
+    <tr><td class="paramname">limSup</td><td>: high limit.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if val belongs to [limInf, limSup] or [limSup, limInf]. </dd></dl>
+
+</div>
+</div>
+<a id="a1a56eaa7f28de796c8d84cbd264974b3" name="a1a56eaa7f28de796c8d84cbd264974b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a56eaa7f28de796c8d84cbd264974b3">&#9670;&nbsp;</a></span>CEV_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_map </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>realVal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>realMin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>realMax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>retMin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>retMax</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>value scaling. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">realVal</td><td>: value to test. </td></tr>
+    <tr><td class="paramname">realMin</td><td>: minimum range for realVal. </td></tr>
+    <tr><td class="paramname">realMax</td><td>: maximum range for realVal. </td></tr>
+    <tr><td class="paramname">retMin</td><td>: value returned for realVal = realMin. </td></tr>
+    <tr><td class="paramname">retMax</td><td>: value returned for realVal = realMax.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>scaled double value. </dd></dl>
+
+</div>
+</div>
+<a id="ab52c186b43abc17bd4d48cab9d60f87a" name="ab52c186b43abc17bd4d48cab9d60f87a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab52c186b43abc17bd4d48cab9d60f87a">&#9670;&nbsp;</a></span>CEV_memCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_memCopy </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>memcopy imlpementation. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: mem field to read. </td></tr>
+    <tr><td class="paramname">dst</td><td>: mem field to write into. </td></tr>
+    <tr><td class="paramname">count</td><td>: number of bytes to be copied.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="af6b5dc5fde65d2b8ae57d166fa533153" name="af6b5dc5fde65d2b8ae57d166fa533153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6b5dc5fde65d2b8ae57d166fa533153">&#9670;&nbsp;</a></span>CEV_memSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_memSet </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>memset implementation. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td>: mem field to modify. </td></tr>
+    <tr><td class="paramname">value</td><td>: value to apply. </td></tr>
+    <tr><td class="paramname">size</td><td>: size of mem field on which to apply modification.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a324038898ce2c919820f0053be3dadbf" name="a324038898ce2c919820f0053be3dadbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a324038898ce2c919820f0053be3dadbf">&#9670;&nbsp;</a></span>CEV_pointAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_pointAngle </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>angle from pta to ptb. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>SDL_Point as "center". </td></tr>
+    <tr><td class="paramname">ptb</td><td>SDL_Point as angle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>angle of pta-&gt;ptb in degres as double. </dd></dl>
+
+</div>
+</div>
+<a id="a8dccf63fc2397a519c2f3151a6d1ee12" name="a8dccf63fc2397a519c2f3151a6d1ee12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dccf63fc2397a519c2f3151a6d1ee12">&#9670;&nbsp;</a></span>CEV_pointAreEqual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_pointAreEqual </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point *&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point *&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>same point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: SDL_Point. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: SDL_Point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if both point at same position. </dd></dl>
+
+</div>
+</div>
+<a id="a817af0524c2410135695470c8ae3d6b5" name="a817af0524c2410135695470c8ae3d6b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a817af0524c2410135695470c8ae3d6b5">&#9670;&nbsp;</a></span>CEV_pointClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_pointClear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>cleared point. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point filled with 0. </dd></dl>
+
+</div>
+</div>
+<a id="a023890a1f07d537585a3f6996426474c" name="a023890a1f07d537585a3f6996426474c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a023890a1f07d537585a3f6996426474c">&#9670;&nbsp;</a></span>CEV_pointDist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_pointDist </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Distance between 2 SDL_Point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: SDL_Point. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: SDL_Point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>distance between pta and ptb as double. </dd></dl>
+
+</div>
+</div>
+<a id="a80f18ee191f99366c6c67568699a91dc" name="a80f18ee191f99366c6c67568699a91dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f18ee191f99366c6c67568699a91dc">&#9670;&nbsp;</a></span>CEV_pointIsInRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_pointIsInRect </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>rect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>point in rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>: SDL_Point to test. </td></tr>
+    <tr><td class="paramname">rect</td><td>: SDL_Rect to test.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if point is within rect. </dd></dl>
+
+</div>
+</div>
+<a id="a592b5d36ca431aea9d6733ad9dee61aa" name="a592b5d36ca431aea9d6733ad9dee61aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592b5d36ca431aea9d6733ad9dee61aa">&#9670;&nbsp;</a></span>CEV_pointMedian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_pointMedian </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>median between SDL_Points </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: SDL_Point </td></tr>
+    <tr><td class="paramname">ptb</td><td>: SDL_Point</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point as median point. </dd></dl>
+
+</div>
+</div>
+<a id="a086c68b05dc245ea211e06cb1e99b161" name="a086c68b05dc245ea211e06cb1e99b161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a086c68b05dc245ea211e06cb1e99b161">&#9670;&nbsp;</a></span>CEV_pointRectConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_pointRectConstraint </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point *&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>rect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>point and rect corrected. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>: SDL_Point* to correct. </td></tr>
+    <tr><td class="paramname">rect</td><td>: SDL_Rect* to correct . </td></tr>
+    <tr><td class="paramname">w</td><td>: width to keep rect into [0, w[. </td></tr>
+    <tr><td class="paramname">h</td><td>: height to keep rect into [0, h[.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a682f1db516c745d13d06518f97aa964f" name="a682f1db516c745d13d06518f97aa964f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a682f1db516c745d13d06518f97aa964f">&#9670;&nbsp;</a></span>CEV_pointSum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_pointSum </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>ptb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sums 2 SDL_Point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pta</td><td>: SDL_Point. </td></tr>
+    <tr><td class="paramname">ptb</td><td>: SDL_Point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_point filled with sum. </dd></dl>
+
+</div>
+</div>
+<a id="a79c0dbc5186296511eb3e8a4036e7633" name="a79c0dbc5186296511eb3e8a4036e7633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c0dbc5186296511eb3e8a4036e7633">&#9670;&nbsp;</a></span>CEV_pointToFcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> CEV_pointToFcoord </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SDL_Point to Fcoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Point to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_c_e_v___f_coord.html" title="float 3D coords">CEV_FCoord</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a319e6d9abf7febdf78263deb12c9741b" name="a319e6d9abf7febdf78263deb12c9741b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a319e6d9abf7febdf78263deb12c9741b">&#9670;&nbsp;</a></span>CEV_pointToIcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_pointToIcoord </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SDL_Point to Icoord. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Point to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_c_e_v___i_coord.html" title="integer 3D coords.">CEV_ICoord</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a0cc3f49234825a3202e7cf1c277331e7" name="a0cc3f49234825a3202e7cf1c277331e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cc3f49234825a3202e7cf1c277331e7">&#9670;&nbsp;</a></span>CEV_pointToRectPos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_pointToRectPos </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rect pos from point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: point to place rect at. </td></tr>
+    <tr><td class="paramname">dst</td><td>: destination *Rect.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on dst; </dd></dl>
+
+</div>
+</div>
+<a id="aa65861d2471667b858b0d475f83c7532" name="aa65861d2471667b858b0d475f83c7532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65861d2471667b858b0d475f83c7532">&#9670;&nbsp;</a></span>CEV_reachValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_reachValue </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>reach</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>by</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Value inc /dec. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>: pointer to value to modify. </td></tr>
+    <tr><td class="paramname">reach</td><td>: value to reach. </td></tr>
+    <tr><td class="paramname">by</td><td>: step applied to value at each function call.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true when "value" has reached "reach". </dd></dl>
+
+</div>
+</div>
+<a id="ab18b7944b95adca0e10d47f838a41734" name="ab18b7944b95adca0e10d47f838a41734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18b7944b95adca0e10d47f838a41734">&#9670;&nbsp;</a></span>CEV_rectAroundFcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectAroundFcoord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a>&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect corrected around point as gravity center. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___f_coord.html" title="float 3D coords">CEV_FCoord</a> point to center rect on. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Rect* to be corrected.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>rect. </dd></dl>
+
+</div>
+</div>
+<a id="ab3a308018a01aa638411d18604ac4691" name="ab3a308018a01aa638411d18604ac4691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a308018a01aa638411d18604ac4691">&#9670;&nbsp;</a></span>CEV_rectAroundIcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectAroundIcoord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a>&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect corrected around point as gravity center. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___i_coord.html" title="integer 3D coords.">CEV_ICoord</a> point to center rect on. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Rect* to be corrected.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>rect. </dd></dl>
+
+</div>
+</div>
+<a id="a143dcd14dc630b6e72a7f4cde7cefb1f" name="a143dcd14dc630b6e72a7f4cde7cefb1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a143dcd14dc630b6e72a7f4cde7cefb1f">&#9670;&nbsp;</a></span>CEV_rectAroundPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectAroundPoint </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect corrected around point as gravity center. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Point to center rect on. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Rect* to be corrected.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>rect. </dd></dl>
+
+</div>
+</div>
+<a id="a2e45ead95634ea0ac0d0a31c5343ea36" name="a2e45ead95634ea0ac0d0a31c5343ea36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e45ead95634ea0ac0d0a31c5343ea36">&#9670;&nbsp;</a></span>CEV_rectCenteredInRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_rectCenteredInRect </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>into</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Centers src into "into". </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_rect to be centered. </td></tr>
+    <tr><td class="paramname">into</td><td>: SDL_Rect to center into.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as result </dd></dl>
+
+</div>
+</div>
+<a id="ab2a2959f879926b79c72018de55557a9" name="ab2a2959f879926b79c72018de55557a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a2959f879926b79c72018de55557a9">&#9670;&nbsp;</a></span>CEV_rectConstraint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectConstraint </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>rect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>border</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect x,y corrected to stay within border. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>: SDL_Rect* to be corrected. </td></tr>
+    <tr><td class="paramname">border</td><td>: SDL_rect to keep rect within.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr to rect if modified, NULL *rect doesn't fit within border </dd></dl>
+
+</div>
+</div>
+<a id="a189d8333ba74909042e96d116c3fc825" name="a189d8333ba74909042e96d116c3fc825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a189d8333ba74909042e96d116c3fc825">&#9670;&nbsp;</a></span>CEV_rectDimCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectDimCopy </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies only rects dimensions. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect* to copy from. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Rect* to copy to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on dst. </dd></dl>
+
+</div>
+</div>
+<a id="a9f2cb063c080039ada94b49105c65b92" name="a9f2cb063c080039ada94b49105c65b92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f2cb063c080039ada94b49105c65b92">&#9670;&nbsp;</a></span>CEV_rectDimScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectDimScale </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rescale SDL_Rect dimensions. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect* to resize. </td></tr>
+    <tr><td class="paramname">scale</td><td>: float ratio to apply.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect* on itself, resized. </dd></dl>
+
+</div>
+</div>
+<a id="a9db4717a59eead6872213e20c48a923f" name="a9db4717a59eead6872213e20c48a923f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db4717a59eead6872213e20c48a923f">&#9670;&nbsp;</a></span>CEV_rectDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_rectDump </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>dumps rect content values into stdout. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: SDL_Rect to dump.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="ad65551cd788c7b3763d9fc72973300fe" name="ad65551cd788c7b3763d9fc72973300fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad65551cd788c7b3763d9fc72973300fe">&#9670;&nbsp;</a></span>CEV_rectFitScaledInRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_rectFitScaledInRect </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>into</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fits / centers src within "into" with aspect ratio. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect* to be fit. </td></tr>
+    <tr><td class="paramname">into</td><td>: SDL_Rect* as container of src.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as src result. </dd></dl>
+
+</div>
+</div>
+<a id="af119bc8ef05c61e132d84dafd5698dad" name="af119bc8ef05c61e132d84dafd5698dad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af119bc8ef05c61e132d84dafd5698dad">&#9670;&nbsp;</a></span>CEV_rectMidToFcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> * CEV_rectMidToFcoord </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fcoord as center of rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: Rect to center in. </td></tr>
+    <tr><td class="paramname">dst</td><td>: Fcoord ptr to center.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on dst.</dd></dl>
+<p>z component is untouched. </p>
+
+</div>
+</div>
+<a id="aaa77003838af76157412bb9a8a094388" name="aaa77003838af76157412bb9a8a094388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa77003838af76157412bb9a8a094388">&#9670;&nbsp;</a></span>CEV_rectMidToIcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> * CEV_rectMidToIcoord </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Icoord as center of rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: Rect to center in. </td></tr>
+    <tr><td class="paramname">dst</td><td>: Icoord ptr to center.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on dst.</dd></dl>
+<p>z component is untouched. </p>
+
+</div>
+</div>
+<a id="a715c458616ebeac28b21e6e9b7a62308" name="a715c458616ebeac28b21e6e9b7a62308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a715c458616ebeac28b21e6e9b7a62308">&#9670;&nbsp;</a></span>CEV_rectMidToPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point * CEV_rectMidToPoint </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>rect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point *&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>point as center of rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect</td><td>: SDL_Rect to center point in. </td></tr>
+    <tr><td class="paramname">point</td><td>: SDL_Point* to correct.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point* on point. </dd></dl>
+
+</div>
+</div>
+<a id="a7e3b1bf993ff9f8625be77f369dec961" name="a7e3b1bf993ff9f8625be77f369dec961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e3b1bf993ff9f8625be77f369dec961">&#9670;&nbsp;</a></span>CEV_rectPosCopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect * CEV_rectPosCopy </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies only pos members. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect to read x,y from. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Rect* to write x,y into.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect* dst. </dd></dl>
+
+</div>
+</div>
+<a id="ab8d9e73f8285fe454789d62c8a6eeece" name="ab8d9e73f8285fe454789d62c8a6eeece"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8d9e73f8285fe454789d62c8a6eeece">&#9670;&nbsp;</a></span>CEV_rectPosToFcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> CEV_rectPosToFcoord </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect to Fcoord (x,y) copy. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Fcoord. </dd></dl>
+
+</div>
+</div>
+<a id="ab28f05f11bbb55a66bf7f5d8dd48fee7" name="ab28f05f11bbb55a66bf7f5d8dd48fee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab28f05f11bbb55a66bf7f5d8dd48fee7">&#9670;&nbsp;</a></span>CEV_rectPosToIcoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_rectPosToIcoord </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect to Icoord (x,y) copy. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Icoord. </dd></dl>
+
+</div>
+</div>
+<a id="aecfb4da3a73dd25456002c6b0497c5b5" name="aecfb4da3a73dd25456002c6b0497c5b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecfb4da3a73dd25456002c6b0497c5b5">&#9670;&nbsp;</a></span>CEV_rectPosToPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_rectPosToPoint </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rect to point (x,y) copy. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Rect to convert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point. </dd></dl>
+
+</div>
+</div>
+<a id="a889131eca3ed2aa2614e5da1b9bc37cb" name="a889131eca3ed2aa2614e5da1b9bc37cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a889131eca3ed2aa2614e5da1b9bc37cb">&#9670;&nbsp;</a></span>CEV_rectSum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_rectSum </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>rect1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>rect2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sums 2 SDL_Rect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rect1</td><td>: first rectangle to sum. </td></tr>
+    <tr><td class="paramname">rect2</td><td>: second rectangle to add.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as sum of rect1+rect2. </dd></dl>
+
+</div>
+</div>
+<a id="aeca49c26fafda42236de217e89cd4e7b" name="aeca49c26fafda42236de217e89cd4e7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeca49c26fafda42236de217e89cd4e7b">&#9670;&nbsp;</a></span>CEV_rowIndexTo2dCoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_rowIndexTo2dCoord </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>x,y from row as 2d matrix </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: index in single row table. </td></tr>
+    <tr><td class="paramname">width</td><td>: matrix single row width.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Icoord filled with (x,y). </dd></dl>
+
+</div>
+</div>
+<a id="ac98e433ab92e28689abd6c1cf85b0695" name="ac98e433ab92e28689abd6c1cf85b0695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98e433ab92e28689abd6c1cf85b0695">&#9670;&nbsp;</a></span>CEV_rowIndexTo3dCoord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___i_coord.html">CEV_ICoord</a> CEV_rowIndexTo3dCoord </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>x,y,z from row as 3d matrix </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: index in single row table. </td></tr>
+    <tr><td class="paramname">width</td><td>: matrix single row width. </td></tr>
+    <tr><td class="paramname">height</td><td>: matrix single row height.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Icoord filled with (x,y). </dd></dl>
+
+</div>
+</div>
+<a id="a5c2819552a7ebf942fa6e1b3d2ee884e" name="a5c2819552a7ebf942fa6e1b3d2ee884e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c2819552a7ebf942fa6e1b3d2ee884e">&#9670;&nbsp;</a></span>CEV_vectAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CEV_vectAngle </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>angle of vector. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>:= X vector. </td></tr>
+    <tr><td class="paramname">y</td><td>:= Y vector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>angle of -&gt;(xy) in degres as double. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__api_8c.html">CEV_api.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

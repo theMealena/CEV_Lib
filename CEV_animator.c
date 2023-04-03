@@ -24,7 +24,7 @@
 #include "CEV_file.h"
 #include "rwtypes.h"
 
-
+// TODO (drx#1#03/20/23): Supprimer la liste d'animation, chaque animation est indépendante désormais. Mettre au standard CEV_lib
 
 /*---LOCAL FUNCTIONS DECLARATION---*/
 
@@ -70,19 +70,23 @@ static uint16_t L_animSPViewStringToValue(char* mode);
 
 
 void SP_viewDump(SP_View* view)
-{
-    printf("picn num = %d\n picTime = %d\n restart = %d\n stop = %d\n mode = %d\n",
+{//dumps view content
+
+    puts("- BEGIN - DUMPING SP_VIEW ****");
+    printf("picNum = %d\n picTime = %d\n restart = %d\n stop = %d\n mode = %d\n",
         view->picNum, view->picTime, view->restart, view->stop, view->mode);
-
-
+    puts("- END - DUMPING SP_VIEW ****");
 }
 
 
 void SP_animDump(SP_Anim* anim)
-{
+{//dumps animp content
+
+    puts("- BEGIN - DUMPING SP_ANIM ****");
+
     printf("spritesheet at %p\n", anim->sheet);
 
-    for(int view = 0; view<=1; view++)
+    for(int view = 0; view<SP_VIEW_NUM; view++)
     {
         printf("For %s : %d views\n", view? "XVIEW" : "NVIEW", anim->viewNum[view]);
         for(int i=0; i<anim->viewNum[view]; i++)
@@ -92,6 +96,7 @@ void SP_animDump(SP_Anim* anim)
 
         }
     }
+    puts("- END - DUMPING SP_ANIM ****");
 }
 
 
@@ -125,7 +130,7 @@ SP_Anim* SP_animCreate(uint16_t nview, uint16_t xview, SDL_Texture* sheet)
         goto err_1;
     }
 
-    if (nview)
+    if(nview)
     {
         result->viewNum[SP_NVIEW] = nview;
         result->view[SP_NVIEW]    = calloc ((size_t)nview, sizeof(SP_View));
@@ -140,12 +145,12 @@ SP_Anim* SP_animCreate(uint16_t nview, uint16_t xview, SDL_Texture* sheet)
         result->view[SP_NVIEW] = NULL;
 
 
-    if (xview)
+    if(xview)
     {
         result->viewNum[SP_XVIEW] = xview;
         result->view[SP_XVIEW]    = calloc ((size_t)xview, sizeof(SP_View));
 
-        if IS_NULL(result->view[SP_XVIEW])
+        if(IS_NULL(result->view[SP_XVIEW]))
         {//on error
             fprintf(stderr, "Err at %s / %d : unable to allocate xview : %s\n", __FUNCTION__, __LINE__, strerror(errno));
             goto err_3;
@@ -174,7 +179,7 @@ err_1 :
 }
 
 
-void SP_animFree(SP_Anim* anim, char freePic)
+void SP_animDestroy(SP_Anim* anim, char freePic)
 {//free it all
 
     if(IS_NULL(anim))
@@ -189,7 +194,7 @@ void SP_animFree(SP_Anim* anim, char freePic)
 }
 
 
-SDL_Texture* SP_animTexture(SP_Anim *anim)
+SDL_Texture* SP_animTextureGet(SP_Anim *anim)
 {//gets texture
 
     return anim->sheet;
@@ -375,7 +380,7 @@ void SP_animListFree(SP_AnimList *set, char freePic)
         return;
 
     for(int i = 0; i<set->num; i++)
-        SP_animFree(set->animSet[i], freePic);
+        SP_animDestroy(set->animSet[i], freePic);
 
     free(set->animSet);
 
@@ -734,7 +739,7 @@ void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpi
 /*--File Format function--*/
 
 
-int SP_convertSpriteCSVToData(const char* srcName, const char* dstName)
+int SP_spriteConvertTxtToData(const char* srcName, const char* dstName)
 {//converts CSV file into data format
 
     /*---DECLARATIONS---*/
@@ -834,7 +839,7 @@ static void L_animPictureTypeWrite(char* fileName, FILE* dst)
     printf("packing picture %s...", fileName);
     CEV_Capsule buffer;
 
-    CEV_capsuleLoad(&buffer, fileName);
+    CEV_capsuleFromFile(&buffer, fileName);
 
     write_u32le(buffer.size, dst);
 

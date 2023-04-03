@@ -11,9 +11,9 @@
 #include <string.h>
 #include <math.h>
 #include <SDL.h>
-#include <CEV_mixSystem.h>
-#include <CEV_api.h>
-#include <rwtypes.h>
+#include "CEV_mixSystem.h"
+#include "CEV_api.h"
+#include "rwtypes.h"
 #include "CEV_camera.h"
 
 //reads camera from virtual file
@@ -24,6 +24,9 @@ static int L_cameraTypeWrite(CEV_Camera *src, FILE *dst);
 
 //reads camera parameter from virtual file
 static int L_cameraParamTypeRead_RW(SDL_RWops* src, CEV_CameraParam *dst);
+
+//reads camera parameter from file
+static int L_cameraParamTypeRead(FILE* src, CEV_CameraParam *dst);
 
 //write camera into file
 static int L_cameraParamTypeWrite(CEV_CameraParam *src, FILE* dst);
@@ -217,9 +220,7 @@ err:
 
 
 int CEV_cameraUpdate(CEV_Camera *in)
-{//update camera position & status
-
-    int result = 0;
+{//updates camera position & status
 
     for(int i=0; i<2; i++)
     {
@@ -369,12 +370,23 @@ void CEV_cameraScrollSet(CEV_Camera* in, bool autoScroll, int direction, int vel
 static int L_cameraTypeRead_RW(SDL_RWops* src, CEV_Camera *dst)
 {//reads camera type from RWops
 
-    int funcSts = FUNC_OK;
 
     for(int i = 0; i<2; i++)
         L_cameraParamTypeRead_RW(src, &dst->param[i]);
 
-    return funcSts;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
+}
+
+
+static int L_cameraTypeRead(FILE* src, CEV_Camera *dst)
+{//reads camera type from file
+
+    int funcSts = FUNC_OK;
+
+    for(int i = 0; i<2; i++)
+        L_cameraParamTypeRead(src, &dst->param[i]);
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
 
@@ -391,15 +403,26 @@ static int L_cameraTypeWrite(CEV_Camera *src, FILE *dst)
 static int L_cameraParamTypeRead_RW(SDL_RWops* src, CEV_CameraParam *dst)
 {//Reads camera parameters from RWops
 
-    int funcSts = FUNC_OK;
-
     dst->autoReverse        = SDL_ReadU8(src);
     dst->mode               = (CEV_CameraMode)SDL_ReadU8(src);
     dst->autoScrollVel      = SDL_ReadLE32(src);
     dst->dirAct             = (int)SDL_ReadLE32(src);
     dst->dirLock            = (int)SDL_ReadLE32(src);
 
-    return funcSts;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
+}
+
+
+static int L_cameraParamTypeRead(FILE* src, CEV_CameraParam *dst)
+{//Reads camera parameters from file
+
+    dst->autoReverse        = read_u8(src);
+    dst->mode               = (CEV_CameraMode)read_u8(src);
+    dst->autoScrollVel      = read_s32le(src);
+    dst->dirAct             = (int)read_s32le(src);
+    dst->dirLock            = (int)read_s32le(src);
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
 

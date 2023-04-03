@@ -1,0 +1,914 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_camera.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__camera_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Définitions de type</a> &#124;
+<a href="#enum-members">Énumérations</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_camera.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="_c_e_v__timer_8h_source.html">CEV_timer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__api_8h_source.html">CEV_api.h</a>&quot;</code><br />
+<code>#include &lt;SDL.h&gt;</code><br />
+</div>
+<p><a href="_c_e_v__camera_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s___camera_param.html">S_CameraParam</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s___camera.html">S_Camera</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ac04420b4bacea34db0a758c985ae578e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ac04420b4bacea34db0a758c985ae578e">CAMERA_LEFT</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="separator:ac04420b4bacea34db0a758c985ae578e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf2ae57094b7ed4f9adba02b5bdadd1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a0bf2ae57094b7ed4f9adba02b5bdadd1">CAMERA_RIGHT</a>&#160;&#160;&#160;0x2</td></tr>
+<tr class="separator:a0bf2ae57094b7ed4f9adba02b5bdadd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9bd7f29d61624f6019acfc2cfce96b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#aa9bd7f29d61624f6019acfc2cfce96b5">CAMERA_UP</a>&#160;&#160;&#160;0x4</td></tr>
+<tr class="separator:aa9bd7f29d61624f6019acfc2cfce96b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460b3c8b7078333b418cbcf6cfa64af5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a460b3c8b7078333b418cbcf6cfa64af5">CAMERA_DOWN</a>&#160;&#160;&#160;0x8</td></tr>
+<tr class="separator:a460b3c8b7078333b418cbcf6cfa64af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ded948f9e8785765de1ba2270632f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a52ded948f9e8785765de1ba2270632f4">CAMERA_ALL</a>&#160;&#160;&#160;0xF</td></tr>
+<tr class="separator:a52ded948f9e8785765de1ba2270632f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad000ce6d57788c10f4b530154e41e6ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ad000ce6d57788c10f4b530154e41e6ad">CAMERA_NONE</a>&#160;&#160;&#160;0x0</td></tr>
+<tr class="separator:ad000ce6d57788c10f4b530154e41e6ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2990df8260e98415de2dbd11c60421ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a2990df8260e98415de2dbd11c60421ad">CAMERA_NEGATIVE</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="separator:a2990df8260e98415de2dbd11c60421ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad554134a3e1dc415d0aed69310e6cc9e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ad554134a3e1dc415d0aed69310e6cc9e">CAMERA_POSITIVE</a>&#160;&#160;&#160;0x2</td></tr>
+<tr class="separator:ad554134a3e1dc415d0aed69310e6cc9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Définitions de type</h2></td></tr>
+<tr class="memitem:a6c58ac995100d62c8c6479bf4d254198"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">S_CameraMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a></td></tr>
+<tr class="memdesc:a6c58ac995100d62c8c6479bf4d254198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camera mode behaviour.  <a href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6c58ac995100d62c8c6479bf4d254198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afddb4f1e5d2eb9c64292d227a4cf3f84"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s___camera_param.html">S_CameraParam</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#afddb4f1e5d2eb9c64292d227a4cf3f84">CEV_CameraParam</a></td></tr>
+<tr class="separator:afddb4f1e5d2eb9c64292d227a4cf3f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b566b789f3588b9fdc405e4df096ee"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s___camera.html">S_Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a></td></tr>
+<tr class="separator:ad2b566b789f3588b9fdc405e4df096ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:a668aa0e7eb8257e2c0f4e0d76b576a63"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">S_CameraMode</a> { <a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13">CAMERA_MED</a> = 2
+, <a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024">CAMERA_THIRD</a> = 3
+, <a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86">CAMERA_QUART</a> = 4
+ }</td></tr>
+<tr class="memdesc:a668aa0e7eb8257e2c0f4e0d76b576a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camera mode behaviour.  <a href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a668aa0e7eb8257e2c0f4e0d76b576a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a95d3cfd9c27e8d74e07b25aaae01b548"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a95d3cfd9c27e8d74e07b25aaae01b548">CEV_cameraInit</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, <a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *followPt, SDL_Rect constraint, unsigned int changeTime, <a class="el" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a> mode)</td></tr>
+<tr class="memdesc:a95d3cfd9c27e8d74e07b25aaae01b548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inits new camera / sets parameters for camera.  <a href="_c_e_v__camera_8h.html#a95d3cfd9c27e8d74e07b25aaae01b548">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a95d3cfd9c27e8d74e07b25aaae01b548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadc1e10d2bd4119fa037456b289b6e87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#aadc1e10d2bd4119fa037456b289b6e87">CEV_cameraLoad</a> (char *fileName)</td></tr>
+<tr class="memdesc:aadc1e10d2bd4119fa037456b289b6e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Laods camera from file.  <a href="_c_e_v__camera_8h.html#aadc1e10d2bd4119fa037456b289b6e87">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aadc1e10d2bd4119fa037456b289b6e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4073d96b820c49d8642d78d312f8e261"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a4073d96b820c49d8642d78d312f8e261">CEV_cameraSave</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *src, const char *fileName)</td></tr>
+<tr class="memdesc:a4073d96b820c49d8642d78d312f8e261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves camera into file.  <a href="_c_e_v__camera_8h.html#a4073d96b820c49d8642d78d312f8e261">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4073d96b820c49d8642d78d312f8e261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e88c7741ec8c40b6f24ead02748012"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a44e88c7741ec8c40b6f24ead02748012">CEV_cameraLoad_RW</a> (SDL_RWops *src, bool freeSrc)</td></tr>
+<tr class="memdesc:a44e88c7741ec8c40b6f24ead02748012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads camera from vrtual file.  <a href="_c_e_v__camera_8h.html#a44e88c7741ec8c40b6f24ead02748012">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a44e88c7741ec8c40b6f24ead02748012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c75522f67eea9daf9a1e860a4e330ba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a1c75522f67eea9daf9a1e860a4e330ba">CEV_cameraUpdate</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in)</td></tr>
+<tr class="memdesc:a1c75522f67eea9daf9a1e860a4e330ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Automatic camera update.  <a href="_c_e_v__camera_8h.html#a1c75522f67eea9daf9a1e860a4e330ba">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1c75522f67eea9daf9a1e860a4e330ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a7ba643e681eb14fd185b26344b0a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a15a7ba643e681eb14fd185b26344b0a7">CEV_cameraReset</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in)</td></tr>
+<tr class="memdesc:a15a7ba643e681eb14fd185b26344b0a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Brings camera back on follow point.  <a href="_c_e_v__camera_8h.html#a15a7ba643e681eb14fd185b26344b0a7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a15a7ba643e681eb14fd185b26344b0a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4255d1a0b889f93675328f9ccda230a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ad4255d1a0b889f93675328f9ccda230a">CEV_cameraDimensionSet</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *src, int w, int h)</td></tr>
+<tr class="memdesc:ad4255d1a0b889f93675328f9ccda230a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets camera Dimensions.  <a href="_c_e_v__camera_8h.html#ad4255d1a0b889f93675328f9ccda230a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad4255d1a0b889f93675328f9ccda230a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab24f8097f4b40ad9b7003d6195e394bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ab24f8097f4b40ad9b7003d6195e394bd">CEV_cameraOpenFieldAuto</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, unsigned int time, int axis)</td></tr>
+<tr class="memdesc:ab24f8097f4b40ad9b7003d6195e394bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables automatic open field.  <a href="_c_e_v__camera_8h.html#ab24f8097f4b40ad9b7003d6195e394bd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab24f8097f4b40ad9b7003d6195e394bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f881baa3ada9a14b31d73066c39042"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ab1f881baa3ada9a14b31d73066c39042">CEV_cameraOpenFieldSet</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, int direction)</td></tr>
+<tr class="memdesc:ab1f881baa3ada9a14b31d73066c39042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets/forces camera open field direction.  <a href="_c_e_v__camera_8h.html#ab1f881baa3ada9a14b31d73066c39042">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab1f881baa3ada9a14b31d73066c39042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b7d895212387c78dab316b012c22b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#ad2b7d895212387c78dab316b012c22b3">CEV_cameraDirectionLock</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, int direction)</td></tr>
+<tr class="memdesc:ad2b7d895212387c78dab316b012c22b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks camera direction.  <a href="_c_e_v__camera_8h.html#ad2b7d895212387c78dab316b012c22b3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad2b7d895212387c78dab316b012c22b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515d2d448da50ed4dedf5a863e69e30a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#a515d2d448da50ed4dedf5a863e69e30a">CEV_cameraMaxVelocitySet</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, int velMax, int direction)</td></tr>
+<tr class="memdesc:a515d2d448da50ed4dedf5a863e69e30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets camera maximum velocity (pxl/frame)  <a href="_c_e_v__camera_8h.html#a515d2d448da50ed4dedf5a863e69e30a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a515d2d448da50ed4dedf5a863e69e30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa98bdb4a6b2a0bae3824ab84b3b12f4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#aa98bdb4a6b2a0bae3824ab84b3b12f4c">CEV_cameraFollowModeSet</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, <a class="el" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a> mode, int axis)</td></tr>
+<tr class="memdesc:aa98bdb4a6b2a0bae3824ab84b3b12f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set camera following mode.  <a href="_c_e_v__camera_8h.html#aa98bdb4a6b2a0bae3824ab84b3b12f4c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa98bdb4a6b2a0bae3824ab84b3b12f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd68c03e02ebad074bcb8b74e9ccc7e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__camera_8h.html#abd68c03e02ebad074bcb8b74e9ccc7e6">CEV_cameraScrollSet</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *in, bool autoScroll, int direction, int velocity)</td></tr>
+<tr class="memdesc:abd68c03e02ebad074bcb8b74e9ccc7e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate/deactivate camera auto scrolling.  <a href="_c_e_v__camera_8h.html#abd68c03e02ebad074bcb8b74e9ccc7e6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abd68c03e02ebad074bcb8b74e9ccc7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des macros</h2>
+<a id="a52ded948f9e8785765de1ba2270632f4" name="a52ded948f9e8785765de1ba2270632f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ded948f9e8785765de1ba2270632f4">&#9670;&nbsp;</a></span>CAMERA_ALL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_ALL&#160;&#160;&#160;0xF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a460b3c8b7078333b418cbcf6cfa64af5" name="a460b3c8b7078333b418cbcf6cfa64af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a460b3c8b7078333b418cbcf6cfa64af5">&#9670;&nbsp;</a></span>CAMERA_DOWN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_DOWN&#160;&#160;&#160;0x8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac04420b4bacea34db0a758c985ae578e" name="ac04420b4bacea34db0a758c985ae578e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac04420b4bacea34db0a758c985ae578e">&#9670;&nbsp;</a></span>CAMERA_LEFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_LEFT&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2990df8260e98415de2dbd11c60421ad" name="a2990df8260e98415de2dbd11c60421ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2990df8260e98415de2dbd11c60421ad">&#9670;&nbsp;</a></span>CAMERA_NEGATIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_NEGATIVE&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad000ce6d57788c10f4b530154e41e6ad" name="ad000ce6d57788c10f4b530154e41e6ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad000ce6d57788c10f4b530154e41e6ad">&#9670;&nbsp;</a></span>CAMERA_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_NONE&#160;&#160;&#160;0x0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad554134a3e1dc415d0aed69310e6cc9e" name="ad554134a3e1dc415d0aed69310e6cc9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad554134a3e1dc415d0aed69310e6cc9e">&#9670;&nbsp;</a></span>CAMERA_POSITIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_POSITIVE&#160;&#160;&#160;0x2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bf2ae57094b7ed4f9adba02b5bdadd1" name="a0bf2ae57094b7ed4f9adba02b5bdadd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf2ae57094b7ed4f9adba02b5bdadd1">&#9670;&nbsp;</a></span>CAMERA_RIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_RIGHT&#160;&#160;&#160;0x2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9bd7f29d61624f6019acfc2cfce96b5" name="aa9bd7f29d61624f6019acfc2cfce96b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9bd7f29d61624f6019acfc2cfce96b5">&#9670;&nbsp;</a></span>CAMERA_UP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAMERA_UP&#160;&#160;&#160;0x4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des définitions de type</h2>
+<a id="ad2b566b789f3588b9fdc405e4df096ee" name="ad2b566b789f3588b9fdc405e4df096ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2b566b789f3588b9fdc405e4df096ee">&#9670;&nbsp;</a></span>CEV_Camera</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s___camera.html">S_Camera</a> <a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c58ac995100d62c8c6479bf4d254198" name="a6c58ac995100d62c8c6479bf4d254198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c58ac995100d62c8c6479bf4d254198">&#9670;&nbsp;</a></span>CEV_CameraMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">S_CameraMode</a> <a class="el" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Camera mode behaviour. </p>
+<p >note : enable to show more or less field of view before point to follow. </p>
+
+</div>
+</div>
+<a id="afddb4f1e5d2eb9c64292d227a4cf3f84" name="afddb4f1e5d2eb9c64292d227a4cf3f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afddb4f1e5d2eb9c64292d227a4cf3f84">&#9670;&nbsp;</a></span>CEV_CameraParam</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s___camera_param.html">S_CameraParam</a> <a class="el" href="_c_e_v__camera_8h.html#afddb4f1e5d2eb9c64292d227a4cf3f84">CEV_CameraParam</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a id="a668aa0e7eb8257e2c0f4e0d76b576a63" name="a668aa0e7eb8257e2c0f4e0d76b576a63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a668aa0e7eb8257e2c0f4e0d76b576a63">&#9670;&nbsp;</a></span>S_CameraMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="_c_e_v__camera_8h.html#a668aa0e7eb8257e2c0f4e0d76b576a63">S_CameraMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Camera mode behaviour. </p>
+<p >note : enable to show more or less field of view before point to follow. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13" name="a668aa0e7eb8257e2c0f4e0d76b576a63ae033daad0774a54f47aa8e354fd24c13"></a>CAMERA_MED&#160;</td><td class="fielddoc"><p >follow point is kept centered </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024" name="a668aa0e7eb8257e2c0f4e0d76b576a63aaa3017f16b0c19f6968db5c11c802024"></a>CAMERA_THIRD&#160;</td><td class="fielddoc"><p >follow point is kept at 1/3 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86" name="a668aa0e7eb8257e2c0f4e0d76b576a63af5b4a48099a09dbcb8bebdf8a2e82e86"></a>CAMERA_QUART&#160;</td><td class="fielddoc"><p >follow point is kept at 1/4 </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ad4255d1a0b889f93675328f9ccda230a" name="ad4255d1a0b889f93675328f9ccda230a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4255d1a0b889f93675328f9ccda230a">&#9670;&nbsp;</a></span>CEV_cameraDimensionSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraDimensionSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets camera Dimensions. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Camera* to set dimension for </td></tr>
+    <tr><td class="paramname">w</td><td>: int as width dimension (pxl). </td></tr>
+    <tr><td class="paramname">h</td><td>: int as height dimension (pxl).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void</dd></dl>
+<p>note : setting values of 0 or negative will set demension to be render dimension </p>
+
+</div>
+</div>
+<a id="ad2b7d895212387c78dab316b012c22b3" name="ad2b7d895212387c78dab316b012c22b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2b7d895212387c78dab316b012c22b3">&#9670;&nbsp;</a></span>CEV_cameraDirectionLock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraDirectionLock </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Locks camera direction. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to lock. </td></tr>
+    <tr><td class="paramname">direction</td><td>: int as wich direction to lock OR'd together.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void</dd></dl>
+<p>note : Can be used to disable backtracking. </p>
+
+</div>
+</div>
+<a id="aa98bdb4a6b2a0bae3824ab84b3b12f4c" name="aa98bdb4a6b2a0bae3824ab84b3b12f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa98bdb4a6b2a0bae3824ab84b3b12f4c">&#9670;&nbsp;</a></span>CEV_cameraFollowModeSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraFollowModeSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>axis</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set camera following mode. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* which camera to set. </td></tr>
+    <tr><td class="paramname">mode</td><td>: CEV_CameraMode following mode. </td></tr>
+    <tr><td class="paramname">axis</td><td>: int which axis to set (CEV_X, CEV_Y).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a95d3cfd9c27e8d74e07b25aaae01b548" name="a95d3cfd9c27e8d74e07b25aaae01b548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95d3cfd9c27e8d74e07b25aaae01b548">&#9670;&nbsp;</a></span>CEV_cameraInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___f_coord.html">CEV_FCoord</a> *&#160;</td>
+          <td class="paramname"><em>followPt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>constraint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>changeTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#a6c58ac995100d62c8c6479bf4d254198">CEV_CameraMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inits new camera / sets parameters for camera. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to init. </td></tr>
+    <tr><td class="paramname">followPt</td><td>: CEV_FCoord* to be followed by camera. </td></tr>
+    <tr><td class="paramname">constraint</td><td>: SDL_Rect in which camera should be constraint (world). </td></tr>
+    <tr><td class="paramname">changeTime</td><td>: unsigned int as delay (ms) for camera to react to direction change. </td></tr>
+    <tr><td class="paramname">mode</td><td>: CEV_CameraMode as follow mode.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void note : Is to use with a declared camera VS camera loaded from file. </dd></dl>
+
+</div>
+</div>
+<a id="aadc1e10d2bd4119fa037456b289b6e87" name="aadc1e10d2bd4119fa037456b289b6e87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadc1e10d2bd4119fa037456b289b6e87">&#9670;&nbsp;</a></span>CEV_cameraLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> * CEV_cameraLoad </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Laods camera from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: char* as path and file name to load.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Camera* on success, NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a44e88c7741ec8c40b6f24ead02748012" name="a44e88c7741ec8c40b6f24ead02748012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e88c7741ec8c40b6f24ead02748012">&#9670;&nbsp;</a></span>CEV_cameraLoad_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> * CEV_cameraLoad_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>freeSrc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads camera from vrtual file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to load from. </td></tr>
+    <tr><td class="paramname">freeSrc</td><td>: bool set to true closes virtual file.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Camera* as loaded from Vfile, NULL on error.</dd></dl>
+<p>note : src will be treated as asked wether function is successful or not. </p>
+
+</div>
+</div>
+<a id="a515d2d448da50ed4dedf5a863e69e30a" name="a515d2d448da50ed4dedf5a863e69e30a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515d2d448da50ed4dedf5a863e69e30a">&#9670;&nbsp;</a></span>CEV_cameraMaxVelocitySet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraMaxVelocitySet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>velMax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets camera maximum velocity (pxl/frame) </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to set. </td></tr>
+    <tr><td class="paramname">velMax</td><td>: int as maximum velocity that can be reached as pxl/frame. </td></tr>
+    <tr><td class="paramname">direction</td><td>: int as wich axis to apply this parameter, Or'd together.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void</dd></dl>
+<p>note : any of CAMERA_RIGHT / CAMERA_LEFT sets horizontal maximum velocity. same for UP/DOWN. </p>
+
+</div>
+</div>
+<a id="ab24f8097f4b40ad9b7003d6195e394bd" name="ab24f8097f4b40ad9b7003d6195e394bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab24f8097f4b40ad9b7003d6195e394bd">&#9670;&nbsp;</a></span>CEV_cameraOpenFieldAuto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraOpenFieldAuto </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>axis</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables automatic open field. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to set. </td></tr>
+    <tr><td class="paramname">time</td><td>: unsigned int as ms before open field changes. </td></tr>
+    <tr><td class="paramname">axis</td><td>: int which axis to modify CEV_X, CEV_Y.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="ab1f881baa3ada9a14b31d73066c39042" name="ab1f881baa3ada9a14b31d73066c39042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f881baa3ada9a14b31d73066c39042">&#9670;&nbsp;</a></span>CEV_cameraOpenFieldSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraOpenFieldSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets/forces camera open field direction. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to set. </td></tr>
+    <tr><td class="paramname">direction</td><td>: int as new direction.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void</dd></dl>
+<p>note : Does not override automatic direction switch. </p>
+
+</div>
+</div>
+<a id="a15a7ba643e681eb14fd185b26344b0a7" name="a15a7ba643e681eb14fd185b26344b0a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a7ba643e681eb14fd185b26344b0a7">&#9670;&nbsp;</a></span>CEV_cameraReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraReset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Brings camera back on follow point. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* which camera.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a4073d96b820c49d8642d78d312f8e261" name="a4073d96b820c49d8642d78d312f8e261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4073d96b820c49d8642d78d312f8e261">&#9670;&nbsp;</a></span>CEV_cameraSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_cameraSave </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves camera into file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Camera* to be saved. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: const char* as filename to save as.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : any of std return value. </dd></dl>
+
+</div>
+</div>
+<a id="abd68c03e02ebad074bcb8b74e9ccc7e6" name="abd68c03e02ebad074bcb8b74e9ccc7e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd68c03e02ebad074bcb8b74e9ccc7e6">&#9670;&nbsp;</a></span>CEV_cameraScrollSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_cameraScrollSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>autoScroll</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>velocity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Activate/deactivate camera auto scrolling. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to parameter. </td></tr>
+    <tr><td class="paramname">autoScroll</td><td>: bool true to activate, false to deactivate. </td></tr>
+    <tr><td class="paramname">direction</td><td>: int as which direction to auto scroll. </td></tr>
+    <tr><td class="paramname">velocity</td><td>: int as auto scroll velocity in pxl/frame.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a1c75522f67eea9daf9a1e860a4e330ba" name="a1c75522f67eea9daf9a1e860a4e330ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c75522f67eea9daf9a1e860a4e330ba">&#9670;&nbsp;</a></span>CEV_cameraUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_cameraUpdate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Automatic camera update. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Camera* to update.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : One direction if follow point is off camera, 0 otherwise.</dd></dl>
+<p>note : If follow point was to be off camera at bottom, shall return CAMERA_DOWN </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__camera_8h.html">CEV_camera.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

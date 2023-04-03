@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_mixSystem.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__mix_system_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_mixSystem.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__mix_system_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  02-2015   |   1.0    |    creation       **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |  05-2016   |   2.0    |    SDL2 rev       **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**   CEV    |  03-2017   |   2.1    | usage corrections **/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef CEV_MIXSYSTEM_H_INCLUDED</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define CEV_MIXSYSTEM_H_INCLUDED</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;SDL_image.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;SDL_mixer.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__input_8h.html">CEV_input.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__types_8h.html">CEV_types.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="comment">/* DEFINES */</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a2cd109632a6dcccaa80b43561b1ab700">   23</a></span><span class="preprocessor">#define SCREEN_WIDTH    (CEV_videoSystemGet()-&gt;info.logicW)</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a6974d08a74da681b3957b2fead2608b8">   24</a></span><span class="preprocessor">#define SCREEN_HEIGHT   (CEV_videoSystemGet()-&gt;info.logicH)</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/*SDLinit flags*/</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a8f2ccc9c0b10e012c07176de3f58a78e">   27</a></span><span class="preprocessor">#define CEV_SDL_FLAG        (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/*SDL window*/</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a01f50ad4b788bb7f605bd14ddb93f4f3">   29</a></span><span class="preprocessor">#define CEV_WIN_FLAG        (0</span><span class="comment">/*| SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP*/</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">/*SDL_Render*/</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a7e4a9018cd310096d8d658a5d3c572e3">   31</a></span><span class="preprocessor">#define CEV_RENDER_FLAG     (SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">/*SDL_IMG*/</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#acb999bd049667280066350541beb2498">   33</a></span><span class="preprocessor">#define CEV_SDL_IMG_FLAG    (IMG_INIT_JPG | IMG_INIT_PNG)</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">/*SDL_Mixer*/</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a234b2361faac04fd535285499f554915">   35</a></span><span class="preprocessor">#define CEV_MIX_FLAG        (</span><span class="comment">/*MIX_INIT_MOD | */</span><span class="preprocessor">MIX_INIT_MP3)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#af53f5038dd63b87aea90d943606a768f">   38</a></span><span class="preprocessor">#define CEV_MUSIC_VOLUME    (MIX_MAX_VOLUME/4)</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a1b588a07d3fa05d513ae4b876de46a4d">   39</a></span><span class="preprocessor">#define CEV_SFX_VOLUME      (MIX_MAX_VOLUME/4)</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#aad7cfbbb2ab12f8f13a9ffb09f7527d8">   40</a></span><span class="preprocessor">#define CEV_FREQUENCY       MIX_DEFAULT_FREQUENCY</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a0d8a23e5f3193292a37138e4507cf160">   41</a></span><span class="preprocessor">#define CEV_MIX_FORMAT      MIX_DEFAULT_FORMAT</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a72d8ff260b58682d1fc47915e9ad2fa5">   42</a></span><span class="preprocessor">#define CEV_MONO            1</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a3bd66f5373cd6b55401484eb15045d8d">   43</a></span><span class="preprocessor">#define CEV_STEREO          2</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#aff9f59e2aef51aa88bff489ce1947197">   44</a></span><span class="preprocessor">#define CEV_CHANNEL_NUM     16      </span><span class="comment">/*number of channel to be used*/</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a38c9dbb53fbf9cd40565e9fbffbb327c">   45</a></span><span class="preprocessor">#define CEV_CHUNK_SIZE      2048    </span><span class="comment">/*sound chunk bitsize*/</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a77f7d4c1c1fd66a7c45fbbd0b5b8841d">   47</a></span><span class="preprocessor">#define CEV_AUTO_SIZE 1 </span><span class="comment">//automatically find display ratio</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">    /**** MISCELLANEOUS DECLARATIONS ****/</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html">   59</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___video_display.html">CEV_VideoDisplay</a></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html#a7fbe8de7beb7c00c78c5d04efd067e49">   61</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___video_display.html#a7fbe8de7beb7c00c78c5d04efd067e49">screenW</a>, </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html#a6df834143c3a6b9098981168316c73ff">   62</a></span>        <a class="code hl_variable" href="struct_c_e_v___video_display.html#a6df834143c3a6b9098981168316c73ff">screenH</a>, </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html#a1cc2938b6919fdea1dbf30cc12187b02">   63</a></span>        <a class="code hl_variable" href="struct_c_e_v___video_display.html#a1cc2938b6919fdea1dbf30cc12187b02">logicW</a>,  </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html#a58f9d129866a888e0776cc3693f4d510">   64</a></span>        <a class="code hl_variable" href="struct_c_e_v___video_display.html#a58f9d129866a888e0776cc3693f4d510">logicH</a>;  </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html#abdb3239148d3a85e584abf18433cff7d">   66</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="struct_c_e_v___video_display.html#abdb3239148d3a85e584abf18433cff7d">proportion</a>; </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_display.html#a23506fc4821ab6d9671f3e6222591a96">   68</a></span>    <span class="keywordtype">char</span> *<a class="code hl_variable" href="struct_c_e_v___video_display.html#a23506fc4821ab6d9671f3e6222591a96">type</a>;       </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#a7166637b72c1deebb3c3ecf787879b83">   70</a></span><a class="code hl_typedef" href="_c_e_v__mix_system_8h.html#a7166637b72c1deebb3c3ecf787879b83">CEV_VideoDisplay</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="struct_c_e_v___sound_system.html">   75</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___sound_system.html">CEV_SoundSystem</a></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_c_e_v___sound_system.html#a3e7923d97ff8eb150aa0a28871aafc9e">   77</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="struct_c_e_v___sound_system.html#a3e7923d97ff8eb150aa0a28871aafc9e">musicVolume</a>,  </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="struct_c_e_v___sound_system.html#ab7ce67ba72204ddb772b96abda7504c2">   78</a></span>                  <a class="code hl_variable" href="struct_c_e_v___sound_system.html#ab7ce67ba72204ddb772b96abda7504c2">sfxVolume</a>;    </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="struct_c_e_v___sound_system.html#a3c3970ddb57bbba700bad51166853c11">   80</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___sound_system.html#a3c3970ddb57bbba700bad51166853c11">channelNum</a>;    </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="struct_c_e_v___sound_system.html#a18324ed1bfafb0e5eb7717ee78925fae">   82</a></span>    <a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a> *<a class="code hl_variable" href="struct_c_e_v___sound_system.html#a18324ed1bfafb0e5eb7717ee78925fae">loadedMusic</a>;     </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#adf287f0a831993236138c64045c74bee">   84</a></span><a class="code hl_typedef" href="_c_e_v__mix_system_8h.html#adf287f0a831993236138c64045c74bee">CEV_SoundSystem</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_system.html">   90</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___video_system.html">CEV_VideoSystem</a></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>{</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_system.html#a244abebcec04f8672dd7aa98cdba1d88">   92</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="struct_c_e_v___video_system.html#a244abebcec04f8672dd7aa98cdba1d88">isFullScreen</a>;          </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_system.html#aaa8e409e04dcf575ef63fd5fb3db06f9">   94</a></span>    SDL_Window      *<a class="code hl_variable" href="struct_c_e_v___video_system.html#aaa8e409e04dcf575ef63fd5fb3db06f9">window</a>;    </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_system.html#abe1366249532512017c3ab4eb65720b1">   95</a></span>    SDL_Renderer    *<a class="code hl_variable" href="struct_c_e_v___video_system.html#abe1366249532512017c3ab4eb65720b1">render</a>;    </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="struct_c_e_v___video_system.html#a52e9b81876502d263d229727cdcb3990">   96</a></span>    <a class="code hl_struct" href="struct_c_e_v___video_display.html">CEV_VideoDisplay</a>   <a class="code hl_variable" href="struct_c_e_v___video_system.html#a52e9b81876502d263d229727cdcb3990">info</a>;    </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#ae0d519e7c196afa5682678e1e4f1f759">   99</a></span><a class="code hl_typedef" href="_c_e_v__mix_system_8h.html#ae0d519e7c196afa5682678e1e4f1f759">CEV_VideoSystem</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="struct_c_e_v___main_system.html">  104</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___main_system.html">CEV_MainSystem</a></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="struct_c_e_v___main_system.html#a2338e75d86e1eb471ce093b76dee9fcf">  106</a></span>    <a class="code hl_struct" href="struct_c_e_v___video_system.html">CEV_VideoSystem</a>   <a class="code hl_variable" href="struct_c_e_v___main_system.html#a2338e75d86e1eb471ce093b76dee9fcf">video</a>; </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="struct_c_e_v___main_system.html#abe6ddf151cbcf066e1d26235618910e6">  107</a></span>    <a class="code hl_struct" href="struct_c_e_v___sound_system.html">CEV_SoundSystem</a>   <a class="code hl_variable" href="struct_c_e_v___main_system.html#abe6ddf151cbcf066e1d26235618910e6">sound</a>; </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="struct_c_e_v___main_system.html#a04d6edad8df1ad477fb227076e1e4cf6">  108</a></span>    <a class="code hl_struct" href="struct_c_e_v___input.html">CEV_Input</a>         <a class="code hl_variable" href="struct_c_e_v___main_system.html#a04d6edad8df1ad477fb227076e1e4cf6">input</a>; </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="_c_e_v__mix_system_8h.html#ae33b31d991149410352c101b85c0c17b">  110</a></span><a class="code hl_typedef" href="_c_e_v__mix_system_8h.html#ae33b31d991149410352c101b85c0c17b">CEV_MainSystem</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">/*USER END FUNCTIONS*/</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__mix_system_8h.html#a5d85c8fcc36ad720fab23901c98204ba">CEV_systemInit</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__mix_system_8h.html#a465522fe5a7601f7b21fada08b096672">CEV_systemClose</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><a class="code hl_struct" href="struct_c_e_v___main_system.html">CEV_MainSystem</a>* <a class="code hl_function" href="_c_e_v__mix_system_8h.html#a8f9caad885f004e0c737498b9a31883f">CEV_systemGet</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><a class="code hl_struct" href="struct_c_e_v___sound_system.html">CEV_SoundSystem</a>* <a class="code hl_function" href="_c_e_v__mix_system_8h.html#a9ee26dbfec2633ccaf79c89403d346ee">CEV_soundSystemGet</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><a class="code hl_struct" href="struct_c_e_v___video_system.html">CEV_VideoSystem</a>* <a class="code hl_function" href="_c_e_v__mix_system_8h.html#aa655fed3c89e81625584e143ac3857d0">CEV_videoSystemGet</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a> *<a class="code hl_function" href="_c_e_v__mix_system_8h.html#a0e384e6e0270d35341cefe19e265ed2e">CEV_playingMusicGet</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__mix_system_8h.html#abf27a8aa214bd5ffd2c9716f8339fe02">CEV_screenSwitch</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>}</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#endif </span><span class="comment">// CEV_MIXSYSTEM_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__input_8h_html"><div class="ttname"><a href="_c_e_v__input_8h.html">CEV_input.h</a></div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_a0e384e6e0270d35341cefe19e265ed2e"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#a0e384e6e0270d35341cefe19e265ed2e">CEV_playingMusicGet</a></div><div class="ttdeci">CEV_Music * CEV_playingMusicGet(void)</div><div class="ttdoc">fetch loaded music</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:173</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_a465522fe5a7601f7b21fada08b096672"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#a465522fe5a7601f7b21fada08b096672">CEV_systemClose</a></div><div class="ttdeci">void CEV_systemClose(void)</div><div class="ttdoc">free / close all sub systems</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:125</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_a5d85c8fcc36ad720fab23901c98204ba"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#a5d85c8fcc36ad720fab23901c98204ba">CEV_systemInit</a></div><div class="ttdeci">int CEV_systemInit(void)</div><div class="ttdoc">initialze most common system as display and sound -SDL -SDL_mixer -TTF -SDL_IMG</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:52</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_a7166637b72c1deebb3c3ecf787879b83"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#a7166637b72c1deebb3c3ecf787879b83">CEV_VideoDisplay</a></div><div class="ttdeci">struct CEV_VideoDisplay CEV_VideoDisplay</div><div class="ttdoc">Video display status.</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_a8f9caad885f004e0c737498b9a31883f"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#a8f9caad885f004e0c737498b9a31883f">CEV_systemGet</a></div><div class="ttdeci">CEV_MainSystem * CEV_systemGet(void)</div><div class="ttdoc">fetches main system</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:152</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_a9ee26dbfec2633ccaf79c89403d346ee"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#a9ee26dbfec2633ccaf79c89403d346ee">CEV_soundSystemGet</a></div><div class="ttdeci">CEV_SoundSystem * CEV_soundSystemGet(void)</div><div class="ttdoc">fetches sound system</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:159</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_aa655fed3c89e81625584e143ac3857d0"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#aa655fed3c89e81625584e143ac3857d0">CEV_videoSystemGet</a></div><div class="ttdeci">CEV_VideoSystem * CEV_videoSystemGet(void)</div><div class="ttdoc">fetches video system</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:166</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_abf27a8aa214bd5ffd2c9716f8339fe02"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#abf27a8aa214bd5ffd2c9716f8339fe02">CEV_screenSwitch</a></div><div class="ttdeci">int CEV_screenSwitch(void)</div><div class="ttdoc">Switches fullscreen on/off.</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.c:179</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_adf287f0a831993236138c64045c74bee"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#adf287f0a831993236138c64045c74bee">CEV_SoundSystem</a></div><div class="ttdeci">struct CEV_SoundSystem CEV_SoundSystem</div><div class="ttdoc">Sound system.</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_ae0d519e7c196afa5682678e1e4f1f759"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#ae0d519e7c196afa5682678e1e4f1f759">CEV_VideoSystem</a></div><div class="ttdeci">struct CEV_VideoSystem CEV_VideoSystem</div><div class="ttdoc">Video system.</div></div>
+<div class="ttc" id="a_c_e_v__mix_system_8h_html_ae33b31d991149410352c101b85c0c17b"><div class="ttname"><a href="_c_e_v__mix_system_8h.html#ae33b31d991149410352c101b85c0c17b">CEV_MainSystem</a></div><div class="ttdeci">struct CEV_MainSystem CEV_MainSystem</div><div class="ttdoc">Global system.</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html"><div class="ttname"><a href="_c_e_v__types_8h.html">CEV_types.h</a></div></div>
+<div class="ttc" id="astruct_c_e_v___input_html"><div class="ttname"><a href="struct_c_e_v___input.html">CEV_Input</a></div><div class="ttdoc">Input main structure.</div><div class="ttdef"><b>Definition:</b> CEV_input.h:65</div></div>
+<div class="ttc" id="astruct_c_e_v___main_system_html"><div class="ttname"><a href="struct_c_e_v___main_system.html">CEV_MainSystem</a></div><div class="ttdoc">Global system.</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:105</div></div>
+<div class="ttc" id="astruct_c_e_v___main_system_html_a04d6edad8df1ad477fb227076e1e4cf6"><div class="ttname"><a href="struct_c_e_v___main_system.html#a04d6edad8df1ad477fb227076e1e4cf6">CEV_MainSystem::input</a></div><div class="ttdeci">CEV_Input input</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:108</div></div>
+<div class="ttc" id="astruct_c_e_v___main_system_html_a2338e75d86e1eb471ce093b76dee9fcf"><div class="ttname"><a href="struct_c_e_v___main_system.html#a2338e75d86e1eb471ce093b76dee9fcf">CEV_MainSystem::video</a></div><div class="ttdeci">CEV_VideoSystem video</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:106</div></div>
+<div class="ttc" id="astruct_c_e_v___main_system_html_abe6ddf151cbcf066e1d26235618910e6"><div class="ttname"><a href="struct_c_e_v___main_system.html#abe6ddf151cbcf066e1d26235618910e6">CEV_MainSystem::sound</a></div><div class="ttdeci">CEV_SoundSystem sound</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:107</div></div>
+<div class="ttc" id="astruct_c_e_v___music_html"><div class="ttname"><a href="struct_c_e_v___music.html">CEV_Music</a></div><div class="ttdoc">Mix music overlay note : music overlay to keep track of allocated data ptr.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:78</div></div>
+<div class="ttc" id="astruct_c_e_v___sound_system_html"><div class="ttname"><a href="struct_c_e_v___sound_system.html">CEV_SoundSystem</a></div><div class="ttdoc">Sound system.</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:76</div></div>
+<div class="ttc" id="astruct_c_e_v___sound_system_html_a18324ed1bfafb0e5eb7717ee78925fae"><div class="ttname"><a href="struct_c_e_v___sound_system.html#a18324ed1bfafb0e5eb7717ee78925fae">CEV_SoundSystem::loadedMusic</a></div><div class="ttdeci">CEV_Music * loadedMusic</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:82</div></div>
+<div class="ttc" id="astruct_c_e_v___sound_system_html_a3c3970ddb57bbba700bad51166853c11"><div class="ttname"><a href="struct_c_e_v___sound_system.html#a3c3970ddb57bbba700bad51166853c11">CEV_SoundSystem::channelNum</a></div><div class="ttdeci">unsigned int channelNum</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:80</div></div>
+<div class="ttc" id="astruct_c_e_v___sound_system_html_a3e7923d97ff8eb150aa0a28871aafc9e"><div class="ttname"><a href="struct_c_e_v___sound_system.html#a3e7923d97ff8eb150aa0a28871aafc9e">CEV_SoundSystem::musicVolume</a></div><div class="ttdeci">unsigned char musicVolume</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:77</div></div>
+<div class="ttc" id="astruct_c_e_v___sound_system_html_ab7ce67ba72204ddb772b96abda7504c2"><div class="ttname"><a href="struct_c_e_v___sound_system.html#ab7ce67ba72204ddb772b96abda7504c2">CEV_SoundSystem::sfxVolume</a></div><div class="ttdeci">unsigned char sfxVolume</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:78</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html"><div class="ttname"><a href="struct_c_e_v___video_display.html">CEV_VideoDisplay</a></div><div class="ttdoc">Video display status.</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:60</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html_a1cc2938b6919fdea1dbf30cc12187b02"><div class="ttname"><a href="struct_c_e_v___video_display.html#a1cc2938b6919fdea1dbf30cc12187b02">CEV_VideoDisplay::logicW</a></div><div class="ttdeci">int logicW</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:63</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html_a23506fc4821ab6d9671f3e6222591a96"><div class="ttname"><a href="struct_c_e_v___video_display.html#a23506fc4821ab6d9671f3e6222591a96">CEV_VideoDisplay::type</a></div><div class="ttdeci">char * type</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:68</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html_a58f9d129866a888e0776cc3693f4d510"><div class="ttname"><a href="struct_c_e_v___video_display.html#a58f9d129866a888e0776cc3693f4d510">CEV_VideoDisplay::logicH</a></div><div class="ttdeci">int logicH</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:64</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html_a6df834143c3a6b9098981168316c73ff"><div class="ttname"><a href="struct_c_e_v___video_display.html#a6df834143c3a6b9098981168316c73ff">CEV_VideoDisplay::screenH</a></div><div class="ttdeci">int screenH</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:62</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html_a7fbe8de7beb7c00c78c5d04efd067e49"><div class="ttname"><a href="struct_c_e_v___video_display.html#a7fbe8de7beb7c00c78c5d04efd067e49">CEV_VideoDisplay::screenW</a></div><div class="ttdeci">int screenW</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:61</div></div>
+<div class="ttc" id="astruct_c_e_v___video_display_html_abdb3239148d3a85e584abf18433cff7d"><div class="ttname"><a href="struct_c_e_v___video_display.html#abdb3239148d3a85e584abf18433cff7d">CEV_VideoDisplay::proportion</a></div><div class="ttdeci">float proportion</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:66</div></div>
+<div class="ttc" id="astruct_c_e_v___video_system_html"><div class="ttname"><a href="struct_c_e_v___video_system.html">CEV_VideoSystem</a></div><div class="ttdoc">Video system.</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:91</div></div>
+<div class="ttc" id="astruct_c_e_v___video_system_html_a244abebcec04f8672dd7aa98cdba1d88"><div class="ttname"><a href="struct_c_e_v___video_system.html#a244abebcec04f8672dd7aa98cdba1d88">CEV_VideoSystem::isFullScreen</a></div><div class="ttdeci">char isFullScreen</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:92</div></div>
+<div class="ttc" id="astruct_c_e_v___video_system_html_a52e9b81876502d263d229727cdcb3990"><div class="ttname"><a href="struct_c_e_v___video_system.html#a52e9b81876502d263d229727cdcb3990">CEV_VideoSystem::info</a></div><div class="ttdeci">CEV_VideoDisplay info</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:96</div></div>
+<div class="ttc" id="astruct_c_e_v___video_system_html_aaa8e409e04dcf575ef63fd5fb3db06f9"><div class="ttname"><a href="struct_c_e_v___video_system.html#aaa8e409e04dcf575ef63fd5fb3db06f9">CEV_VideoSystem::window</a></div><div class="ttdeci">SDL_Window * window</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:94</div></div>
+<div class="ttc" id="astruct_c_e_v___video_system_html_abe1366249532512017c3ab4eb65720b1"><div class="ttname"><a href="struct_c_e_v___video_system.html#abe1366249532512017c3ab4eb65720b1">CEV_VideoSystem::render</a></div><div class="ttdeci">SDL_Renderer * render</div><div class="ttdef"><b>Definition:</b> CEV_mixSystem.h:95</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__mix_system_8h.html">CEV_mixSystem.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -8,7 +8,6 @@
 #define GIFUSER_H_INCLUDED
 
 #include <SDL.h>
-//#include "CEV_gifToSurface.h"
 
 #define GIF_FORWARD     0
 #define GIF_BACKWARD    1
@@ -53,6 +52,9 @@ enum
 typedef struct CEV_GifAnim CEV_GifAnim;
 
 char CEV_gifReadWriteErr;
+
+
+
 
 
 /** \brief Loads gif file.
@@ -110,7 +112,7 @@ char *CEV_gifSignature(CEV_GifAnim *anim);
  *
  * \return SDL_Texture* for user's end.
  */
-SDL_Texture *CEV_gifTexture(CEV_GifAnim *anim);
+SDL_Texture *CEV_gifTextureGet(CEV_GifAnim *anim);
 
 
 /** \brief  Number of pictures.
@@ -129,6 +131,16 @@ int CEV_gifFrameNum(CEV_GifAnim *anim);
  * \return N/A
  */
 void CEV_gifFrameNext(CEV_GifAnim *anim);
+
+
+/** \brief Forces frame num blitting
+ *
+ * \param anim : CEV_GifAnim* to update.
+ * \param num : unsigned as frame to display.
+ *
+ * \return void.
+ */
+void CEV_gifAnimFrameShow(CEV_GifAnim* anim, unsigned num);
 
 
 /** \brief Sets animation speed.

@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_scroll.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__scroll_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_scroll.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__scroll_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  14-02-2015   |   0.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |  20-05-2016   |   0.1    |    SDL2 rev    **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef CONST_H_INCLUDED</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define CONST_H_INCLUDED</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;SDL_ttf.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#ac7d26195169c06937b4ba73d2e74036e">   16</a></span><span class="preprocessor">#define SCROLL_MODE_LIST {&quot;SCROLL_UP&quot;</span>, &quot;SCROLL_DOWN&quot;, &quot;SCROLL_LEFT&quot;, &quot;SCROLL_RIGHT&quot;}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#a4a538a9171322d1bb331e98154ccb3e1">   17</a></span><span class="preprocessor">#define SCROLL_MODE_NUM 4</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">/*file format</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"></span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">u32 : font size (pxl)</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"></span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">text color :</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">    u8  : r</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">        : g</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">        : b</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">        : a</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"></span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">u32 : scroll mode</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">    : spacing (pxl)</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">    : speed (pxl/frame)</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">CEV_Text struct</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">capsule : police.ttf</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"></span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">enum</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8adc276c852fdda273d5091ee8e2ceb4ec">   46</a></span>    <a class="code hl_enumvalue" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8adc276c852fdda273d5091ee8e2ceb4ec">SCROLL_UP</a>       = 0,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8a9d522bb191bf21bcaace5569ec49475d">   47</a></span>    <a class="code hl_enumvalue" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8a9d522bb191bf21bcaace5569ec49475d">SCROLL_DOWN</a>     = 1,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8a392d314d6eb6c2fcc09b3400094ca2ba">   48</a></span>    <a class="code hl_enumvalue" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8a392d314d6eb6c2fcc09b3400094ca2ba">SCROLL_LEFT</a>     = 2,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_enumvalue" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8ad1f46da31fcd95a223a94c6024363f6b">SCROLL_RIGHT</a>    = 3</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8ad1f46da31fcd95a223a94c6024363f6b">   50</a></span>};</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="struct_l___scroll_text_line.html">   55</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_l___scroll_text_line.html">L_ScrollTextLine</a></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{<span class="comment">/*infos pour une ligne de text*/</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_l___scroll_text_line.html#ac5fb4b79fa5d6f267d6f032614dc9cd8">   58</a></span>    SDL_Texture *<a class="code hl_variable" href="struct_l___scroll_text_line.html#ac5fb4b79fa5d6f267d6f032614dc9cd8">img</a>; <span class="comment">/*pic of text*/</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_l___scroll_text_line.html#ad90f22644da5135adbe11b41f55ebe24">   59</a></span>    SDL_Rect <a class="code hl_variable" href="struct_l___scroll_text_line.html#ad90f22644da5135adbe11b41f55ebe24">blitPos</a>; <span class="comment">/*display position*/</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#afc07aae6792d99c38b1580fbe82b0aa0">   61</a></span>}<a class="code hl_typedef" href="_c_e_v__scroll_8h.html#afc07aae6792d99c38b1580fbe82b0aa0">L_ScrollTextLine</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html">   68</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{<span class="comment">/*scroll management structure*/</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a3c99d70a28d38a1b0b5ede0592a6d047">   71</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a3c99d70a28d38a1b0b5ede0592a6d047">lineAct</a>,   <span class="comment">/*actual line*/</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a3dd1485ec5116b92ad654c8827952af1">   72</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a3dd1485ec5116b92ad654c8827952af1">lineNb</a>,    <span class="comment">/*number of lines available*/</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a594916e785a5c47c14a0f68a62697840">   73</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a594916e785a5c47c14a0f68a62697840">lineFrom</a>,  <span class="comment">/*start line index*/</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a3609dd5b7d231eed7fd878c0138c27cf">   74</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a3609dd5b7d231eed7fd878c0138c27cf">lineTo</a>,    <span class="comment">/*stop line index*/</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#af041b9f420eaa4774ba9fa9e5820e468">   75</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#af041b9f420eaa4774ba9fa9e5820e468">space</a>,     <span class="comment">/*space size between pics, pxl*/</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#ac1b4d694fc07a39e06900e82872aac7f">   76</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#ac1b4d694fc07a39e06900e82872aac7f">mode</a>,      <span class="comment">/*scrolling mode*/</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a32152174f0abeec922ccc7a3dfc89cd5">   77</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a32152174f0abeec922ccc7a3dfc89cd5">fontSize</a>,  <span class="comment">/*font size*/</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a481cb487704fc7f8c8ddc6613aed3785">   78</a></span>                 <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a481cb487704fc7f8c8ddc6613aed3785">speed</a>;     <span class="comment">/*pxl / frame*/</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a1910d262855b71da353ed0d07a6c7823">   80</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a1910d262855b71da353ed0d07a6c7823">pos</a>;    <span class="comment">/*display position*/</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#abe1366249532512017c3ab4eb65720b1">   82</a></span>    SDL_Renderer *<a class="code hl_variable" href="struct_c_e_v___scroll_text.html#abe1366249532512017c3ab4eb65720b1">render</a>; <span class="comment">/*destination renderer*/</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a217163ade744cb6dc60f60443889cbc9">   84</a></span>    SDL_Rect  <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a217163ade744cb6dc60f60443889cbc9">renderDim</a>; <span class="comment">/*renderer logical dimension*/</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a631bf4babe4c1825a2cdc0c19c2bd04f">   86</a></span>    SDL_Color <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a631bf4babe4c1825a2cdc0c19c2bd04f">color</a>;    <span class="comment">/*text color*/</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="struct_c_e_v___scroll_text.html#a9d9ffac080c7b7a5f3b13f03aea9e6f2">   88</a></span>    <a class="code hl_struct" href="struct_l___scroll_text_line.html">L_ScrollTextLine</a>* <a class="code hl_variable" href="struct_c_e_v___scroll_text.html#a9d9ffac080c7b7a5f3b13f03aea9e6f2">texts</a>;<span class="comment">/*array of pics instances*/</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="_c_e_v__scroll_8h.html#ad0ecb0631105e19fa5be3dcc89c8339d">   91</a></span><a class="code hl_typedef" href="_c_e_v__scroll_8h.html#ad0ecb0631105e19fa5be3dcc89c8339d">CEV_ScrollText</a>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* <a class="code hl_function" href="_c_e_v__scroll_8h.html#a5a918b80fcff8f15749e06264098c196">CEV_scrollCreate</a>(<span class="keywordtype">char</span>** texts, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> num, TTF_Font* font, SDL_Color colour);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#a72da27e191ec625fc683fb70eb559670">CEV_scrollDestroy</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *in);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#add928cf4eb0d938e5b15174e973a5315">CEV_scrollClear</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *in);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#ad83d5e84c2e3a9bf9309d62addba0137">CEV_scrollDump</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *in);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">/*CONTROL FUNCTIONS*/</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#a9cb57f988dd0f56ed705c84bc9b494e1">CEV_scrollModeSet</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *in, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#a1103cea601e75677e70601966c699f38">CEV_scrollSpaceSet</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *in, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pxl);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#a1dd1904dd1b7e63620108b20c1f751a0">CEV_scrollRestart</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* in);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#a17d22373e371a00478032508951aee65">CEV_scrollPosSet</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* in, <span class="keywordtype">int</span> pos);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#ad091ddf34c6d14df6f733f8352d9055a">CEV_scrollUpdate</a>(<a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *in);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="comment">/*FILE FUNCTIONS*/</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__scroll_8h.html#afc72200cc201ddb5f9bd461b5aa90b14">CEV_convertScrollTxtToData</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* srcName, <span class="keyword">const</span> <span class="keywordtype">char</span>* dstName);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* <a class="code hl_function" href="_c_e_v__scroll_8h.html#a050d8b5fd71e7b5c18f2ec6eed7730ba">CEV_scrollLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* <a class="code hl_function" href="_c_e_v__scroll_8h.html#a2416154d55077accc873cf564d969b7f">CEV_scrollLoad_RW</a>(SDL_RWops* src, <span class="keywordtype">bool</span> freeSrc);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* <a class="code hl_function" href="_c_e_v__scroll_8h.html#a4088682a23a18f86e476297a31c6cf37">CEV_scrollTypeRead</a>(FILE* file);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a>* <a class="code hl_function" href="_c_e_v__scroll_8h.html#a1246ab8a405a47d38d68305df1aec749">CEV_scrollTypeRead_RW</a>(SDL_RWops* src);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>}</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="preprocessor">#endif </span><span class="comment">/* CONST_H_INCLUDED */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a050d8b5fd71e7b5c18f2ec6eed7730ba"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a050d8b5fd71e7b5c18f2ec6eed7730ba">CEV_scrollLoad</a></div><div class="ttdeci">CEV_ScrollText * CEV_scrollLoad(const char *fileName)</div><div class="ttdoc">loads scroll configuration file.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:483</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a1103cea601e75677e70601966c699f38"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a1103cea601e75677e70601966c699f38">CEV_scrollSpaceSet</a></div><div class="ttdeci">void CEV_scrollSpaceSet(CEV_ScrollText *in, unsigned int pxl)</div><div class="ttdoc">sets scroll text space.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:258</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a1246ab8a405a47d38d68305df1aec749"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a1246ab8a405a47d38d68305df1aec749">CEV_scrollTypeRead_RW</a></div><div class="ttdeci">CEV_ScrollText * CEV_scrollTypeRead_RW(SDL_RWops *src)</div><div class="ttdoc">Loads scroller from virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:610</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a17d22373e371a00478032508951aee65"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a17d22373e371a00478032508951aee65">CEV_scrollPosSet</a></div><div class="ttdeci">void CEV_scrollPosSet(CEV_ScrollText *in, int pos)</div><div class="ttdoc">sets scroll text position.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:271</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a1dd1904dd1b7e63620108b20c1f751a0"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a1dd1904dd1b7e63620108b20c1f751a0">CEV_scrollRestart</a></div><div class="ttdeci">void CEV_scrollRestart(CEV_ScrollText *in)</div><div class="ttdoc">reset a scroll to start again.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:264</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a2416154d55077accc873cf564d969b7f"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a2416154d55077accc873cf564d969b7f">CEV_scrollLoad_RW</a></div><div class="ttdeci">CEV_ScrollText * CEV_scrollLoad_RW(SDL_RWops *src, bool freeSrc)</div><div class="ttdoc">loads scroll from virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:518</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a4088682a23a18f86e476297a31c6cf37"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a4088682a23a18f86e476297a31c6cf37">CEV_scrollTypeRead</a></div><div class="ttdeci">CEV_ScrollText * CEV_scrollTypeRead(FILE *file)</div><div class="ttdoc">loads scroll configuration .sdat from opened file.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:536</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a5a918b80fcff8f15749e06264098c196"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a5a918b80fcff8f15749e06264098c196">CEV_scrollCreate</a></div><div class="ttdeci">CEV_ScrollText * CEV_scrollCreate(char **texts, unsigned int num, TTF_Font *font, SDL_Color colour)</div><div class="ttdoc">Allocate and create CEV_Scroll structure.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:127</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a72da27e191ec625fc683fb70eb559670"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a72da27e191ec625fc683fb70eb559670">CEV_scrollDestroy</a></div><div class="ttdeci">void CEV_scrollDestroy(CEV_ScrollText *in)</div><div class="ttdoc">fully destroys a CEV_Scroll, including itself.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:199</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_a9cb57f988dd0f56ed705c84bc9b494e1"><div class="ttname"><a href="_c_e_v__scroll_8h.html#a9cb57f988dd0f56ed705c84bc9b494e1">CEV_scrollModeSet</a></div><div class="ttdeci">void CEV_scrollModeSet(CEV_ScrollText *in, int mode)</div><div class="ttdoc">sets scroll display mode.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:252</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ac36f475ca5b446f4fde4c9b90bec77c8a392d314d6eb6c2fcc09b3400094ca2ba"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8a392d314d6eb6c2fcc09b3400094ca2ba">SCROLL_LEFT</a></div><div class="ttdeci">@ SCROLL_LEFT</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:48</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ac36f475ca5b446f4fde4c9b90bec77c8a9d522bb191bf21bcaace5569ec49475d"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8a9d522bb191bf21bcaace5569ec49475d">SCROLL_DOWN</a></div><div class="ttdeci">@ SCROLL_DOWN</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:47</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ac36f475ca5b446f4fde4c9b90bec77c8ad1f46da31fcd95a223a94c6024363f6b"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8ad1f46da31fcd95a223a94c6024363f6b">SCROLL_RIGHT</a></div><div class="ttdeci">@ SCROLL_RIGHT</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:49</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ac36f475ca5b446f4fde4c9b90bec77c8adc276c852fdda273d5091ee8e2ceb4ec"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ac36f475ca5b446f4fde4c9b90bec77c8adc276c852fdda273d5091ee8e2ceb4ec">SCROLL_UP</a></div><div class="ttdeci">@ SCROLL_UP</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:46</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ad091ddf34c6d14df6f733f8352d9055a"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ad091ddf34c6d14df6f733f8352d9055a">CEV_scrollUpdate</a></div><div class="ttdeci">int CEV_scrollUpdate(CEV_ScrollText *in)</div><div class="ttdoc">updates position and display scroller.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:308</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ad0ecb0631105e19fa5be3dcc89c8339d"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ad0ecb0631105e19fa5be3dcc89c8339d">CEV_ScrollText</a></div><div class="ttdeci">struct CEV_ScrollText CEV_ScrollText</div><div class="ttdoc">Main scroll structure.</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_ad83d5e84c2e3a9bf9309d62addba0137"><div class="ttname"><a href="_c_e_v__scroll_8h.html#ad83d5e84c2e3a9bf9309d62addba0137">CEV_scrollDump</a></div><div class="ttdeci">void CEV_scrollDump(CEV_ScrollText *in)</div><div class="ttdoc">dumps struct content into stdout.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:231</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_add928cf4eb0d938e5b15174e973a5315"><div class="ttname"><a href="_c_e_v__scroll_8h.html#add928cf4eb0d938e5b15174e973a5315">CEV_scrollClear</a></div><div class="ttdeci">void CEV_scrollClear(CEV_ScrollText *in)</div><div class="ttdoc">frees content and set to 0/nul/NULL</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:211</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_afc07aae6792d99c38b1580fbe82b0aa0"><div class="ttname"><a href="_c_e_v__scroll_8h.html#afc07aae6792d99c38b1580fbe82b0aa0">L_ScrollTextLine</a></div><div class="ttdeci">struct L_ScrollTextLine L_ScrollTextLine</div><div class="ttdoc">inner scroll structure</div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html_afc72200cc201ddb5f9bd461b5aa90b14"><div class="ttname"><a href="_c_e_v__scroll_8h.html#afc72200cc201ddb5f9bd461b5aa90b14">CEV_convertScrollTxtToData</a></div><div class="ttdeci">int CEV_convertScrollTxtToData(const char *srcName, const char *dstName)</div><div class="ttdoc">Convert user parameter file into prgm friendly file.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.c:351</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html"><div class="ttname"><a href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a></div><div class="ttdoc">Main scroll structure.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:69</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a1910d262855b71da353ed0d07a6c7823"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a1910d262855b71da353ed0d07a6c7823">CEV_ScrollText::pos</a></div><div class="ttdeci">int pos</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:80</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a217163ade744cb6dc60f60443889cbc9"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a217163ade744cb6dc60f60443889cbc9">CEV_ScrollText::renderDim</a></div><div class="ttdeci">SDL_Rect renderDim</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:84</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a32152174f0abeec922ccc7a3dfc89cd5"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a32152174f0abeec922ccc7a3dfc89cd5">CEV_ScrollText::fontSize</a></div><div class="ttdeci">unsigned int fontSize</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:77</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a3609dd5b7d231eed7fd878c0138c27cf"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a3609dd5b7d231eed7fd878c0138c27cf">CEV_ScrollText::lineTo</a></div><div class="ttdeci">unsigned int lineTo</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:74</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a3c99d70a28d38a1b0b5ede0592a6d047"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a3c99d70a28d38a1b0b5ede0592a6d047">CEV_ScrollText::lineAct</a></div><div class="ttdeci">unsigned int lineAct</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:71</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a3dd1485ec5116b92ad654c8827952af1"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a3dd1485ec5116b92ad654c8827952af1">CEV_ScrollText::lineNb</a></div><div class="ttdeci">unsigned int lineNb</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:72</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a481cb487704fc7f8c8ddc6613aed3785"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a481cb487704fc7f8c8ddc6613aed3785">CEV_ScrollText::speed</a></div><div class="ttdeci">unsigned int speed</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:78</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a594916e785a5c47c14a0f68a62697840"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a594916e785a5c47c14a0f68a62697840">CEV_ScrollText::lineFrom</a></div><div class="ttdeci">unsigned int lineFrom</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:73</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a631bf4babe4c1825a2cdc0c19c2bd04f"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a631bf4babe4c1825a2cdc0c19c2bd04f">CEV_ScrollText::color</a></div><div class="ttdeci">SDL_Color color</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:86</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_a9d9ffac080c7b7a5f3b13f03aea9e6f2"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#a9d9ffac080c7b7a5f3b13f03aea9e6f2">CEV_ScrollText::texts</a></div><div class="ttdeci">L_ScrollTextLine * texts</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:88</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_abe1366249532512017c3ab4eb65720b1"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#abe1366249532512017c3ab4eb65720b1">CEV_ScrollText::render</a></div><div class="ttdeci">SDL_Renderer * render</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:82</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_ac1b4d694fc07a39e06900e82872aac7f"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#ac1b4d694fc07a39e06900e82872aac7f">CEV_ScrollText::mode</a></div><div class="ttdeci">unsigned int mode</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:76</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html_af041b9f420eaa4774ba9fa9e5820e468"><div class="ttname"><a href="struct_c_e_v___scroll_text.html#af041b9f420eaa4774ba9fa9e5820e468">CEV_ScrollText::space</a></div><div class="ttdeci">unsigned int space</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:75</div></div>
+<div class="ttc" id="astruct_l___scroll_text_line_html"><div class="ttname"><a href="struct_l___scroll_text_line.html">L_ScrollTextLine</a></div><div class="ttdoc">inner scroll structure</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:56</div></div>
+<div class="ttc" id="astruct_l___scroll_text_line_html_ac5fb4b79fa5d6f267d6f032614dc9cd8"><div class="ttname"><a href="struct_l___scroll_text_line.html#ac5fb4b79fa5d6f267d6f032614dc9cd8">L_ScrollTextLine::img</a></div><div class="ttdeci">SDL_Texture * img</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:58</div></div>
+<div class="ttc" id="astruct_l___scroll_text_line_html_ad90f22644da5135adbe11b41f55ebe24"><div class="ttname"><a href="struct_l___scroll_text_line.html#ad90f22644da5135adbe11b41f55ebe24">L_ScrollTextLine::blitPos</a></div><div class="ttdeci">SDL_Rect blitPos</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:59</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__scroll_8h.html">CEV_scroll.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

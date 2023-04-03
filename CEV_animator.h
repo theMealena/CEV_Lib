@@ -9,8 +9,8 @@
 #ifndef ANIMATOR_H_INCLUDED
 #define ANIMATOR_H_INCLUDED
 
-#include "SDL.h"
-#include "stdint.h"
+#include <SDL.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,7 +23,7 @@ extern "C" {
 
 /** \brief View type
  */
-enum {SP_NONE =-1, SP_NVIEW = 0, SP_XVIEW = 1};
+enum {SP_NONE =-1, SP_NVIEW = 0, SP_XVIEW = 1, SP_VIEW_NUM};
 
 
 /** \brief Rect type
@@ -159,7 +159,7 @@ SP_Anim* SP_animCreate(uint16_t nview, uint16_t xview, SDL_Texture* sheet);
  *
  * \return N/A.
  */
-void SP_animFree(SP_Anim* anim, char freePic);
+void SP_animDestroy(SP_Anim* anim, char freePic);
 
 
 /**gets texture*/
@@ -169,7 +169,7 @@ void SP_animFree(SP_Anim* anim, char freePic);
  *
  * \return SDL_Texture* if any, NULL otherwise.
  */
-SDL_Texture* SP_animTexture(SP_Anim *anim);
+SDL_Texture* SP_animTextureGet(SP_Anim *anim);
 
 
 /** \brief query animation.
@@ -546,7 +546,7 @@ void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpi
  *
  * \return readWriteErr is filled.
  */
-int SP_convertSpriteCSVToData(const char* srcName, const char* dstName);
+int SP_spriteConvertTxtToData(const char* srcName, const char* dstName);
 
 #ifdef __cplusplus
 }

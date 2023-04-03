@@ -7,11 +7,11 @@
 //**********************************************************/
 
 
-#include "stdlib.h"
-#include "stdio.h"
-#include "math.h"
-#include "errno.h"
-#include "string.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <errno.h>
+#include <string.h>
 #include <SDL.h>
 #include "project_def.h"
 #include "CEV_pad.h"

@@ -345,8 +345,8 @@ bool CEV_fconstraint(float mini, float* value, float maxi);
  * \param realVal : value to test.
  * \param realMin : minimum range for realVal.
  * \param realMax : maximum range for realVal.
- * \param retMin : value returned for realVal=realMin.
- * \param retMax : value returned for realVal=realMax.
+ * \param retMin : value returned for realVal = realMin.
+ * \param retMax : value returned for realVal = realMax.
  *
  * \return scaled double value.
  */

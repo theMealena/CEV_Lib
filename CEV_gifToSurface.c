@@ -77,8 +77,8 @@ char GIFL_gifAnimInit(CEV_GifAnim* anim, L_GifFile* gif)
 char GIFL_gifBlit(CEV_GifAnim* anim)
 {/*redraw main texture*/
 
-    if(!anim->status.refresh)/*if not refresh only*/
-        L_gifPicSelectNxt(anim); /*select next frame*/
+    if(!anim->status.refresh)       /*if not refresh only*/
+        L_gifPicSelectNxt(anim);    /*select next frame*/
 
     int imgAct      = anim->status.imgAct;              /*rw purpose*/
     char dispMethod = anim->pictures[imgAct].dispMethod;/*rw purpose*/
@@ -275,7 +275,9 @@ static void L_gifTextureRedraw(const uint8_t* pixels, const SDL_Rect* blitPos, S
     {
         for(x =0; x < width; x++)
         {
-            dst[y*pitch/sizeof(uint32_t) + x] = (L_gifPtIsInBox(x, y, blitPos))? src[(y-blitPos->y)*blitPos->w + x-blitPos->x] : (uint32_t)0x0;
+            dst[y*pitch/sizeof(uint32_t) + x] = (L_gifPtIsInBox(x, y, blitPos))?
+                                                        src[(y-blitPos->y)*blitPos->w + x-blitPos->x]
+                                                        : (uint32_t)0x0;
         }
     }
 
@@ -293,7 +295,6 @@ static void L_gifTextureOverlay(const uint8_t* pixels, const SDL_Rect* blitPos, 
              *dst;
 
     void* access;
-    /***Error handeling to do**/
 
     SDL_LockTexture(dstTex, NULL, &access, &pitch);
 
@@ -419,6 +420,7 @@ static void L_gifPicSelectNxt(CEV_GifAnim* anim)
         break;
 
         case GIF_FORTH_BACK :
+
             switch(anim->status.direction)
             {
                 case GIF_FORWARD :

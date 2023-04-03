@@ -257,7 +257,7 @@ void CEV_textSortZA(CEV_Text *src)
 }
 
 
-int CEV_convertTextTxtToData(const char *srcName, const char *dstName)
+int CEV_textConvertTxtToData(const char *srcName, const char *dstName)
 {//convert natural text file into text capsule file .tdat
 
     int funcSts = FUNC_OK;
@@ -558,6 +558,7 @@ void CEV_textTypeRead_RW(SDL_RWops* src, CEV_Text* dst)
 }
 
 
+/* not working
 int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst)
 {//creates capsule from CEV_Text
 
@@ -574,7 +575,7 @@ int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst)
 
     if(CEV_textTypeWrite_RW(src, vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to write into virtuel file.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : unable to write into virtual file.\n", __FUNCTION__, __LINE__ );
         goto end;
     }
 
@@ -594,8 +595,10 @@ int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst)
 
 end:
     SDL_RWclose(vFile);
+    SDL_FreeRW(vFile);
     return funcSts;
 }
+*/
 
 
 void CEV_textDestroy(CEV_Text* in)
@@ -643,8 +646,7 @@ void CEV_textDump(CEV_Text* in)
     for(int i=0; i<in->linesNum; i++)
     {
         char* thisLine = CEV_textRead(in, i);
-        puts(thisLine);
-        printf("allocated for line : %u\n", L_lineAllocSizeRead(thisLine));
+        printf("line %d : %s ; (%u allocated)\n", i, thisLine, L_lineAllocSizeRead(thisLine));
     }
 }
 
@@ -716,8 +718,11 @@ static int L_LineFieldReadTxt(FILE* src, CEV_Text *dst)
 
     while(!IS_NULL(fgets(lString, sizeof(lString), src)))
     {
-        CEV_stringEndFormat(lString);
-        CEV_textAppend(dst, lString);
+        if(lString[0] != '/' && !iscntrl(lString[0]))
+        {
+            CEV_stringEndFormat(lString);
+            CEV_textAppend(dst, lString);
+        }
     }
 
     return FUNC_OK;

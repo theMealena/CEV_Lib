@@ -347,8 +347,8 @@ static void L_soundSystemFree(void)
     for(int i = 0; i < numTimesOpened; i++)
         Mix_CloseAudio();
 
-    CEV_SoundSystem *sdSys = CEV_soundSystemGet();
-    free(sdSys);
+    //CEV_SoundSystem *sdSys = CEV_soundSystemGet();
+    //free(sdSys);
 }
 
 

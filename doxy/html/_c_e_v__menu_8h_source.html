@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_menu.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__menu_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_menu.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__menu_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef CEV_SELECTION_H_INCLUDED</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define CEV_SELECTION_H_INCLUDED</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;SDL_ttf.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__api_8h.html">CEV_api.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__types_8h.html">CEV_types.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a54b8b63c5425ae28ad6c696fc4ebe799">   10</a></span><span class="preprocessor">#define M_TYPE_NUM 3</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a61f13c51e03adc2152905c4b4e13345f">   11</a></span><span class="preprocessor">#define M_TYPE_LIST {&quot;M_IS_SLIDE&quot;</span>, &quot;M_IS_PIC&quot;, &quot;M_IS_TEXT&quot;}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a21eab345da9bfca37302b8ea969cc285">   12</a></span><span class="preprocessor">#define M_PIC_MAX 5</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">enum</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a55a6c5186deba30ef9600665cc1157f3">   19</a></span>    <a class="code hl_enumvalue" href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a55a6c5186deba30ef9600665cc1157f3">M_IS_SLIDE</a>    = 0,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a366685d06885a3b27dbbf5b880f19644">   20</a></span>    <a class="code hl_enumvalue" href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a366685d06885a3b27dbbf5b880f19644">M_IS_PIC</a>      = 1,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_enumvalue" href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57ac5dd65631203f796a27b98474997249c">M_IS_TEXT</a>     = 2</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57ac5dd65631203f796a27b98474997249c">   23</a></span>};</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html">   25</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___m_slider.html">CEV_MSlider</a></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html#aa5044999f3339d2ba3b1bf22fa6cfe95">   27</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>   <a class="code hl_variable" href="struct_c_e_v___m_slider.html#aa5044999f3339d2ba3b1bf22fa6cfe95">type</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html#a537893029f1863ac865b24ec727c24b8">   28</a></span>                    <a class="code hl_variable" href="struct_c_e_v___m_slider.html#a537893029f1863ac865b24ec727c24b8">value</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html#ae2404a52262ba6aebbeba234e7f397e4">   29</a></span>                    *<a class="code hl_variable" href="struct_c_e_v___m_slider.html#ae2404a52262ba6aebbeba234e7f397e4">valuePtr</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html#abc25bb0f7f385dfe24790ac6bcba5347">   31</a></span>    SDL_Texture     *<a class="code hl_variable" href="struct_c_e_v___m_slider.html#abc25bb0f7f385dfe24790ac6bcba5347">pic</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html#ae0cfd22ab850108c945faf865971b4c7">   32</a></span>    SDL_Rect        <a class="code hl_variable" href="struct_c_e_v___m_slider.html#ae0cfd22ab850108c945faf865971b4c7">blitPos</a>[2],</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_slider.html#a3b2864a2da0e4cf4ef92ee6d39952605">   33</a></span>                    <a class="code hl_variable" href="struct_c_e_v___m_slider.html#a3b2864a2da0e4cf4ef92ee6d39952605">clip</a>[2];<span class="comment">//back / for</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a3e9d7f54ee1fd7a145947df2b91aadd1">   35</a></span><a class="code hl_typedef" href="_c_e_v__menu_8h.html#a3e9d7f54ee1fd7a145947df2b91aadd1">CEV_MSlider</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html">   38</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___m_pic.html">CEV_MPic</a></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#aa5044999f3339d2ba3b1bf22fa6cfe95">   40</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>   <a class="code hl_variable" href="struct_c_e_v___m_pic.html#aa5044999f3339d2ba3b1bf22fa6cfe95">type</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#a537893029f1863ac865b24ec727c24b8">   41</a></span>                    <a class="code hl_variable" href="struct_c_e_v___m_pic.html#a537893029f1863ac865b24ec727c24b8">value</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#ae2404a52262ba6aebbeba234e7f397e4">   42</a></span>                    *<a class="code hl_variable" href="struct_c_e_v___m_pic.html#ae2404a52262ba6aebbeba234e7f397e4">valuePtr</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#a32088f259ee5b0e8b2892c6b358fdabc">   44</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>    <a class="code hl_variable" href="struct_c_e_v___m_pic.html#a32088f259ee5b0e8b2892c6b358fdabc">picNum</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#abc25bb0f7f385dfe24790ac6bcba5347">   46</a></span>    SDL_Texture     *<a class="code hl_variable" href="struct_c_e_v___m_pic.html#abc25bb0f7f385dfe24790ac6bcba5347">pic</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#ad90f22644da5135adbe11b41f55ebe24">   48</a></span>    SDL_Rect        <a class="code hl_variable" href="struct_c_e_v___m_pic.html#ad90f22644da5135adbe11b41f55ebe24">blitPos</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_pic.html#aec06a54fb1cc6faf5a3d3e2232572cc5">   49</a></span>                    <a class="code hl_variable" href="struct_c_e_v___m_pic.html#aec06a54fb1cc6faf5a3d3e2232572cc5">clip</a>;<span class="comment">//off / on /options</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#acaa0acda8ea587020bc5d8474b883c3d">   51</a></span><a class="code hl_typedef" href="_c_e_v__menu_8h.html#acaa0acda8ea587020bc5d8474b883c3d">CEV_MPic</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html">   54</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___m_text.html">CEV_MText</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#aa5044999f3339d2ba3b1bf22fa6cfe95">   56</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>   <a class="code hl_variable" href="struct_c_e_v___m_text.html#aa5044999f3339d2ba3b1bf22fa6cfe95">type</a>,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#a537893029f1863ac865b24ec727c24b8">   57</a></span>                    <a class="code hl_variable" href="struct_c_e_v___m_text.html#a537893029f1863ac865b24ec727c24b8">value</a>, <span class="comment">//1 if text hover</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#ae2404a52262ba6aebbeba234e7f397e4">   58</a></span>                    *<a class="code hl_variable" href="struct_c_e_v___m_text.html#ae2404a52262ba6aebbeba234e7f397e4">valuePtr</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#a5633b1433389cec21ade3811bbe9ca5b">   59</a></span>    <span class="keywordtype">char</span>    *<a class="code hl_variable" href="struct_c_e_v___m_text.html#a5633b1433389cec21ade3811bbe9ca5b">text</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#a1d28dec57cce925ad92342891bd71e7c">   61</a></span>    <span class="keywordtype">float</span>   <a class="code hl_variable" href="struct_c_e_v___m_text.html#a1d28dec57cce925ad92342891bd71e7c">scale</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#a9083058cc9dc73fddfe8bc634e89e22d">   63</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>    <a class="code hl_variable" href="struct_c_e_v___m_text.html#a9083058cc9dc73fddfe8bc634e89e22d">justif</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#a78d02595062477ae24cd90cb7bdb4ea0">   65</a></span>    SDL_Point   <a class="code hl_variable" href="struct_c_e_v___m_text.html#a78d02595062477ae24cd90cb7bdb4ea0">pos</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#ad90f22644da5135adbe11b41f55ebe24">   67</a></span>    SDL_Rect    <a class="code hl_variable" href="struct_c_e_v___m_text.html#ad90f22644da5135adbe11b41f55ebe24">blitPos</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="struct_c_e_v___m_text.html#a32b5f7aa7e765b5739005686544ac6de">   69</a></span>    SDL_Color   <a class="code hl_variable" href="struct_c_e_v___m_text.html#a32b5f7aa7e765b5739005686544ac6de">color</a>[2]; <span class="comment">//off / hover</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a88b46274cf50af18edfb8c80d52551ce">   71</a></span><a class="code hl_typedef" href="_c_e_v__menu_8h.html#a88b46274cf50af18edfb8c80d52551ce">CEV_MText</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html">   75</a></span><span class="keyword">typedef</span> <span class="keyword">union </span><a class="code hl_union" href="union_c_e_v___selector.html">CEV_Selector</a></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#aa5044999f3339d2ba3b1bf22fa6cfe95">   77</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="union_c_e_v___selector.html#aa5044999f3339d2ba3b1bf22fa6cfe95">type</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">struct</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="union_c_e_v___selector.html#aa5044999f3339d2ba3b1bf22fa6cfe95">type</a>,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#a537893029f1863ac865b24ec727c24b8">   82</a></span>                      <a class="code hl_variable" href="union_c_e_v___selector.html#a537893029f1863ac865b24ec727c24b8">value</a>,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#ae2404a52262ba6aebbeba234e7f397e4">   83</a></span>                      *<a class="code hl_variable" href="union_c_e_v___selector.html#ae2404a52262ba6aebbeba234e7f397e4">valuePtr</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#ac39ce437e6da34e891cee55009abc2fc">   84</a></span>    } <a class="code hl_variable" href="union_c_e_v___selector.html#ac39ce437e6da34e891cee55009abc2fc">comn</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#a7b2fd0167837b3b101dec971507d5345">   86</a></span>    <a class="code hl_struct" href="struct_c_e_v___m_slider.html">CEV_MSlider</a> <a class="code hl_variable" href="union_c_e_v___selector.html#a7b2fd0167837b3b101dec971507d5345">slide</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#a67a5c855a91051fa215e4b7f1526ce9d">   87</a></span>    <a class="code hl_struct" href="struct_c_e_v___m_pic.html">CEV_MPic</a> <a class="code hl_variable" href="union_c_e_v___selector.html#a67a5c855a91051fa215e4b7f1526ce9d">pic</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="union_c_e_v___selector.html#a4a231b705288bc8228308e8a6800a6a9">   88</a></span>    <a class="code hl_struct" href="struct_c_e_v___m_text.html">CEV_MText</a> <a class="code hl_variable" href="union_c_e_v___selector.html#a4a231b705288bc8228308e8a6800a6a9">text</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a274467c5b27db2ae8802a1a1cdd151dc">   90</a></span><a class="code hl_typedef" href="_c_e_v__menu_8h.html#a274467c5b27db2ae8802a1a1cdd151dc">CEV_Selector</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="struct_c_e_v___menu.html">   93</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="struct_c_e_v___menu.html#aef118cca1984dae7ef49f1212ebf746c">   95</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___menu.html#aef118cca1984dae7ef49f1212ebf746c">numOfButton</a>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="struct_c_e_v___menu.html#a05bf3161d56b7409fb23270b52aae7cb">   97</a></span>    <a class="code hl_struct" href="struct_c_e_v___font.html">CEV_Font</a> *<a class="code hl_variable" href="struct_c_e_v___menu.html#a05bf3161d56b7409fb23270b52aae7cb">font</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="struct_c_e_v___menu.html#a198ca2e1a19012ac5f2a412b419e367f">   99</a></span>    <a class="code hl_struct" href="struct_c_e_v___edge.html">CEV_Edge</a> <a class="code hl_variable" href="struct_c_e_v___menu.html#a198ca2e1a19012ac5f2a412b419e367f">edge</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="struct_c_e_v___menu.html#af7e2bcb69992fda53a38a47ca76d9497">  101</a></span>    SDL_Rect **<a class="code hl_variable" href="struct_c_e_v___menu.html#af7e2bcb69992fda53a38a47ca76d9497">buttonPos</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="struct_c_e_v___menu.html#a6a66bae959124fd378a3f5fbb4b99f44">  103</a></span>    <a class="code hl_union" href="union_c_e_v___selector.html">CEV_Selector</a> *<a class="code hl_variable" href="struct_c_e_v___menu.html#a6a66bae959124fd378a3f5fbb4b99f44">button</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="_c_e_v__menu_8h.html#a43189427ec12483d2f8ef18b40ef610e">  105</a></span><a class="code hl_typedef" href="_c_e_v__menu_8h.html#a43189427ec12483d2f8ef18b40ef610e">CEV_Menu</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">/***USER END FUNCTIONS***/</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__menu_8h.html#aa06411c2cb96feaa435026e7bab9df2e">CEV_menuUpdate</a>(<a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> * menu, <span class="keywordtype">int</span> selected, <span class="keywordtype">char</span> clic, <span class="keywordtype">int</span> x);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__menu_8h.html#aa6621f6cd4f7b2b053b90d2064d60486">CEV_menuFree</a>(<a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> *menu);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><a class="code hl_union" href="union_c_e_v___selector.html">CEV_Selector</a>* <a class="code hl_function" href="_c_e_v__menu_8h.html#a4b7311ceb0432c1e88778322cb6a99e7">CEV_menuButtonGet</a>(<a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> *menu, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__menu_8h.html#a18f5914c12ac7c760087eb6b684332c1">CEV_menuButtonValueLink</a>(<a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> * menu, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mastIndex, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> slaveIndex);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__menu_8h.html#a072ea9188f626885ce93b5d029e84eb1">CEV_menuButtonLink</a>(<a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> *menu, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mastIndex, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* slave);</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__menu_8h.html#afbeda9cf3855f74a8d16217853a6fb86">CEV_convertMenuTxtToData</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* srcName, <span class="keyword">const</span> <span class="keywordtype">char</span>* dstName);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> * <a class="code hl_function" href="_c_e_v__menu_8h.html#a52a6abf174d55c4791fae55d6a2e74fe">CEV_menuLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> * <a class="code hl_function" href="_c_e_v__menu_8h.html#a78cf2aed1da607dc8bf2baa5a0736d1b">CEV_menuLoadf</a>(FILE* src);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">#endif </span><span class="comment">// CEV_SELECTION_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__api_8h_html"><div class="ttname"><a href="_c_e_v__api_8h.html">CEV_api.h</a></div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a072ea9188f626885ce93b5d029e84eb1"><div class="ttname"><a href="_c_e_v__menu_8h.html#a072ea9188f626885ce93b5d029e84eb1">CEV_menuButtonLink</a></div><div class="ttdeci">void CEV_menuButtonLink(CEV_Menu *menu, unsigned int mastIndex, unsigned char *slave)</div><div class="ttdoc">links button to external variable.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:184</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a18f5914c12ac7c760087eb6b684332c1"><div class="ttname"><a href="_c_e_v__menu_8h.html#a18f5914c12ac7c760087eb6b684332c1">CEV_menuButtonValueLink</a></div><div class="ttdeci">void CEV_menuButtonValueLink(CEV_Menu *menu, unsigned int mastIndex, unsigned int slaveIndex)</div><div class="ttdoc">links buttons within menu.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:169</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a274467c5b27db2ae8802a1a1cdd151dc"><div class="ttname"><a href="_c_e_v__menu_8h.html#a274467c5b27db2ae8802a1a1cdd151dc">CEV_Selector</a></div><div class="ttdeci">union CEV_Selector CEV_Selector</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a3e9d7f54ee1fd7a145947df2b91aadd1"><div class="ttname"><a href="_c_e_v__menu_8h.html#a3e9d7f54ee1fd7a145947df2b91aadd1">CEV_MSlider</a></div><div class="ttdeci">struct CEV_MSlider CEV_MSlider</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a43189427ec12483d2f8ef18b40ef610e"><div class="ttname"><a href="_c_e_v__menu_8h.html#a43189427ec12483d2f8ef18b40ef610e">CEV_Menu</a></div><div class="ttdeci">struct CEV_Menu CEV_Menu</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a4b7311ceb0432c1e88778322cb6a99e7"><div class="ttname"><a href="_c_e_v__menu_8h.html#a4b7311ceb0432c1e88778322cb6a99e7">CEV_menuButtonGet</a></div><div class="ttdeci">CEV_Selector * CEV_menuButtonGet(CEV_Menu *menu, unsigned int index)</div><div class="ttdoc">get button access.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:159</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a52a6abf174d55c4791fae55d6a2e74fe"><div class="ttname"><a href="_c_e_v__menu_8h.html#a52a6abf174d55c4791fae55d6a2e74fe">CEV_menuLoad</a></div><div class="ttdeci">CEV_Menu * CEV_menuLoad(const char *fileName)</div><div class="ttdoc">loads menu.mdat file.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:333</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a78cf2aed1da607dc8bf2baa5a0736d1b"><div class="ttname"><a href="_c_e_v__menu_8h.html#a78cf2aed1da607dc8bf2baa5a0736d1b">CEV_menuLoadf</a></div><div class="ttdeci">CEV_Menu * CEV_menuLoadf(FILE *src)</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:379</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_a88b46274cf50af18edfb8c80d52551ce"><div class="ttname"><a href="_c_e_v__menu_8h.html#a88b46274cf50af18edfb8c80d52551ce">CEV_MText</a></div><div class="ttdeci">struct CEV_MText CEV_MText</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_aa06411c2cb96feaa435026e7bab9df2e"><div class="ttname"><a href="_c_e_v__menu_8h.html#aa06411c2cb96feaa435026e7bab9df2e">CEV_menuUpdate</a></div><div class="ttdeci">int CEV_menuUpdate(CEV_Menu *menu, int selected, char clic, int x)</div><div class="ttdoc">updates and displays menu.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:74</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_aa6621f6cd4f7b2b053b90d2064d60486"><div class="ttname"><a href="_c_e_v__menu_8h.html#aa6621f6cd4f7b2b053b90d2064d60486">CEV_menuFree</a></div><div class="ttdeci">void CEV_menuFree(CEV_Menu *menu)</div><div class="ttdoc">frees menu structure.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:126</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_ab04a0655cd1e3bcac5e8f48c18df1a57a366685d06885a3b27dbbf5b880f19644"><div class="ttname"><a href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a366685d06885a3b27dbbf5b880f19644">M_IS_PIC</a></div><div class="ttdeci">@ M_IS_PIC</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:20</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_ab04a0655cd1e3bcac5e8f48c18df1a57a55a6c5186deba30ef9600665cc1157f3"><div class="ttname"><a href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57a55a6c5186deba30ef9600665cc1157f3">M_IS_SLIDE</a></div><div class="ttdeci">@ M_IS_SLIDE</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:19</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_ab04a0655cd1e3bcac5e8f48c18df1a57ac5dd65631203f796a27b98474997249c"><div class="ttname"><a href="_c_e_v__menu_8h.html#ab04a0655cd1e3bcac5e8f48c18df1a57ac5dd65631203f796a27b98474997249c">M_IS_TEXT</a></div><div class="ttdeci">@ M_IS_TEXT</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:21</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_acaa0acda8ea587020bc5d8474b883c3d"><div class="ttname"><a href="_c_e_v__menu_8h.html#acaa0acda8ea587020bc5d8474b883c3d">CEV_MPic</a></div><div class="ttdeci">struct CEV_MPic CEV_MPic</div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html_afbeda9cf3855f74a8d16217853a6fb86"><div class="ttname"><a href="_c_e_v__menu_8h.html#afbeda9cf3855f74a8d16217853a6fb86">CEV_convertMenuTxtToData</a></div><div class="ttdeci">int CEV_convertMenuTxtToData(const char *srcName, const char *dstName)</div><div class="ttdoc">convert parameters file into programm friendly data.</div><div class="ttdef"><b>Definition:</b> CEV_menu.c:198</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html"><div class="ttname"><a href="_c_e_v__types_8h.html">CEV_types.h</a></div></div>
+<div class="ttc" id="astruct_c_e_v___edge_html"><div class="ttname"><a href="struct_c_e_v___edge.html">CEV_Edge</a></div><div class="ttdoc">edge structure</div><div class="ttdef"><b>Definition:</b> CEV_api.h:88</div></div>
+<div class="ttc" id="astruct_c_e_v___font_html"><div class="ttname"><a href="struct_c_e_v___font.html">CEV_Font</a></div><div class="ttdoc">TTF Font overlay.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:55</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html"><div class="ttname"><a href="struct_c_e_v___m_pic.html">CEV_MPic</a></div><div class="ttdef"><b>Definition:</b> CEV_menu.h:39</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_a32088f259ee5b0e8b2892c6b358fdabc"><div class="ttname"><a href="struct_c_e_v___m_pic.html#a32088f259ee5b0e8b2892c6b358fdabc">CEV_MPic::picNum</a></div><div class="ttdeci">unsigned int picNum</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:44</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_a537893029f1863ac865b24ec727c24b8"><div class="ttname"><a href="struct_c_e_v___m_pic.html#a537893029f1863ac865b24ec727c24b8">CEV_MPic::value</a></div><div class="ttdeci">unsigned char value</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:41</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_aa5044999f3339d2ba3b1bf22fa6cfe95"><div class="ttname"><a href="struct_c_e_v___m_pic.html#aa5044999f3339d2ba3b1bf22fa6cfe95">CEV_MPic::type</a></div><div class="ttdeci">unsigned char type</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:40</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_abc25bb0f7f385dfe24790ac6bcba5347"><div class="ttname"><a href="struct_c_e_v___m_pic.html#abc25bb0f7f385dfe24790ac6bcba5347">CEV_MPic::pic</a></div><div class="ttdeci">SDL_Texture * pic</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:46</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_ad90f22644da5135adbe11b41f55ebe24"><div class="ttname"><a href="struct_c_e_v___m_pic.html#ad90f22644da5135adbe11b41f55ebe24">CEV_MPic::blitPos</a></div><div class="ttdeci">SDL_Rect blitPos</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:48</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_ae2404a52262ba6aebbeba234e7f397e4"><div class="ttname"><a href="struct_c_e_v___m_pic.html#ae2404a52262ba6aebbeba234e7f397e4">CEV_MPic::valuePtr</a></div><div class="ttdeci">unsigned char * valuePtr</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:42</div></div>
+<div class="ttc" id="astruct_c_e_v___m_pic_html_aec06a54fb1cc6faf5a3d3e2232572cc5"><div class="ttname"><a href="struct_c_e_v___m_pic.html#aec06a54fb1cc6faf5a3d3e2232572cc5">CEV_MPic::clip</a></div><div class="ttdeci">SDL_Rect clip</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:49</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html"><div class="ttname"><a href="struct_c_e_v___m_slider.html">CEV_MSlider</a></div><div class="ttdef"><b>Definition:</b> CEV_menu.h:26</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html_a3b2864a2da0e4cf4ef92ee6d39952605"><div class="ttname"><a href="struct_c_e_v___m_slider.html#a3b2864a2da0e4cf4ef92ee6d39952605">CEV_MSlider::clip</a></div><div class="ttdeci">SDL_Rect clip[2]</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:33</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html_a537893029f1863ac865b24ec727c24b8"><div class="ttname"><a href="struct_c_e_v___m_slider.html#a537893029f1863ac865b24ec727c24b8">CEV_MSlider::value</a></div><div class="ttdeci">unsigned char value</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:28</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html_aa5044999f3339d2ba3b1bf22fa6cfe95"><div class="ttname"><a href="struct_c_e_v___m_slider.html#aa5044999f3339d2ba3b1bf22fa6cfe95">CEV_MSlider::type</a></div><div class="ttdeci">unsigned char type</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:27</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html_abc25bb0f7f385dfe24790ac6bcba5347"><div class="ttname"><a href="struct_c_e_v___m_slider.html#abc25bb0f7f385dfe24790ac6bcba5347">CEV_MSlider::pic</a></div><div class="ttdeci">SDL_Texture * pic</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:31</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html_ae0cfd22ab850108c945faf865971b4c7"><div class="ttname"><a href="struct_c_e_v___m_slider.html#ae0cfd22ab850108c945faf865971b4c7">CEV_MSlider::blitPos</a></div><div class="ttdeci">SDL_Rect blitPos[2]</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:32</div></div>
+<div class="ttc" id="astruct_c_e_v___m_slider_html_ae2404a52262ba6aebbeba234e7f397e4"><div class="ttname"><a href="struct_c_e_v___m_slider.html#ae2404a52262ba6aebbeba234e7f397e4">CEV_MSlider::valuePtr</a></div><div class="ttdeci">unsigned char * valuePtr</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:29</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html"><div class="ttname"><a href="struct_c_e_v___m_text.html">CEV_MText</a></div><div class="ttdef"><b>Definition:</b> CEV_menu.h:55</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_a1d28dec57cce925ad92342891bd71e7c"><div class="ttname"><a href="struct_c_e_v___m_text.html#a1d28dec57cce925ad92342891bd71e7c">CEV_MText::scale</a></div><div class="ttdeci">float scale</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:61</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_a32b5f7aa7e765b5739005686544ac6de"><div class="ttname"><a href="struct_c_e_v___m_text.html#a32b5f7aa7e765b5739005686544ac6de">CEV_MText::color</a></div><div class="ttdeci">SDL_Color color[2]</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:69</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_a537893029f1863ac865b24ec727c24b8"><div class="ttname"><a href="struct_c_e_v___m_text.html#a537893029f1863ac865b24ec727c24b8">CEV_MText::value</a></div><div class="ttdeci">unsigned char value</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:57</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_a5633b1433389cec21ade3811bbe9ca5b"><div class="ttname"><a href="struct_c_e_v___m_text.html#a5633b1433389cec21ade3811bbe9ca5b">CEV_MText::text</a></div><div class="ttdeci">char * text</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:59</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_a78d02595062477ae24cd90cb7bdb4ea0"><div class="ttname"><a href="struct_c_e_v___m_text.html#a78d02595062477ae24cd90cb7bdb4ea0">CEV_MText::pos</a></div><div class="ttdeci">SDL_Point pos</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:65</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_a9083058cc9dc73fddfe8bc634e89e22d"><div class="ttname"><a href="struct_c_e_v___m_text.html#a9083058cc9dc73fddfe8bc634e89e22d">CEV_MText::justif</a></div><div class="ttdeci">unsigned int justif</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:63</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_aa5044999f3339d2ba3b1bf22fa6cfe95"><div class="ttname"><a href="struct_c_e_v___m_text.html#aa5044999f3339d2ba3b1bf22fa6cfe95">CEV_MText::type</a></div><div class="ttdeci">unsigned char type</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:56</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_ad90f22644da5135adbe11b41f55ebe24"><div class="ttname"><a href="struct_c_e_v___m_text.html#ad90f22644da5135adbe11b41f55ebe24">CEV_MText::blitPos</a></div><div class="ttdeci">SDL_Rect blitPos</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:67</div></div>
+<div class="ttc" id="astruct_c_e_v___m_text_html_ae2404a52262ba6aebbeba234e7f397e4"><div class="ttname"><a href="struct_c_e_v___m_text.html#ae2404a52262ba6aebbeba234e7f397e4">CEV_MText::valuePtr</a></div><div class="ttdeci">unsigned char * valuePtr</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:58</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html"><div class="ttname"><a href="struct_c_e_v___menu.html">CEV_Menu</a></div><div class="ttdef"><b>Definition:</b> CEV_menu.h:94</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html_a05bf3161d56b7409fb23270b52aae7cb"><div class="ttname"><a href="struct_c_e_v___menu.html#a05bf3161d56b7409fb23270b52aae7cb">CEV_Menu::font</a></div><div class="ttdeci">CEV_Font * font</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:97</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html_a198ca2e1a19012ac5f2a412b419e367f"><div class="ttname"><a href="struct_c_e_v___menu.html#a198ca2e1a19012ac5f2a412b419e367f">CEV_Menu::edge</a></div><div class="ttdeci">CEV_Edge edge</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:99</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html_a6a66bae959124fd378a3f5fbb4b99f44"><div class="ttname"><a href="struct_c_e_v___menu.html#a6a66bae959124fd378a3f5fbb4b99f44">CEV_Menu::button</a></div><div class="ttdeci">CEV_Selector * button</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:103</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html_aef118cca1984dae7ef49f1212ebf746c"><div class="ttname"><a href="struct_c_e_v___menu.html#aef118cca1984dae7ef49f1212ebf746c">CEV_Menu::numOfButton</a></div><div class="ttdeci">unsigned int numOfButton</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:95</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html_af7e2bcb69992fda53a38a47ca76d9497"><div class="ttname"><a href="struct_c_e_v___menu.html#af7e2bcb69992fda53a38a47ca76d9497">CEV_Menu::buttonPos</a></div><div class="ttdeci">SDL_Rect ** buttonPos</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:101</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html"><div class="ttname"><a href="union_c_e_v___selector.html">CEV_Selector</a></div><div class="ttdef"><b>Definition:</b> CEV_menu.h:76</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_a4a231b705288bc8228308e8a6800a6a9"><div class="ttname"><a href="union_c_e_v___selector.html#a4a231b705288bc8228308e8a6800a6a9">CEV_Selector::text</a></div><div class="ttdeci">CEV_MText text</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:88</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_a537893029f1863ac865b24ec727c24b8"><div class="ttname"><a href="union_c_e_v___selector.html#a537893029f1863ac865b24ec727c24b8">CEV_Selector::value</a></div><div class="ttdeci">unsigned char value</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:82</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_a67a5c855a91051fa215e4b7f1526ce9d"><div class="ttname"><a href="union_c_e_v___selector.html#a67a5c855a91051fa215e4b7f1526ce9d">CEV_Selector::pic</a></div><div class="ttdeci">CEV_MPic pic</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:87</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_a7b2fd0167837b3b101dec971507d5345"><div class="ttname"><a href="union_c_e_v___selector.html#a7b2fd0167837b3b101dec971507d5345">CEV_Selector::slide</a></div><div class="ttdeci">CEV_MSlider slide</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:86</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_aa5044999f3339d2ba3b1bf22fa6cfe95"><div class="ttname"><a href="union_c_e_v___selector.html#aa5044999f3339d2ba3b1bf22fa6cfe95">CEV_Selector::type</a></div><div class="ttdeci">unsigned char type</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:77</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_ac39ce437e6da34e891cee55009abc2fc"><div class="ttname"><a href="union_c_e_v___selector.html#ac39ce437e6da34e891cee55009abc2fc">CEV_Selector::comn</a></div><div class="ttdeci">struct CEV_Selector::@10 comn</div></div>
+<div class="ttc" id="aunion_c_e_v___selector_html_ae2404a52262ba6aebbeba234e7f397e4"><div class="ttname"><a href="union_c_e_v___selector.html#ae2404a52262ba6aebbeba234e7f397e4">CEV_Selector::valuePtr</a></div><div class="ttdeci">unsigned char * valuePtr</div><div class="ttdef"><b>Definition:</b> CEV_menu.h:83</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__menu_8h.html">CEV_menu.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

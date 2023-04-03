@@ -1,0 +1,1017 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_maps.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__maps_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_maps.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="project__def_8h_source.html">project_def.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__api_8h_source.html">CEV_API.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__maps_8h_source.html">CEV_maps.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__data_file_8h_source.html">CEV_dataFile.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="rwtypes_8h_source.html">rwtypes.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a7eb9003ecbd955c454676a44c577e863"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a7eb9003ecbd955c454676a44c577e863">CEV_mapLoad</a> (const char *fileName)</td></tr>
+<tr class="memdesc:a7eb9003ecbd955c454676a44c577e863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load mapping from file.  <a href="_c_e_v__maps_8c.html#a7eb9003ecbd955c454676a44c577e863">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7eb9003ecbd955c454676a44c577e863"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8ab800b844c5cf5762bc08b55678ea8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#ad8ab800b844c5cf5762bc08b55678ea8">CEV_mapSave</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, const char *dstFileName, bool embeddPic)</td></tr>
+<tr class="memdesc:ad8ab800b844c5cf5762bc08b55678ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">saves map into file.  <a href="_c_e_v__maps_8c.html#ad8ab800b844c5cf5762bc08b55678ea8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad8ab800b844c5cf5762bc08b55678ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac415b85dae0a55b564911e3b8c7ad1de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#ac415b85dae0a55b564911e3b8c7ad1de">CEV_mapLoad_RW</a> (SDL_RWops *src, char freeSrc)</td></tr>
+<tr class="memdesc:ac415b85dae0a55b564911e3b8c7ad1de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load mapping from SDL_RWops filesystem.  <a href="_c_e_v__maps_8c.html#ac415b85dae0a55b564911e3b8c7ad1de">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac415b85dae0a55b564911e3b8c7ad1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a973035eb4b7ea5dc8fe1a279db5f036c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a973035eb4b7ea5dc8fe1a279db5f036c">CEV_mapCreate</a> (int layer, int width, int height, int tilePix)</td></tr>
+<tr class="memdesc:a973035eb4b7ea5dc8fe1a279db5f036c"><td class="mdescLeft">&#160;</td><td class="mdescRight">tile map creation  <a href="_c_e_v__maps_8c.html#a973035eb4b7ea5dc8fe1a279db5f036c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a973035eb4b7ea5dc8fe1a279db5f036c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c06a71a7e82c111c7dd30833c9628c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a98c06a71a7e82c111c7dd30833c9628c">CEV_mapDestroy</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *map)</td></tr>
+<tr class="memdesc:a98c06a71a7e82c111c7dd30833c9628c"><td class="mdescLeft">&#160;</td><td class="mdescRight">free and destroy allocated <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> structure.  <a href="_c_e_v__maps_8c.html#a98c06a71a7e82c111c7dd30833c9628c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a98c06a71a7e82c111c7dd30833c9628c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ed97012412cc578e62277f8de51ab2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#aa3ed97012412cc578e62277f8de51ab2">CEV_mapClear</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *map)</td></tr>
+<tr class="memdesc:aa3ed97012412cc578e62277f8de51ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">frees <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> structure content.  <a href="_c_e_v__maps_8c.html#aa3ed97012412cc578e62277f8de51ab2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa3ed97012412cc578e62277f8de51ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ed87cc2293ea21c0c5a69c8c4ca297"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a99ed87cc2293ea21c0c5a69c8c4ca297">CEV_mapTextureAttach</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *map, SDL_Texture *texture)</td></tr>
+<tr class="memdesc:a99ed87cc2293ea21c0c5a69c8c4ca297"><td class="mdescLeft">&#160;</td><td class="mdescRight">associate texture containing tiles to a <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a>.  <a href="_c_e_v__maps_8c.html#a99ed87cc2293ea21c0c5a69c8c4ca297">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a99ed87cc2293ea21c0c5a69c8c4ca297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a982496ee9919f606c2f5d10f032358cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a982496ee9919f606c2f5d10f032358cc">CEV_mapDraw</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Renderer *dst, int dispX, int dispY, int layer)</td></tr>
+<tr class="memdesc:a982496ee9919f606c2f5d10f032358cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws map.  <a href="_c_e_v__maps_8c.html#a982496ee9919f606c2f5d10f032358cc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a982496ee9919f606c2f5d10f032358cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a18b89942c0d8c9fd1d2115183131fb"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a8a18b89942c0d8c9fd1d2115183131fb">CEV_mapBlitPos</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, int tileX, int tileY, int dispX, int dispY)</td></tr>
+<tr class="memdesc:a8a18b89942c0d8c9fd1d2115183131fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">tile position on display  <a href="_c_e_v__maps_8c.html#a8a18b89942c0d8c9fd1d2115183131fb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8a18b89942c0d8c9fd1d2115183131fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdab72bdbb68517ee9b55b746fd9912e"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#acdab72bdbb68517ee9b55b746fd9912e">CEV_mapWorldDimPxl</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src)</td></tr>
+<tr class="memdesc:acdab72bdbb68517ee9b55b746fd9912e"><td class="mdescLeft">&#160;</td><td class="mdescRight">world dimensions in pixel  <a href="_c_e_v__maps_8c.html#acdab72bdbb68517ee9b55b746fd9912e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acdab72bdbb68517ee9b55b746fd9912e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab407fbb348154ee5984cfdfb7a1f0029"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#ab407fbb348154ee5984cfdfb7a1f0029">CEV_mapWhereInWorld</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, int dispX, int dispY)</td></tr>
+<tr class="memdesc:ab407fbb348154ee5984cfdfb7a1f0029"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate tiles displayed.  <a href="_c_e_v__maps_8c.html#ab407fbb348154ee5984cfdfb7a1f0029">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab407fbb348154ee5984cfdfb7a1f0029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a248942e48bb8fd5322bdc0f80dd314"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a1a248942e48bb8fd5322bdc0f80dd314">CEV_mapNeedScroll</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Renderer *dst)</td></tr>
+<tr class="memdesc:a1a248942e48bb8fd5322bdc0f80dd314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects if map needs scrolling.  <a href="_c_e_v__maps_8c.html#a1a248942e48bb8fd5322bdc0f80dd314">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1a248942e48bb8fd5322bdc0f80dd314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24ddc62b08474c7c6f8d5601583ec05c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a24ddc62b08474c7c6f8d5601583ec05c">CEV_mapIsHardTile</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Point pos)</td></tr>
+<tr class="memdesc:a24ddc62b08474c7c6f8d5601583ec05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">tile hardness status  <a href="_c_e_v__maps_8c.html#a24ddc62b08474c7c6f8d5601583ec05c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a24ddc62b08474c7c6f8d5601583ec05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83e08264dbba66460cf113a9aac274b8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a83e08264dbba66460cf113a9aac274b8">CEV_mapOptValue</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Point pos, int layer, int index)</td></tr>
+<tr class="memdesc:a83e08264dbba66460cf113a9aac274b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch tile parameter value  <a href="_c_e_v__maps_8c.html#a83e08264dbba66460cf113a9aac274b8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a83e08264dbba66460cf113a9aac274b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bbe75bda9fca07be0afcf5693fbcb78"><td class="memItemLeft" align="right" valign="top">SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a5bbe75bda9fca07be0afcf5693fbcb78">CEV_mapWorldPointToDisplayPoint</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Point pos)</td></tr>
+<tr class="memdesc:a5bbe75bda9fca07be0afcf5693fbcb78"><td class="mdescLeft">&#160;</td><td class="mdescRight">world point to display point  <a href="_c_e_v__maps_8c.html#a5bbe75bda9fca07be0afcf5693fbcb78">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5bbe75bda9fca07be0afcf5693fbcb78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a53963f5da015e4a4e9622f0944a64"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#aa7a53963f5da015e4a4e9622f0944a64">CEV_mapWorldPointToDisplayTile</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Point pos)</td></tr>
+<tr class="memdesc:aa7a53963f5da015e4a4e9622f0944a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">world point to tile display pos &amp; dim  <a href="_c_e_v__maps_8c.html#aa7a53963f5da015e4a4e9622f0944a64">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa7a53963f5da015e4a4e9622f0944a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bdb3a72aefe16db77344477f407b7d6"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a7bdb3a72aefe16db77344477f407b7d6">CEV_mapWorldPointToWorldTile</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Point pos)</td></tr>
+<tr class="memdesc:a7bdb3a72aefe16db77344477f407b7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">world point to tile's world pos &amp; dim  <a href="_c_e_v__maps_8c.html#a7bdb3a72aefe16db77344477f407b7d6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7bdb3a72aefe16db77344477f407b7d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77a866f06ab4880e7bcb9b6b0e1f1e6f"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a77a866f06ab4880e7bcb9b6b0e1f1e6f">CEV_mapWorldRectToMatrixTile</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, SDL_Rect pos)</td></tr>
+<tr class="memdesc:a77a866f06ab4880e7bcb9b6b0e1f1e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">world pos &amp; dim to tiles matrix pos &amp; dim  <a href="_c_e_v__maps_8c.html#a77a866f06ab4880e7bcb9b6b0e1f1e6f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a77a866f06ab4880e7bcb9b6b0e1f1e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a081aae60fe82e50aea5e535b546d8ef2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_m_a_p___tile.html">MAP_Tile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#a081aae60fe82e50aea5e535b546d8ef2">CEV_mapTileProps</a> (<a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *src, int tileX, int tileY, unsigned int layer)</td></tr>
+<tr class="memdesc:a081aae60fe82e50aea5e535b546d8ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch tile properties  <a href="_c_e_v__maps_8c.html#a081aae60fe82e50aea5e535b546d8ef2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a081aae60fe82e50aea5e535b546d8ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadbfea20148957a0b8d5be0620c5a04b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_m_a_p___tile.html">MAP_Tile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#aadbfea20148957a0b8d5be0620c5a04b">CEV_mapTileClear</a> (void)</td></tr>
+<tr class="memdesc:aadbfea20148957a0b8d5be0620c5a04b"><td class="mdescLeft">&#160;</td><td class="mdescRight">provides a clear 0'ed single tile.  <a href="_c_e_v__maps_8c.html#aadbfea20148957a0b8d5be0620c5a04b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aadbfea20148957a0b8d5be0620c5a04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed75489f12906732eca5148313184e67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_m_a_p___tile_anim.html">MAP_TileAnim</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__maps_8c.html#aed75489f12906732eca5148313184e67">CEV_mapTileAnimClear</a> (void)</td></tr>
+<tr class="memdesc:aed75489f12906732eca5148313184e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">provides a clear O'ed tile animation instance.  <a href="_c_e_v__maps_8c.html#aed75489f12906732eca5148313184e67">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aed75489f12906732eca5148313184e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a8a18b89942c0d8c9fd1d2115183131fb" name="a8a18b89942c0d8c9fd1d2115183131fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a18b89942c0d8c9fd1d2115183131fb">&#9670;&nbsp;</a></span>CEV_mapBlitPos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_mapBlitPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tileX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tileY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dispX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dispY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tile position on display </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">tileX</td><td>: tile X position (tile) </td></tr>
+    <tr><td class="paramname">tileY</td><td>: tile Y position (tile) </td></tr>
+    <tr><td class="paramname">dispX</td><td>: left position of display in map (pixel) </td></tr>
+    <tr><td class="paramname">dispY</td><td>: top position of display in map (pixel)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as position an dimensions of tile(x,y) on display (pixel) </dd></dl>
+
+</div>
+</div>
+<a id="aa3ed97012412cc578e62277f8de51ab2" name="aa3ed97012412cc578e62277f8de51ab2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ed97012412cc578e62277f8de51ab2">&#9670;&nbsp;</a></span>CEV_mapClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mapClear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>frees <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> structure content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to clear.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a973035eb4b7ea5dc8fe1a279db5f036c" name="a973035eb4b7ea5dc8fe1a279db5f036c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a973035eb4b7ea5dc8fe1a279db5f036c">&#9670;&nbsp;</a></span>CEV_mapCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> * CEV_mapCreate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>layers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tilePix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tile map creation </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layers</td><td>: number of layers in map. </td></tr>
+    <tr><td class="paramname">width</td><td>: number of tiles. </td></tr>
+    <tr><td class="paramname">height</td><td>: number of tiles. </td></tr>
+    <tr><td class="paramname">tilePix</td><td>: tile size in pixel (16,32,64).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Return a tile map pointer or NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a98c06a71a7e82c111c7dd30833c9628c" name="a98c06a71a7e82c111c7dd30833c9628c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c06a71a7e82c111c7dd30833c9628c">&#9670;&nbsp;</a></span>CEV_mapDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mapDestroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>free and destroy allocated <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> structure. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to free.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a982496ee9919f606c2f5d10f032358cc" name="a982496ee9919f606c2f5d10f032358cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a982496ee9919f606c2f5d10f032358cc">&#9670;&nbsp;</a></span>CEV_mapDraw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mapDraw </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dispX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dispY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws map. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to be drawn. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Renderer to draw onto. </td></tr>
+    <tr><td class="paramname">dispX</td><td>: Left position of map drawing (camera position). </td></tr>
+    <tr><td class="paramname">dispY</td><td>: Top position of map drawing (camera position). </td></tr>
+    <tr><td class="paramname">layer</td><td>: layer to display, negatif value show them all.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A </dd></dl>
+
+</div>
+</div>
+<a id="a24ddc62b08474c7c6f8d5601583ec05c" name="a24ddc62b08474c7c6f8d5601583ec05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24ddc62b08474c7c6f8d5601583ec05c">&#9670;&nbsp;</a></span>CEV_mapIsHardTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_mapIsHardTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tile hardness status </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">pos</td><td>: position to check (in pixel)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if pos is on a hard tile </dd></dl>
+
+</div>
+</div>
+<a id="a7eb9003ecbd955c454676a44c577e863" name="a7eb9003ecbd955c454676a44c577e863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb9003ecbd955c454676a44c577e863">&#9670;&nbsp;</a></span>CEV_mapLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> * CEV_mapLoad </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load mapping from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: name of file to be loaded</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>ptr on <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> on success, NULL on error</dd></dl>
+<p>More details </p>
+<p >PRL</p>
+<p >EXE</p>
+
+</div>
+</div>
+<a id="ac415b85dae0a55b564911e3b8c7ad1de" name="ac415b85dae0a55b564911e3b8c7ad1de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac415b85dae0a55b564911e3b8c7ad1de">&#9670;&nbsp;</a></span>CEV_mapLoad_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> * CEV_mapLoad_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>vfile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>freeSrc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load mapping from SDL_RWops filesystem. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vfile</td><td>: SDL_RWops ptr to read from </td></tr>
+    <tr><td class="paramname">freeSrc</td><td>: Let decide whether close SDL_RWops or not.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Return ptr on <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> on success, NULL on error. </dd></dl>
+<p >PRL</p>
+
+</div>
+</div>
+<a id="a1a248942e48bb8fd5322bdc0f80dd314" name="a1a248942e48bb8fd5322bdc0f80dd314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a248942e48bb8fd5322bdc0f80dd314">&#9670;&nbsp;</a></span>CEV_mapNeedScroll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_mapNeedScroll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Detects if map needs scrolling. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check. </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_Renderer to draw onto.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if map is too big for renderer. </dd></dl>
+
+</div>
+</div>
+<a id="a83e08264dbba66460cf113a9aac274b8" name="a83e08264dbba66460cf113a9aac274b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83e08264dbba66460cf113a9aac274b8">&#9670;&nbsp;</a></span>CEV_mapOptValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_mapOptValue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch tile parameter value </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">pos</td><td>: position in world to check (pixels) </td></tr>
+    <tr><td class="paramname">layer</td><td>: which layer to check (pixels) </td></tr>
+    <tr><td class="paramname">index</td><td>: which option to check (0-9)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>parameter value </dd></dl>
+
+</div>
+</div>
+<a id="ad8ab800b844c5cf5762bc08b55678ea8" name="ad8ab800b844c5cf5762bc08b55678ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8ab800b844c5cf5762bc08b55678ea8">&#9670;&nbsp;</a></span>CEV_mapSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_mapSave </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>dstFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>embeddPic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>saves map into file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to structure to save. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file name to save into. </td></tr>
+    <tr><td class="paramname">embeddPic</td><td>: associated tile set will be embedded into file.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>any CEV standard. </dd></dl>
+<p >PRL</p>
+<p >EXE</p>
+
+</div>
+</div>
+<a id="a99ed87cc2293ea21c0c5a69c8c4ca297" name="a99ed87cc2293ea21c0c5a69c8c4ca297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ed87cc2293ea21c0c5a69c8c4ca297">&#9670;&nbsp;</a></span>CEV_mapTextureAttach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_mapTextureAttach </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>associate texture containing tiles to a <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to associate texture with. </td></tr>
+    <tr><td class="paramname">texture</td><td>: SDL_Texture ptr to assiciate map with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true if texture is succesfully applied. </dd></dl>
+
+</div>
+</div>
+<a id="aed75489f12906732eca5148313184e67" name="aed75489f12906732eca5148313184e67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed75489f12906732eca5148313184e67">&#9670;&nbsp;</a></span>CEV_mapTileAnimClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_m_a_p___tile_anim.html">MAP_TileAnim</a> CEV_mapTileAnimClear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>provides a clear O'ed tile animation instance. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_m_a_p___tile_anim.html" title="animated tile definition">MAP_TileAnim</a> as clear tile animation. </dd></dl>
+
+</div>
+</div>
+<a id="aadbfea20148957a0b8d5be0620c5a04b" name="aadbfea20148957a0b8d5be0620c5a04b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbfea20148957a0b8d5be0620c5a04b">&#9670;&nbsp;</a></span>CEV_mapTileClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_m_a_p___tile.html">MAP_Tile</a> CEV_mapTileClear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>provides a clear 0'ed single tile. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="struct_m_a_p___tile.html" title="single tile definition">MAP_Tile</a> as clear tile. </dd></dl>
+
+</div>
+</div>
+<a id="a081aae60fe82e50aea5e535b546d8ef2" name="a081aae60fe82e50aea5e535b546d8ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a081aae60fe82e50aea5e535b546d8ef2">&#9670;&nbsp;</a></span>CEV_mapTileProps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_m_a_p___tile.html">MAP_Tile</a> * CEV_mapTileProps </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tileX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tileY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch tile properties </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_TileMap* to fetch tile from </td></tr>
+    <tr><td class="paramname">tileX</td><td>: X position of tile in tile matrix </td></tr>
+    <tr><td class="paramname">tileY</td><td>: Y position of tile in tile matrix </td></tr>
+    <tr><td class="paramname">layer</td><td>: layer index of tile</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>MAP_Tile* to requested tile. </dd></dl>
+
+</div>
+</div>
+<a id="ab407fbb348154ee5984cfdfb7a1f0029" name="ab407fbb348154ee5984cfdfb7a1f0029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab407fbb348154ee5984cfdfb7a1f0029">&#9670;&nbsp;</a></span>CEV_mapWhereInWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_mapWhereInWorld </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dispX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dispY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculate tiles displayed. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to be drawn. </td></tr>
+    <tr><td class="paramname">dispX</td><td>: X position of display in world (pixels). </td></tr>
+    <tr><td class="paramname">dispY</td><td>: Y position of display in world (pixels).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect filled with positions and dimensions (tiles). </dd></dl>
+
+</div>
+</div>
+<a id="acdab72bdbb68517ee9b55b746fd9912e" name="acdab72bdbb68517ee9b55b746fd9912e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdab72bdbb68517ee9b55b746fd9912e">&#9670;&nbsp;</a></span>CEV_mapWorldDimPxl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_mapWorldDimPxl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>world dimensions in pixel </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_TileMap* to get dimensions from (pixels).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect </dd></dl>
+
+</div>
+</div>
+<a id="a5bbe75bda9fca07be0afcf5693fbcb78" name="a5bbe75bda9fca07be0afcf5693fbcb78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bbe75bda9fca07be0afcf5693fbcb78">&#9670;&nbsp;</a></span>CEV_mapWorldPointToDisplayPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Point CEV_mapWorldPointToDisplayPoint </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>world point to display point </p>
+<p >Landmark translation from world</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">pos</td><td>: point position in map (pixel)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Point as 'pos' position on screen (pixel) </dd></dl>
+
+</div>
+</div>
+<a id="aa7a53963f5da015e4a4e9622f0944a64" name="aa7a53963f5da015e4a4e9622f0944a64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a53963f5da015e4a4e9622f0944a64">&#9670;&nbsp;</a></span>CEV_mapWorldPointToDisplayTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_mapWorldPointToDisplayTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>world point to tile display pos &amp; dim </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">pos</td><td>: point position in map (pixel)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as display position of tile under 'pos' </dd></dl>
+
+</div>
+</div>
+<a id="a7bdb3a72aefe16db77344477f407b7d6" name="a7bdb3a72aefe16db77344477f407b7d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bdb3a72aefe16db77344477f407b7d6">&#9670;&nbsp;</a></span>CEV_mapWorldPointToWorldTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_mapWorldPointToWorldTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>world point to tile's world pos &amp; dim </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">pos</td><td>: point position in map (pixel) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as world position of tile under 'pos' </dd></dl>
+
+</div>
+</div>
+<a id="a77a866f06ab4880e7bcb9b6b0e1f1e6f" name="a77a866f06ab4880e7bcb9b6b0e1f1e6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77a866f06ab4880e7bcb9b6b0e1f1e6f">&#9670;&nbsp;</a></span>CEV_mapWorldRectToMatrixTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect CEV_mapWorldRectToMatrixTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>world pos &amp; dim to tiles matrix pos &amp; dim </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: <a class="el" href="struct_c_e_v___tile_map.html" title="tile map definition">CEV_TileMap</a> ptr to check </td></tr>
+    <tr><td class="paramname">pos</td><td>: rect position in map (pixel)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Rect as tiles position in tile matrix </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__maps_8c.html">CEV_maps.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -6,19 +6,21 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <stdint.h>
 #include <stdbool.h>
+
 #include <SDL.h>
-#include <CEV_api.h>
+#include "CEV_api.h"
 #include "CEV_chrono.h"
 
 
-#include <stdint.h>
-#include <CEV_mixSystem.h>
 
+
+/*
 void TEST_cevChrono(void)
 {//functions stress and testing
 
+#include <CEV_mixSystem.h>
     CEV_Chrono chrono;
     CEV_Input* input = CEV_inputGet();
     CEV_Edge pauseBt;
@@ -58,7 +60,7 @@ void TEST_cevChrono(void)
         printf("%u\n", CEV_chronoTicks());
     }
 }
-
+*/
 
 
 CEV_Chrono* CEV_chronoSet(CEV_Chrono *in)

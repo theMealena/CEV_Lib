@@ -1,0 +1,1084 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_weather.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__weather_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Définitions de type</a> &#124;
+<a href="#enum-members">Énumérations</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_weather.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__types_8h_source.html">CEV_types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__camera_8h_source.html">CEV_camera.h</a>&gt;</code><br />
+</div>
+<p><a href="_c_e_v__weather_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s___c_e_v___weather.html">S_CEV_Weather</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weather main structure.  <a href="struct_s___c_e_v___weather.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:acd31ebcd68fb523c6e4ab1fc14152f95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#acd31ebcd68fb523c6e4ab1fc14152f95">WEATHER_ID</a>&#160;&#160;&#160;0x0F000000</td></tr>
+<tr class="separator:acd31ebcd68fb523c6e4ab1fc14152f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Définitions de type</h2></td></tr>
+<tr class="memitem:a040f4e3003856db38f518643385ebb77"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s___c_e_v___particle.html">S_CEV_Particle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a040f4e3003856db38f518643385ebb77">CEV_Particle</a></td></tr>
+<tr class="separator:a040f4e3003856db38f518643385ebb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4876382b791b926222087c2d06015dc2"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_s___c_e_v___weather.html">S_CEV_Weather</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a></td></tr>
+<tr class="memdesc:a4876382b791b926222087c2d06015dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weather main structure.  <a href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4876382b791b926222087c2d06015dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:a05589fbab0657f08285ebdfe93f5ec9e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9ea9dde69d5a4cd49515eb0b0c62f13e350">WEATHER_SNOW</a>
+, <a class="el" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaf58e304c8e3a4b4562c6255d67c0a243">WEATHER_RAIN</a>
+, <a class="el" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094">WEATHER_FALL</a>
+, <a class="el" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9ea29c938c10c525793b36d4ce568bf1e5b">WEATHER_NUM</a>
+ }</td></tr>
+<tr class="separator:a05589fbab0657f08285ebdfe93f5ec9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a7290998948e9be7100dde621caf32a13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a7290998948e9be7100dde621caf32a13">CEV_weatherDump</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *this, bool dumpParticles)</td></tr>
+<tr class="memdesc:a7290998948e9be7100dde621caf32a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps weather content to stdout.  <a href="_c_e_v__weather_8h.html#a7290998948e9be7100dde621caf32a13">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7290998948e9be7100dde621caf32a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73e15288e8aa4d3c50d3cb5f53fded7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#aa73e15288e8aa4d3c50d3cb5f53fded7">CEV_weatherParticleDump</a> (<a class="el" href="_c_e_v__weather_8c.html#a040f4e3003856db38f518643385ebb77">CEV_Particle</a> *this)</td></tr>
+<tr class="memdesc:aa73e15288e8aa4d3c50d3cb5f53fded7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dumps single particle content to stdout.  <a href="_c_e_v__weather_8h.html#aa73e15288e8aa4d3c50d3cb5f53fded7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa73e15288e8aa4d3c50d3cb5f53fded7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e83648a4b73818970f8806e457001a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a09e83648a4b73818970f8806e457001a">CEV_weatherCreate</a> (uint8_t type, unsigned int num, int vx, int vy)</td></tr>
+<tr class="memdesc:a09e83648a4b73818970f8806e457001a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new weather instance.  <a href="_c_e_v__weather_8h.html#a09e83648a4b73818970f8806e457001a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a09e83648a4b73818970f8806e457001a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0b484b037c56d88f34b98271a7bd06f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#af0b484b037c56d88f34b98271a7bd06f">CEV_weatherDestroy</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in, bool freePic)</td></tr>
+<tr class="memdesc:af0b484b037c56d88f34b98271a7bd06f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free CEV_Weather allocations.  <a href="_c_e_v__weather_8h.html#af0b484b037c56d88f34b98271a7bd06f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af0b484b037c56d88f34b98271a7bd06f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80bcec6f8e132251c8e2d02f89a9f8ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a80bcec6f8e132251c8e2d02f89a9f8ff">CEV_weatherClear</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in, bool freePic)</td></tr>
+<tr class="memdesc:a80bcec6f8e132251c8e2d02f89a9f8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees CEV_Weather content and sets to 0 / NULL.  <a href="_c_e_v__weather_8h.html#a80bcec6f8e132251c8e2d02f89a9f8ff">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a80bcec6f8e132251c8e2d02f89a9f8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7f3106a4ec4bea23fd68af5f561099c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#ae7f3106a4ec4bea23fd68af5f561099c">CEV_weatherShow</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in)</td></tr>
+<tr class="memdesc:ae7f3106a4ec4bea23fd68af5f561099c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates and display weather on screen.  <a href="_c_e_v__weather_8h.html#ae7f3106a4ec4bea23fd68af5f561099c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae7f3106a4ec4bea23fd68af5f561099c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0764439811161a506a658cb06693686a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a0764439811161a506a658cb06693686a">CEV_weatherShowWithLayer</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in, float min, float max)</td></tr>
+<tr class="memdesc:a0764439811161a506a658cb06693686a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates and display specified sized particles.  <a href="_c_e_v__weather_8h.html#a0764439811161a506a658cb06693686a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0764439811161a506a658cb06693686a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8925e7648887b85af712633f99ce2ee3"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a8925e7648887b85af712633f99ce2ee3">CEV_weatherParticleNumSet</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in, unsigned int num)</td></tr>
+<tr class="memdesc:a8925e7648887b85af712633f99ce2ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modify the number of particles to update/dsplay.  <a href="_c_e_v__weather_8h.html#a8925e7648887b85af712633f99ce2ee3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8925e7648887b85af712633f99ce2ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a145487f43f68492486c837c554782bb0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a145487f43f68492486c837c554782bb0">CEV_weatherParticleNumReset</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in)</td></tr>
+<tr class="memdesc:a145487f43f68492486c837c554782bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modify number of particles to base value (as in weatherCreate)  <a href="_c_e_v__weather_8h.html#a145487f43f68492486c837c554782bb0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a145487f43f68492486c837c554782bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47ec5586a241b21ed5d9bf1c114127df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a47ec5586a241b21ed5d9bf1c114127df">CEV_weatherStart</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in)</td></tr>
+<tr class="memdesc:a47ec5586a241b21ed5d9bf1c114127df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts weather effect.  <a href="_c_e_v__weather_8h.html#a47ec5586a241b21ed5d9bf1c114127df">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a47ec5586a241b21ed5d9bf1c114127df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7601c05f415f4c646a4492cf40aec145"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a7601c05f415f4c646a4492cf40aec145">CEV_weatherStop</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *in)</td></tr>
+<tr class="memdesc:a7601c05f415f4c646a4492cf40aec145"><td class="mdescLeft">&#160;</td><td class="mdescRight">stop display  <a href="_c_e_v__weather_8h.html#a7601c05f415f4c646a4492cf40aec145">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7601c05f415f4c646a4492cf40aec145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6aad4ac5c139fbbe9f2cf5337398b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a4a6aad4ac5c139fbbe9f2cf5337398b2">CEV_weatherParticleBuild</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *dst)</td></tr>
+<tr class="memdesc:a4a6aad4ac5c139fbbe9f2cf5337398b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds / rebuilds particles.  <a href="_c_e_v__weather_8h.html#a4a6aad4ac5c139fbbe9f2cf5337398b2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4a6aad4ac5c139fbbe9f2cf5337398b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2d422c3df8c4277cbe111be9db6946e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#ab2d422c3df8c4277cbe111be9db6946e">CEV_weatherParticleMaxSize</a> (float src, <a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *dst)</td></tr>
+<tr class="memdesc:ab2d422c3df8c4277cbe111be9db6946e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets maximum particle size.  <a href="_c_e_v__weather_8h.html#ab2d422c3df8c4277cbe111be9db6946e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab2d422c3df8c4277cbe111be9db6946e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9edb81d0b50041e58eb40bc7dca4862b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a9edb81d0b50041e58eb40bc7dca4862b">CEV_weatherParticleMinSize</a> (float src, <a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *dst)</td></tr>
+<tr class="memdesc:a9edb81d0b50041e58eb40bc7dca4862b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets minimum particle size.  <a href="_c_e_v__weather_8h.html#a9edb81d0b50041e58eb40bc7dca4862b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9edb81d0b50041e58eb40bc7dca4862b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c57c9ba3fd9d6a30655480f1afbc81"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a40c57c9ba3fd9d6a30655480f1afbc81">CEV_weatherParticleSizeOf</a> (void)</td></tr>
+<tr class="memdesc:a40c57c9ba3fd9d6a30655480f1afbc81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns singe particle structure sizeof.  <a href="_c_e_v__weather_8h.html#a40c57c9ba3fd9d6a30655480f1afbc81">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a40c57c9ba3fd9d6a30655480f1afbc81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69c9430b98cb047140a224d5f2d64853"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a69c9430b98cb047140a224d5f2d64853">CEV_weatherTextureAttach</a> (SDL_Texture *src, <a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *dst)</td></tr>
+<tr class="memdesc:a69c9430b98cb047140a224d5f2d64853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attached texture to use as particle.  <a href="_c_e_v__weather_8h.html#a69c9430b98cb047140a224d5f2d64853">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a69c9430b98cb047140a224d5f2d64853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68a80db4b0508ee64892814816d30f07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a68a80db4b0508ee64892814816d30f07">CEV_weatherCameraAttach</a> (<a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *src, <a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *dst)</td></tr>
+<tr class="memdesc:a68a80db4b0508ee64892814816d30f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets / attach camera to be used for scrolling effect.  <a href="_c_e_v__weather_8h.html#a68a80db4b0508ee64892814816d30f07">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a68a80db4b0508ee64892814816d30f07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac44ae74b63718ca1630426b4431bdb1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#aac44ae74b63718ca1630426b4431bdb1">CEV_weatherLoad</a> (char *fileName)</td></tr>
+<tr class="memdesc:aac44ae74b63718ca1630426b4431bdb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads weather file  <a href="_c_e_v__weather_8h.html#aac44ae74b63718ca1630426b4431bdb1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aac44ae74b63718ca1630426b4431bdb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7a21c1d7cfeaa9990511464da04b45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#abc7a21c1d7cfeaa9990511464da04b45">CEV_weatherLoad_RW</a> (SDL_RWops *ops, char freeSrc)</td></tr>
+<tr class="memdesc:abc7a21c1d7cfeaa9990511464da04b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads weather file from RWops  <a href="_c_e_v__weather_8h.html#abc7a21c1d7cfeaa9990511464da04b45">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abc7a21c1d7cfeaa9990511464da04b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc5e2605a35283349673b9f8c7ce20e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#adbc5e2605a35283349673b9f8c7ce20e">CEV_weatherSave</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *src, <a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *picture, char *fileName)</td></tr>
+<tr class="memdesc:adbc5e2605a35283349673b9f8c7ce20e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves CEV_Weather into file.  <a href="_c_e_v__weather_8h.html#adbc5e2605a35283349673b9f8c7ce20e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adbc5e2605a35283349673b9f8c7ce20e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa2a3827f8d01b0c7a60332f0b1b36b3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#aaa2a3827f8d01b0c7a60332f0b1b36b3">CEV_weatherTypeWrite</a> (<a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *src, <a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *picture, FILE *dst)</td></tr>
+<tr class="memdesc:aaa2a3827f8d01b0c7a60332f0b1b36b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes CEV_Weather into file.  <a href="_c_e_v__weather_8h.html#aaa2a3827f8d01b0c7a60332f0b1b36b3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaa2a3827f8d01b0c7a60332f0b1b36b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e1ce40a72aa5b15ce60acfccb632ad3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__weather_8h.html#a1e1ce40a72aa5b15ce60acfccb632ad3">CEV_convertWeatherCSVToData</a> (char *src, char *dst)</td></tr>
+<tr class="memdesc:a1e1ce40a72aa5b15ce60acfccb632ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">turns csv file into weather data type file  <a href="_c_e_v__weather_8h.html#a1e1ce40a72aa5b15ce60acfccb632ad3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1e1ce40a72aa5b15ce60acfccb632ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des macros</h2>
+<a id="acd31ebcd68fb523c6e4ab1fc14152f95" name="acd31ebcd68fb523c6e4ab1fc14152f95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd31ebcd68fb523c6e4ab1fc14152f95">&#9670;&nbsp;</a></span>WEATHER_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WEATHER_ID&#160;&#160;&#160;0x0F000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li>landmark used is as : 0 .___x /| / | z y</li>
+</ul>
+<p >with (float)Z = 1.0 as nearest, 0.1.. as furthest</p>
+<ul>
+<li>file extension : file.wtr</li>
+<li>ID as 0xTTOOIIII TT = type of file = IS_WTHR (15 - 0x0F) OO = type of object (0) IIII = ID for this game object</li>
+<li>CSV file content / tab separator : 12 WEATHER_RAIN 200 -2 5 thisPic.png ID type num of part Vx Vy picture file relative to CSV</li>
+<li><p class="startli">weather file content : u32 : Unique ID : Texture's picture unique ID (0) if embedded : Num of particles (num is saved, numax is read) s32 : Vx : Vy u8 : Weather type</p>
+<p class="startli">if !SrcID <a class="el" href="struct_c_e_v___capsule.html" title="File encapsulation.">CEV_Capsule</a> : png as texture. </p>
+</li>
+</ul>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des définitions de type</h2>
+<a id="a040f4e3003856db38f518643385ebb77" name="a040f4e3003856db38f518643385ebb77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a040f4e3003856db38f518643385ebb77">&#9670;&nbsp;</a></span>CEV_Particle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s___c_e_v___particle.html">S_CEV_Particle</a> <a class="el" href="_c_e_v__weather_8c.html#a040f4e3003856db38f518643385ebb77">CEV_Particle</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4876382b791b926222087c2d06015dc2" name="a4876382b791b926222087c2d06015dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4876382b791b926222087c2d06015dc2">&#9670;&nbsp;</a></span>CEV_Weather</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_s___c_e_v___weather.html">S_CEV_Weather</a> <a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Weather main structure. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a id="a05589fbab0657f08285ebdfe93f5ec9e" name="a05589fbab0657f08285ebdfe93f5ec9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05589fbab0657f08285ebdfe93f5ec9e">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="a05589fbab0657f08285ebdfe93f5ec9ea9dde69d5a4cd49515eb0b0c62f13e350" name="a05589fbab0657f08285ebdfe93f5ec9ea9dde69d5a4cd49515eb0b0c62f13e350"></a>WEATHER_SNOW&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a05589fbab0657f08285ebdfe93f5ec9eaf58e304c8e3a4b4562c6255d67c0a243" name="a05589fbab0657f08285ebdfe93f5ec9eaf58e304c8e3a4b4562c6255d67c0a243"></a>WEATHER_RAIN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094" name="a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094"></a>WEATHER_FALL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a05589fbab0657f08285ebdfe93f5ec9ea29c938c10c525793b36d4ce568bf1e5b" name="a05589fbab0657f08285ebdfe93f5ec9ea29c938c10c525793b36d4ce568bf1e5b"></a>WEATHER_NUM&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a1e1ce40a72aa5b15ce60acfccb632ad3" name="a1e1ce40a72aa5b15ce60acfccb632ad3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e1ce40a72aa5b15ce60acfccb632ad3">&#9670;&nbsp;</a></span>CEV_convertWeatherCSVToData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_convertWeatherCSVToData </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>turns csv file into weather data type file </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: name of source file to read from </td></tr>
+    <tr><td class="paramname">dst</td><td>: name of output file</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>standard function status * </dd></dl>
+
+</div>
+</div>
+<a id="a68a80db4b0508ee64892814816d30f07" name="a68a80db4b0508ee64892814816d30f07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68a80db4b0508ee64892814816d30f07">&#9670;&nbsp;</a></span>CEV_weatherCameraAttach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherCameraAttach </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__camera_8h.html#ad2b566b789f3588b9fdc405e4df096ee">CEV_Camera</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets / attach camera to be used for scrolling effect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Camera* to be followed. </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Weather* to follow camera.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>weather behave like on fix screen if no camera is attached. </dd></dl>
+
+</div>
+</div>
+<a id="a80bcec6f8e132251c8e2d02f89a9f8ff" name="a80bcec6f8e132251c8e2d02f89a9f8ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80bcec6f8e132251c8e2d02f89a9f8ff">&#9670;&nbsp;</a></span>CEV_weatherClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherClear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>freePic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees CEV_Weather content and sets to 0 / NULL. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: pointer to a CEV_Weather to clear. </td></tr>
+    <tr><td class="paramname">freePic</td><td>: does function destroy embedded texture ?.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>NULL compliant. </dd></dl>
+
+</div>
+</div>
+<a id="a09e83648a4b73818970f8806e457001a" name="a09e83648a4b73818970f8806e457001a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09e83648a4b73818970f8806e457001a">&#9670;&nbsp;</a></span>CEV_weatherCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> * CEV_weatherCreate </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>vx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>vy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new weather instance. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>: uint8_t of enum of weather type. </td></tr>
+    <tr><td class="paramname">num</td><td>: number of particles for this instance. </td></tr>
+    <tr><td class="paramname">vx</td><td>: horizontal amplitude (delta x) for snow &amp; fall, X velocity for rain. </td></tr>
+    <tr><td class="paramname">vy</td><td>: vertical speed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Weather* to instance, NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="af0b484b037c56d88f34b98271a7bd06f" name="af0b484b037c56d88f34b98271a7bd06f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0b484b037c56d88f34b98271a7bd06f">&#9670;&nbsp;</a></span>CEV_weatherDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherDestroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>freePic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free CEV_Weather allocations. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: pointer to a CEV_Weather to free. </td></tr>
+    <tr><td class="paramname">freePic</td><td>: does function destroy embedded texture ?.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>NULL compliant. </dd></dl>
+
+</div>
+</div>
+<a id="a7290998948e9be7100dde621caf32a13" name="a7290998948e9be7100dde621caf32a13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7290998948e9be7100dde621caf32a13">&#9670;&nbsp;</a></span>CEV_weatherDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherDump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>dumpParticles</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dumps weather content to stdout. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">this</td><td>: CEV_Weather* to dump. </td></tr>
+    <tr><td class="paramname">dumpParticles</td><td>: dumps every allocated particle if true (slow).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void.</dd></dl>
+<p>Dumps weather content to stdout. </p>
+
+</div>
+</div>
+<a id="aac44ae74b63718ca1630426b4431bdb1" name="aac44ae74b63718ca1630426b4431bdb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac44ae74b63718ca1630426b4431bdb1">&#9670;&nbsp;</a></span>CEV_weatherLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> * CEV_weatherLoad </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads weather file </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: name of the weather file to read from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Weather* on success, NULL on failure</dd></dl>
+<p>loads weather file </p>
+
+</div>
+</div>
+<a id="abc7a21c1d7cfeaa9990511464da04b45" name="abc7a21c1d7cfeaa9990511464da04b45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc7a21c1d7cfeaa9990511464da04b45">&#9670;&nbsp;</a></span>CEV_weatherLoad_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> * CEV_weatherLoad_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>ops</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>freeSrc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads weather file from RWops </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ops</td><td>: RWops* to read from </td></tr>
+    <tr><td class="paramname">freeSrc</td><td>: if true, function will free source ops</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Weather* on success, NULL on failure </dd></dl>
+
+</div>
+</div>
+<a id="a4a6aad4ac5c139fbbe9f2cf5337398b2" name="a4a6aad4ac5c139fbbe9f2cf5337398b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a6aad4ac5c139fbbe9f2cf5337398b2">&#9670;&nbsp;</a></span>CEV_weatherParticleBuild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherParticleBuild </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>dst</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds / rebuilds particles. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dst</td><td>: CEV_Weather* of which particles must be build.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Usefull if behaviour needs to be changed. Might need to call texture attach to resize particles display. </dd></dl>
+
+</div>
+</div>
+<a id="aa73e15288e8aa4d3c50d3cb5f53fded7" name="aa73e15288e8aa4d3c50d3cb5f53fded7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73e15288e8aa4d3c50d3cb5f53fded7">&#9670;&nbsp;</a></span>CEV_weatherParticleDump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherParticleDump </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8c.html#a040f4e3003856db38f518643385ebb77">CEV_Particle</a> *&#160;</td>
+          <td class="paramname"><em>this</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dumps single particle content to stdout. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">this</td><td>: CEV_Particle* to dump.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="ab2d422c3df8c4277cbe111be9db6946e" name="ab2d422c3df8c4277cbe111be9db6946e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2d422c3df8c4277cbe111be9db6946e">&#9670;&nbsp;</a></span>CEV_weatherParticleMaxSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherParticleMaxSize </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets maximum particle size. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: float as maximum particle size (texture size multiplier) </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Weather* to modify.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="a9edb81d0b50041e58eb40bc7dca4862b" name="a9edb81d0b50041e58eb40bc7dca4862b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9edb81d0b50041e58eb40bc7dca4862b">&#9670;&nbsp;</a></span>CEV_weatherParticleMinSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherParticleMinSize </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets minimum particle size. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: float as maximum particle size (texture size multiplier) </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Weather* to modify.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="a145487f43f68492486c837c554782bb0" name="a145487f43f68492486c837c554782bb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a145487f43f68492486c837c554782bb0">&#9670;&nbsp;</a></span>CEV_weatherParticleNumReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int CEV_weatherParticleNumReset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modify number of particles to base value (as in weatherCreate) </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Weather* to apply reset on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>unsigned int as number of active particles. </dd></dl>
+
+</div>
+</div>
+<a id="a8925e7648887b85af712633f99ce2ee3" name="a8925e7648887b85af712633f99ce2ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8925e7648887b85af712633f99ce2ee3">&#9670;&nbsp;</a></span>CEV_weatherParticleNumSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int CEV_weatherParticleNumSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modify the number of particles to update/dsplay. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>CEV_Weather* : instance to modify </td></tr>
+    <tr><td class="paramname">num</td><td>unsigned int : new number of particles to process.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>number of active particles. </dd></dl>
+
+</div>
+</div>
+<a id="a40c57c9ba3fd9d6a30655480f1afbc81" name="a40c57c9ba3fd9d6a30655480f1afbc81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40c57c9ba3fd9d6a30655480f1afbc81">&#9670;&nbsp;</a></span>CEV_weatherParticleSizeOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t CEV_weatherParticleSizeOf </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns singe particle structure sizeof. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>size_t as size of single particle structure size in bytes. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Particles is opaque, to be used if alloc / realloc is needed. </dd></dl>
+
+</div>
+</div>
+<a id="adbc5e2605a35283349673b9f8c7ce20e" name="adbc5e2605a35283349673b9f8c7ce20e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbc5e2605a35283349673b9f8c7ce20e">&#9670;&nbsp;</a></span>CEV_weatherSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_weatherSave </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>picture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves CEV_Weather into file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Weather* to save. </td></tr>
+    <tr><td class="paramname">picture</td><td>: CEV_Capsule* as picture to include in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: char* as resulting file name.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : of standard function status.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>picture file is not embedded if picture is NULL. </dd></dl>
+
+</div>
+</div>
+<a id="ae7f3106a4ec4bea23fd68af5f561099c" name="ae7f3106a4ec4bea23fd68af5f561099c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7f3106a4ec4bea23fd68af5f561099c">&#9670;&nbsp;</a></span>CEV_weatherShow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherShow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates and display weather on screen. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Weather* of instance to display.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="a0764439811161a506a658cb06693686a" name="a0764439811161a506a658cb06693686a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0764439811161a506a658cb06693686a">&#9670;&nbsp;</a></span>CEV_weatherShowWithLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherShowWithLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates and display specified sized particles. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Weather to display </td></tr>
+    <tr><td class="paramname">min</td><td>: float value as minimum size to display [0.0 ; 1.0] </td></tr>
+    <tr><td class="paramname">max</td><td>: float value as maximum size to display [0.0 ; 1.0]</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+<p >NEW FROM HERE (25/02/2023) from fall</p>
+
+</div>
+</div>
+<a id="a47ec5586a241b21ed5d9bf1c114127df" name="a47ec5586a241b21ed5d9bf1c114127df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ec5586a241b21ed5d9bf1c114127df">&#9670;&nbsp;</a></span>CEV_weatherStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherStart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts weather effect. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Weather* to be started.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Effect starts softly. </dd></dl>
+
+</div>
+</div>
+<a id="a7601c05f415f4c646a4492cf40aec145" name="a7601c05f415f4c646a4492cf40aec145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7601c05f415f4c646a4492cf40aec145">&#9670;&nbsp;</a></span>CEV_weatherStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherStop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>stop display </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>: CEV_Weather* to be stopped.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="a69c9430b98cb047140a224d5f2d64853" name="a69c9430b98cb047140a224d5f2d64853"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69c9430b98cb047140a224d5f2d64853">&#9670;&nbsp;</a></span>CEV_weatherTextureAttach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_weatherTextureAttach </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attached texture to use as particle. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_Texture* to be used as particle. </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Weather* to use this texture.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Already attached Texture is not destroyed. </dd></dl>
+
+</div>
+</div>
+<a id="aaa2a3827f8d01b0c7a60332f0b1b36b3" name="aaa2a3827f8d01b0c7a60332f0b1b36b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa2a3827f8d01b0c7a60332f0b1b36b3">&#9670;&nbsp;</a></span>CEV_weatherTypeWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_weatherTypeWrite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>picture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Writes CEV_Weather into file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Weather* to save. </td></tr>
+    <tr><td class="paramname">picture</td><td>: CEV_Capsule* as picture to include in file. </td></tr>
+    <tr><td class="paramname">dst</td><td>: FILE* to write into.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : of standard function status.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>picture file is not embedded if picture is NULL. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__weather_8h.html">CEV_weather.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

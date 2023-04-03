@@ -19,36 +19,26 @@
 
 
 CEV_GifAnim * CEV_gifAnimLoad(const char* fileName, SDL_Renderer *renderer)
-{/*direct gif animation load from gif file*/
-
-        /*DEC**/
+{//direct gif animation load from gif file
 
     CEV_GifAnim *result = NULL;
-
-        /*EXE*/
 
     result = CEV_gifAnimLoadRW(SDL_RWFromFile(fileName, "rb"), renderer, 1);
 
     if (result == NULL)
         fprintf(stderr, "Err at %s / %d : Unable to extract animation from file.\n", __FUNCTION__, __LINE__);
 
-        /*POST*/
-
     return result;
 }
 
 
 CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char freeSrc)
-{/*gif animation load from SDL_RWops */
-
-        /*DEC**/
+{//gif animation load from SDL_RWops
 
     uint8_t     *pixels     = NULL;
     L_GifFile   *gif        = NULL;
     CEV_GifAnim *anim       = NULL;
     SDL_Texture *newTexture = NULL;
-
-        /*PRE**/
 
     if (rwops == NULL || renderer == NULL)
 	{
@@ -58,20 +48,18 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
 
     CEV_gifReadWriteErr = 0;
 
-        /*EXE*/
-
     anim = malloc(sizeof(CEV_GifAnim));
 
     if (anim == NULL)
         goto err_exit;
 
-    /*extracting datas from gif file*/
+    //extracting datas from gif file
     gif = GIFL_gifLoad_RW(rwops);
 
     if(gif == NULL)
         goto err_1;
 
-    /*creating main texture aka the user one*/
+    //creating main texture aka the user one
     newTexture =SDL_CreateTexture(renderer,
                                 SDL_PIXELFORMAT_RGBA8888,
                                 SDL_TEXTUREACCESS_STREAMING,
@@ -96,7 +84,7 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
         SDL_SetTextureBlendMode(newTexture, SDL_BLENDMODE_BLEND);
     }
 
-    /*Starting to create every pic, one by one*/
+    //Starting to create every pic, one by one
 
     if (GIFL_gifAnimInit(anim, gif))
         goto err_3;
@@ -118,7 +106,7 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
                 break;
 
                 default:
-                    /* TODO (drx#1): error management to add here */
+                    // TODO (drx#1): error management to add here
                 break;
             }
         }
@@ -136,19 +124,17 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
         anim->pictures[i].dispMethod = gif->image[i].control.packField.disposalMethod;
         anim->pictures[i].time       = gif->image[i].control.delayTime*10;
 
-        /*get sure frame rects fits into surface rect*/
+        //get sure frame rects fits into surface rect
         GIFL_gifFitBoxInto(&anim->pictures[i].pos, &anim->display.pos);
     }
 
-    GIFL_gifFileFree(gif); /*free raw gif datas*/
+    GIFL_gifFileFree(gif); //free raw gif datas
 
-    /*be ready to display first logical frame in case of no call to SDL_GIFAnimAuto*/
+    //be ready to display first logical frame in case of no call to SDL_GIFAnimAuto
     GIFL_gifBlit(anim);
 
-    if(CEV_gifReadWriteErr)/*well.. wait and see if it's a problem*/
+    if(CEV_gifReadWriteErr)//well.. wait and see if it's a problem
         fprintf(stderr, "Warn at %s / %d : some R/W err has occured, file may be unstable.\n", __FUNCTION__, __LINE__);
-
-        /*POST**/
 
     if (freeSrc)
         SDL_RWclose(rwops);
@@ -156,10 +142,10 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
     return anim;
 
 
-    /*error management from here**/
+    //error management from here
 err_3 :
     CEV_gifAnimFree(anim);
-    anim = NULL; /*safety for err_1*/
+    anim = NULL; //safety for err_1
 
 err_2 :
     GIFL_gifFileFree(gif);
@@ -177,49 +163,61 @@ err_exit :
 
 
 char *CEV_gifComment(CEV_GifAnim *anim)
-{/*returns embedded comment*/
+{//returns embedded comment
 
     return anim->status.comment;
 }
 
 
 char *CEV_gifVersion(CEV_GifAnim *anim)
-{/*returns embedded version*/
+{//returns embedded version
 
     return anim->status.version;
 }
 
 
 char *CEV_gifSignature(CEV_GifAnim *anim)
-{/*returns embedded signature*/
+{//returns embedded signature
 
     return anim->status.signature;
 }
 
 
-SDL_Texture *CEV_gifTexture(CEV_GifAnim *anim)
-{/*returns User's texture**/
+SDL_Texture *CEV_gifTextureGet(CEV_GifAnim *anim)
+{//returns User's texture
 
     return anim->display.surface;
 }
 
 
 int CEV_gifFrameNum(CEV_GifAnim *anim)
-{/*returns num of pics*/
+{//returns num of pics
 
     return anim->status.imgNum;
 }
 
 
 void CEV_gifFrameNext(CEV_GifAnim *anim)
-{/*forces next frame*/
+{//forces next frame
 
     GIFL_gifBlit(anim);
 }
 
 
+void CEV_gifAnimFrameShow(CEV_GifAnim* anim, unsigned num)
+{//forces frame blit
+
+    if(num > anim->status.imgNum)
+        return;
+
+    anim->status.refresh = 1;
+    anim->status.imgAct = num;
+    GIFL_gifBlit(anim);
+}
+
+
 void CEV_gifTimeSet(CEV_GifAnim *anim, int index, uint16_t timeMs)
-{/*sets animation speed*/
+{//sets animation speed
 
     if ((index >= anim->status.imgNum) || index < GIF_ALL)
         return;/*nothing to be done*/
@@ -234,16 +232,16 @@ void CEV_gifTimeSet(CEV_GifAnim *anim, int index, uint16_t timeMs)
 
 
 void CEV_gifLoopMode(CEV_GifAnim *anim, unsigned int loopMode)
-{/*sets loop reading mode*/
+{//sets loop reading mode
 
     if(loopMode > GIF_STOP)
-        return;/*nothing to be done*/
+        return;//nothing to be done
 
     anim->status.loopMode = loopMode;
 
     switch (loopMode)
     {
-        case GIF_REPEAT_REV :/*modes starting from last frame*/
+        case GIF_REPEAT_REV ://modes starting from last frame
         case GIF_ONCE_REV :
             anim->status.imgAct = anim->status.imgNum-1;
         break;
@@ -253,13 +251,13 @@ void CEV_gifLoopMode(CEV_GifAnim *anim, unsigned int loopMode)
         break;
     }
 
-    anim->status.refresh = 1;               /*force refreshing*/
-    anim->status.time    = SDL_GetTicks();  /*restart from now*/
+    anim->status.refresh = 1;               //force refreshing
+    anim->status.time    = SDL_GetTicks();  //restart from now
 }
 
 
 void CEV_gifLoopReset(CEV_GifAnim *anim)
-{/*resets loop animation**/
+{//resets loop animation
 
     switch (anim->status.loopMode)
     {
@@ -280,13 +278,13 @@ void CEV_gifLoopReset(CEV_GifAnim *anim)
         break;
     }
 
-    anim->status.refresh = 1;               /*force refreshing*/
-    anim->status.time    = SDL_GetTicks();  /*restart from now*/
+    anim->status.refresh = 1;               //force refreshing
+    anim->status.time    = SDL_GetTicks();  //restart from now
 }
 
 
 char CEV_gifAnimAuto(CEV_GifAnim *anim)
-{/*updates animations**/
+{//updates animations
 
     char sts = 0;
 
@@ -298,15 +296,15 @@ char CEV_gifAnimAuto(CEV_GifAnim *anim)
     if(!anim)
         return 0;
 
-    /*if first call*/
+    //if first call
     if(!anim->status.time)
         anim->status.time = now;
 
-    /*since last time ?*/
+    //since last time ?
     actTime = now - anim->status.time;
 
     if((actTime >= anim->pictures[imgAct].time) || anim->status.refresh)
-    {/*it's time or it's forced by else function*/
+    {//it's time or it's forced by else function
         sts = GIFL_gifBlit(anim);
         anim->status.time = now;
     }
@@ -316,7 +314,7 @@ char CEV_gifAnimAuto(CEV_GifAnim *anim)
 
 
 void CEV_gifReverse(CEV_GifAnim *anim)
-{/*reverses play mode*/
+{//reverses play mode
 
     switch (anim->status.loopMode)
     {
@@ -347,7 +345,7 @@ void CEV_gifReverse(CEV_GifAnim *anim)
 
 
 void CEV_gifAnimFree(CEV_GifAnim *anim)
-{/*frees animation structure**/
+{//frees animation structure
 
     if(!anim)
         return;
@@ -363,14 +361,14 @@ void CEV_gifAnimFree(CEV_GifAnim *anim)
 
 
 char CEV_gifLoopStatus(CEV_GifAnim* anim)
-{/*returns if loop is playing or not**/
+{//returns if loop is playing or not
 
     return !(anim->status.loopDone || (anim->status.loopMode == GIF_STOP));
 }
 
 
 char CEV_gifMethod(CEV_GifAnim* anim, unsigned int index)
-{/*returns used method**/
+{//returns used method
 
     if(index>anim->status.imgNum-1)
         index = 0;
@@ -380,7 +378,7 @@ char CEV_gifMethod(CEV_GifAnim* anim, unsigned int index)
 
 
 void CEV_gifMethodSet(CEV_GifAnim* anim, int index, uint8_t method)
-{/*sets method**/
+{//sets method
 
     if(index > anim->status.imgNum-1 || index < GIF_ALL)
         return;

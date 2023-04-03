@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_texts.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__texts_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_texts.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__texts_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |    02-2017    |   1.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |    05-2021    |   1.0    | Documentation  **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**   CEV    |    02-2022    |   1.0.3  | sort added     **/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">- CEV 2022_07_24 : R/W fonctions revised or added / struct to capsule added</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifndef CEV_TEXT_H_INCLUDED</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define CEV_TEXT_H_INCLUDED</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__types_8h.html">CEV_types.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="struct_c_e_v___text.html">   29</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="struct_c_e_v___text.html#afaeff50d3501abba94a6b73c0380ff08">   31</a></span>    <span class="keywordtype">size_t</span>  <a class="code hl_variable" href="struct_c_e_v___text.html#afaeff50d3501abba94a6b73c0380ff08">linesNum</a>,       </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="struct_c_e_v___text.html#a9ae0e61cb079a22d30fe2ebc046485b9">   32</a></span>            <a class="code hl_variable" href="struct_c_e_v___text.html#a9ae0e61cb079a22d30fe2ebc046485b9">lineSize</a>;       </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="struct_c_e_v___text.html#a1c7f70d00943329add6c743232320819">   34</a></span>    <span class="keywordtype">char</span>    <a class="code hl_variable" href="struct_c_e_v___text.html#a1c7f70d00943329add6c743232320819">fileTerminator</a>, </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="struct_c_e_v___text.html#a3b1b3f1fe9cc2d7753caadf5e1f5c253">   35</a></span>            **<a class="code hl_variable" href="struct_c_e_v___text.html#a3b1b3f1fe9cc2d7753caadf5e1f5c253">line</a>;         </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="_c_e_v__texts_8h.html#a15e508056d8d4282414a66baad3e8315">   37</a></span><a class="code hl_typedef" href="_c_e_v__texts_8h.html#a15e508056d8d4282414a66baad3e8315">CEV_Text</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__texts_8h.html#aaf69327c1bb77fbccf2f1b90d07ba3f3">CEV_textCreate</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lines, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxLength);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a427ad01e414c4bb261ba5daf32fac2f5">CEV_textWrite</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* dst, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* src);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keywordtype">char</span>* <a class="code hl_function" href="_c_e_v__texts_8h.html#ac87762f5a5d7b02f4b415e7692d0ae1f">CEV_textRead</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a> *src, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a950be5c7f89cf2f03602a160beed9fe4">CEV_textSortAZ</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a> *src);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a98ed60b513bc16f86625315a2a2d438c">CEV_textSortZA</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a> *src);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> <span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a5ba99dd407d3db746d0e7710d3a313a6">CEV_textAppend</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* dst, <span class="keyword">const</span> <span class="keywordtype">char</span>* src);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a785b217e588c1ee1f4d5cc9b79a1a71f">CEV_convertTextTxtToData</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *srcName, <span class="keyword">const</span> <span class="keywordtype">char</span> *dstName);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__texts_8h.html#a1e3d4133a2acf43f16c7f666c2a9fc05">CEV_textLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *fileName);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__texts_8h.html#a464511c9f69bdb10b2ddf955fbb89e1a">CEV_textLoad_RW</a>(SDL_RWops* src, <span class="keywordtype">bool</span> freeSrc);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__texts_8h.html#ac6705be53f1958d5a3859469c0cbf305">CEV_textTxtLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *fileName);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__texts_8h.html#ad6efa543bbfcf9dfd227403b7706a733">CEV_textTxtLoadf</a>(FILE* src);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#ac624ed2971785df18df315108fe57d91">CEV_textSave</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a> *text, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#ae52f9060effb49fa8e884db6b2458fd2">CEV_textTypeWrite</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* src, FILE* dst);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a2e326e32287e2e7bd305eef9941c3a0e">CEV_textTypeWrite_RW</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* src, SDL_RWops* dst);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a1b85ac9434fb1d60235113e49a3a61ef">CEV_textTypeRead</a>(FILE *src, <a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* dst);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a810a95624dc3953db04584102d90224c">CEV_textTypeRead_RW</a>(SDL_RWops* src, <a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* dst);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#abbc722de1f608b131f408c33f2036acd">CEV_textToCapsule</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* dst);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="_c_e_v__texts_8h.html#ae4b21ef1f790c291a2e145891a145705">  230</a></span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__texts_8h.html#ae4b21ef1f790c291a2e145891a145705">CEV_textTxtLoad_RW</a>(SDL_RWops* src, <span class="keywordtype">char</span> freeData);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#ac624ed2971785df18df315108fe57d91">CEV_textSave</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a> *src, <span class="keyword">const</span> <span class="keywordtype">char</span>* dstFileName);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#abdb06cbb03c313eb43193d37caef8087">CEV_textDestroy</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a> * in);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a75ed157ecc9cd59dd8e8fbd3e654f841">CEV_textClear</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* in);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#ab8696e764019cae454d6c251b0738819">CEV_textDump</a>(<a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* in);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a18698c05ab780672909027c93a737b9f">CEV_fileStrSearch</a>(FILE* file, <span class="keywordtype">char</span>* src);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a987aa5809583d15a70a818ce59cb9853">CEV_stringEndFormat</a>(<span class="keywordtype">char</span>* in);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__texts_8h.html#a21ad86734952df21c14a09c5ef2ccbf1">CEV_stringGroup</a>(<span class="keywordtype">char</span> *src, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> group);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>}</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="preprocessor">#endif </span><span class="comment">// CEV_TEXT_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a15e508056d8d4282414a66baad3e8315"><div class="ttname"><a href="_c_e_v__texts_8h.html#a15e508056d8d4282414a66baad3e8315">CEV_Text</a></div><div class="ttdeci">struct CEV_Text CEV_Text</div><div class="ttdoc">Easy text management. note : For each line, the alloc size is stored in size_t just after the nul cha...</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a18698c05ab780672909027c93a737b9f"><div class="ttname"><a href="_c_e_v__texts_8h.html#a18698c05ab780672909027c93a737b9f">CEV_fileStrSearch</a></div><div class="ttdeci">int CEV_fileStrSearch(FILE *file, char *src)</div><div class="ttdoc">Seeks string in file.</div><div class="ttdef"><b>Definition:</b> CEV_file.c:230</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a1b85ac9434fb1d60235113e49a3a61ef"><div class="ttname"><a href="_c_e_v__texts_8h.html#a1b85ac9434fb1d60235113e49a3a61ef">CEV_textTypeRead</a></div><div class="ttdeci">void CEV_textTypeRead(FILE *src, CEV_Text *dst)</div><div class="ttdoc">Reads CEV_Text from opened data format file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:519</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a1e3d4133a2acf43f16c7f666c2a9fc05"><div class="ttname"><a href="_c_e_v__texts_8h.html#a1e3d4133a2acf43f16c7f666c2a9fc05">CEV_textLoad</a></div><div class="ttdeci">CEV_Text * CEV_textLoad(const char *fileName)</div><div class="ttdoc">Loads CEV_Text from file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:284</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a21ad86734952df21c14a09c5ef2ccbf1"><div class="ttname"><a href="_c_e_v__texts_8h.html#a21ad86734952df21c14a09c5ef2ccbf1">CEV_stringGroup</a></div><div class="ttdeci">void CEV_stringGroup(char *src, unsigned int group)</div><div class="ttdoc">digit grouping.</div><div class="ttdef"><b>Definition:</b> CEV_file.c:200</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a2e326e32287e2e7bd305eef9941c3a0e"><div class="ttname"><a href="_c_e_v__texts_8h.html#a2e326e32287e2e7bd305eef9941c3a0e">CEV_textTypeWrite_RW</a></div><div class="ttdeci">int CEV_textTypeWrite_RW(CEV_Text *src, SDL_RWops *dst)</div><div class="ttdoc">Writes CEV_Text into virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:485</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a427ad01e414c4bb261ba5daf32fac2f5"><div class="ttname"><a href="_c_e_v__texts_8h.html#a427ad01e414c4bb261ba5daf32fac2f5">CEV_textWrite</a></div><div class="ttdeci">int CEV_textWrite(CEV_Text *dst, unsigned int index, const char *src)</div><div class="ttdoc">writes text line.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:159</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a464511c9f69bdb10b2ddf955fbb89e1a"><div class="ttname"><a href="_c_e_v__texts_8h.html#a464511c9f69bdb10b2ddf955fbb89e1a">CEV_textLoad_RW</a></div><div class="ttdeci">CEV_Text * CEV_textLoad_RW(SDL_RWops *src, bool freeSrc)</div><div class="ttdoc">Loads CEV_Text from virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:313</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a5ba99dd407d3db746d0e7710d3a313a6"><div class="ttname"><a href="_c_e_v__texts_8h.html#a5ba99dd407d3db746d0e7710d3a313a6">CEV_textAppend</a></div><div class="ttdeci">int CEV_textAppend(CEV_Text *dst, const char *src)</div><div class="ttdoc">appends text line.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:203</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a75ed157ecc9cd59dd8e8fbd3e654f841"><div class="ttname"><a href="_c_e_v__texts_8h.html#a75ed157ecc9cd59dd8e8fbd3e654f841">CEV_textClear</a></div><div class="ttdeci">void CEV_textClear(CEV_Text *in)</div><div class="ttdoc">Free and raz content of CEV_Text.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:616</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a785b217e588c1ee1f4d5cc9b79a1a71f"><div class="ttname"><a href="_c_e_v__texts_8h.html#a785b217e588c1ee1f4d5cc9b79a1a71f">CEV_convertTextTxtToData</a></div><div class="ttdeci">int CEV_convertTextTxtToData(const char *srcName, const char *dstName)</div><div class="ttdoc">Converts user parameter file into pgrm friendly file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:260</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a810a95624dc3953db04584102d90224c"><div class="ttname"><a href="_c_e_v__texts_8h.html#a810a95624dc3953db04584102d90224c">CEV_textTypeRead_RW</a></div><div class="ttdeci">void CEV_textTypeRead_RW(SDL_RWops *src, CEV_Text *dst)</div><div class="ttdoc">Reads CEV_Text from virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:542</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a950be5c7f89cf2f03602a160beed9fe4"><div class="ttname"><a href="_c_e_v__texts_8h.html#a950be5c7f89cf2f03602a160beed9fe4">CEV_textSortAZ</a></div><div class="ttdeci">void CEV_textSortAZ(CEV_Text *src)</div><div class="ttdoc">Sorts content A to Z.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:248</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a987aa5809583d15a70a818ce59cb9853"><div class="ttname"><a href="_c_e_v__texts_8h.html#a987aa5809583d15a70a818ce59cb9853">CEV_stringEndFormat</a></div><div class="ttdeci">void CEV_stringEndFormat(char *in)</div><div class="ttdoc">cleans file string into memory friendly string : note : removes '/\r' and '/ ' replaced by '/\0'.</div><div class="ttdef"><b>Definition:</b> CEV_file.c:184</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_a98ed60b513bc16f86625315a2a2d438c"><div class="ttname"><a href="_c_e_v__texts_8h.html#a98ed60b513bc16f86625315a2a2d438c">CEV_textSortZA</a></div><div class="ttdeci">void CEV_textSortZA(CEV_Text *src)</div><div class="ttdoc">Sorts content Z to A.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:254</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_aaf69327c1bb77fbccf2f1b90d07ba3f3"><div class="ttname"><a href="_c_e_v__texts_8h.html#aaf69327c1bb77fbccf2f1b90d07ba3f3">CEV_textCreate</a></div><div class="ttdeci">CEV_Text * CEV_textCreate(unsigned int lines, unsigned int maxLength)</div><div class="ttdoc">allocates a new text structure.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:130</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ab8696e764019cae454d6c251b0738819"><div class="ttname"><a href="_c_e_v__texts_8h.html#ab8696e764019cae454d6c251b0738819">CEV_textDump</a></div><div class="ttdeci">void CEV_textDump(CEV_Text *in)</div><div class="ttdoc">Dumps structure content into stdout.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:637</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_abbc722de1f608b131f408c33f2036acd"><div class="ttname"><a href="_c_e_v__texts_8h.html#abbc722de1f608b131f408c33f2036acd">CEV_textToCapsule</a></div><div class="ttdeci">int CEV_textToCapsule(CEV_Text *src, CEV_Capsule *dst)</div><div class="ttdoc">Fills capsule with CEV_Text.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:561</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_abdb06cbb03c313eb43193d37caef8087"><div class="ttname"><a href="_c_e_v__texts_8h.html#abdb06cbb03c313eb43193d37caef8087">CEV_textDestroy</a></div><div class="ttdeci">void CEV_textDestroy(CEV_Text *in)</div><div class="ttdoc">Free allocated CEV_Text.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:601</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ac624ed2971785df18df315108fe57d91"><div class="ttname"><a href="_c_e_v__texts_8h.html#ac624ed2971785df18df315108fe57d91">CEV_textSave</a></div><div class="ttdeci">int CEV_textSave(CEV_Text *text, const char *fileName)</div><div class="ttdoc">Saves CEV_Text into file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:419</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ac6705be53f1958d5a3859469c0cbf305"><div class="ttname"><a href="_c_e_v__texts_8h.html#ac6705be53f1958d5a3859469c0cbf305">CEV_textTxtLoad</a></div><div class="ttdeci">CEV_Text * CEV_textTxtLoad(const char *fileName)</div><div class="ttdoc">Loads user parameter file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:343</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ac87762f5a5d7b02f4b415e7692d0ae1f"><div class="ttname"><a href="_c_e_v__texts_8h.html#ac87762f5a5d7b02f4b415e7692d0ae1f">CEV_textRead</a></div><div class="ttdeci">char * CEV_textRead(CEV_Text *src, unsigned int index)</div><div class="ttdoc">fetches text line.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:235</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ad6efa543bbfcf9dfd227403b7706a733"><div class="ttname"><a href="_c_e_v__texts_8h.html#ad6efa543bbfcf9dfd227403b7706a733">CEV_textTxtLoadf</a></div><div class="ttdeci">CEV_Text * CEV_textTxtLoadf(FILE *src)</div><div class="ttdoc">Loads opened user parameter file.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:384</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ae4b21ef1f790c291a2e145891a145705"><div class="ttname"><a href="_c_e_v__texts_8h.html#ae4b21ef1f790c291a2e145891a145705">CEV_textTxtLoad_RW</a></div><div class="ttdeci">CEV_Text * CEV_textTxtLoad_RW(SDL_RWops *src, char freeData)</div><div class="ttdoc">Creates a CEV_Text from SDL_RWops (data format).</div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html_ae52f9060effb49fa8e884db6b2458fd2"><div class="ttname"><a href="_c_e_v__texts_8h.html#ae52f9060effb49fa8e884db6b2458fd2">CEV_textTypeWrite</a></div><div class="ttdeci">void CEV_textTypeWrite(CEV_Text *src, FILE *dst)</div><div class="ttdoc">Writes CEV_Text into file at data format.</div><div class="ttdef"><b>Definition:</b> CEV_texts.c:453</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html"><div class="ttname"><a href="_c_e_v__types_8h.html">CEV_types.h</a></div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html"><div class="ttname"><a href="struct_c_e_v___capsule.html">CEV_Capsule</a></div><div class="ttdoc">File encapsulation.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:43</div></div>
+<div class="ttc" id="astruct_c_e_v___text_html"><div class="ttname"><a href="struct_c_e_v___text.html">CEV_Text</a></div><div class="ttdoc">Easy text management. note : For each line, the alloc size is stored in size_t just after the nul cha...</div><div class="ttdef"><b>Definition:</b> CEV_texts.h:30</div></div>
+<div class="ttc" id="astruct_c_e_v___text_html_a1c7f70d00943329add6c743232320819"><div class="ttname"><a href="struct_c_e_v___text.html#a1c7f70d00943329add6c743232320819">CEV_Text::fileTerminator</a></div><div class="ttdeci">char fileTerminator</div><div class="ttdef"><b>Definition:</b> CEV_texts.h:34</div></div>
+<div class="ttc" id="astruct_c_e_v___text_html_a3b1b3f1fe9cc2d7753caadf5e1f5c253"><div class="ttname"><a href="struct_c_e_v___text.html#a3b1b3f1fe9cc2d7753caadf5e1f5c253">CEV_Text::line</a></div><div class="ttdeci">char ** line</div><div class="ttdef"><b>Definition:</b> CEV_texts.h:35</div></div>
+<div class="ttc" id="astruct_c_e_v___text_html_a9ae0e61cb079a22d30fe2ebc046485b9"><div class="ttname"><a href="struct_c_e_v___text.html#a9ae0e61cb079a22d30fe2ebc046485b9">CEV_Text::lineSize</a></div><div class="ttdeci">size_t lineSize</div><div class="ttdef"><b>Definition:</b> CEV_texts.h:32</div></div>
+<div class="ttc" id="astruct_c_e_v___text_html_afaeff50d3501abba94a6b73c0380ff08"><div class="ttname"><a href="struct_c_e_v___text.html#afaeff50d3501abba94a6b73c0380ff08">CEV_Text::linesNum</a></div><div class="ttdeci">size_t linesNum</div><div class="ttdef"><b>Definition:</b> CEV_texts.h:31</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__texts_8h.html">CEV_texts.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

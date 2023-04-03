@@ -48,16 +48,18 @@ L_GifSurfaceMain;
  */
 typedef struct L_GifInfo
 {
-    char *comment,
-         signature[4],
-         version[4],
-         loopDone,
-         direction,
-         refresh;
+    char *comment,      /**< gif comment if any */
+         signature[4],  /**< gif signature if any */
+         version[4],    /**< gif version if any */
+         loopDone,      /**< true when end of loop is reached */
+         direction,     /**< play direction forth/back */
+         refresh;       /**< redraw only without selecting picture */
 
     uint8_t loopMode;
+
     unsigned int time,
                 timeAct;
+
     int         imgNum,
                 imgAct;
 

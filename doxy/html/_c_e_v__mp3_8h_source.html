@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_mp3.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__mp3_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_mp3.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__mp3_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  28-09-2022   |   1.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//CEV   - 2022/10/29 - music control added (upon SDL_mixer)</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">//      - play / stop / isPlaying</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef CEV_MP3_H_INCLUDED</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define CEV_MP3_H_INCLUDED</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;SDL_mixer.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html">   18</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#ab203ceba3699c997bf63f13bbc33b33a">   20</a></span>    Mix_Music* <a class="code hl_variable" href="struct_c_e_v___mp3.html#ab203ceba3699c997bf63f13bbc33b33a">music</a>;   </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#ada21fa557f091c21c4458a8513bd5652">   22</a></span>    <span class="keywordtype">char</span> <a class="code hl_variable" href="struct_c_e_v___mp3.html#ada21fa557f091c21c4458a8513bd5652">artist</a>[61],</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#a812151113eed4ebb4dbd32c779886376">   23</a></span>         <a class="code hl_variable" href="struct_c_e_v___mp3.html#a812151113eed4ebb4dbd32c779886376">title</a>[61], </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#a1a76dd57c17eb82ee2f65bb9e9f1ad16">   24</a></span>         <a class="code hl_variable" href="struct_c_e_v___mp3.html#a1a76dd57c17eb82ee2f65bb9e9f1ad16">album</a>[61], </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#a963c82461e76bf682004b13a722aacc5">   25</a></span>         <a class="code hl_variable" href="struct_c_e_v___mp3.html#a963c82461e76bf682004b13a722aacc5">year</a>[10],  </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#a85e6c746e092370a0503bf2c16aac203">   26</a></span>         <a class="code hl_variable" href="struct_c_e_v___mp3.html#a85e6c746e092370a0503bf2c16aac203">track</a>[10]; </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#ac5fb4b79fa5d6f267d6f032614dc9cd8">   28</a></span>    SDL_Texture *<a class="code hl_variable" href="struct_c_e_v___mp3.html#ac5fb4b79fa5d6f267d6f032614dc9cd8">img</a>;   </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="struct_c_e_v___mp3.html#ab4c70d9c3291ef4c7d9a8805d95d5f19">   29</a></span>    <span class="keywordtype">void</span> *<a class="code hl_variable" href="struct_c_e_v___mp3.html#ab4c70d9c3291ef4c7d9a8805d95d5f19">rawData</a>;      </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_c_e_v__mp3_8h.html#ada3d9786ba7f39171cca3bc18b72f791">   31</a></span><a class="code hl_typedef" href="_c_e_v__mp3_8h.html#ada3d9786ba7f39171cca3bc18b72f791">CEV_Mp3</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__mp3_8h.html#af7d9fc1fe63f12c4f02ee6a718761afa">CEV_mp3TEST</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a>* <a class="code hl_function" href="_c_e_v__mp3_8h.html#ad6d7de0b26ac2ab28e821a902086798e">CEV_mp3Load</a>(<span class="keywordtype">char</span> *fileName);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a>* <a class="code hl_function" href="_c_e_v__mp3_8h.html#a55957da4ee7896a0f7a74b97f6b07896">CEV_mp3Load_RW</a>(SDL_RWops* src, <span class="keywordtype">bool</span> freeSrc);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>SDL_Texture* <a class="code hl_function" href="_c_e_v__mp3_8h.html#a7ab11330315e97a032a9a0de0511970c">CEV_mp3TextureFetch</a>(<a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a>* src);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__mp3_8h.html#a2df1d50b3fc6a02dbeed303cd07e6b7c">CEV_mp3MusicPlay</a>(<a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *src, <span class="keywordtype">int</span> loops);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keywordtype">bool</span> <a class="code hl_function" href="_c_e_v__mp3_8h.html#abe4b593dc5a2893cc93a344f3cc006a1">CEV_mp3IsPlaying</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__mp3_8h.html#abb87d69f8a2927fddfe021073d2baf5b">CEV_mp3MusicStop</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__mp3_8h.html#a90042267207e0ef02bd132b6156eaa4d">CEV_mp3Destroy</a>(<a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a>* src);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__mp3_8h.html#ab3262cd0219b05c108398deac3b34dce">CEV_mp3Clear</a>(<a class="code hl_struct" href="struct_c_e_v___mp3.html">CEV_Mp3</a>* src);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif </span><span class="comment">// CEV_MP3_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_a2df1d50b3fc6a02dbeed303cd07e6b7c"><div class="ttname"><a href="_c_e_v__mp3_8h.html#a2df1d50b3fc6a02dbeed303cd07e6b7c">CEV_mp3MusicPlay</a></div><div class="ttdeci">void CEV_mp3MusicPlay(CEV_Mp3 *src, int loops)</div><div class="ttdoc">Plays mp3 music.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:262</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_a55957da4ee7896a0f7a74b97f6b07896"><div class="ttname"><a href="_c_e_v__mp3_8h.html#a55957da4ee7896a0f7a74b97f6b07896">CEV_mp3Load_RW</a></div><div class="ttdeci">CEV_Mp3 * CEV_mp3Load_RW(SDL_RWops *src, bool freeSrc)</div><div class="ttdoc">Loads mp3 from RWops.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:211</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_a7ab11330315e97a032a9a0de0511970c"><div class="ttname"><a href="_c_e_v__mp3_8h.html#a7ab11330315e97a032a9a0de0511970c">CEV_mp3TextureFetch</a></div><div class="ttdeci">SDL_Texture * CEV_mp3TextureFetch(CEV_Mp3 *src)</div><div class="ttdoc">Fetches embedded picture if any.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:255</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_a90042267207e0ef02bd132b6156eaa4d"><div class="ttname"><a href="_c_e_v__mp3_8h.html#a90042267207e0ef02bd132b6156eaa4d">CEV_mp3Destroy</a></div><div class="ttdeci">void CEV_mp3Destroy(CEV_Mp3 *src)</div><div class="ttdoc">Destroys Mp3 structure and content.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:282</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_ab3262cd0219b05c108398deac3b34dce"><div class="ttname"><a href="_c_e_v__mp3_8h.html#ab3262cd0219b05c108398deac3b34dce">CEV_mp3Clear</a></div><div class="ttdeci">void CEV_mp3Clear(CEV_Mp3 *src)</div><div class="ttdoc">Frees Mp3 structure content.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:290</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_abb87d69f8a2927fddfe021073d2baf5b"><div class="ttname"><a href="_c_e_v__mp3_8h.html#abb87d69f8a2927fddfe021073d2baf5b">CEV_mp3MusicStop</a></div><div class="ttdeci">void CEV_mp3MusicStop(void)</div><div class="ttdoc">Stops playing music.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:276</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_abe4b593dc5a2893cc93a344f3cc006a1"><div class="ttname"><a href="_c_e_v__mp3_8h.html#abe4b593dc5a2893cc93a344f3cc006a1">CEV_mp3IsPlaying</a></div><div class="ttdeci">bool CEV_mp3IsPlaying(void)</div><div class="ttdoc">Is mp3 actually plaing ?</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:269</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_ad6d7de0b26ac2ab28e821a902086798e"><div class="ttname"><a href="_c_e_v__mp3_8h.html#ad6d7de0b26ac2ab28e821a902086798e">CEV_mp3Load</a></div><div class="ttdeci">CEV_Mp3 * CEV_mp3Load(char *fileName)</div><div class="ttdoc">Loads mp3 from file.</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:189</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_ada3d9786ba7f39171cca3bc18b72f791"><div class="ttname"><a href="_c_e_v__mp3_8h.html#ada3d9786ba7f39171cca3bc18b72f791">CEV_Mp3</a></div><div class="ttdeci">struct CEV_Mp3 CEV_Mp3</div></div>
+<div class="ttc" id="a_c_e_v__mp3_8h_html_af7d9fc1fe63f12c4f02ee6a718761afa"><div class="ttname"><a href="_c_e_v__mp3_8h.html#af7d9fc1fe63f12c4f02ee6a718761afa">CEV_mp3TEST</a></div><div class="ttdeci">void CEV_mp3TEST(void)</div><div class="ttdef"><b>Definition:</b> CEV_mp3.c:142</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html"><div class="ttname"><a href="struct_c_e_v___mp3.html">CEV_Mp3</a></div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:19</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_a1a76dd57c17eb82ee2f65bb9e9f1ad16"><div class="ttname"><a href="struct_c_e_v___mp3.html#a1a76dd57c17eb82ee2f65bb9e9f1ad16">CEV_Mp3::album</a></div><div class="ttdeci">char album[61]</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:24</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_a812151113eed4ebb4dbd32c779886376"><div class="ttname"><a href="struct_c_e_v___mp3.html#a812151113eed4ebb4dbd32c779886376">CEV_Mp3::title</a></div><div class="ttdeci">char title[61]</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:23</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_a85e6c746e092370a0503bf2c16aac203"><div class="ttname"><a href="struct_c_e_v___mp3.html#a85e6c746e092370a0503bf2c16aac203">CEV_Mp3::track</a></div><div class="ttdeci">char track[10]</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:26</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_a963c82461e76bf682004b13a722aacc5"><div class="ttname"><a href="struct_c_e_v___mp3.html#a963c82461e76bf682004b13a722aacc5">CEV_Mp3::year</a></div><div class="ttdeci">char year[10]</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:25</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_ab203ceba3699c997bf63f13bbc33b33a"><div class="ttname"><a href="struct_c_e_v___mp3.html#ab203ceba3699c997bf63f13bbc33b33a">CEV_Mp3::music</a></div><div class="ttdeci">Mix_Music * music</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:20</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_ab4c70d9c3291ef4c7d9a8805d95d5f19"><div class="ttname"><a href="struct_c_e_v___mp3.html#ab4c70d9c3291ef4c7d9a8805d95d5f19">CEV_Mp3::rawData</a></div><div class="ttdeci">void * rawData</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:29</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_ac5fb4b79fa5d6f267d6f032614dc9cd8"><div class="ttname"><a href="struct_c_e_v___mp3.html#ac5fb4b79fa5d6f267d6f032614dc9cd8">CEV_Mp3::img</a></div><div class="ttdeci">SDL_Texture * img</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:28</div></div>
+<div class="ttc" id="astruct_c_e_v___mp3_html_ada21fa557f091c21c4458a8513bd5652"><div class="ttname"><a href="struct_c_e_v___mp3.html#ada21fa557f091c21c4458a8513bd5652">CEV_Mp3::artist</a></div><div class="ttdeci">char artist[61]</div><div class="ttdef"><b>Definition:</b> CEV_mp3.h:22</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__mp3_8h.html">CEV_mp3.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

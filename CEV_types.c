@@ -2,8 +2,8 @@
 //** Done by  |      Date     |  version |    comment
 //**------------------------------------------------------
 //**   CEV    |  20-02-2022   |   1.0    | added missing free
-//**   CEV    |  24-09-2022   |   1.1    | CEV_textureToCapsule corrected
-
+//**   CEV    |  24-09-2022   |   1.1.0  | CEV_textureToCapsule corrected
+//**   CEV    |  03-04-2023   |   1.1.1  | CEV_textureToCapsule modified to use tmpfile system
 
 #include <stdlib.h>
 #include <errno.h>
@@ -198,60 +198,27 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 
     int funcSts = FUNC_OK;
 
-    int width, height, fileSize;
+    char fileName[L_tmpnam];
+    tmpnam(fileName);
+    strcat(fileName, ".png");
+    printf("fileName is : %s\n", fileName);
 
-    SDL_QueryTexture(src, NULL, NULL, &width, &height);
-
-    fileSize = width*height*4; // TODO (drx#1#): much much overestimated is BMP type at worst
-
-    void *bufferFile = malloc(fileSize);
-
-    if(IS_NULL(bufferFile))
+    //saving png into virtual file
+    if(CEV_textureSavePNG(src, fileName))
     {
-        fprintf(stderr, "Err at %s / %d : unable to alloc : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        return FUNC_ERR;
-    }
-
-
-    SDL_RWops* vFile = SDL_RWFromMem(bufferFile, fileSize);//SDL_RWFromFile("totoTest.png", "wb");//SDL_AllocRW();
-
-    if IS_NULL(vFile)
-    {
-        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
-        funcSts = FUNC_ERR;
-        goto err_1;
-    }
-
-    if(CEV_textureSavePNG_RW(src, vFile))
-    {
-        fprintf(stderr, "Err at %s / %d :   .\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : unable to save texture into file.\n", __FUNCTION__, __LINE__ );
         funcSts = FUNC_ERR;
         goto end;
     }
 
-    size_t size = SDL_RWsize(vFile);
-
-    //printf("vFile size is : %d\n", size);
-
-    dst->size = size;
-    dst->type = IS_PNG;
-    dst->data = malloc(size);
-
-    if IS_NULL(dst->data)
+    if(CEV_capsuleFromFile(dst, fileName))
     {
-        fprintf(stderr, "Err at %s / %d : unable to alloc data field : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        fprintf(stderr, "Err at %s / %d : unable to convert file into capsule.\n", __FUNCTION__, __LINE__ );
         funcSts = FUNC_ERR;
-        goto end;
     }
-
-    SDL_RWseek(vFile, 0, SEEK_SET);
-    SDL_RWread(vFile, dst->data, size, 1);
 
 end:
-    SDL_RWclose(vFile);
-
-err_1:
-    free(bufferFile);
+    remove(fileName);
 
     return funcSts;
 }

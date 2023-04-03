@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_dataFile.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__data_file_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_dataFile.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__data_file_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  14-02-2015   |   0.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |    05-2016    |   0.1    |    SDL2 rev    **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**   CEV    |  15-02-2017   |   0.2    |   rev &amp; test   **/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//**   CEV    |  11-2017      |   1.0.1  | diag improved  **/</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">//**   CEV    |  05-2018      |   1.0.2  | map added      **/</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">//**   CEV    |  07-2019      |   1.0.3  | parallax added **/</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">//**   CEV    |  01-2020      |   1.0.4  | weather added  **/</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">//**   CEV    |  02-2022      |   1.0.4  | documentation  **/</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//- CEV 2021 05 20- removed capsule data free from L_capsuleToXxx functions -&gt; capsule cleared in calling functions.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#ifndef CEV_FILE_LOAD_H_INCLUDED</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define CEV_FILE_LOAD_H_INCLUDED</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;SDL_ttf.h&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;SDL_mixer.h&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__table_8h.html">CEV_table.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__animator_8h.html">CEV_animator.h</a>&quot;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__texts_8h.html">CEV_texts.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__scroll_8h.html">CEV_scroll.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__gif_8h.html">CEV_gif.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__types_8h.html">CEV_types.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__menu_8h.html">CEV_menu.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__maps_8h.html">CEV_maps.h</a>&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__weather_8h.html">CEV_weather.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__parallax_8h.html">CEV_parallax.h</a>&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/*----------USER END FUNCTIONS---------*/</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">void</span>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#a3da7fe46cc44eaa3a5284482dd880623">CEV_anyFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, FILE* file);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#a1bb5f99f9bc6e9acf0c30afc7448dc84">CEV_capsuleFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, FILE* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* dst);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#a800621e574f5d7791bdfe3bfc672f6b2">CEV_capsuleLoad</a>(<a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* caps, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">void</span>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#ad105b6dda42fabd555831c2e669d682a">CEV_capsuleExtract</a>(<a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* caps, <span class="keywordtype">bool</span> freeData);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="comment">/*---SDL_Surfaces---*/</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>SDL_Surface* <a class="code hl_function" href="_c_e_v__data_file_8h.html#ad2a50c44f2369aa623f75152e5e0dc2c">CEV_surfaceLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>SDL_Surface* <a class="code hl_function" href="_c_e_v__data_file_8h.html#a2faad3fdf543ff2551059f2d1d50cf06">CEV_surfaceFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="comment">/*---SDL_Textures---*/</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>SDL_Texture* <a class="code hl_function" href="_c_e_v__data_file_8h.html#a5f447b30a09bc5f1eb55e574ad5b5bd8">CEV_textureLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>SDL_Texture* <a class="code hl_function" href="_c_e_v__data_file_8h.html#aaeff1f987d3ed0841e84bedefe7f06be">CEV_textureFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>          <span class="comment">/*---CEV_Text---*/</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><a class="code hl_struct" href="struct_c_e_v___text.html">CEV_Text</a>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#ae79e33c2eb5a557f0cbe450d2af1394d">CEV_textFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* filename);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="comment">/*---TTF_Font from compiled file---*/</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><a class="code hl_struct" href="struct_c_e_v___font.html">CEV_Font</a>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#a7858b14fed0e109680c89fca46d2147f">CEV_fontFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="comment">/*----WAV from compiled file----*/</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><a class="code hl_struct" href="struct_c_e_v___chunk.html">CEV_Chunk</a>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#aee530d1e3ed7ec1bcf885e98f130ffb2">CEV_waveFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="comment">/*---MUSIC from compiled file---*/</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><a class="code hl_struct" href="struct_c_e_v___music.html">CEV_Music</a> *<a class="code hl_function" href="_c_e_v__data_file_8h.html#a1f3a662b2c531f138b60bf38a405caca">CEV_musicFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="comment">/*---Animations---*/</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><a class="code hl_struct" href="struct_s_p___anim_list.html">SP_AnimList</a>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#ab38a3a36dd042b3c2ef1ab1a3882c856">CEV_animListFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><a class="code hl_struct" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#aae4bb9ab146b55243b54b82127b7e4a9">CEV_gifFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="comment">/*---scroll---*/</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><a class="code hl_struct" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *<a class="code hl_function" href="_c_e_v__data_file_8h.html#ab00a277241a09865f20e32548483c30a">CEV_scrollFetch</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="comment">/*---menu---*/</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><a class="code hl_struct" href="struct_c_e_v___menu.html">CEV_Menu</a> *<a class="code hl_function" href="_c_e_v__data_file_8h.html#a89845df6a2473b264d607ce880c3c24f">CEV_menuFetch</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="comment">/*---maps---*/</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><a class="code hl_struct" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *<a class="code hl_function" href="_c_e_v__data_file_8h.html#ae8304fb417c2b1154e00e3d13f5147fb">CEV_mapFetch</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="comment">/*---parallax background---*/</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#ab8f206e75bd8b4d38c2002b2b26dab30">CEV_parallaxFetch</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a> *<a class="code hl_function" href="_c_e_v__data_file_8h.html#a498f1ddc433cd38a83c56229209554f3">CEV_weatherFetch</a>(<span class="keywordtype">int</span> index, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment">/*----- Encapsulation -----*/</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#a1400a49600a3b83bdd23e26af28c87fc">CEV_capsuleWrite</a>(<a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps, FILE *dst);</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#aba16b7a33e71814099d652ac088cc0d9">CEV_capsuleRead</a>(FILE *src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#a2d93e1286a8579432e7d2e4a04b227a5">CEV_capsuleWrite_RW</a>(<a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* src, SDL_RWops* dst);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#af394c6de4fac2c62230c14312e385411">CEV_capsuleRead_RW</a>(SDL_RWops* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* dst);</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#a1286fa3cb730ff01cbe18c05074689c1">CEV_capsuleClear</a>(<a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#a250c80625c41d7499d10a463813a149c">CEV_capsuleDestroy</a>(<a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps);</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__data_file_8h.html#ab251c54cb1c0cedb6a0b0d470a75ae0c">CEV_fileToType</a>(<span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="keywordtype">char</span>* <a class="code hl_function" href="_c_e_v__data_file_8h.html#a3e657aebfbbe511ed43b38486ebcd205">CEV_fileTypeToExt</a>(<span class="keywordtype">int</span> type);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>}</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="preprocessor">#endif </span><span class="comment">// PIC_LOAD_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__animator_8h_html"><div class="ttname"><a href="_c_e_v__animator_8h.html">CEV_animator.h</a></div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a1286fa3cb730ff01cbe18c05074689c1"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a1286fa3cb730ff01cbe18c05074689c1">CEV_capsuleClear</a></div><div class="ttdeci">void CEV_capsuleClear(CEV_Capsule *caps)</div><div class="ttdoc">clean up / free fileInfo content.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1169</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a1400a49600a3b83bdd23e26af28c87fc"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a1400a49600a3b83bdd23e26af28c87fc">CEV_capsuleWrite</a></div><div class="ttdeci">void CEV_capsuleWrite(CEV_Capsule *caps, FILE *dst)</div><div class="ttdoc">mem to file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1126</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a1bb5f99f9bc6e9acf0c30afc7448dc84"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a1bb5f99f9bc6e9acf0c30afc7448dc84">CEV_capsuleFetch</a></div><div class="ttdeci">int CEV_capsuleFetch(unsigned int index, FILE *src, CEV_Capsule *dst)</div><div class="ttdoc">fetches CEV_Capsule from file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:213</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a1f3a662b2c531f138b60bf38a405caca"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a1f3a662b2c531f138b60bf38a405caca">CEV_musicFetch</a></div><div class="ttdeci">CEV_Music * CEV_musicFetch(unsigned int index, const char *fileName)</div><div class="ttdoc">fetch music as CEV_Music from compiled file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:681</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a250c80625c41d7499d10a463813a149c"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a250c80625c41d7499d10a463813a149c">CEV_capsuleDestroy</a></div><div class="ttdeci">void CEV_capsuleDestroy(CEV_Capsule *caps)</div><div class="ttdoc">free content and itself.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1182</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a2d93e1286a8579432e7d2e4a04b227a5"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a2d93e1286a8579432e7d2e4a04b227a5">CEV_capsuleWrite_RW</a></div><div class="ttdeci">void CEV_capsuleWrite_RW(CEV_Capsule *src, SDL_RWops *dst)</div><div class="ttdoc">mem to virtual file</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1148</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a2faad3fdf543ff2551059f2d1d50cf06"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a2faad3fdf543ff2551059f2d1d50cf06">CEV_surfaceFetch</a></div><div class="ttdeci">SDL_Surface * CEV_surfaceFetch(unsigned int index, const char *fileName)</div><div class="ttdoc">fetch pic as SDL_Surface from compiled file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:405</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a3da7fe46cc44eaa3a5284482dd880623"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a3da7fe46cc44eaa3a5284482dd880623">CEV_anyFetch</a></div><div class="ttdeci">void * CEV_anyFetch(unsigned int index, FILE *file)</div><div class="ttdoc">fetches anything</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:86</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a3e657aebfbbe511ed43b38486ebcd205"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a3e657aebfbbe511ed43b38486ebcd205">CEV_fileTypeToExt</a></div><div class="ttdeci">char * CEV_fileTypeToExt(int type)</div><div class="ttdoc">Attributes file extension from file type.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1219</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a498f1ddc433cd38a83c56229209554f3"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a498f1ddc433cd38a83c56229209554f3">CEV_weatherFetch</a></div><div class="ttdeci">CEV_Weather * CEV_weatherFetch(int index, char *fileName)</div><div class="ttdoc">Loads weather from file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1057</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a5f447b30a09bc5f1eb55e574ad5b5bd8"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a5f447b30a09bc5f1eb55e574ad5b5bd8">CEV_textureLoad</a></div><div class="ttdeci">SDL_Texture * CEV_textureLoad(const char *fileName)</div><div class="ttdoc">Loads any picture file from BMP/PNG/JPG.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:465</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a7858b14fed0e109680c89fca46d2147f"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a7858b14fed0e109680c89fca46d2147f">CEV_fontFetch</a></div><div class="ttdeci">CEV_Font * CEV_fontFetch(unsigned int index, const char *fileName)</div><div class="ttdoc">fetch font as CEV_Font from compiled file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:596</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a800621e574f5d7791bdfe3bfc672f6b2"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a800621e574f5d7791bdfe3bfc672f6b2">CEV_capsuleLoad</a></div><div class="ttdeci">int CEV_capsuleLoad(CEV_Capsule *caps, const char *fileName)</div><div class="ttdoc">loads file into memory as it</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:243</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_a89845df6a2473b264d607ce880c3c24f"><div class="ttname"><a href="_c_e_v__data_file_8h.html#a89845df6a2473b264d607ce880c3c24f">CEV_menuFetch</a></div><div class="ttdeci">CEV_Menu * CEV_menuFetch(int index, char *fileName)</div><div class="ttdoc">Laods menu from file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:875</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_aae4bb9ab146b55243b54b82127b7e4a9"><div class="ttname"><a href="_c_e_v__data_file_8h.html#aae4bb9ab146b55243b54b82127b7e4a9">CEV_gifFetch</a></div><div class="ttdeci">CEV_GifAnim * CEV_gifFetch(unsigned int index, char *fileName)</div><div class="ttdoc">loads gif from file</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:780</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_aaeff1f987d3ed0841e84bedefe7f06be"><div class="ttname"><a href="_c_e_v__data_file_8h.html#aaeff1f987d3ed0841e84bedefe7f06be">CEV_textureFetch</a></div><div class="ttdeci">SDL_Texture * CEV_textureFetch(unsigned int index, const char *fileName)</div><div class="ttdoc">fetch pic as SDL_Texture from compiled file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:488</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ab00a277241a09865f20e32548483c30a"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ab00a277241a09865f20e32548483c30a">CEV_scrollFetch</a></div><div class="ttdeci">CEV_ScrollText * CEV_scrollFetch(unsigned int index, char *fileName)</div><div class="ttdoc">loads text scroller from file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:826</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ab251c54cb1c0cedb6a0b0d470a75ae0c"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ab251c54cb1c0cedb6a0b0d470a75ae0c">CEV_fileToType</a></div><div class="ttdeci">int CEV_fileToType(char *fileName)</div><div class="ttdoc">filename to enum type.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1190</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ab38a3a36dd042b3c2ef1ab1a3882c856"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ab38a3a36dd042b3c2ef1ab1a3882c856">CEV_animListFetch</a></div><div class="ttdeci">SP_AnimList * CEV_animListFetch(unsigned int index, char *fileName)</div><div class="ttdoc">loads animation set from file</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:737</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ab8f206e75bd8b4d38c2002b2b26dab30"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ab8f206e75bd8b4d38c2002b2b26dab30">CEV_parallaxFetch</a></div><div class="ttdeci">CEV_Parallax * CEV_parallaxFetch(int index, char *fileName)</div><div class="ttdoc">Loads parallax from file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:987</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_aba16b7a33e71814099d652ac088cc0d9"><div class="ttname"><a href="_c_e_v__data_file_8h.html#aba16b7a33e71814099d652ac088cc0d9">CEV_capsuleRead</a></div><div class="ttdeci">void CEV_capsuleRead(FILE *src, CEV_Capsule *caps)</div><div class="ttdoc">file to mem.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1137</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ad105b6dda42fabd555831c2e669d682a"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ad105b6dda42fabd555831c2e669d682a">CEV_capsuleExtract</a></div><div class="ttdeci">void * CEV_capsuleExtract(CEV_Capsule *caps, bool freeData)</div><div class="ttdoc">Extract exploitable data from capsule (texture, gif...)</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:275</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ad2a50c44f2369aa623f75152e5e0dc2c"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ad2a50c44f2369aa623f75152e5e0dc2c">CEV_surfaceLoad</a></div><div class="ttdeci">SDL_Surface * CEV_surfaceLoad(const char *fileName)</div><div class="ttdoc">Loads any picture file from BMP/PNG/JPG.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:375</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ae79e33c2eb5a557f0cbe450d2af1394d"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ae79e33c2eb5a557f0cbe450d2af1394d">CEV_textFetch</a></div><div class="ttdeci">CEV_Text * CEV_textFetch(unsigned int index, const char *filename)</div><div class="ttdoc">fetch text as CEV_Text from compiled file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:544</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_ae8304fb417c2b1154e00e3d13f5147fb"><div class="ttname"><a href="_c_e_v__data_file_8h.html#ae8304fb417c2b1154e00e3d13f5147fb">CEV_mapFetch</a></div><div class="ttdeci">CEV_TileMap * CEV_mapFetch(int index, char *fileName)</div><div class="ttdoc">Loads tile map from file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:916</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_aee530d1e3ed7ec1bcf885e98f130ffb2"><div class="ttname"><a href="_c_e_v__data_file_8h.html#aee530d1e3ed7ec1bcf885e98f130ffb2">CEV_waveFetch</a></div><div class="ttdeci">CEV_Chunk * CEV_waveFetch(unsigned int index, const char *fileName)</div><div class="ttdoc">fetch wave as CEV_Chunk from compiled file.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:635</div></div>
+<div class="ttc" id="a_c_e_v__data_file_8h_html_af394c6de4fac2c62230c14312e385411"><div class="ttname"><a href="_c_e_v__data_file_8h.html#af394c6de4fac2c62230c14312e385411">CEV_capsuleRead_RW</a></div><div class="ttdeci">void CEV_capsuleRead_RW(SDL_RWops *src, CEV_Capsule *dst)</div><div class="ttdoc">virtual file to mem.</div><div class="ttdef"><b>Definition:</b> CEV_dataFile.c:1159</div></div>
+<div class="ttc" id="a_c_e_v__gif_8h_html"><div class="ttname"><a href="_c_e_v__gif_8h.html">CEV_gif.h</a></div></div>
+<div class="ttc" id="a_c_e_v__maps_8h_html"><div class="ttname"><a href="_c_e_v__maps_8h.html">CEV_maps.h</a></div></div>
+<div class="ttc" id="a_c_e_v__menu_8h_html"><div class="ttname"><a href="_c_e_v__menu_8h.html">CEV_menu.h</a></div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html"><div class="ttname"><a href="_c_e_v__parallax_8h.html">CEV_parallax.h</a></div></div>
+<div class="ttc" id="a_c_e_v__scroll_8h_html"><div class="ttname"><a href="_c_e_v__scroll_8h.html">CEV_scroll.h</a></div></div>
+<div class="ttc" id="a_c_e_v__table_8h_html"><div class="ttname"><a href="_c_e_v__table_8h.html">CEV_table.h</a></div></div>
+<div class="ttc" id="a_c_e_v__texts_8h_html"><div class="ttname"><a href="_c_e_v__texts_8h.html">CEV_texts.h</a></div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html"><div class="ttname"><a href="_c_e_v__types_8h.html">CEV_types.h</a></div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html"><div class="ttname"><a href="_c_e_v__weather_8h.html">CEV_weather.h</a></div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html"><div class="ttname"><a href="struct_c_e_v___capsule.html">CEV_Capsule</a></div><div class="ttdoc">File encapsulation.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:43</div></div>
+<div class="ttc" id="astruct_c_e_v___chunk_html"><div class="ttname"><a href="struct_c_e_v___chunk.html">CEV_Chunk</a></div><div class="ttdoc">Mix chunk overlay.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:66</div></div>
+<div class="ttc" id="astruct_c_e_v___font_html"><div class="ttname"><a href="struct_c_e_v___font.html">CEV_Font</a></div><div class="ttdoc">TTF Font overlay.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:55</div></div>
+<div class="ttc" id="astruct_c_e_v___gif_anim_html"><div class="ttname"><a href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a></div><div class="ttdoc">gif animation instance</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:72</div></div>
+<div class="ttc" id="astruct_c_e_v___menu_html"><div class="ttname"><a href="struct_c_e_v___menu.html">CEV_Menu</a></div><div class="ttdef"><b>Definition:</b> CEV_menu.h:94</div></div>
+<div class="ttc" id="astruct_c_e_v___music_html"><div class="ttname"><a href="struct_c_e_v___music.html">CEV_Music</a></div><div class="ttdoc">Mix music overlay note : music overlay to keep track of allocated data ptr.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:78</div></div>
+<div class="ttc" id="astruct_c_e_v___parallax_html"><div class="ttname"><a href="struct_c_e_v___parallax.html">CEV_Parallax</a></div><div class="ttdoc">Parallax definition.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:95</div></div>
+<div class="ttc" id="astruct_c_e_v___scroll_text_html"><div class="ttname"><a href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a></div><div class="ttdoc">Main scroll structure.</div><div class="ttdef"><b>Definition:</b> CEV_scroll.h:69</div></div>
+<div class="ttc" id="astruct_c_e_v___text_html"><div class="ttname"><a href="struct_c_e_v___text.html">CEV_Text</a></div><div class="ttdoc">Easy text management. note : For each line, the alloc size is stored in size_t just after the nul cha...</div><div class="ttdef"><b>Definition:</b> CEV_texts.h:30</div></div>
+<div class="ttc" id="astruct_c_e_v___tile_map_html"><div class="ttname"><a href="struct_c_e_v___tile_map.html">CEV_TileMap</a></div><div class="ttdoc">tile map definition</div><div class="ttdef"><b>Definition:</b> CEV_maps.h:140</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html"><div class="ttname"><a href="struct_s___c_e_v___weather.html">S_CEV_Weather</a></div><div class="ttdoc">Weather main structure.</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:63</div></div>
+<div class="ttc" id="astruct_s_p___anim_list_html"><div class="ttname"><a href="struct_s_p___anim_list.html">SP_AnimList</a></div><div class="ttdoc">sp animation set structure.</div><div class="ttdef"><b>Definition:</b> CEV_animator.h:105</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__data_file_8h.html">CEV_dataFile.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

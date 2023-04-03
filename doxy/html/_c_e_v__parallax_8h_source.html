@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_parallax.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__parallax_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_parallax.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__parallax_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |    06-2019    |   1.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |    12-2019    |   1.0.1  | GIF integrated **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**   CEV    |    04-2020    |   1.0.2  | free corrected **/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//**   CEV    |    06-2021    |   1.0.3  | features added **/</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">//21/12/2019 CEV : added to display GIF animation</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">//06/04/2020 CEV : modified destroy functions to allow NULL as argument causing crash otherwise</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//17/05/2021 CEV : structure dump added</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//06/06/2021 CEV : structure modified X/Y axis parallax with options.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#ifndef PARALLAX_H_INCLUDED</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define PARALLAX_H_INCLUDED</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="_c_e_v__gif_8h.html">CEV_gif.h</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="_c_e_v__types_8h.html">CEV_types.h</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">----------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">Fichier CSV with tab separator</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"></span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">nombre de couche :      N (uint)</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">couche [N]�:    Ratio X-(float) Vitesse X-(float)   is repeat X-(0/1)   posMode X-(u8)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">                Ratio Y-(float) Vitesse Y-(float)   is repeat Y-(0/1)   posMode Y-(u8)</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">                nomFichierImage-(relatif)</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"></span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">-----------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">Fichier Data .plx</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"></span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">uint 32 nombre de couche N</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"></span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">couche [N]�:    float   ratio X</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">                float   vitesse X</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">                uint 8  is repeat X</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">                uint 8  posMode X</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">                float   ratio Y</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">                float   vitesse Y</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">                uint 8  is repeat Y</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">                uint 8  posMode Y</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">                Capsule image</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">-----------------------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"></span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">Layer index 0 is the farmost layer as in blit order.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">enum</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51">   57</a></span>    <a class="code hl_enumvalue" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51">PRLX_AUTO</a>,      </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc">   58</a></span>    <a class="code hl_enumvalue" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc">PRLX_CENTERED</a>,  </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf">   59</a></span>    <a class="code hl_enumvalue" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf">PRLX_LEFT</a>,      </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a">   60</a></span>    <a class="code hl_enumvalue" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a">PRLX_RIGHT</a>,     </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6">   61</a></span>    <a class="code hl_enumvalue" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6">PRLX_TOP</a>,       </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_enumvalue" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683">PRLX_BOTTOM</a>     </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683">   63</a></span>};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="struct_prlx_axis.html">   66</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_prlx_axis.html#af14c6d623ff1aec896b4d087ab74caa0">   68</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="struct_prlx_axis.html#af14c6d623ff1aec896b4d087ab74caa0">pos</a>,  </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="struct_prlx_axis.html#a207ad05f99cc72068a92358861ff5e71">   69</a></span>        <a class="code hl_variable" href="struct_prlx_axis.html#a207ad05f99cc72068a92358861ff5e71">ratio</a>,  </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="struct_prlx_axis.html#afc29fb7fadd39a1bc2e3c52532248689">   70</a></span>        <a class="code hl_variable" href="struct_prlx_axis.html#afc29fb7fadd39a1bc2e3c52532248689">vel</a>;    </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="struct_prlx_axis.html#aef096c3bbf6e750546c1c2a1da7992e5">   72</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_prlx_axis.html#aef096c3bbf6e750546c1c2a1da7992e5">isRepeat</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_prlx_axis.html#a28dbfc90b9915d68cce6a0a227898604">   74</a></span>    uint8_t <a class="code hl_variable" href="struct_prlx_axis.html#a28dbfc90b9915d68cce6a0a227898604">posMode</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><a class="code hl_struct" href="struct_prlx_axis.html">PrlxAxis</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="struct_c_e_v___para_layer.html">   81</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="struct_c_e_v___para_layer.html#a859b8efbf9abe8e82757ee5c75a0c97c">   83</a></span>    SDL_Texture *<a class="code hl_variable" href="struct_c_e_v___para_layer.html#a859b8efbf9abe8e82757ee5c75a0c97c">texture</a>;   </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="struct_c_e_v___para_layer.html#aeb9735b2081991abf29e70654a282feb">   84</a></span>    SDL_Rect <a class="code hl_variable" href="struct_c_e_v___para_layer.html#aeb9735b2081991abf29e70654a282feb">picSize</a>;       </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="struct_c_e_v___para_layer.html#aee24a8a3674da0f2ab8c16a0d0bf4355">   85</a></span>    <a class="code hl_struct" href="struct_prlx_axis.html">PrlxAxis</a> <a class="code hl_variable" href="struct_c_e_v___para_layer.html#aee24a8a3674da0f2ab8c16a0d0bf4355">axisPar</a>[2];    </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="struct_c_e_v___para_layer.html#a8c40bf417659b802f5f74513c94627ba">   86</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_c_e_v___para_layer.html#a8c40bf417659b802f5f74513c94627ba">isGif</a>;             </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="struct_c_e_v___para_layer.html#ae7aabc409b6c196ca0661e87b2c23009">   87</a></span>    <a class="code hl_struct" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a> *<a class="code hl_variable" href="struct_c_e_v___para_layer.html#ae7aabc409b6c196ca0661e87b2c23009">anim</a>;      </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#a08ec3c81ce23a3252de681506b75c2dd">   89</a></span><a class="code hl_typedef" href="_c_e_v__parallax_8h.html#a08ec3c81ce23a3252de681506b75c2dd">CEV_ParaLayer</a>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="struct_c_e_v___parallax.html">   94</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="struct_c_e_v___parallax.html#aa0104d94dce33608bb992d26228004da">   96</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___parallax.html#aa0104d94dce33608bb992d26228004da">numOfLayer</a>; </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="struct_c_e_v___parallax.html#aa52c99beda359a9b3ab3308ce147f065">   98</a></span>    SDL_Rect *<a class="code hl_variable" href="struct_c_e_v___parallax.html#aa52c99beda359a9b3ab3308ce147f065">cameraPos</a>,    </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="struct_c_e_v___parallax.html#aff207184d2b6bd6c5c270eea1b2706bf">   99</a></span>              <a class="code hl_variable" href="struct_c_e_v___parallax.html#aff207184d2b6bd6c5c270eea1b2706bf">worldDim</a>;     </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="struct_c_e_v___parallax.html#a7db25972aa1712cb0fecba26d1ef27bc">  100</a></span>    <a class="code hl_struct" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a> *<a class="code hl_variable" href="struct_c_e_v___parallax.html#a7db25972aa1712cb0fecba26d1ef27bc">layers</a>;  </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="_c_e_v__parallax_8h.html#ae699d82ffc77ab472dba32169b5bf55b">  102</a></span><a class="code hl_typedef" href="_c_e_v__parallax_8h.html#ae699d82ffc77ab472dba32169b5bf55b">CEV_Parallax</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a>* <a class="code hl_function" href="_c_e_v__parallax_8h.html#af359a69cfbdb1f9a672157768c183574">CEV_parallaxCreate</a>(<span class="keywordtype">int</span> numOfLayer, SDL_Rect *cameraPos);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#af0f63742596b593c446189774d246c39">CEV_parallaxDestroy</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#aaabeb83a2945a60e3d443af6bda297c9">CEV_parallaxClear</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#a71f40f10f40670f1df0f726812aee3ae">CEV_parallaxLayerClear</a>(<a class="code hl_struct" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a>* in);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#a88cd8bd385af90bdd98ee25fae5fd03e">CEV_parallaxShowAll</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#acf9b3010f36178ada53d3cf5a46d2ea1">CEV_parallaxShowLayer</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in, <span class="keywordtype">unsigned</span> index);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#a3d08bb10ebba4bbd6b6b2acb4aeabf8a">CEV_parallaxDump</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *in);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#ad297f191640ac594b4e1a6aa3c3fa155">CEV_parallaxLayerDump</a>(<a class="code hl_struct" href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a>* in);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#abde15a46d0b055513bda2cd045b8cb7c">CEV_convertParallaxCSVToData</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* srcName, <span class="keyword">const</span> <span class="keywordtype">char</span>* dstName);</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a>* <a class="code hl_function" href="_c_e_v__parallax_8h.html#a9042d825b7faeedbfa5f765448267913">CEV_parallaxLoad</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a>* <a class="code hl_function" href="_c_e_v__parallax_8h.html#a004014bca23bd357e9578fa07f83981e">CEV_parallaxLoad_RW</a>(SDL_RWops* src, uint8_t freeSrc);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#ac3bd90a0e20b78c0ca813bc70a158147">CEV_parallaxWrite_RW</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a>* src, SDL_RWops* dst);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__parallax_8h.html#ad029cec6062137fe73f3ee82752a7dd7">CEV_parallaxToCapsule</a>(<a class="code hl_struct" href="struct_c_e_v___parallax.html">CEV_Parallax</a>* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *dst);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="preprocessor">#endif </span><span class="comment">// PARALLAX_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__gif_8h_html"><div class="ttname"><a href="_c_e_v__gif_8h.html">CEV_gif.h</a></div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_a004014bca23bd357e9578fa07f83981e"><div class="ttname"><a href="_c_e_v__parallax_8h.html#a004014bca23bd357e9578fa07f83981e">CEV_parallaxLoad_RW</a></div><div class="ttdeci">CEV_Parallax * CEV_parallaxLoad_RW(SDL_RWops *src, uint8_t freeSrc)</div><div class="ttdoc">Loads parallax object from virtual RWops file.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:581</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_a08ec3c81ce23a3252de681506b75c2dd"><div class="ttname"><a href="_c_e_v__parallax_8h.html#a08ec3c81ce23a3252de681506b75c2dd">CEV_ParaLayer</a></div><div class="ttdeci">struct CEV_ParaLayer CEV_ParaLayer</div><div class="ttdoc">Parallax single layer.</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_a3d08bb10ebba4bbd6b6b2acb4aeabf8a"><div class="ttname"><a href="_c_e_v__parallax_8h.html#a3d08bb10ebba4bbd6b6b2acb4aeabf8a">CEV_parallaxDump</a></div><div class="ttdeci">void CEV_parallaxDump(CEV_Parallax *in)</div><div class="ttdoc">Dumps structure into stdout.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:371</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_a71f40f10f40670f1df0f726812aee3ae"><div class="ttname"><a href="_c_e_v__parallax_8h.html#a71f40f10f40670f1df0f726812aee3ae">CEV_parallaxLayerClear</a></div><div class="ttdeci">void CEV_parallaxLayerClear(CEV_ParaLayer *in)</div><div class="ttdoc">Clears parallax layer object content.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:233</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_a88cd8bd385af90bdd98ee25fae5fd03e"><div class="ttname"><a href="_c_e_v__parallax_8h.html#a88cd8bd385af90bdd98ee25fae5fd03e">CEV_parallaxShowAll</a></div><div class="ttdeci">void CEV_parallaxShowAll(CEV_Parallax *in)</div><div class="ttdoc">Displays all parallax layers.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:255</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_a9042d825b7faeedbfa5f765448267913"><div class="ttname"><a href="_c_e_v__parallax_8h.html#a9042d825b7faeedbfa5f765448267913">CEV_parallaxLoad</a></div><div class="ttdeci">CEV_Parallax * CEV_parallaxLoad(const char *fileName)</div><div class="ttdoc">Loads parallax object from file.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:524</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_aaabeb83a2945a60e3d443af6bda297c9"><div class="ttname"><a href="_c_e_v__parallax_8h.html#aaabeb83a2945a60e3d443af6bda297c9">CEV_parallaxClear</a></div><div class="ttdeci">void CEV_parallaxClear(CEV_Parallax *in)</div><div class="ttdoc">Clears parallax object content.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:214</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da0e31f9b3b31686474764e72fc5143bdc">PRLX_CENTERED</a></div><div class="ttdeci">@ PRLX_CENTERED</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:58</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da5dc9b42fe400750f5b8be8cfa0e450c6">PRLX_TOP</a></div><div class="ttdeci">@ PRLX_TOP</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:61</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035da80fd81f0d92f1e1278eac6dde5f8799a">PRLX_RIGHT</a></div><div class="ttdeci">@ PRLX_RIGHT</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:60</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dab79461cdd771eb8254fb765f0ae4bb51">PRLX_AUTO</a></div><div class="ttdeci">@ PRLX_AUTO</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:57</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dad6d7317743df6721e8e953e8a161e8bf">PRLX_LEFT</a></div><div class="ttdeci">@ PRLX_LEFT</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:59</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abc5c98fcc1211af2b80116dd6e0a035dae609ef844a7f7d9d312e4096e8aa0683">PRLX_BOTTOM</a></div><div class="ttdeci">@ PRLX_BOTTOM</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:62</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_abde15a46d0b055513bda2cd045b8cb7c"><div class="ttname"><a href="_c_e_v__parallax_8h.html#abde15a46d0b055513bda2cd045b8cb7c">CEV_convertParallaxCSVToData</a></div><div class="ttdeci">int CEV_convertParallaxCSVToData(const char *srcName, const char *dstName)</div><div class="ttdoc">Converts CSV descritpor file into data file.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:446</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_ac3bd90a0e20b78c0ca813bc70a158147"><div class="ttname"><a href="_c_e_v__parallax_8h.html#ac3bd90a0e20b78c0ca813bc70a158147">CEV_parallaxWrite_RW</a></div><div class="ttdeci">int CEV_parallaxWrite_RW(CEV_Parallax *src, SDL_RWops *dst)</div><div class="ttdoc">Writes parallax structure into virtual file.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:653</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_acf9b3010f36178ada53d3cf5a46d2ea1"><div class="ttname"><a href="_c_e_v__parallax_8h.html#acf9b3010f36178ada53d3cf5a46d2ea1">CEV_parallaxShowLayer</a></div><div class="ttdeci">void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)</div><div class="ttdoc">Displays selected parallax layer.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:266</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_ad029cec6062137fe73f3ee82752a7dd7"><div class="ttname"><a href="_c_e_v__parallax_8h.html#ad029cec6062137fe73f3ee82752a7dd7">CEV_parallaxToCapsule</a></div><div class="ttdeci">int CEV_parallaxToCapsule(CEV_Parallax *src, CEV_Capsule *dst)</div><div class="ttdoc">Builds CEV_Capsule from Parallax structure.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:665</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_ad297f191640ac594b4e1a6aa3c3fa155"><div class="ttname"><a href="_c_e_v__parallax_8h.html#ad297f191640ac594b4e1a6aa3c3fa155">CEV_parallaxLayerDump</a></div><div class="ttdeci">void CEV_parallaxLayerDump(CEV_ParaLayer *in)</div><div class="ttdoc">Dumps structure into stdout.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:411</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_ae699d82ffc77ab472dba32169b5bf55b"><div class="ttname"><a href="_c_e_v__parallax_8h.html#ae699d82ffc77ab472dba32169b5bf55b">CEV_Parallax</a></div><div class="ttdeci">struct CEV_Parallax CEV_Parallax</div><div class="ttdoc">Parallax definition.</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_af0f63742596b593c446189774d246c39"><div class="ttname"><a href="_c_e_v__parallax_8h.html#af0f63742596b593c446189774d246c39">CEV_parallaxDestroy</a></div><div class="ttdeci">void CEV_parallaxDestroy(CEV_Parallax *in)</div><div class="ttdoc">Destroys parallax object and its content.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:199</div></div>
+<div class="ttc" id="a_c_e_v__parallax_8h_html_af359a69cfbdb1f9a672157768c183574"><div class="ttname"><a href="_c_e_v__parallax_8h.html#af359a69cfbdb1f9a672157768c183574">CEV_parallaxCreate</a></div><div class="ttdeci">CEV_Parallax * CEV_parallaxCreate(int numOfLayer, SDL_Rect *cameraPos)</div><div class="ttdoc">Allocates new parallax object.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.c:166</div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html"><div class="ttname"><a href="_c_e_v__types_8h.html">CEV_types.h</a></div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html"><div class="ttname"><a href="struct_c_e_v___capsule.html">CEV_Capsule</a></div><div class="ttdoc">File encapsulation.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:43</div></div>
+<div class="ttc" id="astruct_c_e_v___gif_anim_html"><div class="ttname"><a href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a></div><div class="ttdoc">gif animation instance</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:72</div></div>
+<div class="ttc" id="astruct_c_e_v___para_layer_html"><div class="ttname"><a href="struct_c_e_v___para_layer.html">CEV_ParaLayer</a></div><div class="ttdoc">Parallax single layer.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:82</div></div>
+<div class="ttc" id="astruct_c_e_v___para_layer_html_a859b8efbf9abe8e82757ee5c75a0c97c"><div class="ttname"><a href="struct_c_e_v___para_layer.html#a859b8efbf9abe8e82757ee5c75a0c97c">CEV_ParaLayer::texture</a></div><div class="ttdeci">SDL_Texture * texture</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:83</div></div>
+<div class="ttc" id="astruct_c_e_v___para_layer_html_a8c40bf417659b802f5f74513c94627ba"><div class="ttname"><a href="struct_c_e_v___para_layer.html#a8c40bf417659b802f5f74513c94627ba">CEV_ParaLayer::isGif</a></div><div class="ttdeci">bool isGif</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:86</div></div>
+<div class="ttc" id="astruct_c_e_v___para_layer_html_ae7aabc409b6c196ca0661e87b2c23009"><div class="ttname"><a href="struct_c_e_v___para_layer.html#ae7aabc409b6c196ca0661e87b2c23009">CEV_ParaLayer::anim</a></div><div class="ttdeci">CEV_GifAnim * anim</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:87</div></div>
+<div class="ttc" id="astruct_c_e_v___para_layer_html_aeb9735b2081991abf29e70654a282feb"><div class="ttname"><a href="struct_c_e_v___para_layer.html#aeb9735b2081991abf29e70654a282feb">CEV_ParaLayer::picSize</a></div><div class="ttdeci">SDL_Rect picSize</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:84</div></div>
+<div class="ttc" id="astruct_c_e_v___para_layer_html_aee24a8a3674da0f2ab8c16a0d0bf4355"><div class="ttname"><a href="struct_c_e_v___para_layer.html#aee24a8a3674da0f2ab8c16a0d0bf4355">CEV_ParaLayer::axisPar</a></div><div class="ttdeci">PrlxAxis axisPar[2]</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:85</div></div>
+<div class="ttc" id="astruct_c_e_v___parallax_html"><div class="ttname"><a href="struct_c_e_v___parallax.html">CEV_Parallax</a></div><div class="ttdoc">Parallax definition.</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:95</div></div>
+<div class="ttc" id="astruct_c_e_v___parallax_html_a7db25972aa1712cb0fecba26d1ef27bc"><div class="ttname"><a href="struct_c_e_v___parallax.html#a7db25972aa1712cb0fecba26d1ef27bc">CEV_Parallax::layers</a></div><div class="ttdeci">CEV_ParaLayer * layers</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:100</div></div>
+<div class="ttc" id="astruct_c_e_v___parallax_html_aa0104d94dce33608bb992d26228004da"><div class="ttname"><a href="struct_c_e_v___parallax.html#aa0104d94dce33608bb992d26228004da">CEV_Parallax::numOfLayer</a></div><div class="ttdeci">int numOfLayer</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:96</div></div>
+<div class="ttc" id="astruct_c_e_v___parallax_html_aa52c99beda359a9b3ab3308ce147f065"><div class="ttname"><a href="struct_c_e_v___parallax.html#aa52c99beda359a9b3ab3308ce147f065">CEV_Parallax::cameraPos</a></div><div class="ttdeci">SDL_Rect * cameraPos</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:98</div></div>
+<div class="ttc" id="astruct_c_e_v___parallax_html_aff207184d2b6bd6c5c270eea1b2706bf"><div class="ttname"><a href="struct_c_e_v___parallax.html#aff207184d2b6bd6c5c270eea1b2706bf">CEV_Parallax::worldDim</a></div><div class="ttdeci">SDL_Rect worldDim</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:99</div></div>
+<div class="ttc" id="astruct_prlx_axis_html"><div class="ttname"><a href="struct_prlx_axis.html">PrlxAxis</a></div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:67</div></div>
+<div class="ttc" id="astruct_prlx_axis_html_a207ad05f99cc72068a92358861ff5e71"><div class="ttname"><a href="struct_prlx_axis.html#a207ad05f99cc72068a92358861ff5e71">PrlxAxis::ratio</a></div><div class="ttdeci">float ratio</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:69</div></div>
+<div class="ttc" id="astruct_prlx_axis_html_a28dbfc90b9915d68cce6a0a227898604"><div class="ttname"><a href="struct_prlx_axis.html#a28dbfc90b9915d68cce6a0a227898604">PrlxAxis::posMode</a></div><div class="ttdeci">uint8_t posMode</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:74</div></div>
+<div class="ttc" id="astruct_prlx_axis_html_aef096c3bbf6e750546c1c2a1da7992e5"><div class="ttname"><a href="struct_prlx_axis.html#aef096c3bbf6e750546c1c2a1da7992e5">PrlxAxis::isRepeat</a></div><div class="ttdeci">bool isRepeat</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:72</div></div>
+<div class="ttc" id="astruct_prlx_axis_html_af14c6d623ff1aec896b4d087ab74caa0"><div class="ttname"><a href="struct_prlx_axis.html#af14c6d623ff1aec896b4d087ab74caa0">PrlxAxis::pos</a></div><div class="ttdeci">float pos</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:68</div></div>
+<div class="ttc" id="astruct_prlx_axis_html_afc29fb7fadd39a1bc2e3c52532248689"><div class="ttname"><a href="struct_prlx_axis.html#afc29fb7fadd39a1bc2e3c52532248689">PrlxAxis::vel</a></div><div class="ttdeci">float vel</div><div class="ttdef"><b>Definition:</b> CEV_parallax.h:70</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__parallax_8h.html">CEV_parallax.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

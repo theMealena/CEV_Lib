@@ -40,11 +40,11 @@ CEV_capsule : fichier image si embarquée
 */
 
 
-typedef struct CEV_AniMini CEV_AniMini;
+typedef struct S_CEV_AniMini CEV_AniMini;
 
 /** \brief short animation single instance.
  */
-typedef struct CEV_SpriteMini
+typedef struct S_CEV_SpriteMini
 {//animation instance
 
     bool switchAnim,    /**< enables 2nd line of animation */
@@ -64,7 +64,7 @@ CEV_SpriteMini;
 
 /** \brief short animation reference constants.
  */
-struct CEV_AniMini
+struct S_CEV_AniMini
 {//animation constants
     //bool isSync;        /**< animation sync'ed with absolute time */
 
@@ -174,6 +174,9 @@ CEV_AniMini* CEV_aniMiniLoad_RW(SDL_RWops* src, bool freeSrc);
 int CEV_aniMiniSave(CEV_AniMini *src, char *fileName, bool embedPic);
 
 
+int CEV_aniMinConvertTxtToData(char *srcName, char *dstName);
+
+
 /** \brief Writes CEV_AniMini into file.
  *
  * \param src : CEV_AniMini* to write into file.
@@ -196,7 +199,7 @@ int CEV_aniMiniTypeWrite(CEV_AniMini *src, FILE* dst, bool embedPic);
  * into structure may fail.
  * Any existing texture is destroyed and replaced if nor referenced (srcID = nul).
  */
-int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMini *dst);
+int CEV_aniMiniTextureAttach(SDL_Texture* src, CEV_AniMini *dst);
 
 
 /** \brief Sets animation paraameters for animation.
@@ -211,7 +214,7 @@ int CEV_aniMiniSetTexture(SDL_Texture* src, CEV_AniMini *dst);
  * into structure may fail.
  * Should be called AFTER texture has been set.
  */
-int CEV_aniMiniSetParam(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMini* dst);
+int CEV_aniMiniParamSet(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMini* dst);
 
 
 /** \brief New alloc'd instance for this animation.
@@ -275,6 +278,6 @@ int CEV_totoTypeWrite_RW(Toto* src, SDL_RWops* dst);
 
 int CEV_totoToCapsule(Toto* src, CEV_Capsule *dst);
 
-int CEV_convertTotoCSVToData(char* srcName, char* dstName);*/
+int CEV_totoConvertTxtToData(char* srcName, char* dstName);*/
 
 #endif // CEV_SHORTANIM_H_INCLUDED

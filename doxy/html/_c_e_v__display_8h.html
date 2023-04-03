@@ -1,0 +1,759 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_display.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__display_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_display.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &lt;SDL_ttf.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__api_8h_source.html">CEV_api.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__data_file_8h_source.html">CEV_dataFile.h</a>&quot;</code><br />
+</div>
+<p><a href="_c_e_v__display_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a87d249ccff4f29c8de87d034ad1398e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a87d249ccff4f29c8de87d034ad1398e2">ZOOM_SCALE</a>&#160;&#160;&#160;1.05</td></tr>
+<tr class="separator:a87d249ccff4f29c8de87d034ad1398e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5255d5c772c64791a7d52a8e8f69b5a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a5255d5c772c64791a7d52a8e8f69b5a3">CEV_LEFT</a>&#160;&#160;&#160;0x1</td></tr>
+<tr class="separator:a5255d5c772c64791a7d52a8e8f69b5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2cd16ae6a00aab0e52874429b833ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#adc2cd16ae6a00aab0e52874429b833ad">CEV_RIGHT</a>&#160;&#160;&#160;0x2</td></tr>
+<tr class="separator:adc2cd16ae6a00aab0e52874429b833ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9404d87087f94f7dff67ef8017c77a8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a9404d87087f94f7dff67ef8017c77a8c">CEV_X_CENTERED</a>&#160;&#160;&#160;0x4</td></tr>
+<tr class="separator:a9404d87087f94f7dff67ef8017c77a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34622f40e7bc5a6c1022b37cee71b62b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a34622f40e7bc5a6c1022b37cee71b62b">CEV_TOP</a>&#160;&#160;&#160;0x8</td></tr>
+<tr class="separator:a34622f40e7bc5a6c1022b37cee71b62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7414f430cc25b7a4418e3a075e542f4e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a7414f430cc25b7a4418e3a075e542f4e">CEV_BOTTOM</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="separator:a7414f430cc25b7a4418e3a075e542f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8190109b64d8c77d53dc3add0e3876fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a8190109b64d8c77d53dc3add0e3876fe">CEV_Y_CENTERED</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="separator:a8190109b64d8c77d53dc3add0e3876fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b9c21c0b7c246a6183a67952f195700"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a1b9c21c0b7c246a6183a67952f195700">NUM_MAX_DIGIT</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:a1b9c21c0b7c246a6183a67952f195700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a777dd9f4f236555eade9ba8bf6593c62"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a777dd9f4f236555eade9ba8bf6593c62">CEV_dispValue</a> (const int val, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio)</td></tr>
+<tr class="memdesc:a777dd9f4f236555eade9ba8bf6593c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">displays value from TTF font.  <a href="_c_e_v__display_8h.html#a777dd9f4f236555eade9ba8bf6593c62">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a777dd9f4f236555eade9ba8bf6593c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97d18e9a0593b9c70c06dad897e141bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a97d18e9a0593b9c70c06dad897e141bc">CEV_dispText</a> (const char *text, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio)</td></tr>
+<tr class="memdesc:a97d18e9a0593b9c70c06dad897e141bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">displays text from TTF font.  <a href="_c_e_v__display_8h.html#a97d18e9a0593b9c70c06dad897e141bc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a97d18e9a0593b9c70c06dad897e141bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983a6b763ea9d4efe5c16f7435a57dbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a983a6b763ea9d4efe5c16f7435a57dbf">CEV_dispWarning</a> (char *title, char *message)</td></tr>
+<tr class="memdesc:a983a6b763ea9d4efe5c16f7435a57dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">display simple warning box  <a href="_c_e_v__display_8h.html#a983a6b763ea9d4efe5c16f7435a57dbf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a983a6b763ea9d4efe5c16f7435a57dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae12b7072affce0ea0768e9758567fafe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#ae12b7072affce0ea0768e9758567fafe">CEV_dispConfirm</a> (char *title, char *message)</td></tr>
+<tr class="memdesc:ae12b7072affce0ea0768e9758567fafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">display simple yes/no box.  <a href="_c_e_v__display_8h.html#ae12b7072affce0ea0768e9758567fafe">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae12b7072affce0ea0768e9758567fafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a925d4b4383a1ea01f980deabb52ac391"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a925d4b4383a1ea01f980deabb52ac391">CEV_dispChoice2</a> (char *title, char *message, char *opt0, char *opt1)</td></tr>
+<tr class="memdesc:a925d4b4383a1ea01f980deabb52ac391"><td class="mdescLeft">&#160;</td><td class="mdescRight">display simple choice box.  <a href="_c_e_v__display_8h.html#a925d4b4383a1ea01f980deabb52ac391">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a925d4b4383a1ea01f980deabb52ac391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17d5fd520edbe03c22e9ce2f7e7ffc5f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a17d5fd520edbe03c22e9ce2f7e7ffc5f">CEV_dispChoice3</a> (char *title, char *message, char *opt0, char *opt1, char *opt2)</td></tr>
+<tr class="memdesc:a17d5fd520edbe03c22e9ce2f7e7ffc5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">display simple choice box  <a href="_c_e_v__display_8h.html#a17d5fd520edbe03c22e9ce2f7e7ffc5f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a17d5fd520edbe03c22e9ce2f7e7ffc5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9657860147195915f05b9dcc37a190dd"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#a9657860147195915f05b9dcc37a190dd">CEV_createTTFTexture</a> (const char *text, TTF_Font *font, SDL_Color colour)</td></tr>
+<tr class="memdesc:a9657860147195915f05b9dcc37a190dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates SDL_Texture*.  <a href="_c_e_v__display_8h.html#a9657860147195915f05b9dcc37a190dd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9657860147195915f05b9dcc37a190dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa21caf52ba308d85d7aea2ba1ed9c6f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#aa21caf52ba308d85d7aea2ba1ed9c6f7">CEV_renderColorSet</a> (SDL_Renderer *render, SDL_Color color)</td></tr>
+<tr class="memdesc:aa21caf52ba308d85d7aea2ba1ed9c6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDL_color version of SDL_SetRenderDrawColor().  <a href="_c_e_v__display_8h.html#aa21caf52ba308d85d7aea2ba1ed9c6f7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa21caf52ba308d85d7aea2ba1ed9c6f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af400c9e50855c86b04d38682692e8397"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#af400c9e50855c86b04d38682692e8397">CEV_renderColorGet</a> (SDL_Renderer *render, SDL_Color *color)</td></tr>
+<tr class="memdesc:af400c9e50855c86b04d38682692e8397"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDL_color version of SDL_GetRenderDrawColor().  <a href="_c_e_v__display_8h.html#af400c9e50855c86b04d38682692e8397">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af400c9e50855c86b04d38682692e8397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab596c75dccff6495bb304473f45b7485"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__display_8h.html#ab596c75dccff6495bb304473f45b7485">CEV_dispBlitPos</a> (SDL_Rect *pos, SDL_Point point, int mode, float ratio)</td></tr>
+<tr class="separator:ab596c75dccff6495bb304473f45b7485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des macros</h2>
+<a id="a7414f430cc25b7a4418e3a075e542f4e" name="a7414f430cc25b7a4418e3a075e542f4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7414f430cc25b7a4418e3a075e542f4e">&#9670;&nbsp;</a></span>CEV_BOTTOM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CEV_BOTTOM&#160;&#160;&#160;0x10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5255d5c772c64791a7d52a8e8f69b5a3" name="a5255d5c772c64791a7d52a8e8f69b5a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5255d5c772c64791a7d52a8e8f69b5a3">&#9670;&nbsp;</a></span>CEV_LEFT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CEV_LEFT&#160;&#160;&#160;0x1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc2cd16ae6a00aab0e52874429b833ad" name="adc2cd16ae6a00aab0e52874429b833ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2cd16ae6a00aab0e52874429b833ad">&#9670;&nbsp;</a></span>CEV_RIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CEV_RIGHT&#160;&#160;&#160;0x2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34622f40e7bc5a6c1022b37cee71b62b" name="a34622f40e7bc5a6c1022b37cee71b62b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34622f40e7bc5a6c1022b37cee71b62b">&#9670;&nbsp;</a></span>CEV_TOP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CEV_TOP&#160;&#160;&#160;0x8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9404d87087f94f7dff67ef8017c77a8c" name="a9404d87087f94f7dff67ef8017c77a8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9404d87087f94f7dff67ef8017c77a8c">&#9670;&nbsp;</a></span>CEV_X_CENTERED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CEV_X_CENTERED&#160;&#160;&#160;0x4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8190109b64d8c77d53dc3add0e3876fe" name="a8190109b64d8c77d53dc3add0e3876fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8190109b64d8c77d53dc3add0e3876fe">&#9670;&nbsp;</a></span>CEV_Y_CENTERED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CEV_Y_CENTERED&#160;&#160;&#160;0x20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b9c21c0b7c246a6183a67952f195700" name="a1b9c21c0b7c246a6183a67952f195700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b9c21c0b7c246a6183a67952f195700">&#9670;&nbsp;</a></span>NUM_MAX_DIGIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_DIGIT&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87d249ccff4f29c8de87d034ad1398e2" name="a87d249ccff4f29c8de87d034ad1398e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d249ccff4f29c8de87d034ad1398e2">&#9670;&nbsp;</a></span>ZOOM_SCALE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ZOOM_SCALE&#160;&#160;&#160;1.05</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a9657860147195915f05b9dcc37a190dd" name="a9657860147195915f05b9dcc37a190dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9657860147195915f05b9dcc37a190dd">&#9670;&nbsp;</a></span>CEV_createTTFTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture * CEV_createTTFTexture </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color&#160;</td>
+          <td class="paramname"><em>colour</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>creates SDL_Texture*. </p>
+<p >Texture from font</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>: text to be displayed on texture. </td></tr>
+    <tr><td class="paramname">font</td><td>: the font text is base upon. </td></tr>
+    <tr><td class="paramname">colour</td><td>: color to be displayed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Texture* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="ab596c75dccff6495bb304473f45b7485" name="ab596c75dccff6495bb304473f45b7485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab596c75dccff6495bb304473f45b7485">&#9670;&nbsp;</a></span>CEV_dispBlitPos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_dispBlitPos </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>ratio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >adjusts display position </p>
+
+</div>
+</div>
+<a id="a925d4b4383a1ea01f980deabb52ac391" name="a925d4b4383a1ea01f980deabb52ac391"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a925d4b4383a1ea01f980deabb52ac391">&#9670;&nbsp;</a></span>CEV_dispChoice2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_dispChoice2 </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>opt0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>opt1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display simple choice box. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td>: box title. </td></tr>
+    <tr><td class="paramname">message</td><td>: message to display. </td></tr>
+    <tr><td class="paramname">opt0</td><td>: first choice text (escape key). </td></tr>
+    <tr><td class="paramname">opt1</td><td>: second choice text (return key).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>1 as "opt1", &lt;=0 otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a17d5fd520edbe03c22e9ce2f7e7ffc5f" name="a17d5fd520edbe03c22e9ce2f7e7ffc5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d5fd520edbe03c22e9ce2f7e7ffc5f">&#9670;&nbsp;</a></span>CEV_dispChoice3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_dispChoice3 </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>opt0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>opt1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>opt2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display simple choice box </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td>: box title </td></tr>
+    <tr><td class="paramname">message</td><td>: message to display </td></tr>
+    <tr><td class="paramname">opt0</td><td>: first choice text (escape key). </td></tr>
+    <tr><td class="paramname">opt1</td><td>: second choice text. </td></tr>
+    <tr><td class="paramname">opt2</td><td>: third choice text (return key).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : as selected option </dd></dl>
+
+</div>
+</div>
+<a id="ae12b7072affce0ea0768e9758567fafe" name="ae12b7072affce0ea0768e9758567fafe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae12b7072affce0ea0768e9758567fafe">&#9670;&nbsp;</a></span>CEV_dispConfirm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_dispConfirm </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display simple yes/no box. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td>: box title. </td></tr>
+    <tr><td class="paramname">message</td><td>: message to display.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>1 as "yes" (return key), 0 otherwise (escape key). </dd></dl>
+
+</div>
+</div>
+<a id="a97d18e9a0593b9c70c06dad897e141bc" name="a97d18e9a0593b9c70c06dad897e141bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97d18e9a0593b9c70c06dad897e141bc">&#9670;&nbsp;</a></span>CEV_dispText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_dispText </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color&#160;</td>
+          <td class="paramname"><em>colour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>ratio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>displays text from TTF font. </p>
+<p >Direct text display</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>: text to be displayed. </td></tr>
+    <tr><td class="paramname">font</td><td>: TTF_Font* to be applied. </td></tr>
+    <tr><td class="paramname">colour</td><td>: SDL_Color to be applied. </td></tr>
+    <tr><td class="paramname">x</td><td>: horizontal position. </td></tr>
+    <tr><td class="paramname">y</td><td>: vertical position. </td></tr>
+    <tr><td class="paramname">mode</td><td>: display align mode. </td></tr>
+    <tr><td class="paramname">ratio</td><td>: ratio of FONT_MAX.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>one of function status </dd></dl>
+
+</div>
+</div>
+<a id="a777dd9f4f236555eade9ba8bf6593c62" name="a777dd9f4f236555eade9ba8bf6593c62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a777dd9f4f236555eade9ba8bf6593c62">&#9670;&nbsp;</a></span>CEV_dispValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_dispValue </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color&#160;</td>
+          <td class="paramname"><em>colour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Point&#160;</td>
+          <td class="paramname"><em>point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>ratio</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>displays value from TTF font. </p>
+<p >Direct value display</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>: value to be displayed. </td></tr>
+    <tr><td class="paramname">font</td><td>: TTF_Font* to be applied. </td></tr>
+    <tr><td class="paramname">colour</td><td>: SDL_Color to be applied. </td></tr>
+    <tr><td class="paramname">point</td><td>: position to diplay value. </td></tr>
+    <tr><td class="paramname">mode</td><td>: display align mode. </td></tr>
+    <tr><td class="paramname">ratio</td><td>: ratio of FONT_MAX.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>one of function status </dd></dl>
+
+</div>
+</div>
+<a id="a983a6b763ea9d4efe5c16f7435a57dbf" name="a983a6b763ea9d4efe5c16f7435a57dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a983a6b763ea9d4efe5c16f7435a57dbf">&#9670;&nbsp;</a></span>CEV_dispWarning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_dispWarning </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>display simple warning box </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td>: box title </td></tr>
+    <tr><td class="paramname">message</td><td>: message to display</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A </dd></dl>
+
+</div>
+</div>
+<a id="af400c9e50855c86b04d38682692e8397" name="af400c9e50855c86b04d38682692e8397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af400c9e50855c86b04d38682692e8397">&#9670;&nbsp;</a></span>CEV_renderColorGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_renderColorGet </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>render</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color *&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SDL_color version of SDL_GetRenderDrawColor(). </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">render</td><td>SDL_Renderer* to fetch color from. </td></tr>
+    <tr><td class="paramname">color</td><td>SDL_Color* to store color into.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A </dd></dl>
+
+</div>
+</div>
+<a id="aa21caf52ba308d85d7aea2ba1ed9c6f7" name="aa21caf52ba308d85d7aea2ba1ed9c6f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa21caf52ba308d85d7aea2ba1ed9c6f7">&#9670;&nbsp;</a></span>CEV_renderColorSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_renderColorSet </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>render</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SDL_color version of SDL_SetRenderDrawColor(). </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">render</td><td>SDL_Renderer* to apply color to. </td></tr>
+    <tr><td class="paramname">color</td><td>SDL_Color to be applied.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__display_8h.html">CEV_display.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

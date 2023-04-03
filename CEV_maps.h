@@ -249,7 +249,7 @@ void CEV_mapClear(CEV_TileMap *map);
  *  \return true if texture is succesfully applied.
  *
  */
-bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture *texture);
+bool CEV_mapTextureAttach(CEV_TileMap* map, SDL_Texture *texture);
 
 
 /**

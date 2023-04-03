@@ -15,11 +15,11 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <SDL.h>
-#include <CEV_input.h>
-#include <CEV_mixSystem.h>
-#include <CEV_types.h>
-#include <CEV_dataFile.h>
-#include <CEV_mp3.h>
+#include "CEV_input.h"
+#include "CEV_mixSystem.h"
+#include "CEV_types.h"
+#include "CEV_dataFile.h"
+#include "CEV_mp3.h"
 
 // TODO (drx#1#): Tester plusieurs fichier, semble ok, nettoyer et finaliser ...
 
@@ -146,7 +146,7 @@ void CEV_mp3TEST(void)
     CEV_Capsule caps;
     SDL_Renderer *render = CEV_videoSystemGet()->render;
 
-    CEV_capsuleLoad(&caps, "mp3Test.mp3");
+    CEV_capsuleFromFile(&caps, "mp3Test.mp3");
 
     SDL_RWops* vFile = SDL_RWFromMem(caps.data, caps.size);
 
@@ -495,7 +495,6 @@ int L_mp3AlbumFetch(SDL_RWops* src, char dst[])
 void L_gotoNxtStr(SDL_RWops* src)
 {//set file ptr at begining of next available string
 
-    char byte = 0;
     uint64_t count = SDL_RWsize(src) - SDL_RWtell(src);
 
     while(!SDL_ReadU8(src) && count)

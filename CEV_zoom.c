@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <SDL.h>
-#include <CEV_zoom.h>
-#include <CEV_api.h>
-#include <CEV_mixSystem.h>
+
+#include "CEV_zoom.h"
+#include "CEV_api.h"
+#include "CEV_mixSystem.h"
+
 
 void TEST_zoom(void)
 {
+    #include <CEV_dataFile.h>
     SDL_Renderer *render = CEV_videoSystemGet()->render;
     SDL_Texture* texture = CEV_textureLoad("AngelsDemon.png");
     CEV_Input *input = CEV_inputGet();

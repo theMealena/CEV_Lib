@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_zoom.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__zoom_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_zoom.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__zoom_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef TEST_ZOOM_H_INCLUDED</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define TEST_ZOOM_H_INCLUDED</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;stdbool.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// TODO (drx#1#): voir comment g�rer les zoom inf�rieurs � 1</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html">   11</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#ac842b6c1dcb3b1f11b611620199dc55c">   13</a></span>    <span class="keywordtype">bool</span>    <a class="code hl_variable" href="struct_c_e_v___zoom.html#ac842b6c1dcb3b1f11b611620199dc55c">enable</a>;     </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#ad6a1f8fe44d9d3b257e01403d741223b">   15</a></span>    <span class="keywordtype">float</span>   <a class="code hl_variable" href="struct_c_e_v___zoom.html#ad6a1f8fe44d9d3b257e01403d741223b">scaleMax</a>,   </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#a147c550c47797c309e6e52b759183daa">   16</a></span>            <a class="code hl_variable" href="struct_c_e_v___zoom.html#a147c550c47797c309e6e52b759183daa">scaleMin</a>,   </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#a0a39a7220ae2d887216d70206faa46f5">   17</a></span>            <a class="code hl_variable" href="struct_c_e_v___zoom.html#a0a39a7220ae2d887216d70206faa46f5">scaleAct</a>,   </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#a863c86bdfd96bf9c461846689c2614aa">   18</a></span>            <a class="code hl_variable" href="struct_c_e_v___zoom.html#a863c86bdfd96bf9c461846689c2614aa">step</a>;       </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#aec06a54fb1cc6faf5a3d3e2232572cc5">   20</a></span>    SDL_Rect    <a class="code hl_variable" href="struct_c_e_v___zoom.html#aec06a54fb1cc6faf5a3d3e2232572cc5">clip</a>,       </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#afd374859dbc8629d9bd999a82685f323">   21</a></span>                <a class="code hl_variable" href="struct_c_e_v___zoom.html#afd374859dbc8629d9bd999a82685f323">blit</a>,       </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#a79a6a77ae8f77ce588eb36a2e8fe9bd3">   22</a></span>                <a class="code hl_variable" href="struct_c_e_v___zoom.html#a79a6a77ae8f77ce588eb36a2e8fe9bd3">baseDim</a>,    </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="struct_c_e_v___zoom.html#a217163ade744cb6dc60f60443889cbc9">   23</a></span>                <a class="code hl_variable" href="struct_c_e_v___zoom.html#a217163ade744cb6dc60f60443889cbc9">renderDim</a>;  </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="_c_e_v__zoom_8h.html#a4b0cf07819b52dfdc5bd1d230baf3192">   25</a></span><a class="code hl_typedef" href="_c_e_v__zoom_8h.html#a4b0cf07819b52dfdc5bd1d230baf3192">CEV_Zoom</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4da7004ff32d6c8d103b61fc07eba87eb85">   28</a></span><span class="keyword">enum</span> {<a class="code hl_enumvalue" href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4da8c633222bc40a7e73809732ac879de5c">ZOOM_NONE</a>, <a class="code hl_enumvalue" href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4da7004ff32d6c8d103b61fc07eba87eb85">ZOOM_IN</a>, <a class="code hl_enumvalue" href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4daded0489c394761d74fe468e935d9a6f3">ZOOM_OUT</a>};</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__zoom_8h.html#aa931a428284facbed4b0cffc7423e775">CEV_zoomDump</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a> src);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a> <a class="code hl_function" href="_c_e_v__zoom_8h.html#ae1680c8f08c7c7582d8bd1df704938d6">CEV_zoomInit</a>(<span class="keywordtype">int</span> baseW, <span class="keywordtype">int</span> baseH, <span class="keywordtype">float</span> scaleMax, <span class="keywordtype">float</span> step);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__zoom_8h.html#a26e8359b416ffdc8add587fad20f1d78">CEV_zoomScaleMaxSet</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a>* dst, <span class="keywordtype">float</span> scaleMax);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__zoom_8h.html#a385bab931c49187783ec49cb5aa03a2c">CEV_zoomScaleSet</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a>* dst, <span class="keywordtype">float</span> scale);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>SDL_Rect* <a class="code hl_function" href="_c_e_v__zoom_8h.html#a437a002110e6abc45e62369d56a99824">CEV_zoomClipGet</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a>* src);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>SDL_Rect <a class="code hl_function" href="_c_e_v__zoom_8h.html#a9deeb57d9f43bd922269d1a2f4ac34bd">CEV_zoomAuto</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a>* zoom, SDL_Point point);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>SDL_Rect <a class="code hl_function" href="_c_e_v__zoom_8h.html#a99fca5da4260b44831800f84e12f3660">CEV_zoomOnCoord</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a> *zoom, SDL_Point point, <span class="keywordtype">int</span> direction);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">bool</span> <a class="code hl_function" href="_c_e_v__zoom_8h.html#a3706c36cba29b3bc3f7e39677bfb514a">CEV_zoomScaleUpdate</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a> *zoom, <span class="keywordtype">int</span> direction);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">bool</span> <a class="code hl_function" href="_c_e_v__zoom_8h.html#aa2723deac22f225df065278c15f6a8eb">CEV_zoomIsClip</a>(<a class="code hl_struct" href="struct_c_e_v___zoom.html">CEV_Zoom</a> *src);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#endif </span><span class="comment">// TEST_ZOOM_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a16af7b253440dadd46a80a4b9fddba4da7004ff32d6c8d103b61fc07eba87eb85"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4da7004ff32d6c8d103b61fc07eba87eb85">ZOOM_IN</a></div><div class="ttdeci">@ ZOOM_IN</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:28</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a16af7b253440dadd46a80a4b9fddba4da8c633222bc40a7e73809732ac879de5c"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4da8c633222bc40a7e73809732ac879de5c">ZOOM_NONE</a></div><div class="ttdeci">@ ZOOM_NONE</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:28</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a16af7b253440dadd46a80a4b9fddba4daded0489c394761d74fe468e935d9a6f3"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a16af7b253440dadd46a80a4b9fddba4daded0489c394761d74fe468e935d9a6f3">ZOOM_OUT</a></div><div class="ttdeci">@ ZOOM_OUT</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:28</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a26e8359b416ffdc8add587fad20f1d78"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a26e8359b416ffdc8add587fad20f1d78">CEV_zoomScaleMaxSet</a></div><div class="ttdeci">void CEV_zoomScaleMaxSet(CEV_Zoom *dst, float scaleMax)</div><div class="ttdoc">Set zoom max value.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:132</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a3706c36cba29b3bc3f7e39677bfb514a"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a3706c36cba29b3bc3f7e39677bfb514a">CEV_zoomScaleUpdate</a></div><div class="ttdeci">bool CEV_zoomScaleUpdate(CEV_Zoom *zoom, int direction)</div><div class="ttdoc">Update zoom&quot;s actual zoom scale.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:215</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a385bab931c49187783ec49cb5aa03a2c"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a385bab931c49187783ec49cb5aa03a2c">CEV_zoomScaleSet</a></div><div class="ttdeci">void CEV_zoomScaleSet(CEV_Zoom *dst, float scale)</div><div class="ttdoc">Forces scale of a zoom.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:138</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a437a002110e6abc45e62369d56a99824"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a437a002110e6abc45e62369d56a99824">CEV_zoomClipGet</a></div><div class="ttdeci">SDL_Rect * CEV_zoomClipGet(CEV_Zoom *src)</div><div class="ttdoc">Fetches actual zoom's clip.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:150</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a4b0cf07819b52dfdc5bd1d230baf3192"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a4b0cf07819b52dfdc5bd1d230baf3192">CEV_Zoom</a></div><div class="ttdeci">struct CEV_Zoom CEV_Zoom</div><div class="ttdoc">Zoom structure definition.</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a99fca5da4260b44831800f84e12f3660"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a99fca5da4260b44831800f84e12f3660">CEV_zoomOnCoord</a></div><div class="ttdeci">SDL_Rect CEV_zoomOnCoord(CEV_Zoom *zoom, SDL_Point point, int direction)</div><div class="ttdoc">Applies zoom on reference texture.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:181</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_a9deeb57d9f43bd922269d1a2f4ac34bd"><div class="ttname"><a href="_c_e_v__zoom_8h.html#a9deeb57d9f43bd922269d1a2f4ac34bd">CEV_zoomAuto</a></div><div class="ttdeci">SDL_Rect CEV_zoomAuto(CEV_Zoom *zoom, SDL_Point point)</div><div class="ttdoc">Let the zoom behave automatically.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:170</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_aa2723deac22f225df065278c15f6a8eb"><div class="ttname"><a href="_c_e_v__zoom_8h.html#aa2723deac22f225df065278c15f6a8eb">CEV_zoomIsClip</a></div><div class="ttdeci">bool CEV_zoomIsClip(CEV_Zoom *src)</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:144</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_aa931a428284facbed4b0cffc7423e775"><div class="ttname"><a href="_c_e_v__zoom_8h.html#aa931a428284facbed4b0cffc7423e775">CEV_zoomDump</a></div><div class="ttdeci">void CEV_zoomDump(CEV_Zoom src)</div><div class="ttdoc">Dumps structure content to stdin.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:82</div></div>
+<div class="ttc" id="a_c_e_v__zoom_8h_html_ae1680c8f08c7c7582d8bd1df704938d6"><div class="ttname"><a href="_c_e_v__zoom_8h.html#ae1680c8f08c7c7582d8bd1df704938d6">CEV_zoomInit</a></div><div class="ttdeci">CEV_Zoom CEV_zoomInit(int baseW, int baseH, float scaleMax, float step)</div><div class="ttdoc">Initialize zoom parameters.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.c:101</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html"><div class="ttname"><a href="struct_c_e_v___zoom.html">CEV_Zoom</a></div><div class="ttdoc">Zoom structure definition.</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:12</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_a0a39a7220ae2d887216d70206faa46f5"><div class="ttname"><a href="struct_c_e_v___zoom.html#a0a39a7220ae2d887216d70206faa46f5">CEV_Zoom::scaleAct</a></div><div class="ttdeci">float scaleAct</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:17</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_a147c550c47797c309e6e52b759183daa"><div class="ttname"><a href="struct_c_e_v___zoom.html#a147c550c47797c309e6e52b759183daa">CEV_Zoom::scaleMin</a></div><div class="ttdeci">float scaleMin</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:16</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_a217163ade744cb6dc60f60443889cbc9"><div class="ttname"><a href="struct_c_e_v___zoom.html#a217163ade744cb6dc60f60443889cbc9">CEV_Zoom::renderDim</a></div><div class="ttdeci">SDL_Rect renderDim</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:23</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_a79a6a77ae8f77ce588eb36a2e8fe9bd3"><div class="ttname"><a href="struct_c_e_v___zoom.html#a79a6a77ae8f77ce588eb36a2e8fe9bd3">CEV_Zoom::baseDim</a></div><div class="ttdeci">SDL_Rect baseDim</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:22</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_a863c86bdfd96bf9c461846689c2614aa"><div class="ttname"><a href="struct_c_e_v___zoom.html#a863c86bdfd96bf9c461846689c2614aa">CEV_Zoom::step</a></div><div class="ttdeci">float step</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:18</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_ac842b6c1dcb3b1f11b611620199dc55c"><div class="ttname"><a href="struct_c_e_v___zoom.html#ac842b6c1dcb3b1f11b611620199dc55c">CEV_Zoom::enable</a></div><div class="ttdeci">bool enable</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:13</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_ad6a1f8fe44d9d3b257e01403d741223b"><div class="ttname"><a href="struct_c_e_v___zoom.html#ad6a1f8fe44d9d3b257e01403d741223b">CEV_Zoom::scaleMax</a></div><div class="ttdeci">float scaleMax</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:15</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_aec06a54fb1cc6faf5a3d3e2232572cc5"><div class="ttname"><a href="struct_c_e_v___zoom.html#aec06a54fb1cc6faf5a3d3e2232572cc5">CEV_Zoom::clip</a></div><div class="ttdeci">SDL_Rect clip</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:20</div></div>
+<div class="ttc" id="astruct_c_e_v___zoom_html_afd374859dbc8629d9bd999a82685f323"><div class="ttname"><a href="struct_c_e_v___zoom.html#afd374859dbc8629d9bd999a82685f323">CEV_Zoom::blit</a></div><div class="ttdeci">SDL_Rect blit</div><div class="ttdef"><b>Definition:</b> CEV_zoom.h:21</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__zoom_8h.html">CEV_zoom.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

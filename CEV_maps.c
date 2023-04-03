@@ -16,7 +16,7 @@
 #include "project_def.h"
 #include "CEV_API.h"
 #include "CEV_maps.h"
-#include <CEV_dataFile.h>
+#include "CEV_dataFile.h"
 #include "rwtypes.h"
 
 
@@ -181,7 +181,7 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
             //CEV_textureSavePNG(src->tileSetPic, dstFileName);
 
             //now picking this file as capsule
-            //CEV_capsuleLoad(&caps, dstFileName);
+            //CEV_capsuleFromFile(&caps, dstFileName);
             //creating png capsule from texture
             CEV_textureToCapsule(src->tileSetPic, &caps);
             src->tileSetId = 0;
@@ -206,7 +206,7 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
 	L_mapTypeWrite(src, dst);
 
 	if(embeddPic)
-        CEV_capsuleWrite(&caps, dst);
+        CEV_capsuleTypeWrite(&caps, dst);
 
 	fclose(dst);
 
@@ -255,7 +255,7 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
 	if(embed)
     {//tileset is embedded, going to fetch it
 
-        CEV_capsuleRead_RW(src, &caps);
+        CEV_capsuleTypeRead_RW(src, &caps);
 
         if(!IS_PIC(caps.type))
         {
@@ -271,7 +271,7 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
             goto err;
         }
 
-        CEV_mapTilesTextureSet(result, tex);
+        CEV_mapTextureAttach(result, tex);
     }
 
 	//close RWops if requested
@@ -429,7 +429,7 @@ void CEV_mapClear(CEV_TileMap *map)
 }
 
 
-bool CEV_mapTilesTextureSet(CEV_TileMap* map, SDL_Texture* texture)
+bool CEV_mapTextureAttach(CEV_TileMap* map, SDL_Texture* texture)
 {//associates texture containing tiles and sets clips
 
     if(IS_NULL(map) || IS_NULL(texture))

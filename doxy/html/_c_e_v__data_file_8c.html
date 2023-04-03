@@ -1,0 +1,1178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_dataFile.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__data_file_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_dataFile.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &lt;SDL_image.h&gt;</code><br />
+<code>#include &lt;SDL_ttf.h&gt;</code><br />
+<code>#include &lt;SDL_mixer.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__gif_8h_source.html">CEV_gif.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="project__def_8h_source.html">project_def.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__mix_system_8h_source.html">CEV_mixSystem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="rwtypes_8h_source.html">rwtypes.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__data_file_8h_source.html">CEV_dataFile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__animator_8h_source.html">CEV_animator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__scroll_8h_source.html">CEV_scroll.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__texts_8h_source.html">CEV_texts.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__menu_8h_source.html">CEV_menu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__maps_8h_source.html">CEV_maps.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__parallax_8h_source.html">CEV_parallax.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__weather_8h_source.html">CEV_weather.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a7b718a18c68774c6aabd6d67b90d11ef"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a7b718a18c68774c6aabd6d67b90d11ef">CEV_anyFetch</a> (unsigned int index, FILE *src)</td></tr>
+<tr class="memdesc:a7b718a18c68774c6aabd6d67b90d11ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetches anything  <a href="_c_e_v__data_file_8c.html#a7b718a18c68774c6aabd6d67b90d11ef">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7b718a18c68774c6aabd6d67b90d11ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bb5f99f9bc6e9acf0c30afc7448dc84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a1bb5f99f9bc6e9acf0c30afc7448dc84">CEV_capsuleFetch</a> (unsigned int index, FILE *src, <a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *dst)</td></tr>
+<tr class="memdesc:a1bb5f99f9bc6e9acf0c30afc7448dc84"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetches <a class="el" href="struct_c_e_v___capsule.html" title="File encapsulation.">CEV_Capsule</a> from file.  <a href="_c_e_v__data_file_8c.html#a1bb5f99f9bc6e9acf0c30afc7448dc84">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1bb5f99f9bc6e9acf0c30afc7448dc84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a800621e574f5d7791bdfe3bfc672f6b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a800621e574f5d7791bdfe3bfc672f6b2">CEV_capsuleLoad</a> (<a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps, const char *fileName)</td></tr>
+<tr class="memdesc:a800621e574f5d7791bdfe3bfc672f6b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads file into memory as it  <a href="_c_e_v__data_file_8c.html#a800621e574f5d7791bdfe3bfc672f6b2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a800621e574f5d7791bdfe3bfc672f6b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad105b6dda42fabd555831c2e669d682a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ad105b6dda42fabd555831c2e669d682a">CEV_capsuleExtract</a> (<a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps, bool freeData)</td></tr>
+<tr class="memdesc:ad105b6dda42fabd555831c2e669d682a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract exploitable data from capsule (texture, gif...)  <a href="_c_e_v__data_file_8c.html#ad105b6dda42fabd555831c2e669d682a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad105b6dda42fabd555831c2e669d682a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2a50c44f2369aa623f75152e5e0dc2c"><td class="memItemLeft" align="right" valign="top">SDL_Surface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ad2a50c44f2369aa623f75152e5e0dc2c">CEV_surfaceLoad</a> (const char *fileName)</td></tr>
+<tr class="memdesc:ad2a50c44f2369aa623f75152e5e0dc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads any picture file from BMP/PNG/JPG.  <a href="_c_e_v__data_file_8c.html#ad2a50c44f2369aa623f75152e5e0dc2c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad2a50c44f2369aa623f75152e5e0dc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2faad3fdf543ff2551059f2d1d50cf06"><td class="memItemLeft" align="right" valign="top">SDL_Surface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a2faad3fdf543ff2551059f2d1d50cf06">CEV_surfaceFetch</a> (unsigned int index, const char *fileName)</td></tr>
+<tr class="memdesc:a2faad3fdf543ff2551059f2d1d50cf06"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch pic as SDL_Surface from compiled file.  <a href="_c_e_v__data_file_8c.html#a2faad3fdf543ff2551059f2d1d50cf06">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2faad3fdf543ff2551059f2d1d50cf06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f447b30a09bc5f1eb55e574ad5b5bd8"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a5f447b30a09bc5f1eb55e574ad5b5bd8">CEV_textureLoad</a> (const char *fileName)</td></tr>
+<tr class="memdesc:a5f447b30a09bc5f1eb55e574ad5b5bd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads any picture file from BMP/PNG/JPG.  <a href="_c_e_v__data_file_8c.html#a5f447b30a09bc5f1eb55e574ad5b5bd8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5f447b30a09bc5f1eb55e574ad5b5bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeff1f987d3ed0841e84bedefe7f06be"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#aaeff1f987d3ed0841e84bedefe7f06be">CEV_textureFetch</a> (unsigned int index, const char *fileName)</td></tr>
+<tr class="memdesc:aaeff1f987d3ed0841e84bedefe7f06be"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch pic as SDL_Texture from compiled file.  <a href="_c_e_v__data_file_8c.html#aaeff1f987d3ed0841e84bedefe7f06be">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aaeff1f987d3ed0841e84bedefe7f06be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12014e8bde40b878c0d095d9c5c8962"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___text.html">CEV_Text</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#af12014e8bde40b878c0d095d9c5c8962">CEV_textFetch</a> (unsigned int index, const char *fileName)</td></tr>
+<tr class="memdesc:af12014e8bde40b878c0d095d9c5c8962"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch text as <a class="el" href="struct_c_e_v___text.html" title="Easy text management. note : For each line, the alloc size is stored in size_t just after the nul cha...">CEV_Text</a> from compiled file.  <a href="_c_e_v__data_file_8c.html#af12014e8bde40b878c0d095d9c5c8962">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af12014e8bde40b878c0d095d9c5c8962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7858b14fed0e109680c89fca46d2147f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___font.html">CEV_Font</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a7858b14fed0e109680c89fca46d2147f">CEV_fontFetch</a> (unsigned int index, const char *fileName)</td></tr>
+<tr class="memdesc:a7858b14fed0e109680c89fca46d2147f"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch font as <a class="el" href="struct_c_e_v___font.html" title="TTF Font overlay.">CEV_Font</a> from compiled file.  <a href="_c_e_v__data_file_8c.html#a7858b14fed0e109680c89fca46d2147f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7858b14fed0e109680c89fca46d2147f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee530d1e3ed7ec1bcf885e98f130ffb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___chunk.html">CEV_Chunk</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#aee530d1e3ed7ec1bcf885e98f130ffb2">CEV_waveFetch</a> (unsigned int index, const char *fileName)</td></tr>
+<tr class="memdesc:aee530d1e3ed7ec1bcf885e98f130ffb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch wave as <a class="el" href="struct_c_e_v___chunk.html" title="Mix chunk overlay.">CEV_Chunk</a> from compiled file.  <a href="_c_e_v__data_file_8c.html#aee530d1e3ed7ec1bcf885e98f130ffb2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aee530d1e3ed7ec1bcf885e98f130ffb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f3a662b2c531f138b60bf38a405caca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___music.html">CEV_Music</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a1f3a662b2c531f138b60bf38a405caca">CEV_musicFetch</a> (unsigned int index, const char *fileName)</td></tr>
+<tr class="memdesc:a1f3a662b2c531f138b60bf38a405caca"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetch music as <a class="el" href="struct_c_e_v___music.html" title="Mix music overlay note : music overlay to keep track of allocated data ptr.">CEV_Music</a> from compiled file.  <a href="_c_e_v__data_file_8c.html#a1f3a662b2c531f138b60bf38a405caca">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1f3a662b2c531f138b60bf38a405caca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab38a3a36dd042b3c2ef1ab1a3882c856"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ab38a3a36dd042b3c2ef1ab1a3882c856">CEV_animListFetch</a> (unsigned int index, char *fileName)</td></tr>
+<tr class="memdesc:ab38a3a36dd042b3c2ef1ab1a3882c856"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads animation set from file  <a href="_c_e_v__data_file_8c.html#ab38a3a36dd042b3c2ef1ab1a3882c856">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab38a3a36dd042b3c2ef1ab1a3882c856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae4bb9ab146b55243b54b82127b7e4a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#aae4bb9ab146b55243b54b82127b7e4a9">CEV_gifFetch</a> (unsigned int index, char *fileName)</td></tr>
+<tr class="memdesc:aae4bb9ab146b55243b54b82127b7e4a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads gif from file  <a href="_c_e_v__data_file_8c.html#aae4bb9ab146b55243b54b82127b7e4a9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aae4bb9ab146b55243b54b82127b7e4a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab00a277241a09865f20e32548483c30a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ab00a277241a09865f20e32548483c30a">CEV_scrollFetch</a> (unsigned int index, char *fileName)</td></tr>
+<tr class="memdesc:ab00a277241a09865f20e32548483c30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads text scroller from file.  <a href="_c_e_v__data_file_8c.html#ab00a277241a09865f20e32548483c30a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab00a277241a09865f20e32548483c30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89845df6a2473b264d607ce880c3c24f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___menu.html">CEV_Menu</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a89845df6a2473b264d607ce880c3c24f">CEV_menuFetch</a> (int index, char *fileName)</td></tr>
+<tr class="memdesc:a89845df6a2473b264d607ce880c3c24f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Laods menu from file.  <a href="_c_e_v__data_file_8c.html#a89845df6a2473b264d607ce880c3c24f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a89845df6a2473b264d607ce880c3c24f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8304fb417c2b1154e00e3d13f5147fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ae8304fb417c2b1154e00e3d13f5147fb">CEV_mapFetch</a> (int index, char *fileName)</td></tr>
+<tr class="memdesc:ae8304fb417c2b1154e00e3d13f5147fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads tile map from file.  <a href="_c_e_v__data_file_8c.html#ae8304fb417c2b1154e00e3d13f5147fb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae8304fb417c2b1154e00e3d13f5147fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8f206e75bd8b4d38c2002b2b26dab30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ab8f206e75bd8b4d38c2002b2b26dab30">CEV_parallaxFetch</a> (int index, char *fileName)</td></tr>
+<tr class="memdesc:ab8f206e75bd8b4d38c2002b2b26dab30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads parallax from file.  <a href="_c_e_v__data_file_8c.html#ab8f206e75bd8b4d38c2002b2b26dab30">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab8f206e75bd8b4d38c2002b2b26dab30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498f1ddc433cd38a83c56229209554f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a498f1ddc433cd38a83c56229209554f3">CEV_weatherFetch</a> (int index, char *fileName)</td></tr>
+<tr class="memdesc:a498f1ddc433cd38a83c56229209554f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads weather from file.  <a href="_c_e_v__data_file_8c.html#a498f1ddc433cd38a83c56229209554f3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a498f1ddc433cd38a83c56229209554f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1400a49600a3b83bdd23e26af28c87fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a1400a49600a3b83bdd23e26af28c87fc">CEV_capsuleWrite</a> (<a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps, FILE *dst)</td></tr>
+<tr class="memdesc:a1400a49600a3b83bdd23e26af28c87fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">mem to file.  <a href="_c_e_v__data_file_8c.html#a1400a49600a3b83bdd23e26af28c87fc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1400a49600a3b83bdd23e26af28c87fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f7938cb8842e9ebb540d9494a8a3b02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a9f7938cb8842e9ebb540d9494a8a3b02">CEV_capsuleRead</a> (FILE *src, <a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *dst)</td></tr>
+<tr class="memdesc:a9f7938cb8842e9ebb540d9494a8a3b02"><td class="mdescLeft">&#160;</td><td class="mdescRight">file to mem.  <a href="_c_e_v__data_file_8c.html#a9f7938cb8842e9ebb540d9494a8a3b02">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9f7938cb8842e9ebb540d9494a8a3b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d93e1286a8579432e7d2e4a04b227a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a2d93e1286a8579432e7d2e4a04b227a5">CEV_capsuleWrite_RW</a> (<a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *src, SDL_RWops *dst)</td></tr>
+<tr class="memdesc:a2d93e1286a8579432e7d2e4a04b227a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">mem to virtual file  <a href="_c_e_v__data_file_8c.html#a2d93e1286a8579432e7d2e4a04b227a5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2d93e1286a8579432e7d2e4a04b227a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af394c6de4fac2c62230c14312e385411"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#af394c6de4fac2c62230c14312e385411">CEV_capsuleRead_RW</a> (SDL_RWops *src, <a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *dst)</td></tr>
+<tr class="memdesc:af394c6de4fac2c62230c14312e385411"><td class="mdescLeft">&#160;</td><td class="mdescRight">virtual file to mem.  <a href="_c_e_v__data_file_8c.html#af394c6de4fac2c62230c14312e385411">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af394c6de4fac2c62230c14312e385411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1286fa3cb730ff01cbe18c05074689c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a1286fa3cb730ff01cbe18c05074689c1">CEV_capsuleClear</a> (<a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps)</td></tr>
+<tr class="memdesc:a1286fa3cb730ff01cbe18c05074689c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">clean up / free fileInfo content.  <a href="_c_e_v__data_file_8c.html#a1286fa3cb730ff01cbe18c05074689c1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1286fa3cb730ff01cbe18c05074689c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a250c80625c41d7499d10a463813a149c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a250c80625c41d7499d10a463813a149c">CEV_capsuleDestroy</a> (<a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *caps)</td></tr>
+<tr class="memdesc:a250c80625c41d7499d10a463813a149c"><td class="mdescLeft">&#160;</td><td class="mdescRight">free content and itself.  <a href="_c_e_v__data_file_8c.html#a250c80625c41d7499d10a463813a149c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a250c80625c41d7499d10a463813a149c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab251c54cb1c0cedb6a0b0d470a75ae0c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#ab251c54cb1c0cedb6a0b0d470a75ae0c">CEV_fileToType</a> (char *fileName)</td></tr>
+<tr class="memdesc:ab251c54cb1c0cedb6a0b0d470a75ae0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">filename to enum type.  <a href="_c_e_v__data_file_8c.html#ab251c54cb1c0cedb6a0b0d470a75ae0c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab251c54cb1c0cedb6a0b0d470a75ae0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e657aebfbbe511ed43b38486ebcd205"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__data_file_8c.html#a3e657aebfbbe511ed43b38486ebcd205">CEV_fileTypeToExt</a> (int type)</td></tr>
+<tr class="memdesc:a3e657aebfbbe511ed43b38486ebcd205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attributes file extension from file type.  <a href="_c_e_v__data_file_8c.html#a3e657aebfbbe511ed43b38486ebcd205">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3e657aebfbbe511ed43b38486ebcd205"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ab38a3a36dd042b3c2ef1ab1a3882c856" name="ab38a3a36dd042b3c2ef1ab1a3882c856"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab38a3a36dd042b3c2ef1ab1a3882c856">&#9670;&nbsp;</a></span>CEV_animListFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_s_p___anim_list.html">SP_AnimList</a> * CEV_animListFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads animation set from file </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SP_AnimList* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a7b718a18c68774c6aabd6d67b90d11ef" name="a7b718a18c68774c6aabd6d67b90d11ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b718a18c68774c6aabd6d67b90d11ef">&#9670;&nbsp;</a></span>CEV_anyFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * CEV_anyFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetches anything </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index to fetch. </td></tr>
+    <tr><td class="paramname">file</td><td>: opened file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void* on anything that was requested, NULL on error. </dd>
+<dd>
+CEV_Capsule* if DEFAULT or DAT file is spotted. </dd></dl>
+
+</div>
+</div>
+<a id="a1286fa3cb730ff01cbe18c05074689c1" name="a1286fa3cb730ff01cbe18c05074689c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1286fa3cb730ff01cbe18c05074689c1">&#9670;&nbsp;</a></span>CEV_capsuleClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_capsuleClear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>caps</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>clean up / free fileInfo content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to clear.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a250c80625c41d7499d10a463813a149c" name="a250c80625c41d7499d10a463813a149c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a250c80625c41d7499d10a463813a149c">&#9670;&nbsp;</a></span>CEV_capsuleDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_capsuleDestroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>caps</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>free content and itself. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to free.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="ad105b6dda42fabd555831c2e669d682a" name="ad105b6dda42fabd555831c2e669d682a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad105b6dda42fabd555831c2e669d682a">&#9670;&nbsp;</a></span>CEV_capsuleExtract()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * CEV_capsuleExtract </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>caps</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>freeData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extract exploitable data from capsule (texture, gif...) </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to extract file from </td></tr>
+    <tr><td class="paramname">freeData</td><td>: Destroys capsule content if true.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void* on resulting object. NULL on error. note : Capsule content is kept as if extraction fails. </dd></dl>
+
+</div>
+</div>
+<a id="a1bb5f99f9bc6e9acf0c30afc7448dc84" name="a1bb5f99f9bc6e9acf0c30afc7448dc84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bb5f99f9bc6e9acf0c30afc7448dc84">&#9670;&nbsp;</a></span>CEV_capsuleFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_capsuleFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetches <a class="el" href="struct_c_e_v___capsule.html" title="File encapsulation.">CEV_Capsule</a> from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index to fetch. </td></tr>
+    <tr><td class="paramname">src</td><td>: FILE* to read from. </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Capsule* to receive raw memory.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>any of the functions status. </dd></dl>
+
+</div>
+</div>
+<a id="a800621e574f5d7791bdfe3bfc672f6b2" name="a800621e574f5d7791bdfe3bfc672f6b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a800621e574f5d7791bdfe3bfc672f6b2">&#9670;&nbsp;</a></span>CEV_capsuleLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_capsuleLoad </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>caps</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads file into memory as it </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to store file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to be opened and stored.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>any of the function status. </dd></dl>
+
+</div>
+</div>
+<a id="a9f7938cb8842e9ebb540d9494a8a3b02" name="a9f7938cb8842e9ebb540d9494a8a3b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f7938cb8842e9ebb540d9494a8a3b02">&#9670;&nbsp;</a></span>CEV_capsuleRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_capsuleRead </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>caps</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>file to mem. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to be filled. </td></tr>
+    <tr><td class="paramname">src</td><td>: FILE* to read from actual position.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>readWriteErr is set. </dd></dl>
+
+</div>
+</div>
+<a id="af394c6de4fac2c62230c14312e385411" name="af394c6de4fac2c62230c14312e385411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af394c6de4fac2c62230c14312e385411">&#9670;&nbsp;</a></span>CEV_capsuleRead_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_capsuleRead_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>virtual file to mem. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to be filled. </td></tr>
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to read from actual position.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>readWriteErr is set. </dd></dl>
+
+</div>
+</div>
+<a id="a1400a49600a3b83bdd23e26af28c87fc" name="a1400a49600a3b83bdd23e26af28c87fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1400a49600a3b83bdd23e26af28c87fc">&#9670;&nbsp;</a></span>CEV_capsuleWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_capsuleWrite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>caps</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>mem to file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">caps</td><td>: CEV_Capsule* to be dumped. </td></tr>
+    <tr><td class="paramname">dst</td><td>FILE* to write into at actual position. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>readWriteErr is set on error. </dd></dl>
+
+</div>
+</div>
+<a id="a2d93e1286a8579432e7d2e4a04b227a5" name="a2d93e1286a8579432e7d2e4a04b227a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d93e1286a8579432e7d2e4a04b227a5">&#9670;&nbsp;</a></span>CEV_capsuleWrite_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_capsuleWrite_RW </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___capsule.html">CEV_Capsule</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>mem to virtual file </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Capsule* to read from </td></tr>
+    <tr><td class="paramname">dst</td><td>: SDL_RWops* to write into</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="ab251c54cb1c0cedb6a0b0d470a75ae0c" name="ab251c54cb1c0cedb6a0b0d470a75ae0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab251c54cb1c0cedb6a0b0d470a75ae0c">&#9670;&nbsp;</a></span>CEV_fileToType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_fileToType </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>filename to enum type. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>: name of file to deduce type from</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>any of FILE_TYPE enum </dd></dl>
+
+</div>
+</div>
+<a id="a3e657aebfbbe511ed43b38486ebcd205" name="a3e657aebfbbe511ed43b38486ebcd205"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e657aebfbbe511ed43b38486ebcd205">&#9670;&nbsp;</a></span>CEV_fileTypeToExt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * CEV_fileTypeToExt </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attributes file extension from file type. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>: FILE_TYPE to fetch extension from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>char* : string with extension. note : extension is given without '.' separator. </dd></dl>
+
+</div>
+</div>
+<a id="a7858b14fed0e109680c89fca46d2147f" name="a7858b14fed0e109680c89fca46d2147f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7858b14fed0e109680c89fca46d2147f">&#9670;&nbsp;</a></span>CEV_fontFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___font.html">CEV_Font</a> * CEV_fontFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch font as <a class="el" href="struct_c_e_v___font.html" title="TTF Font overlay.">CEV_Font</a> from compiled file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Font* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="aae4bb9ab146b55243b54b82127b7e4a9" name="aae4bb9ab146b55243b54b82127b7e4a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae4bb9ab146b55243b54b82127b7e4a9">&#9670;&nbsp;</a></span>CEV_gifFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a> * CEV_gifFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads gif from file </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_GifAnim* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="ae8304fb417c2b1154e00e3d13f5147fb" name="ae8304fb417c2b1154e00e3d13f5147fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8304fb417c2b1154e00e3d13f5147fb">&#9670;&nbsp;</a></span>CEV_mapFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___tile_map.html">CEV_TileMap</a> * CEV_mapFetch </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads tile map from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_TileMap* on success, NULL on error. </dd></dl>
+<p >openning file</p>
+
+</div>
+</div>
+<a id="a89845df6a2473b264d607ce880c3c24f" name="a89845df6a2473b264d607ce880c3c24f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89845df6a2473b264d607ce880c3c24f">&#9670;&nbsp;</a></span>CEV_menuFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___menu.html">CEV_Menu</a> * CEV_menuFetch </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Laods menu from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Menu* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a1f3a662b2c531f138b60bf38a405caca" name="a1f3a662b2c531f138b60bf38a405caca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f3a662b2c531f138b60bf38a405caca">&#9670;&nbsp;</a></span>CEV_musicFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___music.html">CEV_Music</a> * CEV_musicFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch music as <a class="el" href="struct_c_e_v___music.html" title="Mix music overlay note : music overlay to keep track of allocated data ptr.">CEV_Music</a> from compiled file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Music* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="ab8f206e75bd8b4d38c2002b2b26dab30" name="ab8f206e75bd8b4d38c2002b2b26dab30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8f206e75bd8b4d38c2002b2b26dab30">&#9670;&nbsp;</a></span>CEV_parallaxFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___parallax.html">CEV_Parallax</a> * CEV_parallaxFetch </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads parallax from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Parallax* on success, NULL on error. </dd></dl>
+<p >openning file</p>
+
+</div>
+</div>
+<a id="ab00a277241a09865f20e32548483c30a" name="ab00a277241a09865f20e32548483c30a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab00a277241a09865f20e32548483c30a">&#9670;&nbsp;</a></span>CEV_scrollFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___scroll_text.html">CEV_ScrollText</a> * CEV_scrollFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads text scroller from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_ScrollText* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a2faad3fdf543ff2551059f2d1d50cf06" name="a2faad3fdf543ff2551059f2d1d50cf06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2faad3fdf543ff2551059f2d1d50cf06">&#9670;&nbsp;</a></span>CEV_surfaceFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Surface * CEV_surfaceFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch pic as SDL_Surface from compiled file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Surface* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="ad2a50c44f2369aa623f75152e5e0dc2c" name="ad2a50c44f2369aa623f75152e5e0dc2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2a50c44f2369aa623f75152e5e0dc2c">&#9670;&nbsp;</a></span>CEV_surfaceLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Surface * CEV_surfaceLoad </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads any picture file from BMP/PNG/JPG. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: file to open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Surface* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="af12014e8bde40b878c0d095d9c5c8962" name="af12014e8bde40b878c0d095d9c5c8962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af12014e8bde40b878c0d095d9c5c8962">&#9670;&nbsp;</a></span>CEV_textFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___text.html">CEV_Text</a> * CEV_textFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch text as <a class="el" href="struct_c_e_v___text.html" title="Easy text management. note : For each line, the alloc size is stored in size_t just after the nul cha...">CEV_Text</a> from compiled file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Text* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="aaeff1f987d3ed0841e84bedefe7f06be" name="aaeff1f987d3ed0841e84bedefe7f06be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeff1f987d3ed0841e84bedefe7f06be">&#9670;&nbsp;</a></span>CEV_textureFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture * CEV_textureFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch pic as SDL_Texture from compiled file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Texture* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a5f447b30a09bc5f1eb55e574ad5b5bd8" name="a5f447b30a09bc5f1eb55e574ad5b5bd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f447b30a09bc5f1eb55e574ad5b5bd8">&#9670;&nbsp;</a></span>CEV_textureLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture * CEV_textureLoad </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads any picture file from BMP/PNG/JPG. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: file to open.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Texture* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="aee530d1e3ed7ec1bcf885e98f130ffb2" name="aee530d1e3ed7ec1bcf885e98f130ffb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee530d1e3ed7ec1bcf885e98f130ffb2">&#9670;&nbsp;</a></span>CEV_waveFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___chunk.html">CEV_Chunk</a> * CEV_waveFetch </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetch wave as <a class="el" href="struct_c_e_v___chunk.html" title="Mix chunk overlay.">CEV_Chunk</a> from compiled file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Chunk* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a498f1ddc433cd38a83c56229209554f3" name="a498f1ddc433cd38a83c56229209554f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a498f1ddc433cd38a83c56229209554f3">&#9670;&nbsp;</a></span>CEV_weatherFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a> * CEV_weatherFetch </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads weather from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>: data index in file. </td></tr>
+    <tr><td class="paramname">fileName</td><td>: file to fetch from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Weather* on success, NULL on error. </dd></dl>
+<p >openning file</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__data_file_8c.html">CEV_dataFile.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

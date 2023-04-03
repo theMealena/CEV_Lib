@@ -1,7 +1,14 @@
+//**********************************************************/
+//** Done by  |      Date     |  version |    comment     **/
+//**------------------------------------------------------**/
+//**   CEV    |  14-02-2015   |   1.0    |    creation    **/
+//**********************************************************/
+
 #ifndef CEV_FILE_H_INCLUDED
 #define CEV_FILE_H_INCLUDED
 
 #include <stdio.h>
+#include <stdbool.h>
 
 
 /** \brief extract number of lines in file.
@@ -9,6 +16,7 @@
  * \param file : ptr on FILE.
  *
  * \return num of lines 0 otherwise.
+ * \note file ought to be in text mode / csv or compliant.
  */
 int CEV_fileNumOfLine(FILE *file);
 
@@ -18,6 +26,7 @@ int CEV_fileNumOfLine(FILE *file);
  * \param line : which line to reach.
  *
  * \return true on success, false otherwise.
+ * \note file ought to be in text mode / csv or compliant.
  */
 bool CEV_fileGotoLine(int line, FILE* file);
 
@@ -28,6 +37,7 @@ bool CEV_fileGotoLine(int line, FILE* file);
  * \param seprator : separator identifier.
  *
  * \return true on success, false otherwise.
+ * \note file ought to be in text mode / csv or compliant.
  */
 bool CEV_fileGotoColumn(int num, FILE *file, int separator);
 
@@ -37,6 +47,7 @@ bool CEV_fileGotoColumn(int num, FILE *file, int separator);
  * \param file : ptr on FILE.
  *
  * \return true on success, false otherwise.
+ * \note file ought to be in text mode / csv or compliant.
  */
 bool CEV_fileGotoNextLine(FILE *file);
 

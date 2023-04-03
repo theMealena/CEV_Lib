@@ -7,11 +7,12 @@
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
 
+#include <SDL.h>
 
 #include "CEV_timer.h"
 #include "CEV_api.h"
 
-#include <SDL.h>
+
 
 /*moving direction*/
 #define CAMERA_LEFT     0x1 //0001

@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_chain.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__chain_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_chain.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__chain_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  15-04-2015   |   0.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |    05-2016    |   0.1    |    SDL2 rev    **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**   CEV    |  15-02-2017   |   1.0    |   rev &amp; test   **/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef CEV_CHAIN_H_INCLUDED</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define CEV_CHAIN_H_INCLUDED</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="_c_e_v__chain_8h.html#a92b5596f4a5c88c0d2f42d020881f820">   18</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a> <a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_link.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_link.html#a735984d41155bc1032e09bece8f8d66d">   26</a></span>    <span class="keywordtype">void</span>* <a class="code hl_variable" href="struct_c_e_v___chain_link.html#a735984d41155bc1032e09bece8f8d66d">data</a>; <span class="comment">/*instance pointer*/</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_link.html#a2ce24dd82342cab99f1dd3874d8de6d3">   28</a></span>    <a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a> *<a class="code hl_variable" href="struct_c_e_v___chain_link.html#a2ce24dd82342cab99f1dd3874d8de6d3">prev</a>,  <span class="comment">/*previous link*/</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_link.html#a433a13b41ee75eaf9a742c6129881cf9">   29</a></span>                  *<a class="code hl_variable" href="struct_c_e_v___chain_link.html#a433a13b41ee75eaf9a742c6129881cf9">next</a>;  <span class="comment">/*next link*/</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_handle.html">   35</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_handle.html#a16ff2d8e15ade4948398b0aeb80124a8">   38</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_c_e_v___chain_handle.html#a16ff2d8e15ade4948398b0aeb80124a8">count</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_handle.html#a16b29e7332989c4e6bda5ca68f472ed9">   40</a></span>    <a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a> *<a class="code hl_variable" href="struct_c_e_v___chain_handle.html#a16b29e7332989c4e6bda5ca68f472ed9">first</a>, <span class="comment">/*first link*/</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_c_e_v___chain_handle.html#a5534a6bacc6820e4ffa25908c1120dbe">   41</a></span>                  *<a class="code hl_variable" href="struct_c_e_v___chain_handle.html#a5534a6bacc6820e4ffa25908c1120dbe">last</a>;  <span class="comment">/*last link*/</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="_c_e_v__chain_8h.html#a3adc71ea35e723b3b8fe390b6082457c">   43</a></span><a class="code hl_typedef" href="_c_e_v__chain_8h.html#a3adc71ea35e723b3b8fe390b6082457c">CEV_ChainHandle</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* <a class="code hl_function" href="_c_e_v__chain_8h.html#ac6ca9cc0e40dd4f627c384ca72ccf2de">CEV_chainCreate</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> *<a class="code hl_function" href="_c_e_v__chain_8h.html#a3a21c7e2f1217b189f77df880ffea785">CEV_chainGetDataIndex</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a> *<a class="code hl_function" href="_c_e_v__chain_8h.html#aecb1b9ae8e09478a14de46c000c6cc05">CEV_chainGetIndex</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a>* <a class="code hl_function" href="_c_e_v__chain_8h.html#a622b973ea17b41cc68b967cb5cb2808b">CEV_chainInsert</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">void</span>* data, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a>* <a class="code hl_function" href="_c_e_v__chain_8h.html#ad772dfe6f1e85ced396f987e268e1798">CEV_chainAppend</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">void</span>* data);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a>* <a class="code hl_function" href="_c_e_v__chain_8h.html#a46276ad7a44f3ae3729e8c242249dcbe">CEV_chainPrepend</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">void</span>* data);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__chain_8h.html#a612391c5c42caf6e18a07ff71e667010">CEV_chainRemoveIndex</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <span class="keywordtype">char</span> freeData);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__chain_8h.html#a3c7f5d8b86e6ed50586d4392379dd811">CEV_chainRemove</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <a class="code hl_struct" href="struct_c_e_v___chain_link.html">CEV_ChainLink</a>* link, <span class="keywordtype">char</span> freeData);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__chain_8h.html#a5a6fda351fa6f36f9285f56592bf625d">CEV_chainDestroy</a>(<a class="code hl_struct" href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a>* handle, <span class="keywordtype">char</span> freeData);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">#endif </span><span class="comment">/* CEV_CHAIN_H_INCLUDED */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a3a21c7e2f1217b189f77df880ffea785"><div class="ttname"><a href="_c_e_v__chain_8h.html#a3a21c7e2f1217b189f77df880ffea785">CEV_chainGetDataIndex</a></div><div class="ttdeci">void * CEV_chainGetDataIndex(CEV_ChainHandle *handle, unsigned int index)</div><div class="ttdoc">gets the Nth data</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:47</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a3adc71ea35e723b3b8fe390b6082457c"><div class="ttname"><a href="_c_e_v__chain_8h.html#a3adc71ea35e723b3b8fe390b6082457c">CEV_ChainHandle</a></div><div class="ttdeci">struct CEV_ChainHandle CEV_ChainHandle</div><div class="ttdoc">chain handle</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a3c7f5d8b86e6ed50586d4392379dd811"><div class="ttname"><a href="_c_e_v__chain_8h.html#a3c7f5d8b86e6ed50586d4392379dd811">CEV_chainRemove</a></div><div class="ttdeci">void CEV_chainRemove(CEV_ChainHandle *handle, CEV_ChainLink *link, char freeData)</div><div class="ttdoc">destroys known link</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:213</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a46276ad7a44f3ae3729e8c242249dcbe"><div class="ttname"><a href="_c_e_v__chain_8h.html#a46276ad7a44f3ae3729e8c242249dcbe">CEV_chainPrepend</a></div><div class="ttdeci">CEV_ChainLink * CEV_chainPrepend(CEV_ChainHandle *handle, void *data)</div><div class="ttdoc">creates and preppends new link</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:169</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a5a6fda351fa6f36f9285f56592bf625d"><div class="ttname"><a href="_c_e_v__chain_8h.html#a5a6fda351fa6f36f9285f56592bf625d">CEV_chainDestroy</a></div><div class="ttdeci">void CEV_chainDestroy(CEV_ChainHandle *handle, char freeData)</div><div class="ttdoc">destroys full chain</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:249</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a612391c5c42caf6e18a07ff71e667010"><div class="ttname"><a href="_c_e_v__chain_8h.html#a612391c5c42caf6e18a07ff71e667010">CEV_chainRemoveIndex</a></div><div class="ttdeci">void CEV_chainRemoveIndex(CEV_ChainHandle *handle, unsigned int index, char freeData)</div><div class="ttdoc">destroys indexth link</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:206</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_a622b973ea17b41cc68b967cb5cb2808b"><div class="ttname"><a href="_c_e_v__chain_8h.html#a622b973ea17b41cc68b967cb5cb2808b">CEV_chainInsert</a></div><div class="ttdeci">CEV_ChainLink * CEV_chainInsert(CEV_ChainHandle *handle, void *data, unsigned int index)</div><div class="ttdoc">creates and insert a new link</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:76</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_ac6ca9cc0e40dd4f627c384ca72ccf2de"><div class="ttname"><a href="_c_e_v__chain_8h.html#ac6ca9cc0e40dd4f627c384ca72ccf2de">CEV_chainCreate</a></div><div class="ttdeci">CEV_ChainHandle * CEV_chainCreate(void)</div><div class="ttdoc">creates chain handle.</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:21</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_ad772dfe6f1e85ced396f987e268e1798"><div class="ttname"><a href="_c_e_v__chain_8h.html#ad772dfe6f1e85ced396f987e268e1798">CEV_chainAppend</a></div><div class="ttdeci">CEV_ChainLink * CEV_chainAppend(CEV_ChainHandle *handle, void *data)</div><div class="ttdoc">creates and appends new link</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:133</div></div>
+<div class="ttc" id="a_c_e_v__chain_8h_html_aecb1b9ae8e09478a14de46c000c6cc05"><div class="ttname"><a href="_c_e_v__chain_8h.html#aecb1b9ae8e09478a14de46c000c6cc05">CEV_chainGetIndex</a></div><div class="ttdeci">CEV_ChainLink * CEV_chainGetIndex(CEV_ChainHandle *handle, unsigned int index)</div><div class="ttdoc">gets the Nth link</div><div class="ttdef"><b>Definition:</b> CEV_chain.c:54</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_handle_html"><div class="ttname"><a href="struct_c_e_v___chain_handle.html">CEV_ChainHandle</a></div><div class="ttdoc">chain handle</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:36</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_handle_html_a16b29e7332989c4e6bda5ca68f472ed9"><div class="ttname"><a href="struct_c_e_v___chain_handle.html#a16b29e7332989c4e6bda5ca68f472ed9">CEV_ChainHandle::first</a></div><div class="ttdeci">CEV_ChainLink * first</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:40</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_handle_html_a16ff2d8e15ade4948398b0aeb80124a8"><div class="ttname"><a href="struct_c_e_v___chain_handle.html#a16ff2d8e15ade4948398b0aeb80124a8">CEV_ChainHandle::count</a></div><div class="ttdeci">unsigned int count</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:38</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_handle_html_a5534a6bacc6820e4ffa25908c1120dbe"><div class="ttname"><a href="struct_c_e_v___chain_handle.html#a5534a6bacc6820e4ffa25908c1120dbe">CEV_ChainHandle::last</a></div><div class="ttdeci">CEV_ChainLink * last</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:41</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_link_html"><div class="ttname"><a href="struct_c_e_v___chain_link.html">CEV_ChainLink</a></div><div class="ttdoc">data link</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:24</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_link_html_a2ce24dd82342cab99f1dd3874d8de6d3"><div class="ttname"><a href="struct_c_e_v___chain_link.html#a2ce24dd82342cab99f1dd3874d8de6d3">CEV_ChainLink::prev</a></div><div class="ttdeci">CEV_ChainLink * prev</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:28</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_link_html_a433a13b41ee75eaf9a742c6129881cf9"><div class="ttname"><a href="struct_c_e_v___chain_link.html#a433a13b41ee75eaf9a742c6129881cf9">CEV_ChainLink::next</a></div><div class="ttdeci">CEV_ChainLink * next</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:29</div></div>
+<div class="ttc" id="astruct_c_e_v___chain_link_html_a735984d41155bc1032e09bece8f8d66d"><div class="ttname"><a href="struct_c_e_v___chain_link.html#a735984d41155bc1032e09bece8f8d66d">CEV_ChainLink::data</a></div><div class="ttdeci">void * data</div><div class="ttdef"><b>Definition:</b> CEV_chain.h:26</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__chain_8h.html">CEV_chain.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

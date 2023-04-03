@@ -1,3 +1,10 @@
+//**********************************************************/
+//** Done by  |      Date     |  version |    comment     **/
+//**------------------------------------------------------**/
+//**   CEV    |  14-02-2015   |   1.0    |    creation    **/
+//**********************************************************/
+
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -7,23 +14,18 @@
 
 
 int CEV_fileNumOfLine(FILE *file)
-{/**détermine le nombre de ligne dans le fichier txt*/
+{//num of line in file (text mode / csv)
 
-    /****DECLARATIONS****/
-
-    int temp        = '*',   /*temporary var*/
-        lineNb      = 0,     /*number of line in file*/
+    int temp        = '*',   //temporary var
+        lineNb      = 0,     //number of line in file
         start       = ftell(file),
-        lastChar    = 0;     /*last char of file for count*/
+        lastChar    = 0;     //last char of file for count
 
-    /***prl**/
-    /*file ending type*/
+    //file ending type
     fseek(file, -1, SEEK_END);
     lastChar = fgetc(file);
 
-    /****EXECUTION****/
-
-    rewind(file);/*rewind file*/
+    rewind(file);//rewind file
 
     do
     {
@@ -37,7 +39,7 @@ int CEV_fileNumOfLine(FILE *file)
     if(lastChar != '\n')
         lineNb++;
 
-    /*restores cursor position*/
+    //restores cursor position
     fseek(file, start, SEEK_SET);
 
     return (lineNb);
@@ -45,7 +47,7 @@ int CEV_fileNumOfLine(FILE *file)
 
 
 bool CEV_fileGotoLine(int line, FILE* file)
-{/*goes to line, return true if reached*/
+{//goes to line, (text mode / csv)
 
     int cpt = 0;
 
@@ -67,7 +69,7 @@ bool CEV_fileGotoLine(int line, FILE* file)
 
 
 bool CEV_fileGotoColumn(int num, FILE *file, int separator)
-{
+{//reaches begin of column (text mode / CSV)
     int count = 0;
 
     while (count < num)
@@ -85,7 +87,8 @@ bool CEV_fileGotoColumn(int num, FILE *file, int separator)
 
 
 bool CEV_fileGotoNextLine(FILE *file)
-{
+{//reches begin of next line (text mode)
+
     int temp = '*';
 
     while((temp!='\n') && (temp!=EOF))
@@ -99,16 +102,16 @@ bool CEV_fileGotoNextLine(FILE *file)
 
 
 size_t CEV_fileSize(FILE* file)
-{/*size of a file as byte*/
+{//size of a file as byte
 
-    long pos = ftell(file),
-         size = 0;
+    long pos = ftell(file), //recording pos
+         size = 0;          //resulting size
 
-    fseek(file, 0, SEEK_END);
+    fseek(file, 0, SEEK_END); //reaching EOF
 
-    size = ftell(file);
+    size = ftell(file); //telling pos in file
 
-    fseek(file, pos, SEEK_SET);
+    fseek(file, pos, SEEK_SET); //back to where it was
 
     return(size);
 }

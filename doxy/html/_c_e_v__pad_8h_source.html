@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_pad.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__pad_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_pad.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__pad_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment      */</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**-------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |  14-02-2015   |   0.0    |    creation     */</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |    05-2016    |   2.0    |    SDL2 rev     */</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**   CEV    |    05-2021    |   2.1    |doxy + new func  */</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef CEV_PAD_H_INCLUDED</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define CEV_PAD_H_INCLUDED</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#aa373344a9969f5fd5c607886d246773d">   19</a></span><span class="preprocessor">#define PAD_ANA_MAX_VAL 0x7FFF  </span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#acad4946f08f03c6c4505ad9dcd8fec11">   20</a></span><span class="preprocessor">#define PAD_ANA_MIN_VAL 0x8000  </span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#ab8cb7a75a5a75c720ee8d19042067a68">   21</a></span><span class="preprocessor">#define PAD_ANA_DEADBOUND 0x400 </span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#aead3906f4cc7af43b100e971fa83dcb8">   22</a></span><span class="preprocessor">#define PAD_ZONE_NUM 3          </span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a564ca5c8e009517f0282bf7888b2fa43">   23</a></span><span class="preprocessor">#define PAD_X_AXIS 0            </span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a692c93d87fa2c259e6ed6897a1095da5">   24</a></span><span class="preprocessor">#define PAD_Y_AXIS 1            </span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a1197c0c9e175867dec75d7b98ce2a8b7">   25</a></span><span class="preprocessor">#define PAD_X_ROT  3            </span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a7cb745ada3cc9cd9bb49b13804500913">   26</a></span><span class="preprocessor">#define PAD_Y_ROT  4            </span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#af50f6173b4b74c8f6a81f49a9f3e7147">   27</a></span><span class="preprocessor">#define PAD_Z_AXIS_L 2          </span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#ad04cb52c48e37daa727c3707dc0ca28b">   28</a></span><span class="preprocessor">#define PAD_Z_AXIS_R 5          </span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a6627fb49e4d377b8baa35f47f00385bd">   29</a></span><span class="preprocessor">#define PAD_BT_NUM 20           </span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a9901fd32bf51db2ea16cc6af6bd2915b">   30</a></span><span class="preprocessor">#define PAD_AXIS_NUM 10         </span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#ifndef PI</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a598a3330b3c21701223ee0ca14316eca">   33</a></span><span class="preprocessor">    #define PI (3.14159265)</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif </span><span class="comment">// PI</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad_axis.html">   42</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___pad_axis.html">CEV_PadAxis</a></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{<span class="comment">//added 20210513</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad_axis.html#aeb5f5141dbff527452c003d8775acb9d">   45</a></span>    int16_t <a class="code hl_variable" href="struct_c_e_v___pad_axis.html#aeb5f5141dbff527452c003d8775acb9d">calib</a>[2],    <span class="comment">/* TODO (drx#1#): � impl�menter pour finition ? */</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad_axis.html#acfb1db66fc58898677c915d952765dd8">   46</a></span>            <a class="code hl_variable" href="struct_c_e_v___pad_axis.html#acfb1db66fc58898677c915d952765dd8">rawValue</a>,   </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad_axis.html#a7375fa3485ce43bbc621f90ce895d52a">   47</a></span>            <a class="code hl_variable" href="struct_c_e_v___pad_axis.html#a7375fa3485ce43bbc621f90ce895d52a">value</a>,      </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad_axis.html#a0eac7e1398fb122ce2d1551a2ac5f31d">   48</a></span>            <a class="code hl_variable" href="struct_c_e_v___pad_axis.html#a0eac7e1398fb122ce2d1551a2ac5f31d">zone</a>;       </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#a00f1282402da0431b6f12cd1e8f4759b">   50</a></span><a class="code hl_typedef" href="_c_e_v__pad_8h.html#a00f1282402da0431b6f12cd1e8f4759b">CEV_PadAxis</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html">   56</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#aa8f16f81c9ee2d096d226b3cc997c85e">   58</a></span>    <span class="keywordtype">bool</span>    <a class="code hl_variable" href="struct_c_e_v___pad.html#aa8f16f81c9ee2d096d226b3cc997c85e">isPlugged</a>,          </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#a3caa8d500193c07027debe474e3d4d39">   59</a></span>            <a class="code hl_variable" href="struct_c_e_v___pad.html#a3caa8d500193c07027debe474e3d4d39">button</a>[<a class="code hl_define" href="_c_e_v__pad_8h.html#a6627fb49e4d377b8baa35f47f00385bd">PAD_BT_NUM</a>]; </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#a0c88482046f2f2bf7b9da4ffa2f6695a">   61</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>   <a class="code hl_variable" href="struct_c_e_v___pad.html#a0c88482046f2f2bf7b9da4ffa2f6695a">btNum</a>,      </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#a21a8618921b9d0596db6cc4e9eb37798">   62</a></span>                    <a class="code hl_variable" href="struct_c_e_v___pad.html#a21a8618921b9d0596db6cc4e9eb37798">axesNum</a>,    </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#afb113ce115726079543e6741b0e53048">   63</a></span>                    <a class="code hl_variable" href="struct_c_e_v___pad.html#afb113ce115726079543e6741b0e53048">hat</a>;        </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#a248323efdff1485da895527d99528ab7">   65</a></span>    <a class="code hl_struct" href="struct_c_e_v___pad_axis.html">CEV_PadAxis</a> <a class="code hl_variable" href="struct_c_e_v___pad.html#a248323efdff1485da895527d99528ab7">axis</a>[<a class="code hl_define" href="_c_e_v__pad_8h.html#a9901fd32bf51db2ea16cc6af6bd2915b">PAD_AXIS_NUM</a>]; </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#aa27933451ab4a8de0773fbba001b9c45">   67</a></span>    uint16_t <a class="code hl_variable" href="struct_c_e_v___pad.html#aa27933451ab4a8de0773fbba001b9c45">analogDeadRange</a>,   </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#ae0d631ce0aa5846684bcb2a16c7af9c4">   68</a></span>             <a class="code hl_variable" href="struct_c_e_v___pad.html#ae0d631ce0aa5846684bcb2a16c7af9c4">numOfZone</a>;         </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#ae4c1fd7443dc473825cbc81264693456">   71</a></span>    SDL_Haptic   *<a class="code hl_variable" href="struct_c_e_v___pad.html#ae4c1fd7443dc473825cbc81264693456">haptic</a>; </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#a0b49497d6a573397f7387994aa4e7fdb">   72</a></span>    SDL_JoystickID  <a class="code hl_variable" href="struct_c_e_v___pad.html#a0b49497d6a573397f7387994aa4e7fdb">id</a>;   </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_c_e_v___pad.html#a1d950069fe4f8e55d488e6fd40f5526a">   73</a></span>    SDL_Joystick  *<a class="code hl_variable" href="struct_c_e_v___pad.html#a1d950069fe4f8e55d488e6fd40f5526a">joy</a>;   </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="_c_e_v__pad_8h.html#ab34cc7f561141c7d054d8a7afb160bdd">   75</a></span><a class="code hl_typedef" href="_c_e_v__pad_8h.html#ab34cc7f561141c7d054d8a7afb160bdd">CEV_Pad</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a>* <a class="code hl_function" href="_c_e_v__pad_8h.html#aacdc00dada9f503b84165d7c71e5e26f">CEV_padCreate</a>(<span class="keywordtype">int</span> padNum);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#acbca497b87d474fa85f7441bb5f6e261">CEV_padUpdate</a>(<a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a> *pad);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keywordtype">bool</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a833a9067f5d8813b99c405507057dbf0">CEV_padZoneSet</a>(<span class="keywordtype">unsigned</span> numOfZone, <span class="keywordtype">int</span> which);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keywordtype">bool</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a56c28c9844c52b0192a42c8d81fbb3c0">CEV_padInitThis</a>(<a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a>* pad);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a9684a1b0970585a9088de6b936f533e2">CEV_padClear</a>(<a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a>* pad);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a933baecab97eed6f561a3e50e2956687">CEV_padAxisInit</a>(<a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a>* pad);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#acf562689300d466fe0ed22af3f3af396">CEV_padFreeAll</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a548dd27fd57661090fcec423eaf96a47">CEV_padFreeThis</a>(<a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a> *pad);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keywordtype">float</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a029dfba66b35750c96e57e9cd6975073">CEV_padAngle</a>(Sint16 axisX, Sint16 axisY);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a4d044a08b1e753c5e6edef57d92b2dbd">CEV_padCircularZone</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a> *pad);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#abdd16c3f3b8f423a630bdd20fbb64b38">CEV_padDump</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a> *pad);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a303269eff8816016fac679a34a9fb53f">CEV_padAddWarm</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#a9a5c5796fc6cf425d341b3367acc0821">CEV_padRemoveWarm</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__pad_8h.html#ae507261f3610b3be1a6bda95a5174b62">CEV_padSortByID</a>(<a class="code hl_struct" href="struct_c_e_v___pad.html">CEV_Pad</a> * pad, <span class="keywordtype">int</span> num);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>}</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a00f1282402da0431b6f12cd1e8f4759b"><div class="ttname"><a href="_c_e_v__pad_8h.html#a00f1282402da0431b6f12cd1e8f4759b">CEV_PadAxis</a></div><div class="ttdeci">struct CEV_PadAxis CEV_PadAxis</div><div class="ttdoc">Analog axis definition.</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a029dfba66b35750c96e57e9cd6975073"><div class="ttname"><a href="_c_e_v__pad_8h.html#a029dfba66b35750c96e57e9cd6975073">CEV_padAngle</a></div><div class="ttdeci">float CEV_padAngle(Sint16 axisX, Sint16 axisY)</div><div class="ttdoc">Angle of analog stick.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:231</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a303269eff8816016fac679a34a9fb53f"><div class="ttname"><a href="_c_e_v__pad_8h.html#a303269eff8816016fac679a34a9fb53f">CEV_padAddWarm</a></div><div class="ttdeci">void CEV_padAddWarm(int index)</div><div class="ttdoc">Adds warm plugged joystick.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:278</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a4d044a08b1e753c5e6edef57d92b2dbd"><div class="ttname"><a href="_c_e_v__pad_8h.html#a4d044a08b1e753c5e6edef57d92b2dbd">CEV_padCircularZone</a></div><div class="ttdeci">int CEV_padCircularZone(const CEV_Pad *pad)</div><div class="ttdoc">Analog stick zone divider as circular. note : analog stick is divided by pad's num of zone.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:248</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a548dd27fd57661090fcec423eaf96a47"><div class="ttname"><a href="_c_e_v__pad_8h.html#a548dd27fd57661090fcec423eaf96a47">CEV_padFreeThis</a></div><div class="ttdeci">void CEV_padFreeThis(CEV_Pad *pad)</div><div class="ttdoc">Closes / frees single pad.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:217</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a56c28c9844c52b0192a42c8d81fbb3c0"><div class="ttname"><a href="_c_e_v__pad_8h.html#a56c28c9844c52b0192a42c8d81fbb3c0">CEV_padInitThis</a></div><div class="ttdeci">bool CEV_padInitThis(CEV_Pad *pad)</div><div class="ttdoc">Initialize a single pad structure.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:111</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a6627fb49e4d377b8baa35f47f00385bd"><div class="ttname"><a href="_c_e_v__pad_8h.html#a6627fb49e4d377b8baa35f47f00385bd">PAD_BT_NUM</a></div><div class="ttdeci">#define PAD_BT_NUM</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:29</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a833a9067f5d8813b99c405507057dbf0"><div class="ttname"><a href="_c_e_v__pad_8h.html#a833a9067f5d8813b99c405507057dbf0">CEV_padZoneSet</a></div><div class="ttdeci">bool CEV_padZoneSet(unsigned numOfZone, int which)</div><div class="ttdoc">Sets pad number of zone.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:85</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a933baecab97eed6f561a3e50e2956687"><div class="ttname"><a href="_c_e_v__pad_8h.html#a933baecab97eed6f561a3e50e2956687">CEV_padAxisInit</a></div><div class="ttdeci">void CEV_padAxisInit(CEV_Pad *pad)</div><div class="ttdoc">Resets/defaults value of analog axis.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:184</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a9684a1b0970585a9088de6b936f533e2"><div class="ttname"><a href="_c_e_v__pad_8h.html#a9684a1b0970585a9088de6b936f533e2">CEV_padClear</a></div><div class="ttdeci">void CEV_padClear(CEV_Pad *pad)</div><div class="ttdoc">Resets/NULL/0 a single pad structure.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:155</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a9901fd32bf51db2ea16cc6af6bd2915b"><div class="ttname"><a href="_c_e_v__pad_8h.html#a9901fd32bf51db2ea16cc6af6bd2915b">PAD_AXIS_NUM</a></div><div class="ttdeci">#define PAD_AXIS_NUM</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:30</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_a9a5c5796fc6cf425d341b3367acc0821"><div class="ttname"><a href="_c_e_v__pad_8h.html#a9a5c5796fc6cf425d341b3367acc0821">CEV_padRemoveWarm</a></div><div class="ttdeci">void CEV_padRemoveWarm(int id)</div><div class="ttdoc">Removes warm unplugged pad from array.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:320</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_aacdc00dada9f503b84165d7c71e5e26f"><div class="ttname"><a href="_c_e_v__pad_8h.html#aacdc00dada9f503b84165d7c71e5e26f">CEV_padCreate</a></div><div class="ttdeci">CEV_Pad * CEV_padCreate(int padNum)</div><div class="ttdoc">Creates pads array and init all pads.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:24</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_ab34cc7f561141c7d054d8a7afb160bdd"><div class="ttname"><a href="_c_e_v__pad_8h.html#ab34cc7f561141c7d054d8a7afb160bdd">CEV_Pad</a></div><div class="ttdeci">struct CEV_Pad CEV_Pad</div><div class="ttdoc">Joystick / Pad definition.</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_abdd16c3f3b8f423a630bdd20fbb64b38"><div class="ttname"><a href="_c_e_v__pad_8h.html#abdd16c3f3b8f423a630bdd20fbb64b38">CEV_padDump</a></div><div class="ttdeci">void CEV_padDump(const CEV_Pad *pad)</div><div class="ttdoc">Dumps Pad status. note : Result is dumped to stdout.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:267</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_acbca497b87d474fa85f7441bb5f6e261"><div class="ttname"><a href="_c_e_v__pad_8h.html#acbca497b87d474fa85f7441bb5f6e261">CEV_padUpdate</a></div><div class="ttdeci">void CEV_padUpdate(CEV_Pad *pad)</div><div class="ttdoc">Updates pad values / status.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:52</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_acf562689300d466fe0ed22af3f3af396"><div class="ttname"><a href="_c_e_v__pad_8h.html#acf562689300d466fe0ed22af3f3af396">CEV_padFreeAll</a></div><div class="ttdeci">void CEV_padFreeAll(void)</div><div class="ttdoc">Closes / frees all registered pads.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:205</div></div>
+<div class="ttc" id="a_c_e_v__pad_8h_html_ae507261f3610b3be1a6bda95a5174b62"><div class="ttname"><a href="_c_e_v__pad_8h.html#ae507261f3610b3be1a6bda95a5174b62">CEV_padSortByID</a></div><div class="ttdeci">void CEV_padSortByID(CEV_Pad *pad, int num)</div><div class="ttdoc">Rearange pad array sorting by ID.</div><div class="ttdef"><b>Definition:</b> CEV_pad.c:335</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_axis_html"><div class="ttname"><a href="struct_c_e_v___pad_axis.html">CEV_PadAxis</a></div><div class="ttdoc">Analog axis definition.</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:43</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_axis_html_a0eac7e1398fb122ce2d1551a2ac5f31d"><div class="ttname"><a href="struct_c_e_v___pad_axis.html#a0eac7e1398fb122ce2d1551a2ac5f31d">CEV_PadAxis::zone</a></div><div class="ttdeci">int16_t zone</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:48</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_axis_html_a7375fa3485ce43bbc621f90ce895d52a"><div class="ttname"><a href="struct_c_e_v___pad_axis.html#a7375fa3485ce43bbc621f90ce895d52a">CEV_PadAxis::value</a></div><div class="ttdeci">int16_t value</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:47</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_axis_html_acfb1db66fc58898677c915d952765dd8"><div class="ttname"><a href="struct_c_e_v___pad_axis.html#acfb1db66fc58898677c915d952765dd8">CEV_PadAxis::rawValue</a></div><div class="ttdeci">int16_t rawValue</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:46</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_axis_html_aeb5f5141dbff527452c003d8775acb9d"><div class="ttname"><a href="struct_c_e_v___pad_axis.html#aeb5f5141dbff527452c003d8775acb9d">CEV_PadAxis::calib</a></div><div class="ttdeci">int16_t calib[2]</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:45</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html"><div class="ttname"><a href="struct_c_e_v___pad.html">CEV_Pad</a></div><div class="ttdoc">Joystick / Pad definition.</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:57</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_a0b49497d6a573397f7387994aa4e7fdb"><div class="ttname"><a href="struct_c_e_v___pad.html#a0b49497d6a573397f7387994aa4e7fdb">CEV_Pad::id</a></div><div class="ttdeci">SDL_JoystickID id</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:72</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_a0c88482046f2f2bf7b9da4ffa2f6695a"><div class="ttname"><a href="struct_c_e_v___pad.html#a0c88482046f2f2bf7b9da4ffa2f6695a">CEV_Pad::btNum</a></div><div class="ttdeci">unsigned char btNum</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:61</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_a1d950069fe4f8e55d488e6fd40f5526a"><div class="ttname"><a href="struct_c_e_v___pad.html#a1d950069fe4f8e55d488e6fd40f5526a">CEV_Pad::joy</a></div><div class="ttdeci">SDL_Joystick * joy</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:73</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_a21a8618921b9d0596db6cc4e9eb37798"><div class="ttname"><a href="struct_c_e_v___pad.html#a21a8618921b9d0596db6cc4e9eb37798">CEV_Pad::axesNum</a></div><div class="ttdeci">unsigned char axesNum</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:62</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_a248323efdff1485da895527d99528ab7"><div class="ttname"><a href="struct_c_e_v___pad.html#a248323efdff1485da895527d99528ab7">CEV_Pad::axis</a></div><div class="ttdeci">CEV_PadAxis axis[PAD_AXIS_NUM]</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:65</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_a3caa8d500193c07027debe474e3d4d39"><div class="ttname"><a href="struct_c_e_v___pad.html#a3caa8d500193c07027debe474e3d4d39">CEV_Pad::button</a></div><div class="ttdeci">bool button[PAD_BT_NUM]</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:59</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_aa27933451ab4a8de0773fbba001b9c45"><div class="ttname"><a href="struct_c_e_v___pad.html#aa27933451ab4a8de0773fbba001b9c45">CEV_Pad::analogDeadRange</a></div><div class="ttdeci">uint16_t analogDeadRange</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:67</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_aa8f16f81c9ee2d096d226b3cc997c85e"><div class="ttname"><a href="struct_c_e_v___pad.html#aa8f16f81c9ee2d096d226b3cc997c85e">CEV_Pad::isPlugged</a></div><div class="ttdeci">bool isPlugged</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:58</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_ae0d631ce0aa5846684bcb2a16c7af9c4"><div class="ttname"><a href="struct_c_e_v___pad.html#ae0d631ce0aa5846684bcb2a16c7af9c4">CEV_Pad::numOfZone</a></div><div class="ttdeci">uint16_t numOfZone</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:68</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_ae4c1fd7443dc473825cbc81264693456"><div class="ttname"><a href="struct_c_e_v___pad.html#ae4c1fd7443dc473825cbc81264693456">CEV_Pad::haptic</a></div><div class="ttdeci">SDL_Haptic * haptic</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:71</div></div>
+<div class="ttc" id="astruct_c_e_v___pad_html_afb113ce115726079543e6741b0e53048"><div class="ttname"><a href="struct_c_e_v___pad.html#afb113ce115726079543e6741b0e53048">CEV_Pad::hat</a></div><div class="ttdeci">unsigned char hat</div><div class="ttdef"><b>Definition:</b> CEV_pad.h:63</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__pad_8h.html">CEV_pad.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

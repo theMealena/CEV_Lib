@@ -27,7 +27,7 @@ extern "C" {
 #define SCREEN_HXLARGE    216
 /**end auto size*/
 
-#define FONT_MAX 10
+#define FONT_MAX 100
 #define FONT_SIZE_L 15
 #define FONT_SIZE_M 12
 #define FONT_SIZE_S 10
@@ -67,7 +67,7 @@ extern "C" {
 #define RSC_NUMOF_PNJ_SPRITE 1  //num of pnj anim
 
 #define RSC_NUMOF_OBJECT_PIC 4          //num of object pics (total)
-#define RSC_NUMOF_OBJECT_PIC_PLATE 2    //num of plateforme pic
+#define RSC_NUMOF_OBJECT_PIC_PLATE 2    //num of platform pic
 #define RSC_NUMOF_OBJECT_PIC_ZIP 1      //num of zipline pic
 #define RSC_NUMOF_OBJECT_PIC_BUMP 1     //num of bumper pics
 
@@ -97,7 +97,7 @@ extern "C" {
 #define PIC_INTRO          30 //intro pic
 #define PIC_MINI_LVL       31 //mini mpas pic
 #define OBJ_PIC_INDEX       32 //obects pic
-#define OBJ_PIC_PLATE_INDEX  32 //plateforms pic
+#define OBJ_PIC_PLATE_INDEX  32 //platforms pic
 #define OBJ_PIC_ZIP_INDEX   34  //zipline pic
 #define OBJ_PIC_BUMP_INDEX  35  //bumper pic
 #define GIF_DECRUNCH        36

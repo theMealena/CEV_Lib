@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_gifToSurface.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__gif_to_surface_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_gifToSurface.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__gif_to_surface_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |    05-2016    |   1.0    |  creation/SDL2 **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef GIFTOSURFACE_H_INCLUDED</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define GIFTOSURFACE_H_INCLUDED</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__gif_8h.html">CEV_gif.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="_c_e_v__gif_deflate_8h.html">CEV_gifDeflate.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//#define METHOD_OVERWRITE 1</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">//#define METHOD_REDRAW 2</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_l___gif_frame.html">   25</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_l___gif_frame.html">L_GifFrame</a></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="struct_l___gif_frame.html#a727566978afe3cbe0a99b5fa0e2d846c">   27</a></span>    uint8_t <a class="code hl_variable" href="struct_l___gif_frame.html#a727566978afe3cbe0a99b5fa0e2d846c">dispMethod</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="struct_l___gif_frame.html#abf9bea30bdbfac78e677605528eb877d">   28</a></span>            *<a class="code hl_variable" href="struct_l___gif_frame.html#abf9bea30bdbfac78e677605528eb877d">pixels</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="struct_l___gif_frame.html#a93658cf9f03a3303cdb292e655c657e7">   30</a></span>    uint16_t <a class="code hl_variable" href="struct_l___gif_frame.html#a93658cf9f03a3303cdb292e655c657e7">time</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="struct_l___gif_frame.html#a294c5492db3ece725b68947cafdaafec">   32</a></span>    SDL_Rect <a class="code hl_variable" href="struct_l___gif_frame.html#a294c5492db3ece725b68947cafdaafec">pos</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="_c_e_v__gif_to_surface_8h.html#ab3ca99e3f4ee694cd87270438a3991cc">   34</a></span><a class="code hl_typedef" href="_c_e_v__gif_to_surface_8h.html#ab3ca99e3f4ee694cd87270438a3991cc">L_GifFrame</a>;<span class="comment">//local</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="struct_l___gif_surface_main.html">   39</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_l___gif_surface_main.html">L_GifSurfaceMain</a></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_l___gif_surface_main.html#a294c5492db3ece725b68947cafdaafec">   41</a></span>    SDL_Rect <a class="code hl_variable" href="struct_l___gif_surface_main.html#a294c5492db3ece725b68947cafdaafec">pos</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="struct_l___gif_surface_main.html#a360e9b93682f169bda617eb2654bdd0d">   42</a></span>    SDL_Texture *<a class="code hl_variable" href="struct_l___gif_surface_main.html#a360e9b93682f169bda617eb2654bdd0d">surface</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="_c_e_v__gif_to_surface_8h.html#a0e92b02b039333af6969dc0557fa4fa7">   44</a></span><a class="code hl_typedef" href="_c_e_v__gif_to_surface_8h.html#a0e92b02b039333af6969dc0557fa4fa7">L_GifSurfaceMain</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html">   49</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_l___gif_info.html">L_GifInfo</a></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a25dae25c3bf9b28d54eb4df7afb2a491">   51</a></span>    <span class="keywordtype">char</span> *<a class="code hl_variable" href="struct_l___gif_info.html#a25dae25c3bf9b28d54eb4df7afb2a491">comment</a>,      </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a7df4f23794127d1af7b8361d982c6ee4">   52</a></span>         <a class="code hl_variable" href="struct_l___gif_info.html#a7df4f23794127d1af7b8361d982c6ee4">signature</a>[4],  </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a2930bfa85b6a0535647d927a31837680">   53</a></span>         <a class="code hl_variable" href="struct_l___gif_info.html#a2930bfa85b6a0535647d927a31837680">version</a>[4],    </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a0a0d9e728beb87e31724623bd5d4e9fd">   54</a></span>         <a class="code hl_variable" href="struct_l___gif_info.html#a0a0d9e728beb87e31724623bd5d4e9fd">loopDone</a>,      </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a210b3e6ffb6e047c4ae6e2c0e737ed52">   55</a></span>         <a class="code hl_variable" href="struct_l___gif_info.html#a210b3e6ffb6e047c4ae6e2c0e737ed52">direction</a>,     </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a3f01d90120318b6a88c706bd2b78f52e">   56</a></span>         <a class="code hl_variable" href="struct_l___gif_info.html#a3f01d90120318b6a88c706bd2b78f52e">refresh</a>;       </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#adc795917fe0bbd52bc49137ff72a42d9">   58</a></span>    uint8_t <a class="code hl_variable" href="struct_l___gif_info.html#adc795917fe0bbd52bc49137ff72a42d9">loopMode</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a83e57ce9bd59cfa0995c2e2c8589c274">   60</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_l___gif_info.html#a83e57ce9bd59cfa0995c2e2c8589c274">time</a>,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#accc316663671d52c278909a662ac7317">   61</a></span>                <a class="code hl_variable" href="struct_l___gif_info.html#accc316663671d52c278909a662ac7317">timeAct</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a82c467b9215caba64c93011e1e0b9e60">   63</a></span>    <span class="keywordtype">int</span>         <a class="code hl_variable" href="struct_l___gif_info.html#a82c467b9215caba64c93011e1e0b9e60">imgNum</a>,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="struct_l___gif_info.html#a5b17d27cc8116fb6f76cddc9e8d74c9b">   64</a></span>                <a class="code hl_variable" href="struct_l___gif_info.html#a5b17d27cc8116fb6f76cddc9e8d74c9b">imgAct</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="_c_e_v__gif_to_surface_8h.html#a3958151addb0e2049cd83e3882f3af69">   66</a></span>}<a class="code hl_typedef" href="_c_e_v__gif_to_surface_8h.html#a3958151addb0e2049cd83e3882f3af69">L_GifInfo</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="struct_c_e_v___gif_anim.html">   71</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_c_e_v___gif_anim.html#a8904d5fe1a98c427c37598223e780f81">   73</a></span>    <a class="code hl_struct" href="struct_l___gif_info.html">L_GifInfo</a> <a class="code hl_variable" href="struct_c_e_v___gif_anim.html#a8904d5fe1a98c427c37598223e780f81">status</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_c_e_v___gif_anim.html#a33a4ae7e372babc22c4fc48461faba46">   74</a></span>    <a class="code hl_struct" href="struct_l___gif_surface_main.html">L_GifSurfaceMain</a> <a class="code hl_variable" href="struct_c_e_v___gif_anim.html#a33a4ae7e372babc22c4fc48461faba46">display</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="struct_c_e_v___gif_anim.html#a7d5efb0f2b7397c96410ceefc0987bee">   75</a></span>    <a class="code hl_struct" href="struct_l___gif_frame.html">L_GifFrame</a> *<a class="code hl_variable" href="struct_c_e_v___gif_anim.html#a7d5efb0f2b7397c96410ceefc0987bee">pictures</a>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">char</span> <a class="code hl_function" href="_c_e_v__gif_to_surface_8h.html#a92b12fa02b3b34b8f40fb603ae26d662">GIFL_gifAnimInit</a>(<a class="code hl_struct" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a>* anim, <a class="code hl_struct" href="struct_l___gif_file.html">L_GifFile</a>* gif);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keywordtype">char</span> <a class="code hl_function" href="_c_e_v__gif_to_surface_8h.html#ae5325cdc00309ebd74fe9c4c2be6fdd6">GIFL_gifBlit</a>(<a class="code hl_struct" href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a>* anim);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__gif_to_surface_8h.html#a582caba87553cfa54c6183afa17dac50">GIFL_gifFillSurface</a>(uint8_t* pixels, <a class="code hl_struct" href="struct_l___gif_file.html">L_GifFile</a>* gif, <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__gif_to_surface_8h.html#abaced2c41a28d0245dbe4d0ef38e2836">GIFL_gifFillSurfaceInterlace</a>(uint8_t* pixels, <a class="code hl_struct" href="struct_l___gif_file.html">L_GifFile</a>* gif, <span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__gif_to_surface_8h.html#af9ca0a804b85f948a9f64d4c2b888674">GIFL_gifFitBoxInto</a>(SDL_Rect* adapt , <span class="keyword">const</span> SDL_Rect* ref);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#endif </span><span class="comment">// GIFTOSURFACE_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__gif_8h_html"><div class="ttname"><a href="_c_e_v__gif_8h.html">CEV_gif.h</a></div></div>
+<div class="ttc" id="a_c_e_v__gif_deflate_8h_html"><div class="ttname"><a href="_c_e_v__gif_deflate_8h.html">CEV_gifDeflate.h</a></div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_a0e92b02b039333af6969dc0557fa4fa7"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#a0e92b02b039333af6969dc0557fa4fa7">L_GifSurfaceMain</a></div><div class="ttdeci">struct L_GifSurfaceMain L_GifSurfaceMain</div><div class="ttdoc">animation inner surface infos</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_a3958151addb0e2049cd83e3882f3af69"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#a3958151addb0e2049cd83e3882f3af69">L_GifInfo</a></div><div class="ttdeci">struct L_GifInfo L_GifInfo</div><div class="ttdoc">animation parameters and status</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_a582caba87553cfa54c6183afa17dac50"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#a582caba87553cfa54c6183afa17dac50">GIFL_gifFillSurface</a></div><div class="ttdeci">void GIFL_gifFillSurface(uint8_t *pixels, L_GifFile *gif, int index)</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.c:105</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_a92b12fa02b3b34b8f40fb603ae26d662"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#a92b12fa02b3b34b8f40fb603ae26d662">GIFL_gifAnimInit</a></div><div class="ttdeci">char GIFL_gifAnimInit(CEV_GifAnim *anim, L_GifFile *gif)</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.c:39</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_ab3ca99e3f4ee694cd87270438a3991cc"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#ab3ca99e3f4ee694cd87270438a3991cc">L_GifFrame</a></div><div class="ttdeci">struct L_GifFrame L_GifFrame</div><div class="ttdoc">animation inner frame structure</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_abaced2c41a28d0245dbe4d0ef38e2836"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#abaced2c41a28d0245dbe4d0ef38e2836">GIFL_gifFillSurfaceInterlace</a></div><div class="ttdeci">void GIFL_gifFillSurfaceInterlace(uint8_t *pixels, L_GifFile *gif, int index)</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.c:154</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_ae5325cdc00309ebd74fe9c4c2be6fdd6"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#ae5325cdc00309ebd74fe9c4c2be6fdd6">GIFL_gifBlit</a></div><div class="ttdeci">char GIFL_gifBlit(CEV_GifAnim *anim)</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.c:77</div></div>
+<div class="ttc" id="a_c_e_v__gif_to_surface_8h_html_af9ca0a804b85f948a9f64d4c2b888674"><div class="ttname"><a href="_c_e_v__gif_to_surface_8h.html#af9ca0a804b85f948a9f64d4c2b888674">GIFL_gifFitBoxInto</a></div><div class="ttdeci">void GIFL_gifFitBoxInto(SDL_Rect *adapt, const SDL_Rect *ref)</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.c:227</div></div>
+<div class="ttc" id="astruct_c_e_v___gif_anim_html"><div class="ttname"><a href="struct_c_e_v___gif_anim.html">CEV_GifAnim</a></div><div class="ttdoc">gif animation instance</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:72</div></div>
+<div class="ttc" id="astruct_c_e_v___gif_anim_html_a33a4ae7e372babc22c4fc48461faba46"><div class="ttname"><a href="struct_c_e_v___gif_anim.html#a33a4ae7e372babc22c4fc48461faba46">CEV_GifAnim::display</a></div><div class="ttdeci">L_GifSurfaceMain display</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:74</div></div>
+<div class="ttc" id="astruct_c_e_v___gif_anim_html_a7d5efb0f2b7397c96410ceefc0987bee"><div class="ttname"><a href="struct_c_e_v___gif_anim.html#a7d5efb0f2b7397c96410ceefc0987bee">CEV_GifAnim::pictures</a></div><div class="ttdeci">L_GifFrame * pictures</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:75</div></div>
+<div class="ttc" id="astruct_c_e_v___gif_anim_html_a8904d5fe1a98c427c37598223e780f81"><div class="ttname"><a href="struct_c_e_v___gif_anim.html#a8904d5fe1a98c427c37598223e780f81">CEV_GifAnim::status</a></div><div class="ttdeci">L_GifInfo status</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:73</div></div>
+<div class="ttc" id="astruct_l___gif_file_html"><div class="ttname"><a href="struct_l___gif_file.html">L_GifFile</a></div><div class="ttdef"><b>Definition:</b> CEV_gifDeflate.h:188</div></div>
+<div class="ttc" id="astruct_l___gif_frame_html"><div class="ttname"><a href="struct_l___gif_frame.html">L_GifFrame</a></div><div class="ttdoc">animation inner frame structure</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:26</div></div>
+<div class="ttc" id="astruct_l___gif_frame_html_a294c5492db3ece725b68947cafdaafec"><div class="ttname"><a href="struct_l___gif_frame.html#a294c5492db3ece725b68947cafdaafec">L_GifFrame::pos</a></div><div class="ttdeci">SDL_Rect pos</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:32</div></div>
+<div class="ttc" id="astruct_l___gif_frame_html_a727566978afe3cbe0a99b5fa0e2d846c"><div class="ttname"><a href="struct_l___gif_frame.html#a727566978afe3cbe0a99b5fa0e2d846c">L_GifFrame::dispMethod</a></div><div class="ttdeci">uint8_t dispMethod</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:27</div></div>
+<div class="ttc" id="astruct_l___gif_frame_html_a93658cf9f03a3303cdb292e655c657e7"><div class="ttname"><a href="struct_l___gif_frame.html#a93658cf9f03a3303cdb292e655c657e7">L_GifFrame::time</a></div><div class="ttdeci">uint16_t time</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:30</div></div>
+<div class="ttc" id="astruct_l___gif_frame_html_abf9bea30bdbfac78e677605528eb877d"><div class="ttname"><a href="struct_l___gif_frame.html#abf9bea30bdbfac78e677605528eb877d">L_GifFrame::pixels</a></div><div class="ttdeci">uint8_t * pixels</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:28</div></div>
+<div class="ttc" id="astruct_l___gif_info_html"><div class="ttname"><a href="struct_l___gif_info.html">L_GifInfo</a></div><div class="ttdoc">animation parameters and status</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:50</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a0a0d9e728beb87e31724623bd5d4e9fd"><div class="ttname"><a href="struct_l___gif_info.html#a0a0d9e728beb87e31724623bd5d4e9fd">L_GifInfo::loopDone</a></div><div class="ttdeci">char loopDone</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:54</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a210b3e6ffb6e047c4ae6e2c0e737ed52"><div class="ttname"><a href="struct_l___gif_info.html#a210b3e6ffb6e047c4ae6e2c0e737ed52">L_GifInfo::direction</a></div><div class="ttdeci">char direction</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:55</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a25dae25c3bf9b28d54eb4df7afb2a491"><div class="ttname"><a href="struct_l___gif_info.html#a25dae25c3bf9b28d54eb4df7afb2a491">L_GifInfo::comment</a></div><div class="ttdeci">char * comment</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:51</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a2930bfa85b6a0535647d927a31837680"><div class="ttname"><a href="struct_l___gif_info.html#a2930bfa85b6a0535647d927a31837680">L_GifInfo::version</a></div><div class="ttdeci">char version[4]</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:53</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a3f01d90120318b6a88c706bd2b78f52e"><div class="ttname"><a href="struct_l___gif_info.html#a3f01d90120318b6a88c706bd2b78f52e">L_GifInfo::refresh</a></div><div class="ttdeci">char refresh</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:56</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a5b17d27cc8116fb6f76cddc9e8d74c9b"><div class="ttname"><a href="struct_l___gif_info.html#a5b17d27cc8116fb6f76cddc9e8d74c9b">L_GifInfo::imgAct</a></div><div class="ttdeci">int imgAct</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:64</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a7df4f23794127d1af7b8361d982c6ee4"><div class="ttname"><a href="struct_l___gif_info.html#a7df4f23794127d1af7b8361d982c6ee4">L_GifInfo::signature</a></div><div class="ttdeci">char signature[4]</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:52</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a82c467b9215caba64c93011e1e0b9e60"><div class="ttname"><a href="struct_l___gif_info.html#a82c467b9215caba64c93011e1e0b9e60">L_GifInfo::imgNum</a></div><div class="ttdeci">int imgNum</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:63</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_a83e57ce9bd59cfa0995c2e2c8589c274"><div class="ttname"><a href="struct_l___gif_info.html#a83e57ce9bd59cfa0995c2e2c8589c274">L_GifInfo::time</a></div><div class="ttdeci">unsigned int time</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:60</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_accc316663671d52c278909a662ac7317"><div class="ttname"><a href="struct_l___gif_info.html#accc316663671d52c278909a662ac7317">L_GifInfo::timeAct</a></div><div class="ttdeci">unsigned int timeAct</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:61</div></div>
+<div class="ttc" id="astruct_l___gif_info_html_adc795917fe0bbd52bc49137ff72a42d9"><div class="ttname"><a href="struct_l___gif_info.html#adc795917fe0bbd52bc49137ff72a42d9">L_GifInfo::loopMode</a></div><div class="ttdeci">uint8_t loopMode</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:58</div></div>
+<div class="ttc" id="astruct_l___gif_surface_main_html"><div class="ttname"><a href="struct_l___gif_surface_main.html">L_GifSurfaceMain</a></div><div class="ttdoc">animation inner surface infos</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:40</div></div>
+<div class="ttc" id="astruct_l___gif_surface_main_html_a294c5492db3ece725b68947cafdaafec"><div class="ttname"><a href="struct_l___gif_surface_main.html#a294c5492db3ece725b68947cafdaafec">L_GifSurfaceMain::pos</a></div><div class="ttdeci">SDL_Rect pos</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:41</div></div>
+<div class="ttc" id="astruct_l___gif_surface_main_html_a360e9b93682f169bda617eb2654bdd0d"><div class="ttname"><a href="struct_l___gif_surface_main.html#a360e9b93682f169bda617eb2654bdd0d">L_GifSurfaceMain::surface</a></div><div class="ttdeci">SDL_Texture * surface</div><div class="ttdef"><b>Definition:</b> CEV_gifToSurface.h:42</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__gif_to_surface_8h.html">CEV_gifToSurface.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

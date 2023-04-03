@@ -292,11 +292,11 @@ void CEV_inputValue(int *val)
 int CEV_mouseBoxPtr(SDL_Rect** box ,int num)
 {/*mouse box with ptr table**/
 
-    SDL_Point *msePos = &CEV_inputGet()->mouse.pos;
+    SDL_Point msePos = CEV_inputGet()->mouse.pos;
 
     for (int i=0; i<num; i++)
     {
-        if (CEV_pointIsInRect(*msePos,*box[i]))
+        if (CEV_pointIsInRect(msePos,*box[i]))
             return i;
     }
 

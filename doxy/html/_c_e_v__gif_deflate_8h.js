@@ -1,0 +1,27 @@
+var _c_e_v__gif_deflate_8h =
+[
+    [ "L_GifColor", "struct_l___gif_color.html", "struct_l___gif_color" ],
+    [ "L_GifColorTable", "struct_l___gif_color_table.html", "struct_l___gif_color_table" ],
+    [ "L_GifHeader", "struct_l___gif_header.html", "struct_l___gif_header" ],
+    [ "L_GifLSDpack", "struct_l___gif_l_s_dpack.html", "struct_l___gif_l_s_dpack" ],
+    [ "L_GifLSD", "struct_l___gif_l_s_d.html", "struct_l___gif_l_s_d" ],
+    [ "L_GifGCEPack", "struct_l___gif_g_c_e_pack.html", "struct_l___gif_g_c_e_pack" ],
+    [ "L_GifGCE", "struct_l___gif_g_c_e.html", "struct_l___gif_g_c_e" ],
+    [ "L_GifIDpack", "struct_l___gif_i_dpack.html", "struct_l___gif_i_dpack" ],
+    [ "L_GifID", "struct_l___gif_i_d.html", "struct_l___gif_i_d" ],
+    [ "L_GifImage", "struct_l___gif_image.html", "struct_l___gif_image" ],
+    [ "L_GifAppExt", "struct_l___gif_app_ext.html", "struct_l___gif_app_ext" ],
+    [ "L_GifComExt", "struct_l___gif_com_ext.html", "struct_l___gif_com_ext" ],
+    [ "L_GifColorShift", "struct_l___gif_color_shift.html", "struct_l___gif_color_shift" ],
+    [ "L_GifFile", "struct_l___gif_file.html", "struct_l___gif_file" ],
+    [ "AMASK", "_c_e_v__gif_deflate_8h.html#a932eb726a9e63dbaf07e72f3de11d0de", null ],
+    [ "BMASK", "_c_e_v__gif_deflate_8h.html#a933b5c9d9b164ecdc2f934c76a5aef84", null ],
+    [ "COLOR_A", "_c_e_v__gif_deflate_8h.html#a2743cf147511053673d060322deca484", null ],
+    [ "COLOR_B", "_c_e_v__gif_deflate_8h.html#aa4ddd3b1bb4d7740c0d8a5f946508a24", null ],
+    [ "COLOR_G", "_c_e_v__gif_deflate_8h.html#a1299d754b46734bf4853121264d9407f", null ],
+    [ "COLOR_R", "_c_e_v__gif_deflate_8h.html#a714837dccfe8bbdfb562d1e251d193fe", null ],
+    [ "GMASK", "_c_e_v__gif_deflate_8h.html#aebc6c26b47173a78cfdb9af1dbda56ee", null ],
+    [ "RMASK", "_c_e_v__gif_deflate_8h.html#ab313966344db7ce2681d95597427a7b4", null ],
+    [ "GIFL_gifFileFree", "_c_e_v__gif_deflate_8h.html#af84843b1e7eaffc6a41722f86f123f83", null ],
+    [ "GIFL_gifLoad_RW", "_c_e_v__gif_deflate_8h.html#a1c079d760bf60f60fa2652c49fb90b69", null ]
+];

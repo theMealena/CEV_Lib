@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['r_0',['r',['../struct_l___gif_color.html#a4c5c6ceb8ed33456261fa907136e0c3a',1,'L_GifColor']]],
+  ['ratio_1',['ratio',['../struct_prlx_axis.html#a207ad05f99cc72068a92358861ff5e71',1,'PrlxAxis']]],
+  ['rawdata_2',['rawData',['../struct_c_e_v___mp3.html#ab4c70d9c3291ef4c7d9a8805d95d5f19',1,'CEV_Mp3']]],
+  ['rawvalue_3',['rawValue',['../struct_c_e_v___pad_axis.html#acfb1db66fc58898677c915d952765dd8',1,'CEV_PadAxis']]],
+  ['re_4',['re',['../struct_c_e_v___edge.html#ad10c7d79edb6490ac1e813677879464a',1,'CEV_Edge']]],
+  ['readwriteerr_5',['readWriteErr',['../rwtypes_8c.html#a54b2e98ee2ba874c4479246ed359b90f',1,'readWriteErr():&#160;rwtypes.c'],['../rwtypes_8h.html#a54b2e98ee2ba874c4479246ed359b90f',1,'readWriteErr():&#160;rwtypes.h']]],
+  ['rect_6',['rect',['../struct_s_p___view.html#a9ac948cfc228d6d1230ba58fb0482dc6',1,'SP_View']]],
+  ['refresh_7',['refresh',['../struct_l___gif_info.html#a3f01d90120318b6a88c706bd2b78f52e',1,'L_GifInfo']]],
+  ['rel_8',['rel',['../struct_c_e_v___mouse.html#a096c9a194e278b80f6fea98b8d69e923',1,'CEV_Mouse']]],
+  ['render_9',['render',['../struct_c_e_v___video_system.html#abe1366249532512017c3ab4eb65720b1',1,'CEV_VideoSystem::render()'],['../struct_c_e_v___scroll_text.html#abe1366249532512017c3ab4eb65720b1',1,'CEV_ScrollText::render()']]],
+  ['renderdim_10',['renderDim',['../struct_c_e_v___scroll_text.html#a217163ade744cb6dc60f60443889cbc9',1,'CEV_ScrollText::renderDim()'],['../struct_c_e_v___zoom.html#a217163ade744cb6dc60f60443889cbc9',1,'CEV_Zoom::renderDim()']]],
+  ['rendersize_11',['renderSize',['../struct_s___c_e_v___weather.html#ab4a6a5c6cf52247967b6ccde7424169a',1,'S_CEV_Weather']]],
+  ['repeat_12',['repeat',['../struct_l___gif_app_ext.html#a678f55077b2e15e6b85b37e29c62d7da',1,'L_GifAppExt']]],
+  ['res_13',['res',['../struct_l___gif_g_c_e_pack.html#a29850f3918435f089b2e206b9da59936',1,'L_GifGCEPack::res()'],['../struct_l___gif_i_dpack.html#a29850f3918435f089b2e206b9da59936',1,'L_GifIDpack::res()']]],
+  ['resize_14',['resize',['../struct_c_e_v___window.html#a47beb6819c84c39255cb60f5710714ce',1,'CEV_Window']]],
+  ['restart_15',['restart',['../struct_s_p___view.html#a50e9604c0a86dcc3167322c92ae47e92',1,'SP_View']]],
+  ['result_16',['result',['../struct_r_e_v___system_lcd.html#afe484b562b07f1ab06b0dd5c1f8ac368',1,'REV_SystemLcd']]],
+  ['rshift_17',['rShift',['../struct_l___gif_color_shift.html#ad924caf8d53d0b9e176fd74cda716baa',1,'L_GifColorShift']]],
+  ['run_18',['run',['../struct_s_p___sprite.html#aa90bc2b9950a6a9a3144876047f8bee2',1,'SP_Sprite::run()'],['../struct_c_e_v___timer.html#aa90bc2b9950a6a9a3144876047f8bee2',1,'CEV_Timer::run()'],['../struct_s___c_e_v___weather.html#a3e6f76368abfbc8709f4c1346dfa6a20',1,'S_CEV_Weather::run()']]]
+];

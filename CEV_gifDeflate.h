@@ -200,10 +200,10 @@ L_GifFile;
 
 /***Functions**/
 
-/*create gif handler*/
+/*creates gif handler*/
 L_GifFile *GIFL_gifLoad_RW(SDL_RWops* file);
 
-/*free all gif structure allocations*/
+/*frees all gif structure allocations*/
 void GIFL_gifFileFree(L_GifFile* gif);
 
 

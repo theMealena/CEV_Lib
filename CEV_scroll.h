@@ -194,7 +194,7 @@ int CEV_scrollUpdate(CEV_ScrollText *in);
  *
  * \return one of the function status.
  */
-int CEV_convertScrollTxtToData(const char* srcName, const char* dstName);
+int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName);
 
 
 /** \brief loads scroll configuration file.

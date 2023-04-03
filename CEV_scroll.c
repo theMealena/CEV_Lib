@@ -348,7 +348,7 @@ exit:
     /*FILES FUNCTIONS*/
 
 
-int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
+int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName)
 {//convert natural .txt file into scroll.srl file
 
 
@@ -404,7 +404,7 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
     else
         strcpy(fileName, lString);
 
-    CEV_capsuleLoad(&lBuffer, fileName);//loads font file into buffer
+    CEV_capsuleFromFile(&lBuffer, fileName);//loads font file into buffer
 
     if(lBuffer.type != IS_FONT)
     {
@@ -457,7 +457,7 @@ int CEV_convertScrollTxtToData(const char* srcName, const char* dstName)
     }
 
     //inserts raw font file
-    CEV_capsuleWrite(&lBuffer, dst);
+    CEV_capsuleTypeWrite(&lBuffer, dst);
 
     if(readWriteErr)
         funcSts = FUNC_ERR;
@@ -553,7 +553,7 @@ CEV_ScrollText* CEV_scrollTypeRead(FILE* file)
 
     L_scrollTypeHeaderRead(file, &scrollTemp);  //scroll parameters
     CEV_textTypeRead(file, &text);              //associated texts
-    CEV_capsuleRead(file, &lBuffer);            //font capsule
+    CEV_capsuleTypeRead(file, &lBuffer);            //font capsule
 
 
     if(lBuffer.type != IS_FONT)
@@ -636,7 +636,7 @@ CEV_ScrollText* CEV_scrollTypeRead_RW(SDL_RWops* src)
         goto exit;
     }
 
-    CEV_capsuleRead_RW(src, &lBuffer);              //font capsule
+    CEV_capsuleTypeRead_RW(src, &lBuffer);              //font capsule
 
 
     if(lBuffer.type != IS_FONT)

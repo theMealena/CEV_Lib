@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['calib_0',['calib',['../struct_c_e_v___pad_axis.html#aeb5f5141dbff527452c003d8775acb9d',1,'CEV_PadAxis']]],
+  ['camdim_1',['camDim',['../struct_s___camera_param.html#ae5c50c4538665b8d886ae2b7a517219e',1,'S_CameraParam']]],
+  ['camerapos_2',['cameraPos',['../struct_c_e_v___parallax.html#aa52c99beda359a9b3ab3308ce147f065',1,'CEV_Parallax']]],
+  ['capacity_3',['capacity',['../struct_c_e_v___dynamic_array.html#a21e93dea02fd068ae122115cb7011502',1,'CEV_DynamicArray']]],
+  ['cev_5fgifreadwriteerr_4',['CEV_gifReadWriteErr',['../_c_e_v__gif_8h.html#a25f7b517a4025f9f0ce7657413561992',1,'CEV_gif.h']]],
+  ['channelnum_5',['channelNum',['../struct_c_e_v___sound_system.html#a3c3970ddb57bbba700bad51166853c11',1,'CEV_SoundSystem']]],
+  ['clip_6',['clip',['../struct_s___c_e_v___sprite_mini.html#aec06a54fb1cc6faf5a3d3e2232572cc5',1,'S_CEV_SpriteMini::clip()'],['../struct_s___c_e_v___ani_mini.html#aec06a54fb1cc6faf5a3d3e2232572cc5',1,'S_CEV_AniMini::clip()'],['../struct_m_a_p___tile_anim.html#aec06a54fb1cc6faf5a3d3e2232572cc5',1,'MAP_TileAnim::clip()'],['../struct_m_a_p___tile.html#aec06a54fb1cc6faf5a3d3e2232572cc5',1,'MAP_Tile::clip()'],['../struct_c_e_v___m_slider.html#a3b2864a2da0e4cf4ef92ee6d39952605',1,'CEV_MSlider::clip()'],['../struct_c_e_v___m_pic.html#aec06a54fb1cc6faf5a3d3e2232572cc5',1,'CEV_MPic::clip()'],['../struct_c_e_v___zoom.html#aec06a54fb1cc6faf5a3d3e2232572cc5',1,'CEV_Zoom::clip()']]],
+  ['cmd_7',['cmd',['../struct_c_e_v___timer.html#a4d43e8212bdc9dbee866506f04effcea',1,'CEV_Timer']]],
+  ['color_8',['color',['../struct_c_e_v___m_text.html#a32b5f7aa7e765b5739005686544ac6de',1,'CEV_MText::color()'],['../struct_c_e_v___scroll_text.html#a631bf4babe4c1825a2cdc0c19c2bd04f',1,'CEV_ScrollText::color()']]],
+  ['colorres_9',['colorRes',['../struct_l___gif_l_s_dpack.html#a361e53bd1273516c37129dffdf691ece',1,'L_GifLSDpack']]],
+  ['colorshift_10',['colorShift',['../struct_l___gif_file.html#a6547016777f6caa2337d0a175bde24c3',1,'L_GifFile']]],
+  ['colortabsize_11',['colorTabSize',['../struct_l___gif_i_dpack.html#a699a288770ddb2869a1976ee9618fecd',1,'L_GifIDpack']]],
+  ['comext_12',['comExt',['../struct_l___gif_file.html#a5fc30cecd690b77a461ac773857ef982',1,'L_GifFile']]],
+  ['comment_13',['comment',['../struct_l___gif_info.html#a25dae25c3bf9b28d54eb4df7afb2a491',1,'L_GifInfo']]],
+  ['comn_14',['comn',['../union_c_e_v___selector.html#ac39ce437e6da34e891cee55009abc2fc',1,'CEV_Selector']]],
+  ['constraint_15',['constraint',['../struct_s___camera.html#a1eafb1ac3563fa65abe81d77f5281e9d',1,'S_Camera']]],
+  ['control_16',['control',['../struct_l___gif_image.html#a7b3208fbf0e5b6bf2cfe7f89230400e5',1,'L_GifImage']]],
+  ['coord_17',['coord',['../struct_s___c_e_v___particle.html#ac0e1d8a110074fb3dd1aa7fae3b60525',1,'S_CEV_Particle']]],
+  ['count_18',['count',['../struct_c_e_v___chain_handle.html#a16ff2d8e15ade4948398b0aeb80124a8',1,'CEV_ChainHandle']]],
+  ['cst_19',['cst',['../struct_s___c_e_v___sprite_mini.html#a437ae765316979ece38ad5fbe2897d0d',1,'S_CEV_SpriteMini']]]
+];

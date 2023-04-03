@@ -18,6 +18,8 @@
 #include "CEV_types.h"
 
 
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -109,8 +111,9 @@ void CEV_textSortZA(CEV_Text *src);
  * \return any of function status.
  *
  * note : dstName should have .tdat extension type.
+ * any line starting with '/' char are ignored.
  */
-int CEV_convertTextTxtToData(const char *srcName, const char *dstName);
+int CEV_textConvertTxtToData(const char *srcName, const char *dstName);
 
 
 /** \brief Loads CEV_Text from file.
@@ -139,6 +142,7 @@ CEV_Text* CEV_textLoad_RW(SDL_RWops* src, bool freeSrc);
  * \return CEV_Text* on succes, NULL on error.
  *
  * note : opens "natural" txt file.
+ * any line starting with '/' char are ignored as beeing comment.
  * \sa CEV_textTxtLoadf()
  */
 CEV_Text* CEV_textTxtLoad(const char *fileName);

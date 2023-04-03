@@ -1,0 +1,824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_mp3.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__mp3_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_mp3.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
+<code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__input_8h_source.html">CEV_input.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__mix_system_8h_source.html">CEV_mixSystem.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__types_8h_source.html">CEV_types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__data_file_8h_source.html">CEV_dataFile.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_c_e_v__mp3_8h_source.html">CEV_mp3.h</a>&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a30f1751423e384e2e207bbd45f2abfc0"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a30f1751423e384e2e207bbd45f2abfc0">L_mp3TextureFetch</a> (SDL_RWops *src)</td></tr>
+<tr class="memdesc:a30f1751423e384e2e207bbd45f2abfc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">loads texture from mp3 file.  <a href="_c_e_v__mp3_8c.html#a30f1751423e384e2e207bbd45f2abfc0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a30f1751423e384e2e207bbd45f2abfc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25abe27c4654ce03154f5538e483c2e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a25abe27c4654ce03154f5538e483c2e5">L_mp3TagFetch</a> (SDL_RWops *src, <a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *dst)</td></tr>
+<tr class="memdesc:a25abe27c4654ce03154f5538e483c2e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">fetches ID3V1 tags if available.  <a href="_c_e_v__mp3_8c.html#a25abe27c4654ce03154f5538e483c2e5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a25abe27c4654ce03154f5538e483c2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05b580358b6d5c482b86901f4fc7df0b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a05b580358b6d5c482b86901f4fc7df0b">L_mp3ArtistFetch</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:a05b580358b6d5c482b86901f4fc7df0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches ID3V2 artist tag.  <a href="_c_e_v__mp3_8c.html#a05b580358b6d5c482b86901f4fc7df0b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a05b580358b6d5c482b86901f4fc7df0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8b2ea9e37205458e81cc39a8e28d572"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#ac8b2ea9e37205458e81cc39a8e28d572">L_mp3TitleFetch</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:ac8b2ea9e37205458e81cc39a8e28d572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches ID3V2 title tag.  <a href="_c_e_v__mp3_8c.html#ac8b2ea9e37205458e81cc39a8e28d572">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac8b2ea9e37205458e81cc39a8e28d572"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3eaf115e94e6f7392ea439ea8e20d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a2a3eaf115e94e6f7392ea439ea8e20d7">L_mp3YearFetch</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:a2a3eaf115e94e6f7392ea439ea8e20d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches ID3V2 year tag.  <a href="_c_e_v__mp3_8c.html#a2a3eaf115e94e6f7392ea439ea8e20d7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2a3eaf115e94e6f7392ea439ea8e20d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d57e973957b99cd90752bf1a175b8cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a3d57e973957b99cd90752bf1a175b8cb">L_mp3TrackFetch</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:a3d57e973957b99cd90752bf1a175b8cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches ID3V2 track tag.  <a href="_c_e_v__mp3_8c.html#a3d57e973957b99cd90752bf1a175b8cb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3d57e973957b99cd90752bf1a175b8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4c8a1d3050f673f51ac692cd0d731bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#ab4c8a1d3050f673f51ac692cd0d731bd">L_mp3AlbumFetch</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:ab4c8a1d3050f673f51ac692cd0d731bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches ID3V2 album tag.  <a href="_c_e_v__mp3_8c.html#ab4c8a1d3050f673f51ac692cd0d731bd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab4c8a1d3050f673f51ac692cd0d731bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18d1ab81002351f6f282ee21871951fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a18d1ab81002351f6f282ee21871951fc">L_gotoNxtStr</a> (SDL_RWops *src)</td></tr>
+<tr class="memdesc:a18d1ab81002351f6f282ee21871951fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">set file ptr at begining of next available string.  <a href="_c_e_v__mp3_8c.html#a18d1ab81002351f6f282ee21871951fc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a18d1ab81002351f6f282ee21871951fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2ce40f0fe839889fffdf0245c81dfcc"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#ac2ce40f0fe839889fffdf0245c81dfcc">L_findTag</a> (SDL_RWops *src, const char *tag)</td></tr>
+<tr class="memdesc:ac2ce40f0fe839889fffdf0245c81dfcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scans file for tag.  <a href="_c_e_v__mp3_8c.html#ac2ce40f0fe839889fffdf0245c81dfcc">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac2ce40f0fe839889fffdf0245c81dfcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94dbdf2bbd190b938042ef573751ea6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a94dbdf2bbd190b938042ef573751ea6e">L_getStr</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:a94dbdf2bbd190b938042ef573751ea6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads single string.  <a href="_c_e_v__mp3_8c.html#a94dbdf2bbd190b938042ef573751ea6e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a94dbdf2bbd190b938042ef573751ea6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6216b070b4c6bfad20012b5ed00b5e1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#ae6216b070b4c6bfad20012b5ed00b5e1">L_getTagContent</a> (SDL_RWops *src, char dst[])</td></tr>
+<tr class="memdesc:ae6216b070b4c6bfad20012b5ed00b5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads single tag content.  <a href="_c_e_v__mp3_8c.html#ae6216b070b4c6bfad20012b5ed00b5e1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae6216b070b4c6bfad20012b5ed00b5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d9fc1fe63f12c4f02ee6a718761afa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#af7d9fc1fe63f12c4f02ee6a718761afa">CEV_mp3TEST</a> (void)</td></tr>
+<tr class="separator:af7d9fc1fe63f12c4f02ee6a718761afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6d7de0b26ac2ab28e821a902086798e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#ad6d7de0b26ac2ab28e821a902086798e">CEV_mp3Load</a> (char *fileName)</td></tr>
+<tr class="memdesc:ad6d7de0b26ac2ab28e821a902086798e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads mp3 from file.  <a href="_c_e_v__mp3_8c.html#ad6d7de0b26ac2ab28e821a902086798e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad6d7de0b26ac2ab28e821a902086798e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55957da4ee7896a0f7a74b97f6b07896"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a55957da4ee7896a0f7a74b97f6b07896">CEV_mp3Load_RW</a> (SDL_RWops *src, bool freeSrc)</td></tr>
+<tr class="memdesc:a55957da4ee7896a0f7a74b97f6b07896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads mp3 from RWops.  <a href="_c_e_v__mp3_8c.html#a55957da4ee7896a0f7a74b97f6b07896">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a55957da4ee7896a0f7a74b97f6b07896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ab11330315e97a032a9a0de0511970c"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a7ab11330315e97a032a9a0de0511970c">CEV_mp3TextureFetch</a> (<a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *src)</td></tr>
+<tr class="memdesc:a7ab11330315e97a032a9a0de0511970c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches embedded picture if any.  <a href="_c_e_v__mp3_8c.html#a7ab11330315e97a032a9a0de0511970c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7ab11330315e97a032a9a0de0511970c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df1d50b3fc6a02dbeed303cd07e6b7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a2df1d50b3fc6a02dbeed303cd07e6b7c">CEV_mp3MusicPlay</a> (<a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *src, int loops)</td></tr>
+<tr class="memdesc:a2df1d50b3fc6a02dbeed303cd07e6b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays mp3 music.  <a href="_c_e_v__mp3_8c.html#a2df1d50b3fc6a02dbeed303cd07e6b7c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2df1d50b3fc6a02dbeed303cd07e6b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe4b593dc5a2893cc93a344f3cc006a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#abe4b593dc5a2893cc93a344f3cc006a1">CEV_mp3IsPlaying</a> (void)</td></tr>
+<tr class="memdesc:abe4b593dc5a2893cc93a344f3cc006a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is mp3 actually plaing ?  <a href="_c_e_v__mp3_8c.html#abe4b593dc5a2893cc93a344f3cc006a1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abe4b593dc5a2893cc93a344f3cc006a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb87d69f8a2927fddfe021073d2baf5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#abb87d69f8a2927fddfe021073d2baf5b">CEV_mp3MusicStop</a> (void)</td></tr>
+<tr class="memdesc:abb87d69f8a2927fddfe021073d2baf5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops playing music.  <a href="_c_e_v__mp3_8c.html#abb87d69f8a2927fddfe021073d2baf5b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abb87d69f8a2927fddfe021073d2baf5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90042267207e0ef02bd132b6156eaa4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#a90042267207e0ef02bd132b6156eaa4d">CEV_mp3Destroy</a> (<a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *src)</td></tr>
+<tr class="memdesc:a90042267207e0ef02bd132b6156eaa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys Mp3 structure and content.  <a href="_c_e_v__mp3_8c.html#a90042267207e0ef02bd132b6156eaa4d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a90042267207e0ef02bd132b6156eaa4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3262cd0219b05c108398deac3b34dce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__mp3_8c.html#ab3262cd0219b05c108398deac3b34dce">CEV_mp3Clear</a> (<a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *src)</td></tr>
+<tr class="memdesc:ab3262cd0219b05c108398deac3b34dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees Mp3 structure content.  <a href="_c_e_v__mp3_8c.html#ab3262cd0219b05c108398deac3b34dce">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab3262cd0219b05c108398deac3b34dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ab3262cd0219b05c108398deac3b34dce" name="ab3262cd0219b05c108398deac3b34dce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3262cd0219b05c108398deac3b34dce">&#9670;&nbsp;</a></span>CEV_mp3Clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mp3Clear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees Mp3 structure content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Mp3* to clear.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void note : freed content is set to NULL. </dd></dl>
+
+</div>
+</div>
+<a id="a90042267207e0ef02bd132b6156eaa4d" name="a90042267207e0ef02bd132b6156eaa4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90042267207e0ef02bd132b6156eaa4d">&#9670;&nbsp;</a></span>CEV_mp3Destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mp3Destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys Mp3 structure and content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Mp3* to free.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="abe4b593dc5a2893cc93a344f3cc006a1" name="abe4b593dc5a2893cc93a344f3cc006a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe4b593dc5a2893cc93a344f3cc006a1">&#9670;&nbsp;</a></span>CEV_mp3IsPlaying()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_mp3IsPlaying </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is mp3 actually plaing ? </p>
+<dl class="section return"><dt>Renvoie</dt><dd>true if playing, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ad6d7de0b26ac2ab28e821a902086798e" name="ad6d7de0b26ac2ab28e821a902086798e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6d7de0b26ac2ab28e821a902086798e">&#9670;&nbsp;</a></span>CEV_mp3Load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> * CEV_mp3Load </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads mp3 from file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileName</td><td>: char* as name of file to load.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Mp3* as result on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a55957da4ee7896a0f7a74b97f6b07896" name="a55957da4ee7896a0f7a74b97f6b07896"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55957da4ee7896a0f7a74b97f6b07896">&#9670;&nbsp;</a></span>CEV_mp3Load_RW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> * CEV_mp3Load_RW </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>freeSrc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads mp3 from RWops. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to load from. </td></tr>
+    <tr><td class="paramname">freeSrc</td><td>: frees src if true.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Mp3* on success, NULL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a2df1d50b3fc6a02dbeed303cd07e6b7c" name="a2df1d50b3fc6a02dbeed303cd07e6b7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df1d50b3fc6a02dbeed303cd07e6b7c">&#9670;&nbsp;</a></span>CEV_mp3MusicPlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mp3MusicPlay </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>loops</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Plays mp3 music. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Mp3* to play. </td></tr>
+    <tr><td class="paramname">loops</td><td>: int as numner of loops to perform.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="abb87d69f8a2927fddfe021073d2baf5b" name="abb87d69f8a2927fddfe021073d2baf5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb87d69f8a2927fddfe021073d2baf5b">&#9670;&nbsp;</a></span>CEV_mp3MusicStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mp3MusicStop </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stops playing music. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>void. </dd></dl>
+
+</div>
+</div>
+<a id="af7d9fc1fe63f12c4f02ee6a718761afa" name="af7d9fc1fe63f12c4f02ee6a718761afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7d9fc1fe63f12c4f02ee6a718761afa">&#9670;&nbsp;</a></span>CEV_mp3TEST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_mp3TEST </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ab11330315e97a032a9a0de0511970c" name="a7ab11330315e97a032a9a0de0511970c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ab11330315e97a032a9a0de0511970c">&#9670;&nbsp;</a></span>CEV_mp3TextureFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture * CEV_mp3TextureFetch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches embedded picture if any. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: CEV_Mp3* to fetch texture from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Texture* on succes, NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="ac2ce40f0fe839889fffdf0245c81dfcc" name="ac2ce40f0fe839889fffdf0245c81dfcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2ce40f0fe839889fffdf0245c81dfcc">&#9670;&nbsp;</a></span>L_findTag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t L_findTag </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>tag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scans file for tag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* in which to perform scan. </td></tr>
+    <tr><td class="paramname">tag</td><td>: const char* as tag to be found.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>size_t as tag offset / 0 if not found. </dd></dl>
+
+</div>
+</div>
+<a id="a94dbdf2bbd190b938042ef573751ea6e" name="a94dbdf2bbd190b938042ef573751ea6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94dbdf2bbd190b938042ef573751ea6e">&#9670;&nbsp;</a></span>L_getStr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_getStr </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads single string. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to read from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+<a id="ae6216b070b4c6bfad20012b5ed00b5e1" name="ae6216b070b4c6bfad20012b5ed00b5e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6216b070b4c6bfad20012b5ed00b5e1">&#9670;&nbsp;</a></span>L_getTagContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_getTagContent </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads single tag content. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to read from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+<a id="a18d1ab81002351f6f282ee21871951fc" name="a18d1ab81002351f6f282ee21871951fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18d1ab81002351f6f282ee21871951fc">&#9670;&nbsp;</a></span>L_gotoNxtStr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void L_gotoNxtStr </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set file ptr at begining of next available string. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* on which to perform operation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>void </dd></dl>
+
+</div>
+</div>
+<a id="ab4c8a1d3050f673f51ac692cd0d731bd" name="ab4c8a1d3050f673f51ac692cd0d731bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4c8a1d3050f673f51ac692cd0d731bd">&#9670;&nbsp;</a></span>L_mp3AlbumFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_mp3AlbumFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches ID3V2 album tag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to fetch from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+<a id="a05b580358b6d5c482b86901f4fc7df0b" name="a05b580358b6d5c482b86901f4fc7df0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05b580358b6d5c482b86901f4fc7df0b">&#9670;&nbsp;</a></span>L_mp3ArtistFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_mp3ArtistFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches ID3V2 artist tag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to fetch from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+<a id="a25abe27c4654ce03154f5538e483c2e5" name="a25abe27c4654ce03154f5538e483c2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25abe27c4654ce03154f5538e483c2e5">&#9670;&nbsp;</a></span>L_mp3TagFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool L_mp3TagFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___mp3.html">CEV_Mp3</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fetches ID3V1 tags if available. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to fetch from. </td></tr>
+    <tr><td class="paramname">dst</td><td>: CEV_Mp3* to fill with tags.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool : true on success. </dd></dl>
+
+</div>
+</div>
+<a id="a30f1751423e384e2e207bbd45f2abfc0" name="a30f1751423e384e2e207bbd45f2abfc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30f1751423e384e2e207bbd45f2abfc0">&#9670;&nbsp;</a></span>L_mp3TextureFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Texture * L_mp3TextureFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>loads texture from mp3 file. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to load texture from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>SDL_Texture* on success, NULL on failure. </dd></dl>
+
+</div>
+</div>
+<a id="ac8b2ea9e37205458e81cc39a8e28d572" name="ac8b2ea9e37205458e81cc39a8e28d572"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8b2ea9e37205458e81cc39a8e28d572">&#9670;&nbsp;</a></span>L_mp3TitleFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_mp3TitleFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches ID3V2 title tag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to fetch from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+<a id="a3d57e973957b99cd90752bf1a175b8cb" name="a3d57e973957b99cd90752bf1a175b8cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d57e973957b99cd90752bf1a175b8cb">&#9670;&nbsp;</a></span>L_mp3TrackFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_mp3TrackFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches ID3V2 track tag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to fetch from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+<a id="a2a3eaf115e94e6f7392ea439ea8e20d7" name="a2a3eaf115e94e6f7392ea439ea8e20d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a3eaf115e94e6f7392ea439ea8e20d7">&#9670;&nbsp;</a></span>L_mp3YearFetch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int L_mp3YearFetch </td>
+          <td>(</td>
+          <td class="paramtype">SDL_RWops *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>dst</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches ID3V2 year tag. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>: SDL_RWops* to fetch from. </td></tr>
+    <tr><td class="paramname">dst[]</td><td>: char[] filled with result.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int as num of char fetched.</dd></dl>
+<p>note : dst must be large enough to hold result [61] recommended. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__mp3_8c.html">CEV_mp3.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

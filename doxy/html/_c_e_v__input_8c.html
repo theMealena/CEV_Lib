@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib: Référence du fichier CEV_input.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__input_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier CEV_input.c</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;SDL.h&gt;</code><br />
+<code>#include &quot;math.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="project__def_8h_source.html">project_def.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__mix_system_8h_source.html">CEV_mixSystem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__input_8h_source.html">CEV_input.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__pad_8h_source.html">CEV_pad.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_e_v__api_8h_source.html">CEV_api.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:adcb4f4ba7d50333966061335b2a3bf4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#adcb4f4ba7d50333966061335b2a3bf4e">CEV_inputUpdate</a> (void)</td></tr>
+<tr class="memdesc:adcb4f4ba7d50333966061335b2a3bf4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates inputs.  <a href="_c_e_v__input_8c.html#adcb4f4ba7d50333966061335b2a3bf4e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adcb4f4ba7d50333966061335b2a3bf4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa07a3adc8ed976b2d771358bdced2f1d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#aa07a3adc8ed976b2d771358bdced2f1d">CEV_inputInit</a> ()</td></tr>
+<tr class="memdesc:aa07a3adc8ed976b2d771358bdced2f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input initialisation.  <a href="_c_e_v__input_8c.html#aa07a3adc8ed976b2d771358bdced2f1d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa07a3adc8ed976b2d771358bdced2f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c2bea0aeb605b03c26fb52679153909"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#a6c2bea0aeb605b03c26fb52679153909">CEV_inputFree</a> ()</td></tr>
+<tr class="memdesc:a6c2bea0aeb605b03c26fb52679153909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees input structure. note : memory clean-up.  <a href="_c_e_v__input_8c.html#a6c2bea0aeb605b03c26fb52679153909">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6c2bea0aeb605b03c26fb52679153909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c88e3c884bf84d3a845733534e89b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#a68c88e3c884bf84d3a845733534e89b5">CEV_inputClear</a> ()</td></tr>
+<tr class="memdesc:a68c88e3c884bf84d3a845733534e89b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears input content / resets to 0.  <a href="_c_e_v__input_8c.html#a68c88e3c884bf84d3a845733534e89b5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a68c88e3c884bf84d3a845733534e89b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f1984a87eb8b6868b4d801b91179f97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___input.html">CEV_Input</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#a0f1984a87eb8b6868b4d801b91179f97">CEV_inputSet</a> (<a class="el" href="struct_c_e_v___input.html">CEV_Input</a> *ptr)</td></tr>
+<tr class="memdesc:a0f1984a87eb8b6868b4d801b91179f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves Input structure as default for project.  <a href="_c_e_v__input_8c.html#a0f1984a87eb8b6868b4d801b91179f97">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0f1984a87eb8b6868b4d801b91179f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a997be9337f8c0600c24f5b2a9688b9bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_e_v___input.html">CEV_Input</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#a997be9337f8c0600c24f5b2a9688b9bb">CEV_inputGet</a> ()</td></tr>
+<tr class="memdesc:a997be9337f8c0600c24f5b2a9688b9bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches main input structure.  <a href="_c_e_v__input_8c.html#a997be9337f8c0600c24f5b2a9688b9bb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a997be9337f8c0600c24f5b2a9688b9bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76d530e5b0f66e3a7c2bc244f92ac15b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#a76d530e5b0f66e3a7c2bc244f92ac15b">CEV_inputValue</a> (int *val)</td></tr>
+<tr class="separator:a76d530e5b0f66e3a7c2bc244f92ac15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e6dae85ee46cf7f54d84d8a95ded813"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#a0e6dae85ee46cf7f54d84d8a95ded813">CEV_mouseBoxPtr</a> (SDL_Rect **box, int num)</td></tr>
+<tr class="memdesc:a0e6dae85ee46cf7f54d84d8a95ded813"><td class="mdescLeft">&#160;</td><td class="mdescRight">return index of box the mouse is on.  <a href="_c_e_v__input_8c.html#a0e6dae85ee46cf7f54d84d8a95ded813">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0e6dae85ee46cf7f54d84d8a95ded813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc1e12caf4c170d47e0c8f15608ae3aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_e_v__input_8c.html#afc1e12caf4c170d47e0c8f15608ae3aa">CEV_mouseBox</a> (SDL_Rect *box, int num)</td></tr>
+<tr class="memdesc:afc1e12caf4c170d47e0c8f15608ae3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns index of box the mouse is on.  <a href="_c_e_v__input_8c.html#afc1e12caf4c170d47e0c8f15608ae3aa">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afc1e12caf4c170d47e0c8f15608ae3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a68c88e3c884bf84d3a845733534e89b5" name="a68c88e3c884bf84d3a845733534e89b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68c88e3c884bf84d3a845733534e89b5">&#9670;&nbsp;</a></span>CEV_inputClear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_inputClear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears input content / resets to 0. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+<p >resets all input values</p>
+
+</div>
+</div>
+<a id="a6c2bea0aeb605b03c26fb52679153909" name="a6c2bea0aeb605b03c26fb52679153909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c2bea0aeb605b03c26fb52679153909">&#9670;&nbsp;</a></span>CEV_inputFree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_inputFree </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees input structure. note : memory clean-up. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>N/A. </dd></dl>
+
+</div>
+</div>
+<a id="a997be9337f8c0600c24f5b2a9688b9bb" name="a997be9337f8c0600c24f5b2a9688b9bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a997be9337f8c0600c24f5b2a9688b9bb">&#9670;&nbsp;</a></span>CEV_inputGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___input.html">CEV_Input</a> * CEV_inputGet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches main input structure. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Input* as recorded.. </dd></dl>
+
+</div>
+</div>
+<a id="aa07a3adc8ed976b2d771358bdced2f1d" name="aa07a3adc8ed976b2d771358bdced2f1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa07a3adc8ed976b2d771358bdced2f1d">&#9670;&nbsp;</a></span>CEV_inputInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_inputInit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Input initialisation. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>FUNC_OK if init, FATAL on error. </dd></dl>
+
+</div>
+</div>
+<a id="a0f1984a87eb8b6868b4d801b91179f97" name="a0f1984a87eb8b6868b4d801b91179f97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f1984a87eb8b6868b4d801b91179f97">&#9670;&nbsp;</a></span>CEV_inputSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_e_v___input.html">CEV_Input</a> * CEV_inputSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_c_e_v___input.html">CEV_Input</a> *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves Input structure as default for project. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">CEV_Input*</td><td>to set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>CEV_Input* that was recorded. </dd></dl>
+
+</div>
+</div>
+<a id="adcb4f4ba7d50333966061335b2a3bf4e" name="adcb4f4ba7d50333966061335b2a3bf4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcb4f4ba7d50333966061335b2a3bf4e">&#9670;&nbsp;</a></span>CEV_inputUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CEV_inputUpdate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates inputs. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>true if any button pressed. </dd></dl>
+<p >keyboard</p>
+<p >mouse</p>
+<p >pads</p>
+<p >misc</p>
+
+</div>
+</div>
+<a id="a76d530e5b0f66e3a7c2bc244f92ac15b" name="a76d530e5b0f66e3a7c2bc244f92ac15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76d530e5b0f66e3a7c2bc244f92ac15b">&#9670;&nbsp;</a></span>CEV_inputValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CEV_inputValue </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afc1e12caf4c170d47e0c8f15608ae3aa" name="afc1e12caf4c170d47e0c8f15608ae3aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc1e12caf4c170d47e0c8f15608ae3aa">&#9670;&nbsp;</a></span>CEV_mouseBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_mouseBox </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns index of box the mouse is on. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">box</td><td>: SDL_Rect* to check. </td></tr>
+    <tr><td class="paramname">num</td><td>: number of boxes in table.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : rect index or -1 if none. </dd></dl>
+
+</div>
+</div>
+<a id="a0e6dae85ee46cf7f54d84d8a95ded813" name="a0e6dae85ee46cf7f54d84d8a95ded813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6dae85ee46cf7f54d84d8a95ded813">&#9670;&nbsp;</a></span>CEV_mouseBoxPtr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CEV_mouseBoxPtr </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Rect **&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>return index of box the mouse is on. </p>
+<p >mouse box with ptr table</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">box</td><td>: SDL_Rect** to check. </td></tr>
+    <tr><td class="paramname">num</td><td>: number of boxes in table. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int : rect index or -1 if none. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__input_8c.html">CEV_input.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

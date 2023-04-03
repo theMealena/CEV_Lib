@@ -19,8 +19,9 @@
 
 #include <SDL.h>
 #include <stdbool.h>
-#include <CEV_gif.h>
-#include <CEV_types.h>
+
+#include "CEV_gif.h"
+#include "CEV_types.h"
 
 
 /*
@@ -52,15 +53,19 @@ Layer index 0 is the farmost layer as in blit order.
 */
 
 
-enum
+#define PRLX_TYPE_NAMES {"PRLX_AUTO", "PRLX_CENTERED", "PRLX_LEFT", "PRLX_RIGHT", "PRLX_TOP", "PRLX_BOTTOM"}
+//                          0               1               2           3               4           5
+
+typedef enum PRLX_MODE
 {
     PRLX_AUTO,      /**< Automatically handles background positioning */
     PRLX_CENTERED,  /**< Unused */
     PRLX_LEFT,      /**< Left border is refererence */
     PRLX_RIGHT,     /**< Right border is reference */
     PRLX_TOP,       /**< Top border is reference */
-    PRLX_BOTTOM     /**< Bottom border is reference */
-};
+    PRLX_BOTTOM,    /**< Bottom border is reference */
+    PRLX_LAST
+}PRLX_MODE;
 
 
 typedef struct
@@ -175,7 +180,7 @@ void CEV_parallaxLayerDump(CEV_ParaLayer* in);
  * \param dstName : prlx file to create.
  * \return any of standard return value.
  */
-int CEV_convertParallaxCSVToData(const char* srcName, const char* dstName);
+int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName);
 
 
 /** \brief Loads parallax object from file.

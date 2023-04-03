@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEV_lib:  Fichier source de CEV_weather.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="revolver.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">CEV_lib
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_c_e_v__weather_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CEV_weather.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_c_e_v__weather_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//** Done by  |      Date     |  version |    comment     **/</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//**------------------------------------------------------**/</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//**   CEV    |    02-2017    |   1.0    |    creation    **/</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">//**   CEV    |    02-2023    |   2.0    |    creation    **/</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//**********************************************************/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#ifndef WEATHER_H_INCLUDED</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define WEATHER_H_INCLUDED</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;SDL.h&gt;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;<a class="code" href="_c_e_v__types_8h.html">CEV_types.h</a>&gt;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;<a class="code" href="_c_e_v__camera_8h.html">CEV_camera.h</a>&gt;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="_c_e_v__weather_8h.html#acd31ebcd68fb523c6e4ab1fc14152f95">   50</a></span><span class="preprocessor">#define WEATHER_ID 0x0F000000</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094">   52</a></span><span class="keyword">enum</span> {<a class="code hl_enumvalue" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9ea9dde69d5a4cd49515eb0b0c62f13e350">WEATHER_SNOW</a>, <a class="code hl_enumvalue" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaf58e304c8e3a4b4562c6255d67c0a243">WEATHER_RAIN</a>, <a class="code hl_enumvalue" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094">WEATHER_FALL</a>, <a class="code hl_enumvalue" href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9ea29c938c10c525793b36d4ce568bf1e5b">WEATHER_NUM</a>};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="_c_e_v__weather_8h.html#a040f4e3003856db38f518643385ebb77">   58</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_s___c_e_v___particle.html">S_CEV_Particle</a> <a class="code hl_struct" href="struct_s___c_e_v___particle.html">CEV_Particle</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html">   62</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_s___c_e_v___weather.html">S_CEV_Weather</a></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{<span class="comment">//weather</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a1d127017fb298b889f4ba24752d08b8e">   65</a></span>    uint8_t <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a1d127017fb298b889f4ba24752d08b8e">type</a>;   </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a3e6f76368abfbc8709f4c1346dfa6a20">   67</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a3e6f76368abfbc8709f4c1346dfa6a20">run</a>,       </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a5695ea8fcb8884b19a2083f3742e8feb">   68</a></span>         <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a5695ea8fcb8884b19a2083f3742e8feb">anyActive</a>; </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#af27ca58a06740ba14586f80e700d133d">   70</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="struct_s___c_e_v___weather.html#af27ca58a06740ba14586f80e700d133d">Vx</a>,                 </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a063df1acfa0d163a49e820c34fdbb0dd">   71</a></span>        <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a063df1acfa0d163a49e820c34fdbb0dd">Vy</a>,                 </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a0f392611b073d706c689ecf215192b18">   72</a></span>        <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a0f392611b073d706c689ecf215192b18">offScreen</a>,          </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a79f81fc24ee57ab5af7055bb95d28d47">   73</a></span>        *<a class="code hl_variable" href="struct_s___c_e_v___weather.html#a79f81fc24ee57ab5af7055bb95d28d47">scrollCorrectionX</a>, </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#ae39cfefc4c0b86bc0a823f785b9bd368">   74</a></span>        *<a class="code hl_variable" href="struct_s___c_e_v___weather.html#ae39cfefc4c0b86bc0a823f785b9bd368">scrollCorrectionY</a>; </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a505f98fde467109a9b37b3c7e008df91">   76</a></span>    uint32_t <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a505f98fde467109a9b37b3c7e008df91">ID</a>,        </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#add7615a763766b2763db09da9e088512">   77</a></span>             <a class="code hl_variable" href="struct_s___c_e_v___weather.html#add7615a763766b2763db09da9e088512">srcID</a>,     </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a7beea8f6745c478347f244cadef771c2">   78</a></span>             <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a7beea8f6745c478347f244cadef771c2">num</a>,        </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#af9152f0ac1bec5be837a94b2c0f9fa60">   79</a></span>             <a class="code hl_variable" href="struct_s___c_e_v___weather.html#af9152f0ac1bec5be837a94b2c0f9fa60">numax</a>;      </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#ab8ef1bf8a70cc07c6d55823c390a7e76">   81</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="struct_s___c_e_v___weather.html#ab8ef1bf8a70cc07c6d55823c390a7e76">angle</a>;        </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#ab4a6a5c6cf52247967b6ccde7424169a">   83</a></span>    SDL_Rect <a class="code hl_variable" href="struct_s___c_e_v___weather.html#ab4a6a5c6cf52247967b6ccde7424169a">renderSize</a>,    </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#afe4f300da88e32184a68eadf08ef65e2">   84</a></span>             <a class="code hl_variable" href="struct_s___c_e_v___weather.html#afe4f300da88e32184a68eadf08ef65e2">textureSize</a>;   </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#a859b8efbf9abe8e82757ee5c75a0c97c">   86</a></span>    SDL_Texture* <a class="code hl_variable" href="struct_s___c_e_v___weather.html#a859b8efbf9abe8e82757ee5c75a0c97c">texture</a>;   </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="struct_s___c_e_v___weather.html#aa622c729319426faa98af1ca98c90b20">   88</a></span>    <a class="code hl_struct" href="struct_s___c_e_v___particle.html">CEV_Particle</a>* <a class="code hl_variable" href="struct_s___c_e_v___weather.html#aa622c729319426faa98af1ca98c90b20">particles</a>;        </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">   90</a></span><a class="code hl_typedef" href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a7290998948e9be7100dde621caf32a13">CEV_weatherDump</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* <span class="keyword">this</span>, <span class="keywordtype">bool</span> dumpParticles);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#aa73e15288e8aa4d3c50d3cb5f53fded7">CEV_weatherParticleDump</a>(<a class="code hl_struct" href="struct_s___c_e_v___particle.html">CEV_Particle</a>* <span class="keyword">this</span>);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* <a class="code hl_function" href="_c_e_v__weather_8h.html#a09e83648a4b73818970f8806e457001a">CEV_weatherCreate</a>(uint8_t type, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> num, <span class="keywordtype">int</span> vx, <span class="keywordtype">int</span> vy);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#af0b484b037c56d88f34b98271a7bd06f">CEV_weatherDestroy</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in, <span class="keywordtype">bool</span> freePic);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a80bcec6f8e132251c8e2d02f89a9f8ff">CEV_weatherClear</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in, <span class="keywordtype">bool</span> freePic);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#ae7f3106a4ec4bea23fd68af5f561099c">CEV_weatherShow</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a0764439811161a506a658cb06693686a">CEV_weatherShowWithLayer</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in, <span class="keywordtype">float</span> min, <span class="keywordtype">float</span> max);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a8925e7648887b85af712633f99ce2ee3">CEV_weatherParticleNumSet</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> num);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a145487f43f68492486c837c554782bb0">CEV_weatherParticleNumReset</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a47ec5586a241b21ed5d9bf1c114127df">CEV_weatherStart</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a7601c05f415f4c646a4492cf40aec145">CEV_weatherStop</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* in);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a4a6aad4ac5c139fbbe9f2cf5337398b2">CEV_weatherParticleBuild</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* dst);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#ab2d422c3df8c4277cbe111be9db6946e">CEV_weatherParticleMaxSize</a>(<span class="keywordtype">float</span> src, <a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* dst);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a9edb81d0b50041e58eb40bc7dca4862b">CEV_weatherParticleMinSize</a>(<span class="keywordtype">float</span> src, <a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* dst);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a40c57c9ba3fd9d6a30655480f1afbc81">CEV_weatherParticleSizeOf</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a69c9430b98cb047140a224d5f2d64853">CEV_weatherTextureAttach</a>(SDL_Texture* src, <a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* dst);</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="keywordtype">void</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a68a80db4b0508ee64892814816d30f07">CEV_weatherCameraAttach</a>(<a class="code hl_struct" href="struct_s___camera.html">CEV_Camera</a>* src, <a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* dst);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment">/******FILE ******/</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a> *<a class="code hl_function" href="_c_e_v__weather_8h.html#aac44ae74b63718ca1630426b4431bdb1">CEV_weatherLoad</a>(<span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a> *<a class="code hl_function" href="_c_e_v__weather_8h.html#abc7a21c1d7cfeaa9990511464da04b45">CEV_weatherLoad_RW</a>(SDL_RWops* ops, <span class="keywordtype">char</span> freeSrc);</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#adbc5e2605a35283349673b9f8c7ce20e">CEV_weatherSave</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* picture, <span class="keywordtype">char</span>* fileName);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#aaa2a3827f8d01b0c7a60332f0b1b36b3">CEV_weatherTypeWrite</a>(<a class="code hl_struct" href="struct_s___c_e_v___weather.html">CEV_Weather</a>* src, <a class="code hl_struct" href="struct_c_e_v___capsule.html">CEV_Capsule</a>* picture, FILE* dst);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="comment">/****** FILE CONSTRUCTOR ******/</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno"><a class="line" href="_c_e_v__weather_8h.html#a1e1ce40a72aa5b15ce60acfccb632ad3">  331</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="_c_e_v__weather_8h.html#a1e1ce40a72aa5b15ce60acfccb632ad3">CEV_convertWeatherCSVToData</a>(<span class="keywordtype">char</span>* src, <span class="keywordtype">char</span>* dst);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>}</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">#endif </span><span class="comment">// WEATHER_H_INCLUDED</span></div>
+<div class="ttc" id="a_c_e_v__camera_8h_html"><div class="ttname"><a href="_c_e_v__camera_8h.html">CEV_camera.h</a></div></div>
+<div class="ttc" id="a_c_e_v__types_8h_html"><div class="ttname"><a href="_c_e_v__types_8h.html">CEV_types.h</a></div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a05589fbab0657f08285ebdfe93f5ec9ea29c938c10c525793b36d4ce568bf1e5b"><div class="ttname"><a href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9ea29c938c10c525793b36d4ce568bf1e5b">WEATHER_NUM</a></div><div class="ttdeci">@ WEATHER_NUM</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:52</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a05589fbab0657f08285ebdfe93f5ec9ea9dde69d5a4cd49515eb0b0c62f13e350"><div class="ttname"><a href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9ea9dde69d5a4cd49515eb0b0c62f13e350">WEATHER_SNOW</a></div><div class="ttdeci">@ WEATHER_SNOW</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:52</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094"><div class="ttname"><a href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaa80e7831f60119ef91949ac8b7261094">WEATHER_FALL</a></div><div class="ttdeci">@ WEATHER_FALL</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:52</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a05589fbab0657f08285ebdfe93f5ec9eaf58e304c8e3a4b4562c6255d67c0a243"><div class="ttname"><a href="_c_e_v__weather_8h.html#a05589fbab0657f08285ebdfe93f5ec9eaf58e304c8e3a4b4562c6255d67c0a243">WEATHER_RAIN</a></div><div class="ttdeci">@ WEATHER_RAIN</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:52</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a0764439811161a506a658cb06693686a"><div class="ttname"><a href="_c_e_v__weather_8h.html#a0764439811161a506a658cb06693686a">CEV_weatherShowWithLayer</a></div><div class="ttdeci">void CEV_weatherShowWithLayer(CEV_Weather *in, float min, float max)</div><div class="ttdoc">Updates and display specified sized particles.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:536</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a09e83648a4b73818970f8806e457001a"><div class="ttname"><a href="_c_e_v__weather_8h.html#a09e83648a4b73818970f8806e457001a">CEV_weatherCreate</a></div><div class="ttdeci">CEV_Weather * CEV_weatherCreate(uint8_t type, unsigned int num, int vx, int vy)</div><div class="ttdoc">Create a new weather instance.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:400</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a145487f43f68492486c837c554782bb0"><div class="ttname"><a href="_c_e_v__weather_8h.html#a145487f43f68492486c837c554782bb0">CEV_weatherParticleNumReset</a></div><div class="ttdeci">unsigned int CEV_weatherParticleNumReset(CEV_Weather *in)</div><div class="ttdoc">Modify number of particles to base value (as in weatherCreate)</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:633</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a1e1ce40a72aa5b15ce60acfccb632ad3"><div class="ttname"><a href="_c_e_v__weather_8h.html#a1e1ce40a72aa5b15ce60acfccb632ad3">CEV_convertWeatherCSVToData</a></div><div class="ttdeci">int CEV_convertWeatherCSVToData(char *src, char *dst)</div><div class="ttdoc">turns csv file into weather data type file</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a40c57c9ba3fd9d6a30655480f1afbc81"><div class="ttname"><a href="_c_e_v__weather_8h.html#a40c57c9ba3fd9d6a30655480f1afbc81">CEV_weatherParticleSizeOf</a></div><div class="ttdeci">size_t CEV_weatherParticleSizeOf(void)</div><div class="ttdoc">Returns singe particle structure sizeof.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:739</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a47ec5586a241b21ed5d9bf1c114127df"><div class="ttname"><a href="_c_e_v__weather_8h.html#a47ec5586a241b21ed5d9bf1c114127df">CEV_weatherStart</a></div><div class="ttdeci">void CEV_weatherStart(CEV_Weather *in)</div><div class="ttdoc">Starts weather effect.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:642</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a4876382b791b926222087c2d06015dc2"><div class="ttname"><a href="_c_e_v__weather_8h.html#a4876382b791b926222087c2d06015dc2">CEV_Weather</a></div><div class="ttdeci">struct S_CEV_Weather CEV_Weather</div><div class="ttdoc">Weather main structure.</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a4a6aad4ac5c139fbbe9f2cf5337398b2"><div class="ttname"><a href="_c_e_v__weather_8h.html#a4a6aad4ac5c139fbbe9f2cf5337398b2">CEV_weatherParticleBuild</a></div><div class="ttdeci">void CEV_weatherParticleBuild(CEV_Weather *dst)</div><div class="ttdoc">Builds / rebuilds particles.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:654</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a68a80db4b0508ee64892814816d30f07"><div class="ttname"><a href="_c_e_v__weather_8h.html#a68a80db4b0508ee64892814816d30f07">CEV_weatherCameraAttach</a></div><div class="ttdeci">void CEV_weatherCameraAttach(CEV_Camera *src, CEV_Weather *dst)</div><div class="ttdoc">Sets / attach camera to be used for scrolling effect.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:772</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a69c9430b98cb047140a224d5f2d64853"><div class="ttname"><a href="_c_e_v__weather_8h.html#a69c9430b98cb047140a224d5f2d64853">CEV_weatherTextureAttach</a></div><div class="ttdeci">void CEV_weatherTextureAttach(SDL_Texture *src, CEV_Weather *dst)</div><div class="ttdoc">Attached texture to use as particle.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:745</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a7290998948e9be7100dde621caf32a13"><div class="ttname"><a href="_c_e_v__weather_8h.html#a7290998948e9be7100dde621caf32a13">CEV_weatherDump</a></div><div class="ttdeci">void CEV_weatherDump(CEV_Weather *this, bool dumpParticles)</div><div class="ttdoc">Dumps weather content to stdout.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:287</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a7601c05f415f4c646a4492cf40aec145"><div class="ttname"><a href="_c_e_v__weather_8h.html#a7601c05f415f4c646a4492cf40aec145">CEV_weatherStop</a></div><div class="ttdeci">void CEV_weatherStop(CEV_Weather *in)</div><div class="ttdoc">stop display</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:648</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a80bcec6f8e132251c8e2d02f89a9f8ff"><div class="ttname"><a href="_c_e_v__weather_8h.html#a80bcec6f8e132251c8e2d02f89a9f8ff">CEV_weatherClear</a></div><div class="ttdeci">void CEV_weatherClear(CEV_Weather *in, bool freePic)</div><div class="ttdoc">Frees CEV_Weather content and sets to 0 / NULL.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:510</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a8925e7648887b85af712633f99ce2ee3"><div class="ttname"><a href="_c_e_v__weather_8h.html#a8925e7648887b85af712633f99ce2ee3">CEV_weatherParticleNumSet</a></div><div class="ttdeci">unsigned int CEV_weatherParticleNumSet(CEV_Weather *in, unsigned int num)</div><div class="ttdoc">Modify the number of particles to update/dsplay.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:621</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_a9edb81d0b50041e58eb40bc7dca4862b"><div class="ttname"><a href="_c_e_v__weather_8h.html#a9edb81d0b50041e58eb40bc7dca4862b">CEV_weatherParticleMinSize</a></div><div class="ttdeci">void CEV_weatherParticleMinSize(float src, CEV_Weather *dst)</div><div class="ttdoc">Sets minimum particle size.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:724</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_aa73e15288e8aa4d3c50d3cb5f53fded7"><div class="ttname"><a href="_c_e_v__weather_8h.html#aa73e15288e8aa4d3c50d3cb5f53fded7">CEV_weatherParticleDump</a></div><div class="ttdeci">void CEV_weatherParticleDump(CEV_Particle *this)</div><div class="ttdoc">Dumps single particle content to stdout.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:363</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_aaa2a3827f8d01b0c7a60332f0b1b36b3"><div class="ttname"><a href="_c_e_v__weather_8h.html#aaa2a3827f8d01b0c7a60332f0b1b36b3">CEV_weatherTypeWrite</a></div><div class="ttdeci">int CEV_weatherTypeWrite(CEV_Weather *src, CEV_Capsule *picture, FILE *dst)</div><div class="ttdoc">Writes CEV_Weather into file.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:910</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_aac44ae74b63718ca1630426b4431bdb1"><div class="ttname"><a href="_c_e_v__weather_8h.html#aac44ae74b63718ca1630426b4431bdb1">CEV_weatherLoad</a></div><div class="ttdeci">CEV_Weather * CEV_weatherLoad(char *fileName)</div><div class="ttdoc">loads weather file</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:782</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_ab2d422c3df8c4277cbe111be9db6946e"><div class="ttname"><a href="_c_e_v__weather_8h.html#ab2d422c3df8c4277cbe111be9db6946e">CEV_weatherParticleMaxSize</a></div><div class="ttdeci">void CEV_weatherParticleMaxSize(float src, CEV_Weather *dst)</div><div class="ttdoc">Sets maximum particle size.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:709</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_abc7a21c1d7cfeaa9990511464da04b45"><div class="ttname"><a href="_c_e_v__weather_8h.html#abc7a21c1d7cfeaa9990511464da04b45">CEV_weatherLoad_RW</a></div><div class="ttdeci">CEV_Weather * CEV_weatherLoad_RW(SDL_RWops *ops, char freeSrc)</div><div class="ttdoc">loads weather file from RWops</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:809</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_adbc5e2605a35283349673b9f8c7ce20e"><div class="ttname"><a href="_c_e_v__weather_8h.html#adbc5e2605a35283349673b9f8c7ce20e">CEV_weatherSave</a></div><div class="ttdeci">int CEV_weatherSave(CEV_Weather *src, CEV_Capsule *picture, char *fileName)</div><div class="ttdoc">Saves CEV_Weather into file.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:885</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_ae7f3106a4ec4bea23fd68af5f561099c"><div class="ttname"><a href="_c_e_v__weather_8h.html#ae7f3106a4ec4bea23fd68af5f561099c">CEV_weatherShow</a></div><div class="ttdeci">void CEV_weatherShow(CEV_Weather *in)</div><div class="ttdoc">Updates and display weather on screen.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:529</div></div>
+<div class="ttc" id="a_c_e_v__weather_8h_html_af0b484b037c56d88f34b98271a7bd06f"><div class="ttname"><a href="_c_e_v__weather_8h.html#af0b484b037c56d88f34b98271a7bd06f">CEV_weatherDestroy</a></div><div class="ttdeci">void CEV_weatherDestroy(CEV_Weather *in, bool freePic)</div><div class="ttdoc">Free CEV_Weather allocations.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:498</div></div>
+<div class="ttc" id="astruct_c_e_v___capsule_html"><div class="ttname"><a href="struct_c_e_v___capsule.html">CEV_Capsule</a></div><div class="ttdoc">File encapsulation.</div><div class="ttdef"><b>Definition:</b> CEV_types.h:43</div></div>
+<div class="ttc" id="astruct_s___c_e_v___particle_html"><div class="ttname"><a href="struct_s___c_e_v___particle.html">S_CEV_Particle</a></div><div class="ttdoc">LOG.</div><div class="ttdef"><b>Definition:</b> CEV_weather.c:41</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html"><div class="ttname"><a href="struct_s___c_e_v___weather.html">S_CEV_Weather</a></div><div class="ttdoc">Weather main structure.</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:63</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a063df1acfa0d163a49e820c34fdbb0dd"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a063df1acfa0d163a49e820c34fdbb0dd">S_CEV_Weather::Vy</a></div><div class="ttdeci">int Vy</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:71</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a0f392611b073d706c689ecf215192b18"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a0f392611b073d706c689ecf215192b18">S_CEV_Weather::offScreen</a></div><div class="ttdeci">int offScreen</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:72</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a1d127017fb298b889f4ba24752d08b8e"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a1d127017fb298b889f4ba24752d08b8e">S_CEV_Weather::type</a></div><div class="ttdeci">uint8_t type</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:65</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a3e6f76368abfbc8709f4c1346dfa6a20"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a3e6f76368abfbc8709f4c1346dfa6a20">S_CEV_Weather::run</a></div><div class="ttdeci">bool run</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:67</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a505f98fde467109a9b37b3c7e008df91"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a505f98fde467109a9b37b3c7e008df91">S_CEV_Weather::ID</a></div><div class="ttdeci">uint32_t ID</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:76</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a5695ea8fcb8884b19a2083f3742e8feb"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a5695ea8fcb8884b19a2083f3742e8feb">S_CEV_Weather::anyActive</a></div><div class="ttdeci">bool anyActive</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:68</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a79f81fc24ee57ab5af7055bb95d28d47"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a79f81fc24ee57ab5af7055bb95d28d47">S_CEV_Weather::scrollCorrectionX</a></div><div class="ttdeci">int * scrollCorrectionX</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:73</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a7beea8f6745c478347f244cadef771c2"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a7beea8f6745c478347f244cadef771c2">S_CEV_Weather::num</a></div><div class="ttdeci">uint32_t num</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:78</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_a859b8efbf9abe8e82757ee5c75a0c97c"><div class="ttname"><a href="struct_s___c_e_v___weather.html#a859b8efbf9abe8e82757ee5c75a0c97c">S_CEV_Weather::texture</a></div><div class="ttdeci">SDL_Texture * texture</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:86</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_aa622c729319426faa98af1ca98c90b20"><div class="ttname"><a href="struct_s___c_e_v___weather.html#aa622c729319426faa98af1ca98c90b20">S_CEV_Weather::particles</a></div><div class="ttdeci">CEV_Particle * particles</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:88</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_ab4a6a5c6cf52247967b6ccde7424169a"><div class="ttname"><a href="struct_s___c_e_v___weather.html#ab4a6a5c6cf52247967b6ccde7424169a">S_CEV_Weather::renderSize</a></div><div class="ttdeci">SDL_Rect renderSize</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:83</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_ab8ef1bf8a70cc07c6d55823c390a7e76"><div class="ttname"><a href="struct_s___c_e_v___weather.html#ab8ef1bf8a70cc07c6d55823c390a7e76">S_CEV_Weather::angle</a></div><div class="ttdeci">float angle</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:81</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_add7615a763766b2763db09da9e088512"><div class="ttname"><a href="struct_s___c_e_v___weather.html#add7615a763766b2763db09da9e088512">S_CEV_Weather::srcID</a></div><div class="ttdeci">uint32_t srcID</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:77</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_ae39cfefc4c0b86bc0a823f785b9bd368"><div class="ttname"><a href="struct_s___c_e_v___weather.html#ae39cfefc4c0b86bc0a823f785b9bd368">S_CEV_Weather::scrollCorrectionY</a></div><div class="ttdeci">int * scrollCorrectionY</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:74</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_af27ca58a06740ba14586f80e700d133d"><div class="ttname"><a href="struct_s___c_e_v___weather.html#af27ca58a06740ba14586f80e700d133d">S_CEV_Weather::Vx</a></div><div class="ttdeci">int Vx</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:70</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_af9152f0ac1bec5be837a94b2c0f9fa60"><div class="ttname"><a href="struct_s___c_e_v___weather.html#af9152f0ac1bec5be837a94b2c0f9fa60">S_CEV_Weather::numax</a></div><div class="ttdeci">uint32_t numax</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:79</div></div>
+<div class="ttc" id="astruct_s___c_e_v___weather_html_afe4f300da88e32184a68eadf08ef65e2"><div class="ttname"><a href="struct_s___c_e_v___weather.html#afe4f300da88e32184a68eadf08ef65e2">S_CEV_Weather::textureSize</a></div><div class="ttdeci">SDL_Rect textureSize</div><div class="ttdef"><b>Definition:</b> CEV_weather.h:84</div></div>
+<div class="ttc" id="astruct_s___camera_html"><div class="ttname"><a href="struct_s___camera.html">S_Camera</a></div><div class="ttdef"><b>Definition:</b> CEV_camera.h:73</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_8a92ea4435fdd20d3de6dd94ecfe2d9e.html">My_source</a></li><li class="navelem"><a class="el" href="dir_bd0f08a6169bbdb37441fcdd3f932cdd.html">SDL_2</a></li><li class="navelem"><a class="el" href="dir_61db75bf1b23465f894d5a761a482576.html">CEV_Lib</a></li><li class="navelem"><a class="el" href="_c_e_v__weather_8h.html">CEV_weather.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

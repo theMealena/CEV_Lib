@@ -2,7 +2,7 @@
 #define TEST_ZOOM_H_INCLUDED
 
 #include <SDL.h>
-#include "stdbool.h"
+#include <stdbool.h>
 
 // TODO (drx#1#): voir comment gérer les zoom inférieurs à 1
 

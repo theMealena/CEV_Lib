@@ -4,145 +4,226 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
+
 #include "CEV_api.h"
 #include "CEV_types.h"
 
-#define M_TYPE_NUM 3
-#define M_TYPE_LIST {"M_IS_SLIDE", "M_IS_PIC", "M_IS_TEXT"}
-#define M_PIC_MAX 5
+
+//menu file content
+// u32le        num of buttons
+//              fontSize if font embedded
+// CEV_Capsule  embedded font if any (fontSize != 0)
+//
+//num of buttons times :
+//  u32le M_TYPE for this button
+//  button definition
+
+
+//text button in file
+// u8 : r,g,b,a off color
+// u8 : r,g,b,a hover color
+// u32le : pos.x, pos.y, justif, scale(*100)//
+// u8[] : text char nul terminated
+
+//pic button in file
+// u32_t : num of state for this button
+// u32_t : x, y as blit pos
+// CEV_Capsule embedded picture
+
+//slider in file
+// u32_t : x, y, w, h as background clip
+// u32_t : x, y, w, h as foreground clip
+// u32_t : x, y as background blit position
+// CEV_Capsule embedded picture
+
+
+
+#define M_TYPE_NAMES {"M_IS_SLIDE", "M_IS_PIC", "M_IS_TEXT"}
+//                          0           1           2
 
 
 
 
-enum
-{
-    M_IS_SLIDE    = 0,
-    M_IS_PIC      = 1,
-    M_IS_TEXT     = 2
-
-};
-
-typedef struct CEV_MSlider
-{
-    unsigned char   type,
-                    value,
-                    *valuePtr;
-
-    SDL_Texture     *pic;
-    SDL_Rect        blitPos[2],
-                    clip[2];//back / for
+/** \brief Buttons / interactive types.
+ */
+typedef enum M_TYPE
+{//buttons types
+    M_IS_SLIDE  = 0,    /**< slider like option. */
+    M_IS_PIC    = 1,    /**< picture as button. */
+    M_IS_TEXT   = 2,    /**< text as button. */
+    M_TYPE_LAST = 3     /**< num of types in this list. */
 }
-CEV_MSlider;
+M_TYPE;
 
 
+/** \brief Slider-like value selection
+ */
+typedef struct CEV_MSlide
+{//slider
+    M_TYPE   type;              /**< type identifier.*/
+    unsigned char   value,      /**< local slider value (0-255).*/
+                    *valuePtr;  /**< ptr to external value command.*/
+
+    SDL_Texture     *pic;       /**< base picture to display.*/
+    SDL_Rect        blitPos[2], /**< blit positions (back / fore).*/
+                    clip[2];    /**< clip positions (back / fore).*/
+}
+CEV_MSlide;
+
+
+/** \brief multistates Pictured button
+ */
 typedef struct CEV_MPic
-{
-    unsigned char   type,
-                    value,
-                    *valuePtr;
+{//pic button
+    M_TYPE   type;              /**< type identifier.*/
+    unsigned char   value,      /**< local value (0-255).*/
+                    *valuePtr;  /**< ptr to external value command.*/
 
-    unsigned int    picNum;
+    unsigned int    stateNum;     /**< num of states.*/
 
-    SDL_Texture     *pic;
+    SDL_Texture     *pic;       /**< base picture to display.*/
 
-    SDL_Rect        blitPos,
-                    clip;//off / on /options
+    SDL_Rect        blitPos,    /**< blit positions.*/
+                    clip;       /**< clip positions.*/
 }
 CEV_MPic;
 
 
+/** \brief clicable Text button
+ */
 typedef struct CEV_MText
-{
-    unsigned char   type,
-                    value, //1 if text hover
-                    *valuePtr;
-    char    *text;
+{//text button
+    M_TYPE   type;              /**< type identifier.*/
 
-    float   scale;
+    unsigned char   value,      /**< local state, is 1 when text is hovered.*/
+                    *valuePtr;  /**< ptr to external value command.*/
 
-    unsigned int    justif;
+    char* text;                 /**< array of char as string to display.*/
 
-    SDL_Point   pos;
+    float scale;                /**< text scale as ratio of font size.*/
 
-    SDL_Rect    blitPos;
+    unsigned int justif;        /**< text justification.*/
 
-    SDL_Color   color[2]; //off / hover
+    SDL_Point pos;              /**< point on which justif is done.*/
+
+    SDL_Texture *pic[2];        /**< pictured texts. (off/on)*/
+    SDL_Rect blitPos;           /**< blit position.*/
 }
 CEV_MText;
 
 
-
-typedef union CEV_Selector
+/** \brief any of menu object.
+ */
+typedef union CEV_MSelector
 {
-    unsigned char type;
+    M_TYPE type;            /**< type identifier.*/
 
     struct
     {
-        unsigned char type,
-                      value,
+        M_TYPE type;
+        unsigned char value,
                       *valuePtr;
-    } comn;
+    }
+    comn;                   /**< common parameters.*/
 
-    CEV_MSlider slide;
-    CEV_MPic pic;
-    CEV_MText text;
+    CEV_MSlide slide;  /**< slider like button.*/
+    CEV_MPic pic;       /**< pictured button.*/
+    CEV_MText text;     /**< text button.*/
 }
-CEV_Selector;
+CEV_MSelector;
 
 
+/** \brief Complete menu structure
+ */
 typedef struct CEV_Menu
 {
-    unsigned int numOfButton;
+    unsigned int numOfButton;   /**< num of objects in this menu.*/
 
-    CEV_Font *font;
+    CEV_Edge edge;  /**< local edge detection.*/
 
-    CEV_Edge edge;
+    SDL_Rect **buttonPos;   /**< array of button positions for quick indexing selection.*/
 
-    SDL_Rect **buttonPos;
-
-    CEV_Selector *button;
+    CEV_MSelector *button;   /**< objects array.*/
 }
 CEV_Menu;
 
-/***USER END FUNCTIONS***/
+
+    //USER END FUNCTIONS
+
+/** \brief Loads CEV_Menu from file.
+ *
+ * \param fileName : file to load from.
+ *
+ * \return CEV_Menu* on success, NULL on error.
+ */
+CEV_Menu* CEV_menuLoad(const char* fileName);
 
 
-/** \brief updates and displays menu.
+/** \brief Loads CEV_Menu from RWops.
+ *
+ * \param src : SDL_RWops* to load from.
+ * \param freeSrc : bool closes src if true.
+ *
+ * \return CEV_Menu*  on success, NULL on error.
+ */
+CEV_Menu* CEV_menuLoad_RW(SDL_RWops* src, bool freeSrc);
+
+
+/** \brief Reads CEV_Menu from src and fills dst
+ *
+ * \param src : FILE* to read from.
+ * \param dst : CEV_Menu* to fill.
+ *
+ * \return int : as std funcSts.
+ */
+int CEV_menuTypeRead(FILE* src, CEV_Menu* dst);
+
+
+/** \brief Reads CEV_Menu from src and fills dst
+ *
+ * \param src : SDL_RWops* to read from.
+ * \param dst : CEV_Menu* to fill.
+ *
+ * \return int : as std funcSts.
+ */
+int CEV_menuTypeRead_RW(SDL_RWops* src, CEV_Menu* dst);
+
+
+
+/** \brief Frees menu content and itself.
+ *
+ * \param menu : CEV_Menu* to destroy.
+ *
+ * \return void.
+ */
+void CEV_menuDestroy(CEV_Menu *menu);
+
+
+/** \brief Updates and displays menu.
  *
  * \param menu : CEV_Menu* to update.
- * \param selected : index for hover
+ * \param selected : index for hover.
  * \param clic : selection validation.
  * \param x : x value for slider.
  *
- * \return index of text clicked or -1.
- *
+ * \return int : index of text clicked or -1.
  */
 int CEV_menuUpdate(CEV_Menu * menu, int selected, char clic, int x);
 
 
-/**frees menu structure**/
-/** \brief frees menu structure.
- *
- * \param menu : CEV_Menu* to free.
- *
- * \return N/A.
- */
-void CEV_menuFree(CEV_Menu *menu);
 
-
-/**getting button access**/
-/** \brief get button access.
+/** \brief Gets button access.
  *
  * \param menu : CEV_Menu* to fetch button from.
  * \param index : button index to fetch.
  *
- * \return CEV_Selector* on success or NULL if index is out of range.
+ * \return CEV_MSelector* on success or NULL if index is out of range.
  */
-CEV_Selector* CEV_menuButtonGet(CEV_Menu *menu, unsigned int index);
+CEV_MSelector* CEV_menuButtonGet(CEV_Menu *menu, unsigned int index);
 
 
-/**links button together*/
-/** \brief links buttons within menu.
+
+/** \brief Links buttons within menu.
  *
  * \param menu : CEV_Menu* to link buttons from.
  * \param mastIndex : button index of which action will change slaveIndex value.
@@ -153,8 +234,8 @@ CEV_Selector* CEV_menuButtonGet(CEV_Menu *menu, unsigned int index);
 void CEV_menuButtonValueLink(CEV_Menu * menu, unsigned int mastIndex, unsigned int slaveIndex);
 
 
-/**external link**/
-/** \brief links button to external variable.
+
+/** \brief Links button to external variable.
  *
  * \param menu : CEV_Menu* to which button belongs to.
  * \param mastIndex : button index of which action will change slave value.
@@ -166,27 +247,14 @@ void CEV_menuButtonValueLink(CEV_Menu * menu, unsigned int mastIndex, unsigned i
 void CEV_menuButtonLink(CEV_Menu *menu, unsigned int mastIndex, unsigned char* slave);
 
 
-/** \brief convert parameters file into programm friendly data.
+/** \brief Converts parameters file into program friendly data.
  *
  * \param srcName : file to read from.
  * \param dstName : file to write into.
  *
- * \return any of function status.
+ * \return int : any of std function status.
  */
-int CEV_convertMenuTxtToData(const char* srcName, const char* dstName);
-
-
-/** \brief loads menu.mdat file.
- *
- * \param fileName : file to load.
- *
- * \return CEV_Menu* on success, NULL on error.
- */
-CEV_Menu * CEV_menuLoad(const char* fileName);
-
-
-CEV_Menu * CEV_menuLoadf(FILE* src);
-
+int CEV_menuConvertTxtToData(const char* srcName, const char* dstName);
 
 
 #endif // CEV_SELECTION_H_INCLUDED
