@@ -36,7 +36,8 @@ couche [N] :    Ratio X-(float) Vitesse X-(float)   is repeat X-(0/1)   posMode 
 -----------------------------------------------------------------------------------------------
 Fichier Data .plx
 
-uint 32	nombre de couche N
+uint 32	id
+        nombre de couche N
 
 couche [N] :	float	ratio X
                 float	vitesse X
@@ -55,6 +56,8 @@ Layer index 0 is the farmost layer as in blit order.
 
 #define PRLX_TYPE_NAMES {"PRLX_AUTO", "PRLX_CENTERED", "PRLX_LEFT", "PRLX_RIGHT", "PRLX_TOP", "PRLX_BOTTOM"}
 //                          0               1               2           3               4           5
+#define PRLX_TYPE_ID (IS_PRLX<<24)
+
 
 typedef enum PRLX_MODE
 {
@@ -65,7 +68,8 @@ typedef enum PRLX_MODE
     PRLX_TOP,       /**< Top border is reference */
     PRLX_BOTTOM,    /**< Bottom border is reference */
     PRLX_LAST
-}PRLX_MODE;
+}
+PRLX_MODE;
 
 
 typedef struct
@@ -98,10 +102,12 @@ CEV_ParaLayer;
  */
 typedef struct CEV_Parallax
 {
-    int numOfLayer; /**< number of layer */
+    uint32_t id,            /**< Unique ID */
+             numOfLayer;    /**< number of layer */
 
     SDL_Rect *cameraPos,    /**< ptr to camera position */
               worldDim;     /**< world dimension */
+
     CEV_ParaLayer *layers;  /**< array of layers */
 }
 CEV_Parallax;

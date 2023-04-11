@@ -66,7 +66,7 @@ static CEV_Music* L_capsuleToMusic(CEV_Capsule *caps);
 static CEV_Font* L_capsuleToFont(CEV_Capsule* caps);
 
 //raw mem into animations set
-static SP_AnimList* L_capsuleToAnimSet(CEV_Capsule* caps);
+static SP_Anim* L_capsuleToAnim(CEV_Capsule* caps);
 
 //raw mem into menu
 static CEV_Menu* L_capsuleToMenu(CEV_Capsule* caps);
@@ -91,10 +91,10 @@ static void L_capsuleDataTypeRead(FILE* src, CEV_Capsule* dst);
 static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst);
 
 //return offset pos in file from id
-static size_t L_IdToOffset(uint32_t id, CEV_RsrcFileHolder* src);
+static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFileHolder* src);
 
 //return offset pos in file from index
-static size_t L_IndexToOffset(uint32_t index, CEV_RsrcFileHolder* src);
+static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFileHolder* src);
 
 static void L_rsrcFileHolderHeaderRead(FILE* src, CEV_RsrcFileHolderHeader* dst);
 
@@ -253,7 +253,7 @@ int CEV_capsuleFetch(uint32_t id, CEV_RsrcFileHolder* src, CEV_Capsule* dst)
         return ARG_ERR;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -273,7 +273,7 @@ int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName)
 {//fills Capsule from file _v2
 
     FILE* file  = NULL;
-    readWriteErr = 0;
+    //readWriteErr = 0;
 
     if(IS_NULL(caps) || IS_NULL(fileName))
     {
@@ -363,7 +363,7 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
         break;
 
         case IS_SPS :
-            returnVal = L_capsuleToAnimSet(caps); //returns SP_AnimList ptr
+            returnVal = L_capsuleToAnim(caps); //returns SP_Anim ptr
         break;
 
         case IS_MENU :
@@ -385,7 +385,7 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
                 freeData = false; //DO NOT free data, raw file is used for read purposes.
         break;
 
-        case IS_PLX :
+        case IS_PRLX :
             returnVal = L_capsuleToParallax(caps);
         break;
 
@@ -447,7 +447,7 @@ SDL_Surface* CEV_surfaceFetch(uint32_t id, CEV_RsrcFileHolder* src)
         goto end;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -530,7 +530,7 @@ SDL_Texture* CEV_textureFetch(uint32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -579,7 +579,7 @@ CEV_Text* CEV_textFetch(uint32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -626,7 +626,7 @@ CEV_Font* CEV_fontFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -673,7 +673,7 @@ CEV_Chunk* CEV_waveFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -719,7 +719,7 @@ CEV_Music* CEV_musicFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -753,10 +753,10 @@ end:
 
 /*----animations from compiled file----*/
 
-SP_AnimList* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
+SP_Anim* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
 {//fetch sprite in ressources _v2
 
-    SP_AnimList* result = NULL;
+    SP_Anim* result = NULL;
     CEV_Capsule lCaps   = {NULL};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
@@ -765,7 +765,7 @@ SP_AnimList* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -783,7 +783,7 @@ SP_AnimList* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
         goto end;
     }
 
-    result = L_capsuleToAnimSet(&lCaps);
+    result = L_capsuleToAnim(&lCaps);
 
     if(IS_NULL(result))
     {
@@ -809,7 +809,7 @@ CEV_GifAnim* CEV_gifFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -855,7 +855,7 @@ CEV_ScrollText* CEV_scrollFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -901,7 +901,7 @@ CEV_Menu* CEV_menuFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -947,7 +947,7 @@ CEV_TileMap* CEV_mapFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -993,7 +993,7 @@ CEV_Parallax* CEV_parallaxFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -1005,7 +1005,7 @@ CEV_Parallax* CEV_parallaxFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     CEV_capsuleTypeRead(src->fSrc, &lCaps);
 
-    if (lCaps.type != IS_PLX)
+    if (lCaps.type != IS_PRLX)
     {
         fprintf(stderr,"Err at %s / %d : id %u provided is not parallax.\n", __FUNCTION__, __LINE__, id);
         goto end;
@@ -1039,7 +1039,7 @@ CEV_Weather* CEV_weatherFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_IdToOffset(id, src);
+    size_t offset = L_rsrcIdToOffset(id, src);
 
     if(!offset)
     {
@@ -1410,7 +1410,7 @@ err:
 }
 
 
-static SP_AnimList* L_capsuleToAnimSet(CEV_Capsule* caps)
+static SP_Anim* L_capsuleToAnim(CEV_Capsule* caps)
 {//converts to animSet
 
     if (IS_NULL(caps) || (!caps->size) || IS_NULL(caps->data))
@@ -1427,7 +1427,7 @@ static SP_AnimList* L_capsuleToAnimSet(CEV_Capsule* caps)
         return NULL;
     }
 
-    SP_AnimList *result = SP_animListLoad_RW(vFile, 1);
+    SP_Anim *result = NULL;//SP_animListLoad_RW(vFile, 1);
 
     if (IS_NULL(result))
         fprintf(stderr, "Err at %s / %d : unable to create animSet.\n", __FUNCTION__, __LINE__);
@@ -1617,7 +1617,8 @@ static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst)
 }
 
 
-static size_t L_IdToOffset(uint32_t id, CEV_RsrcFileHolder* src)
+
+static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFileHolder* src)
 {//finds offset of an id
 
     if(IS_NULL(src) || IS_NULL(src->list))
@@ -1634,7 +1635,7 @@ static size_t L_IdToOffset(uint32_t id, CEV_RsrcFileHolder* src)
 }
 
 
-static size_t L_IndexToOffset(uint32_t index, CEV_RsrcFileHolder* src)
+static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFileHolder* src)
 {//finds offset of an id
 
     if(IS_NULL(src) || IS_NULL(src->list))

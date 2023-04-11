@@ -201,7 +201,7 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
     char fileName[L_tmpnam];
     tmpnam(fileName);
     strcat(fileName, ".png");
-    printf("fileName is : %s\n", fileName);
+    //printf("fileName is : %s\n", fileName);
 
     //saving png into virtual file
     if(CEV_textureSavePNG(src, fileName))

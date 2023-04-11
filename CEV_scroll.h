@@ -12,9 +12,18 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <CEV_types.h>
 
-#define SCROLL_MODE_LIST {"SCROLL_UP", "SCROLL_DOWN", "SCROLL_LEFT", "SCROLL_RIGHT"}
-#define SCROLL_MODE_NUM 4
+/**
+
+- file extension : file.scl
+
+- ID as 0xTTOOIIII
+TT = Type of file = IS_SCROLL (11 - 0x0B)
+OO = type of Object (0)
+IIII = ID for this game object
+*/
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,7 +31,8 @@ extern "C" {
 
 /*file format
 
-u32 : font size (pxl)
+u32 :   id
+        font size (pxl)
 
 text color :
     u8  : r
@@ -33,21 +43,27 @@ text color :
 u32 : scroll mode
     : spacing (pxl)
     : speed (pxl/frame)
-CEV_Text struct
+CEV_Text structure
 capsule : police.ttf
 
 */
+#define SCROLL_MODE_LIST {"SCROLL_UP", "SCROLL_DOWN", "SCROLL_LEFT", "SCROLL_RIGHT", "SCROLL_STWA"}
+
+#define SCROLL_TYPE_ID (IS_SCROLL<<24)
 
 
 /** \brief scroll direction instruction
  */
-enum
+typedef enum
 {
-    SCROLL_UP       = 0,
-    SCROLL_DOWN     = 1,
-    SCROLL_LEFT     = 2,
-    SCROLL_RIGHT    = 3
-};
+    SCROLL_UP,      /**< bottom to top */
+    SCROLL_DOWN,    /**< top to bottom */
+    SCROLL_LEFT,    /**< right to left */
+    SCROLL_RIGHT,   /**< left to right */
+    SCROLL_STWA,    /**< bottom to top star wars */
+    SCROLL_LAST
+}
+SCROLL_MODE;
 
 
 /** \brief inner scroll structure
@@ -55,8 +71,8 @@ enum
 typedef struct L_ScrollTextLine
 {/*infos pour une ligne de text*/
 
-    SDL_Texture *img; /*pic of text*/
-    SDL_Rect blitPos; /*display position*/
+    SDL_Texture *img; /**< pic of text */
+    SDL_Rect blitPos; /**< display position */
 
 }L_ScrollTextLine;
 
@@ -66,26 +82,28 @@ typedef struct L_ScrollTextLine
 /** \brief Main scroll structure
  */
 typedef struct CEV_ScrollText
-{/*scroll management structure*/
+{//scroll management structure
 
-    unsigned int lineAct,   /*actual line*/
-                 lineNb,    /*number of lines available*/
-                 lineFrom,  /*start line index*/
-                 lineTo,    /*stop line index*/
-                 space,     /*space size between pics, pxl*/
-                 mode,      /*scrolling mode*/
-                 fontSize,  /*font size*/
-                 speed;     /*pxl / frame*/
 
-    int pos;    /*display position*/
+    unsigned int id,        /**< unique id */
+                 lineAct,   /**< actual line */
+                 lineNb,    /**< number of lines available */
+                 lineFrom,  /**< start line index */
+                 lineTo,    /**< stop line index */
+                 space,     /**< space size between pics, pxl */
+                 mode,      /**< scrolling mode */
+                 fontSize,  /**< font size */
+                 speed;     /**< pxl / frame */
 
-    SDL_Renderer *render; /*destination renderer*/
+    int pos;                /**< display position */
 
-    SDL_Rect  renderDim; /*renderer logical dimension*/
+    SDL_Renderer *render;   /**< destination renderer */
 
-    SDL_Color color;    /*text color*/
+    SDL_Rect  renderDim;    /**< renderer logical dimension */
 
-    L_ScrollTextLine* texts;/*array of pics instances*/
+    SDL_Color color;        /**< text color */
+
+    L_ScrollTextLine* texts;/**< array of pics instances */
 
 }
 CEV_ScrollText;
@@ -131,7 +149,7 @@ void CEV_scrollClear(CEV_ScrollText *in);
  */
 void CEV_scrollDump(CEV_ScrollText *in);
 
-        /*CONTROL FUNCTIONS*/
+        //CONTROL FUNCTIONS*/
 
 /** \brief sets scroll display mode.
  *
@@ -184,7 +202,7 @@ void CEV_scrollPosSet(CEV_ScrollText* in, int pos);
 int CEV_scrollUpdate(CEV_ScrollText *in);
 
 
-        /*FILE FUNCTIONS*/
+        //FILE FUNCTIONS*/
 
 
 /** \brief Convert user parameter file into prgm friendly file.
@@ -237,4 +255,4 @@ CEV_ScrollText* CEV_scrollTypeRead_RW(SDL_RWops* src);
 }
 #endif
 
-#endif /* CONST_H_INCLUDED */
+#endif // CONST_H_INCLUDED */

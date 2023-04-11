@@ -6,7 +6,7 @@
 //**********************************************************/
 
 /**
-- landmark used is as :
+- Landmark used is as :
     0
     .___x
    /|
@@ -18,8 +18,8 @@ with (float)Z = 1.0 as nearest, 0.1.. as furthest
 - file extension : file.wtr
 
 - ID as 0xTTOOIIII
-TT = type of file = IS_WTHR (15 - 0x0F)
-OO = type of object (0)
+TT = Type of file = IS_WTHR (15 - 0x0F)
+OO = type of Object (0)
 IIII = ID for this game object
 
 

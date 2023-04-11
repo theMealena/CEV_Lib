@@ -34,7 +34,7 @@ double CEV_txtParseValueFrom(CEV_Text* src, char* name);
 char* CEV_txtParseTxtFrom(CEV_Text* src, char* name);
 
 
-/** \brief Fetches multiple values from string
+/** \brief Fetches multiple values from string.
  *
  * \param src : CEV_Text* from which values must be extracted.
  * \param name : char* as parameter's name.
@@ -47,6 +47,15 @@ char* CEV_txtParseTxtFrom(CEV_Text* src, char* name);
  */
 int CEV_txtParseValueArrayFrom(CEV_Text *src, char* name, double* dst, int maxNum);
 
+
+/** \brief Provide name's index in src.
+ *
+ * \param src : CEV_Text* to seek into.
+ * \param name : char* as the parameter to find.
+ *
+ * \return int : index of the paramater name, 0 if not found.
+ */
+int CEV_txtParseIndexGetFrom(CEV_Text *src, char* name);
 
 /** \brief stress test / tries.
  *

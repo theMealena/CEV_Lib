@@ -261,6 +261,7 @@ void CEV_textDestroy(CEV_Text * in);
  */
 void CEV_textClear(CEV_Text* in);
 
+
 /** \brief Dumps structure content into stdout.
  *
  * \param in : CEV_Text* to dump.
@@ -299,6 +300,12 @@ void CEV_stringEndFormat(char* in);
  */
 void CEV_stringGroup(char *src, unsigned int group);
 
+
+/** \brief stress / test
+ * \param void
+ * \return void
+ */
+void TEST_text(void);
 
 #ifdef __cplusplus
 }

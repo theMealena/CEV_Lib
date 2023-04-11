@@ -6,6 +6,7 @@
 //**   CEV    |    04-2020    |   1.0.2  | free corrected **/
 //**   CEV    |    06-2021    |   1.0.3  | features added **/
 //**   CEV    |    06-2021    |   1.0.31 | modifications  **/
+//**   CEV    |    03-2023    |   1.0.4  |     parsing    **/
 //**********************************************************/
 
 /**LOG**/
@@ -13,7 +14,7 @@
 //06/04/2020 CEV : modified destroy functions to allow NULL as argument causing crash otherwise
 //17/05/2021 CEV : structures dump added
 //06/06/2021 CEV : structure modified X/Y axis parallax with options.
-//03/03/2023 CEV : L_paraLayerTextureGet_RW modified, using new CEV_lib abilities.
+//03/03/2023 CEV : L_paraLayerTexture Get_RW modified, using new CEV_lib abilities / convert uses parsing.
 
 
 #include <stdio.h>
@@ -407,6 +408,7 @@ void CEV_parallaxDump(CEV_Parallax *in)
         return;
     }
 
+    printf("id = %d\n", in->id);
     printf("numOfLayer = %d\n", in->numOfLayer);
 
     if(in->cameraPos)
@@ -498,8 +500,6 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
         fprintf(stderr, "Err at %s / %d : Unable to open file %s.\n ",__FUNCTION__,  __LINE__, srcName);
         goto err;
     }
-    else
-        CEV_textDump(src);
 
     //opening destination file
     dst = fopen(dstName, "wb");
@@ -509,6 +509,11 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
         fprintf(stderr, "Err at %s / %d : Unable to create file %s.\n ",__FUNCTION__,  __LINE__, dstName);
         goto err_1;
     }
+
+    //id
+    num = (uint32_t)CEV_txtParseValueFrom(src, "id");
+    num = (num & 0x00FFFFFF) | PRLX_TYPE_ID;
+    write_u32le(num, dst);
 
     //number of layers
     num = (uint32_t)CEV_txtParseValueFrom(src, "layer num");
@@ -616,6 +621,8 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
 
     SDL_RWseek(ops, 0, RW_SEEK_SET);
 
+    result->id = SDL_ReadLE32(ops);
+
     result->numOfLayer = SDL_ReadLE32(ops); //number of layer in file
 
     result->layers = calloc(result->numOfLayer , sizeof(CEV_ParaLayer));
@@ -707,7 +714,7 @@ int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst)
 
     size_t size = SDL_RWsize(vFile);
     dst->size = size;
-    dst->type = IS_PLX;
+    dst->type = IS_PRLX;
     dst->data = malloc(size);
 
     if(IS_NULL(dst->data))
@@ -844,37 +851,16 @@ static void L_parallaxPictureTypeWrite(char* fileName, FILE* dst)
 static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* layer)
 {//extracts picture from ops file
 
-    /*---DECLARATIONS---*/
-/*
-    uint32_t        textureSize = 0,
-                    type        = 0;
-    SDL_Renderer    *render     = CEV_videoSystemGet()->render;
-    void            *rawData    = NULL;
-*/
-    /*---PRL---*/
-
-    if IS_NULL(ops)
+    if (IS_NULL(ops) || IS_NULL(layer))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provide.\n", __FUNCTION__, __LINE__ );
         return NULL;
-
-    /*---EXECUTION---*/
+    }
 
     CEV_Capsule img = {0};
 
     CEV_capsuleTypeRead_RW(ops, &img);
-/*
-    type = SDL_ReadLE32(ops);
-    textureSize = SDL_ReadLE32(ops);
-    rawData = malloc(textureSize);
 
-    if IS_NULL(rawData)
-    {
-        fprintf(stderr, "Err at %s / %d : unable to allocate rawData : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        return NULL;
-    }
-
-    //reading raw data
-    SDL_RWread(ops, rawData, 1, textureSize);
-*/
     if (IS_PIC(img.type))
     {
         layer->texture = CEV_capsuleExtract(&img, true);//frees data

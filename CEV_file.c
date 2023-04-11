@@ -136,7 +136,7 @@ bool CEV_fileFileNameGet(const char* src, char* dst)
 
 
 bool CEV_fileFolderNameGet(const char *src, char *dst)
-{/*dst is filled with folder from folder/name*/
+{//dst is filled with folder from folder/name, name provided with '/' or '\\'
 
     bool funcSts = false;
 
@@ -154,10 +154,12 @@ bool CEV_fileFolderNameGet(const char *src, char *dst)
 
     if (funcSts)
     {
-        dst[i+1] = '\0';
-        for(int j = i; j >= 0; j--)
+        dst[i+1] = '\0';        //setting end of string
+        for(int j = i; j >= 0; j--) //copying folder
             dst[j]= src[j];
     }
+    else
+        dst[0] = '\0';//empty string
 
     return funcSts;
 }

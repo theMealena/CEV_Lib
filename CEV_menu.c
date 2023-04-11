@@ -2,8 +2,11 @@
 //** Done by  |      Date     |  version |    comment     **/
 //**------------------------------------------------------**/
 //**   CEV    |    02-2023    |   1.0    | CEV_lib std    **/
+//**   CEV    |    04-2023    |   1.0.1  | txt conversion **/
 //**********************************************************/
 
+
+//** CEV-04-2023 txt file to data now with parsing - CEV_txtParser
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,6 +24,8 @@
 #include "CEV_dataFile.h"
 #include "CEV_file.h"
 #include "rwtypes.h"
+#include "CEV_texts.h"
+#include "CEV_txtParser.h"
 
 // TODO (drx#1#03/05/17): vérifier la sécurité des fonctions de relecture / ecriture fichier
 
@@ -46,7 +51,7 @@ static void L_mTextTypeRead_RW(SDL_RWops* src, CEV_MText* dst, TTF_Font* font);
 //clears text button content
 static void L_mTextClear(CEV_MText *this);
 //reads an convert M_IS_TEXT type
-static void L_mTextConvertTxtToData(FILE* src, FILE* dst);
+static void L_mTextConvertTxtToData(CEV_Text* src, FILE* dst, int index);
 //dumps text button content
 static void L_menuTxtDump(CEV_MText* this);
 
@@ -63,7 +68,7 @@ static void L_mPicTypeRead_RW(SDL_RWops* src, CEV_MPic* dst);
 //clears pic button content
 static void L_mPicClear(CEV_MPic *this);
 //reads an convert M_IS_PIC type
-static void L_mPicConvertTxtToData(FILE* src, FILE* dst, char* folder);
+static void L_mPicConvertTxtToData(CEV_Text* src, FILE* dst, char* folder, int index);
 //dumps pic button content
 static void L_menuPicDump(CEV_MPic* this);
 
@@ -81,19 +86,19 @@ static void L_mSlideTypeRead_RW(SDL_RWops* src, CEV_MSlide* dst);
 //clears slider content
 static void L_mSlideClear(CEV_MSlide *this);
 //reads an convert M_IS_SLIDE type
-static void L_mSlideConvertTxtToData(FILE* src, FILE* dst, char* folder);
+static void L_mSlideConvertTxtToData(CEV_Text *src, FILE *dst, char *folder, int index);
 //dumps slider content
 static void L_menuSlideDump(CEV_MSlide* this);
 
 
-/*
-TEST_menu(void)
+int TEST_menu(void)
 {
 
     CEV_Input* input = CEV_inputGet();
     SDL_Renderer* render = CEV_videoSystemGet()->render;
 
-    CEV_menuConvertTxtToData("menu/menu_main.txt", "menu/menu.mdat");
+    CEV_menuConvertTxtToData("menu/menu_option.txt", "menu/menu.mdat");
+
     CEV_Menu* menu = CEV_menuLoad("menu/menu.mdat");
 
     CEV_menuDump(menu);
@@ -101,10 +106,10 @@ TEST_menu(void)
     bool quit = false;
     int select = 0;
 
-    char bt[2] = {0};
+    unsigned char bt[2] = {0};
 
-    CEV_menuButtonLink(menu, 3, &bt[0]);
-    CEV_menuButtonLink(menu, 4, &bt[1]);
+    CEV_menuButtonLink(menu, 2, &bt[0]);
+    //CEV_menuButtonLink(menu, 4, &bt[1]);
 
     while(!quit)
     {
@@ -128,7 +133,7 @@ TEST_menu(void)
         if(input->key[SDL_SCANCODE_ESCAPE])
             quit = true;
 
-        CEV_menuUpdate(menu, select, input->mouse.button[SDL_BUTTON_LEFT], 0);
+        CEV_menuUpdate(menu, select, input->mouse.button[SDL_BUTTON_LEFT], input->mouse.pos.x);
 
         SDL_RenderPresent(render);
         SDL_RenderClear(render);
@@ -138,11 +143,12 @@ TEST_menu(void)
 
     CEV_menuDestroy(menu);
 }
-*/
+
 
         // USER END FUNCTION
-CEV_menuDump(CEV_Menu *this)
-{
+
+void CEV_menuDump(CEV_Menu *this)
+{//dumps structure content
     puts(" - BEGIN - DUMPING CEV_Menu ****");
     printf("Has %u buttons.\n",
             this->numOfButton);
@@ -157,8 +163,8 @@ CEV_menuDump(CEV_Menu *this)
 }
 
 
-CEV_menuButtonDump(CEV_MSelector* this)
-{
+void CEV_menuButtonDump(CEV_MSelector* this)
+{//dumps button structure content
     switch(this->type)
     {
         case M_IS_SLIDE:
@@ -223,6 +229,8 @@ int CEV_menuTypeRead(FILE* src, CEV_Menu* dst)
     int funcSts = FUNC_OK;
 
     readWriteErr = 0;
+
+    dst->id = read_u32le(src);
 
     dst->numOfButton = read_u32le(src);
 
@@ -319,8 +327,10 @@ int CEV_menuTypeRead_RW(SDL_RWops* src, CEV_Menu* dst)
 {//reads from RWops and fills dst
 
     int funcSts = FUNC_OK;
-    dst->numOfButton = SDL_ReadLE32(src);
-    dst->button = calloc(dst->numOfButton, sizeof(CEV_MSelector));
+
+    dst->id             = SDL_ReadLE32(src);
+    dst->numOfButton    = SDL_ReadLE32(src);
+    dst->button         = calloc(dst->numOfButton, sizeof(CEV_MSelector));
 
     if(IS_NULL(dst->button))
     {
@@ -537,124 +547,109 @@ void CEV_menuButtonLink(CEV_Menu* menu, unsigned int mastIndex, unsigned char* s
 int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
 {//converts parameters file into program friendly data
 
+    int funcSts = FUNC_OK;
+
     if((srcName == NULL) || (dstName) == NULL)
     {//checking args
         fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return ARG_ERR;
     }
 
-    int funcSts = FUNC_OK;
+    CEV_Text *src = CEV_textTxtLoad(srcName);
 
-    FILE *src   = NULL,
-         *dst   = NULL;
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : cannot create CEV_Text.\n", __FUNCTION__, __LINE__);
+        return FUNC_ERR;
+    }
 
-    uint32_t    buttonNum,
+    CEV_textDump(src);
+
+    uint32_t    id,
+                buttonNum,
                 fontSize;
 
     char lString[FILENAME_MAX],
-         lFileFolder[FILENAME_MAX],
-         hasFolder = CEV_fileFolderNameGet(srcName, lFileFolder);
+         fileFolder[FILENAME_MAX],
+         hasFolder = CEV_fileFolderNameGet(srcName, fileFolder);
 
-    CEV_Capsule lBuffer = {0};
+    CEV_Capsule caps = {0};
 
-    readWriteErr = 0;
+    FILE *dst = fopen(dstName, "wb");
 
-    src = fopen(srcName, "r");
-    dst = fopen(dstName, "wb");
-
-    if(IS_NULL(src) || IS_NULL(dst))
+    if(IS_NULL(dst))
     {
-        fprintf(stderr, "Err at %s / %d : cannot open file.\n", __FUNCTION__, __LINE__, strerror(errno));
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         funcSts = FUNC_ERR;
         goto err_1;
     }
 
-    rewind(src);
+    //id
+    id = (uint32_t)CEV_txtParseValueFrom(src, "id");
+    id = (id & 0x00FFFFFF) | (M_TYPE_ID);
+    write_u32le(id, dst);
 
     //number of button R/W
-    fscanf(src, "%u\n", &buttonNum);
+    buttonNum = (uint32_t)CEV_txtParseValueFrom(src, "btNum");
     write_u32le(buttonNum, dst);
 
     //font size, 0 means no font
-    fscanf(src, "%u\n", &fontSize);
+    fontSize = (uint32_t)CEV_txtParseValueFrom(src, "sizeFont");
     write_u32le(fontSize, dst);
 
-    if (fontSize)
-    {//if font, insert it in file
+    if(fontSize)
+    {//if font, insert font into file
 
-        fgets(lString, sizeof(lString)-1, src);/*gets font filename*/
-        CEV_stringEndFormat(lString);
+        char *fontFileName = CEV_txtParseTxtFrom(src, "font");
 
-        if (hasFolder)
-        {
-            strcat(lFileFolder, lString);
-            strcpy(lString, lFileFolder);
-        }
+        sprintf(lString, "%s%s", fileFolder, fontFileName);
 
-        CEV_capsuleFromFile(&lBuffer, lString); /*loads font file into buffer*/
+        printf("font is at %s\n", lString);
+        CEV_capsuleFromFile(&caps, lString); //loads font file into buffer
 
-        if(lBuffer.type != IS_FONT)
+        if(caps.type != IS_FONT)
         {
             fprintf(stderr,"Warn at %s / %d : file is not ttf extension.\n", __FUNCTION__, __LINE__);
             funcSts = FUNC_ERR;
         }
 
-        if(lBuffer.data == NULL)
-        {
-            fprintf(stderr,"Err at %s / %d : failed loading %s.\n", __FUNCTION__, __LINE__, lString);
-            funcSts = FUNC_ERR;
-            goto err_1;
-        }
-
-        CEV_capsuleTypeWrite(&lBuffer, dst);
+        CEV_capsuleTypeWrite(&caps, dst);
+        CEV_capsuleClear(&caps);
     }
 
     for(int i =0; i<buttonNum; i++)
     {
-        uint32_t type;
+        sprintf(lString, "[%d]type", i);
 
-        CEV_fileFolderNameGet(srcName, lFileFolder);
-
-        fgets(lString, sizeof(lString)-1, src);/*gets button type*/
-        CEV_stringEndFormat(lString);
-
-        type = L_menuButtonTypeToValue(lString);
+        uint32_t type = L_menuButtonTypeToValue(CEV_txtParseTxtFrom(src, lString));
         write_u32le(type, dst);
 
         switch (type)
         {
             case M_IS_PIC :
-                L_mPicConvertTxtToData(src, dst, hasFolder? lFileFolder: NULL);
+                L_mPicConvertTxtToData(src, dst, hasFolder? fileFolder: NULL, i);
             break;
 
             case M_IS_SLIDE :
-                L_mSlideConvertTxtToData(src, dst, hasFolder? lFileFolder: NULL);
+                L_mSlideConvertTxtToData(src, dst, hasFolder? fileFolder: NULL, i);
             break;
 
             case M_IS_TEXT :
-                L_mTextConvertTxtToData(src, dst);
+                L_mTextConvertTxtToData(src, dst, i);
             break;
 
             default:
-                readWriteErr++;
-                goto err_1;
+                fprintf(stderr, "Err at %s / %d : button %d is of unknown type enum.\n", __FUNCTION__, __LINE__, i);
+                funcSts = FUNC_ERR;
             break;
         }
     }
 
+    fclose(dst);
 
-    if(readWriteErr)
-        funcSts = FUNC_ERR;
 err_1:
 
-    if(lBuffer.data != NULL)
-        CEV_capsuleClear(&lBuffer);
-
-    if(src != NULL)
-        fclose(src);
-
-    if(dst != NULL)
-        fclose(dst);
+    CEV_textDestroy(src);
 
     return funcSts;
 }
@@ -692,9 +687,9 @@ static void L_mTextTypeRead(FILE* src, CEV_MText* dst, TTF_Font* font)
     dst->justif = read_u32le(src);
     dst->scale  = (float)read_u32le(src)/100.0;
 
-    char index = 0;
+    int index = 0;
     //reading text line
-    while(textTemp[index++] = read_u8(src));
+    while(textTemp[index++] = (char)read_u8(src));
 
     for(int i=0; i<2; i++)
     {
@@ -738,7 +733,7 @@ static void L_mTextTypeRead_RW(SDL_RWops* src, CEV_MText* dst, TTF_Font* font)
 
     char index = 0;
     //reading text line
-    while(textTemp[index++] = SDL_ReadU8(src));
+    while((textTemp[index++]) = SDL_ReadU8(src));
 
     for(int i=0; i<2; i++)
     {
@@ -760,43 +755,50 @@ static void L_mTextTypeRead_RW(SDL_RWops* src, CEV_MText* dst, TTF_Font* font)
 }
 
 
-static void L_mTextConvertTxtToData(FILE* src, FILE* dst)
+static void L_mTextConvertTxtToData(CEV_Text* src, FILE* dst, int index)
 {//reads and converts M_IS_TEXT type
 
-    uint8_t color[2][4];
-    int     temp[4],
-            xPos, yPos, scale, justif;
+    double  values[4];
 
-    char lString[50];
+    char parName[50]; //parameter name
 
-    //reading infos
+    //colors off
+    sprintf(parName, "[%d]colorOff", index);
+    CEV_txtParseValueArrayFrom(src, parName, values, 4);
+
+    for(int i=0; i<4; i++)
+        write_u8((uint8_t)values[i], dst);
+
+    //colors hover
+    sprintf(parName, "[%d]colorOn", index);
+    CEV_txtParseValueArrayFrom(src, parName, values, 4);
+
+    for(int i=0; i<4; i++)
+        write_u8((uint8_t)values[i], dst);
+
+    //position x,y
+    sprintf(parName, "[%d]pos", index);
+    CEV_txtParseValueArrayFrom(src, parName, values, 2);
+
     for(int i=0; i<2; i++)
-    {
-        fscanf(src, "%d %d %d %d\n", &temp[0], &temp[1], &temp[2], &temp[3]);
+        write_u32le((uint32_t)values[i], dst);
 
-        for(int j=0; j<4; j++)
-            color[i][j] = temp[j];
-    }
+    //justification
+    sprintf(parName, "[%d]justif", index);
+    write_u32le((uint32_t)CEV_txtParseValueFrom(src, parName), dst);
 
-    fscanf(src, "%d %d %d %d\n", &xPos, &yPos, &justif, &scale);
+    //scale
+    sprintf(parName, "[%d]scale", index);
+    write_u32le((uint32_t)CEV_txtParseValueFrom(src, parName), dst);
 
-    //writting dat infos
-    for(int i=0; i<2; i++)
-        for(int j=0; j<4; j++)
-            write_u8(color[i][j], dst);
+    //text line
+    sprintf(parName, "[%d]text", index);
+    char *lTxt = CEV_txtParseTxtFrom(src, parName);
 
-    write_u32le(xPos, dst);
-    write_u32le(yPos, dst);
-    write_u32le(justif, dst);
-    write_u32le(scale, dst);
+    size_t length = strlen(lTxt);
 
-    fgets(lString, sizeof(lString)-1, src);
-    CEV_stringEndFormat(lString);
-
-    int length = strlen(lString);
-
-    for(int j=0; j<=length; j++)
-        write_u8(lString[j], dst);
+    for(int i=0; i<=length; i++)
+        write_u8(lTxt[i], dst);
 }
 
 
@@ -930,62 +932,57 @@ static void L_mPicClear(CEV_MPic *this)
 }
 
 
-static void L_mPicConvertTxtToData(FILE *src, FILE *dst, char* folder)
-{//reads an convert M_IS_PIC type
+static void L_mPicConvertTxtToData(CEV_Text *src, FILE *dst, char* folder, int index)
+{//extracts an convert M_IS_PIC type
 
-    uint32_t stateNum,
-             pos[2];
+    uint32_t valu32;
 
-    char lString[FILENAME_MAX],
-         lFileName[FILENAME_MAX];
+    char fileName[FILENAME_MAX],
+         parName[50]; //parameter name
 
-    //reading M_PIC infos from txt
-    fgets(lString, sizeof(lString)-1, src);//getting image file name
+    double storage[2];
 
-    //formatting picture file name
-    CEV_stringEndFormat(lString);
+    //num of state for this button
+    sprintf(parName, "[%d]stateNum", index);
+    valu32 = (uint32_t)CEV_txtParseValueFrom(src, parName);
+    write_u32le(valu32, dst);
 
-    if(NOT_NULL(folder))
+    //position
+    sprintf(parName, "[%d]pos", index);
+    CEV_txtParseValueArrayFrom(src, parName, storage, 2);
+
+    for(int i=0; i<2; i++)
     {
-        strcpy(lFileName, folder);
-        strcat(lFileName, lString);
-    }
-    else
-    {
-        strcpy(lFileName, lString);
+        valu32 = (uint32_t)storage[i];
+        write_u32le(valu32, dst);//pos x,y
     }
 
-    //reading parameters
-    fscanf(src, "%u\n", &stateNum);
-    fscanf(src, "%u %u\n", &pos[0], &pos[1]);
+    //picture
+    sprintf(parName, "[%d]picture", index);
+    char* picName = CEV_txtParseTxtFrom(src, parName);
 
-    //writting M_PIC data
-    write_u32le(stateNum, dst); //number of states
+    sprintf(fileName,"%s%s", folder, picName);
 
-    for(int i = 0; i<2; i++)
-        write_u32le(pos[i], dst);//pos
+    CEV_Capsule caps = {0};
 
-    CEV_Capsule lBuffer = {0};
-    CEV_capsuleFromFile(&lBuffer, lFileName);//loads picture file into buffer
+    if(CEV_capsuleFromFile(&caps, picName))
+    {//on error
+        fprintf(stderr,"Err at %s / %d : failed loading %s.\n", __FUNCTION__, __LINE__, fileName);
+        readWriteErr++;
+        goto err_1;
+    }
 
-    if(!IS_PIC(lBuffer.type))
+    if(!IS_PIC(caps.type))
     {
         fprintf(stderr,"Warn at %s / %d : file is not picture.\n", __FUNCTION__, __LINE__);
         readWriteErr++;
     }
 
-    if(lBuffer.data == NULL)
-    {
-        fprintf(stderr,"Err at %s / %d : failed loading %s.\n", __FUNCTION__, __LINE__, lString);
-        readWriteErr++;
-        goto err_1;
-    }
+    CEV_capsuleTypeWrite(&caps, dst);//inserts picture
 
-    CEV_capsuleTypeWrite(&lBuffer, dst);//inserts picture
+err_1:
 
-    CEV_capsuleClear(&lBuffer);
-
-err_1 :
+    CEV_capsuleClear(&caps);
 
     return;
 }
@@ -1099,6 +1096,7 @@ static void L_mSlideTypeRead_RW(SDL_RWops *src, CEV_MSlide *dst)
     dst->blitPos[0].x = SDL_ReadLE32(src);
     dst->blitPos[0].y = SDL_ReadLE32(src);
 
+    dst->blitPos[1].x = dst->blitPos[0].x;
     dst->blitPos[1].y = dst->blitPos[0].y + (dst->blitPos[0].h - dst->blitPos[1].h)/2;
     dst->type = M_IS_SLIDE;
 
@@ -1129,68 +1127,72 @@ static void L_mSlideClear(CEV_MSlide *this)
 }
 
 
-static void L_mSlideConvertTxtToData(FILE *src, FILE *dst, char *folder)
+static void L_mSlideConvertTxtToData(CEV_Text *src, FILE *dst, char *folder, int index)
 {//reads an convert M_IS_SLIDE type
 
-    int clip[2][4],
-             pos[2];
 
-    char lString[FILENAME_MAX],
-         lFileName[FILENAME_MAX];
+    double values[4];
 
-    //reading M_PIC infos
+    uint32_t valu32;
 
-    fgets(lString, sizeof(lString)-1, src);//getting image file name
+    char parName[50],  //parameter name
+         fileName[FILENAME_MAX];
 
-    //formatting pic file name
-    CEV_stringEndFormat(lString);
+    //reading M_SLIDE infos
 
-    if(folder != NULL)
+    //background clip
+    sprintf(parName, "[%d]bclip", index);
+    CEV_txtParseValueArrayFrom(src, parName, values, 4);
+    for(int i=0; i<4; i++)
     {
-        strcpy(lFileName, folder);
-        strcat(lFileName, lString);
-    }
-    else
-    {
-        strcpy(lFileName, lString);
+        valu32 = (uint32_t)values[i];
+        write_u32le(valu32, dst);
     }
 
-    //reading parameters
-    for(int i = 0; i<2; i++)
-        fscanf(src, "%d %d %d %d\n", &clip[i][0], &clip[i][1], &clip[i][2], &clip[i][3]);
+    //slider clip
+    sprintf(parName, "[%d]fclip", index);
+    CEV_txtParseValueArrayFrom(src, parName, values, 4);
+    for(int i=0; i<4; i++)
+    {
+        valu32 = (uint32_t)values[i];
+        write_u32le(valu32, dst);
+    }
 
-    fscanf(src, "%d %d\n", &pos[0], &pos[1]);
+    //display pos
+    sprintf(parName, "[%d]pos", index);
+    CEV_txtParseValueArrayFrom(src, parName, values, 2);
+    for(int i=0; i<2; i++)
+    {
+        valu32 = (uint32_t)values[i];
+        write_u32le(valu32, dst);
+    }
 
-    //writing parameters
-    for(int i = 0; i<2; i++)
-        for(int j=0; j<4; j++)
-            write_u32le(clip[i][j], dst);//clip
+    //picture file name
+    sprintf(parName, "[%d]picture", index);
+    char *picName = CEV_txtParseTxtFrom(src, parName);
 
-    for(int i = 0; i<2; i++)
-        write_u32le(pos[i], dst);//pos
+    CEV_Capsule caps = {0};
 
-    CEV_Capsule lBuffer = {0};
+    sprintf(fileName, "%s%s", folder, picName);
 
-    CEV_capsuleFromFile(&lBuffer, lFileName);//loading picture file into capsule
+    //loading picture file into capsule
+    if(CEV_capsuleFromFile(&caps, fileName))
+    {
+        fprintf(stderr,"Err at %s / %d : failed loading %s.\n", __FUNCTION__, __LINE__, parName);
+        readWriteErr++;
+        goto end;
+    }
 
-    if( !IS_PIC(lBuffer.type))
+    if(!IS_PIC(caps.type))
     {
         fprintf(stderr,"Warn at %s / %d : file is not picture.\n", __FUNCTION__, __LINE__);
         readWriteErr++;
     }
 
-    if(lBuffer.data == NULL)
-    {
-        fprintf(stderr,"Err at %s / %d : failed loading %s.\n", __FUNCTION__, __LINE__, lString);
-        readWriteErr++;
-        goto end;
-    }
-
-    CEV_capsuleTypeWrite(&lBuffer, dst);//inserting picture
-
-    CEV_capsuleClear(&lBuffer);
+    CEV_capsuleTypeWrite(&caps, dst);//inserting picture
 
 end:
+    CEV_capsuleClear(&caps);
 
     return;
 }
@@ -1224,8 +1226,10 @@ static void L_menuSlideDump(CEV_MSlide* this)
 
 static int L_menuButtonTypeToValue(char *string)
 {//converts string to value for button type
+    if(IS_NULL(string))
+        return -1;
 
-   char* ref[M_TYPE_LAST] = M_TYPE_NAMES;
+    char* ref[M_TYPE_LAST] = M_TYPE_NAMES;
 
     for (int i = 0; i < M_TYPE_LAST; i++)
     {

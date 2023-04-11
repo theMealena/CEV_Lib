@@ -252,7 +252,7 @@ CEV_Music *CEV_musicFetch(int32_t id, CEV_RsrcFileHolder* src);
  *
  * \return SP_AnimList* on success, NULL on error.
  */
-SP_AnimList* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src);
+SP_Anim* CEV_animFetch(int32_t id, CEV_RsrcFileHolder* src);
 
 
 /** \brief loads gif from ressources.
@@ -417,6 +417,7 @@ char* CEV_idToExt(uint32_t id);
  * \note only the 'type' field of id is completed.
  */
 uint32_t CEV_ftypeToId(int type);
+
 
 /** \brief filename to enum type.
  *

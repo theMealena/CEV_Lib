@@ -381,8 +381,6 @@ static int L_cameraTypeRead_RW(SDL_RWops* src, CEV_Camera *dst)
 static int L_cameraTypeRead(FILE* src, CEV_Camera *dst)
 {//reads camera type from file
 
-    int funcSts = FUNC_OK;
-
     for(int i = 0; i<2; i++)
         L_cameraParamTypeRead(src, &dst->param[i]);
 

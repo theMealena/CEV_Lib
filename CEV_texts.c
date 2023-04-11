@@ -124,6 +124,34 @@ static int L_textCompareAZ(const void* q1, const void* q2);
  */
  static int L_textCompareZA(const void* q1, const void* q2);
 
+ /*
+ void TEST_text(void)
+ {
+
+    CEV_Text *text = CEV_textTxtLoad("test.txt");
+
+    printf("instance maxline = %u\n", text->lineSize);
+
+    for(int i=0; i< text->linesNum; i++)
+    {
+        printf("line says : %s\n", CEV_textRead(text, i));
+        //printf("this Alloc size is %u\n", L_lineAllocSizeGet(text->line[i]));
+    }
+
+    CEV_textWrite(text, 10, "toto part à l'aventure et est très content de lui");
+    puts("--- apres ajout----");
+
+    printf("instance maxline = %u\n", text->lineSize);
+    for(int i=0; i< text->linesNum; i++)
+    {
+        printf("line says : %s\n", CEV_textRead(text, i));
+        //printf("this Alloc size is %u\n", L_lineAllocSizeGet(text->line[i]));
+    }
+
+    CEV_textDestroy(text);
+ }
+ */
+
 
 /*USER END FUNCTIONS*/
 
@@ -529,8 +557,8 @@ void CEV_textTypeRead(FILE *src, CEV_Text* dst)
         return;
     }
 
-    dst->linesNum = read_s32le(src);
-    dst->lineSize = read_s32le(src);
+    dst->linesNum = read_u32le(src);
+    dst->lineSize = read_u32le(src);
 
     dst->line = L_textAlloc(dst->linesNum, dst->lineSize);
 

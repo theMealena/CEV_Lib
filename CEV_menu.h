@@ -8,10 +8,20 @@
 #include "CEV_api.h"
 #include "CEV_types.h"
 
+/**
+
+- file extension : file.mdat
+
+- ID as 0xTTOOIIII
+TT = Type of file = IS_MENU (10 - 0x0A)
+OO = type of Object (0)
+IIII = ID for this game object
+
 
 //menu file content
-// u32le        num of buttons
-//              fontSize if font embedded
+// u32le        id of file
+//              num of buttons
+//              fontSize <> 0 if font embedded
 // CEV_Capsule  embedded font if any (fontSize != 0)
 //
 //num of buttons times :
@@ -35,12 +45,12 @@
 // u32_t : x, y, w, h as foreground clip
 // u32_t : x, y as background blit position
 // CEV_Capsule embedded picture
-
+*/
 
 
 #define M_TYPE_NAMES {"M_IS_SLIDE", "M_IS_PIC", "M_IS_TEXT"}
 //                          0           1           2
-
+#define M_TYPE_ID (IS_MENU<<24)
 
 
 
@@ -137,18 +147,22 @@ CEV_MSelector;
  */
 typedef struct CEV_Menu
 {
+    uint32_t id;                /**< Unique ID */
     unsigned int numOfButton;   /**< num of objects in this menu.*/
 
-    CEV_Edge edge;  /**< local edge detection.*/
+    CEV_Edge edge;              /**< local edge detection.*/
 
-    SDL_Rect **buttonPos;   /**< array of button positions for quick indexing selection.*/
+    SDL_Rect **buttonPos;       /**< array of button positions for quick indexing selection.*/
 
-    CEV_MSelector *button;   /**< objects array.*/
+    CEV_MSelector *button;      /**< objects array.*/
 }
 CEV_Menu;
 
 
     //USER END FUNCTIONS
+
+void CEV_menuDump(CEV_Menu *this);
+void CEV_menuButtonDump(CEV_MSelector* this);
 
 /** \brief Loads CEV_Menu from file.
  *

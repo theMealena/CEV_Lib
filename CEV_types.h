@@ -14,7 +14,7 @@
  */
 typedef enum FILE_TYPE
 {
-    IS_DEFAULT  = 0,   /**< unknow / generic */
+    IS_DEFAULT  = 0,    /**< unknow / generic */
     IS_DAT      = 1,    /**< any data  .dat */
     IS_DTX      = 2,    /**< CEV_Text  .dtx */
     IS_BMP      = 3,    /**< bmp       .bmp */
@@ -28,7 +28,7 @@ typedef enum FILE_TYPE
     IS_SCROLL   = 11,   /**< scroller  .scl */
     IS_MAP      = 12,   /**< map       .map */
     IS_MUSIC    = 13,   /**< mp3       .mp3 */
-    IS_PLX      = 14,   /**< parallax  .plx */
+    IS_PRLX     = 14,   /**< parallax  .plx */
     IS_WTHR     = 15,   /**< weather   .wtr */
     IS_TXT      = 16,   /**< text file .txt */
     IS_ANI      = 17,   /**< short animation .ani */

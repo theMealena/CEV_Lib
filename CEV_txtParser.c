@@ -125,6 +125,21 @@ int CEV_txtParseValueArrayFrom(CEV_Text *src, char* name, double* dst, int maxNu
 }
 
 
+int CEV_txtParseIndexGetFrom(CEV_Text *src, char* name)
+{
+    for(int i = 0; i<src->linesNum; i++)
+    {
+        char* line = src->line[i];
+
+        if(L_txtMatch(name, line))
+        {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
 char* L_txtSeek(CEV_Text *src, char* name)
 {
     for(int i = 0; i<src->linesNum; i++)
@@ -141,7 +156,6 @@ char* L_txtSeek(CEV_Text *src, char* name)
 }
 
 
-
 double L_valueFromString(char* in)
 {
     if(IS_NULL(in))
@@ -152,14 +166,14 @@ double L_valueFromString(char* in)
     //going after '=' or end of ptr
     while(*ptr++!='=' && *ptr!='\0');
 
-    return atof(ptr);
-}
+    double result = atof(ptr);
 
+    return result;
+}
 
 
 int L_valueArrayFromString(char* src, double *dst, int maxNum)
 {
-
     if(IS_NULL(src) || IS_NULL(dst) || !maxNum)
         return 0;
 
@@ -167,22 +181,22 @@ int L_valueArrayFromString(char* src, double *dst, int maxNum)
     char *ptr = src;
 
     //going to first value
-    while(!isdigit(*ptr++) && (*ptr !='\0'));
+    while(*ptr++!='=' && *ptr!='\0');
 
     while(*ptr != '\0')
     {
         dst[numRead++] = atof(ptr);
 
         if(numRead >= maxNum)
+        {
             return numRead;
+        }
 
         while(*ptr++!=';' && *ptr!='\0');
     }
 
     return numRead;
 }
-
-
 
 
 bool L_txtMatch(char* seek, char* in)

@@ -22,6 +22,8 @@
 #include "CEV_dataFile.h"
 #include "CEV_file.h"
 #include "CEV_api.h"
+#include "CEV_texts.h"
+#include "CEV_txtParser.h"
 #include "rwtypes.h"
 
 /*LOCAL FUNCTIONS DECLARATION*/
@@ -82,6 +84,9 @@ static uint8_t L_scrollDisplay(CEV_ScrollText *in);
 static uint8_t L_scrollDispThisLine(L_ScrollTextLine *ligne);
 
 
+static uint8_t L_stwaDisplay(CEV_ScrollText *in);
+
+
 /** \brief convert scroll mode as string (from file) into numeric.
  *
  * \param mode : char* as string holding parameter.
@@ -122,6 +127,131 @@ static void L_scrollTypeHeaderRead(FILE* src, CEV_ScrollText *dst);
 static void L_scrollTypeHeaderRead_RW(SDL_RWops* src, CEV_ScrollText *dst);
 
 
+void TEST_scroll(void)
+{
+    int result;
+    CEV_ScrollText *scroll = NULL;
+    SDL_Renderer * render = CEV_videoSystemGet()->render;
+    //CEV_Font *font = CEV_fontFetch(1, "compiled.dat");
+
+    puts("convertion");
+    result = CEV_scrollConvertTxtToData("scroll/scrollEditable.txt", "scroll/scroll.scl");
+
+    if (result != FUNC_OK)
+    {
+        puts("erreur de convertion de fichier");
+        return;
+    }
+    else
+        puts("convertion sans faute...");
+
+
+    puts("testing scrollLoad");
+/*
+    CEV_Capsule caps;
+
+    if(CEV_capsuleFromFile(&caps, "scroll.scl") != FUNC_OK)
+    {
+        fprintf(stderr, "Err at %s / %d : capsule load foire.\n", __FUNCTION__, __LINE__ );
+    }*/
+
+    scroll = /*CEV_capsuleExtract(&caps, 1);//*/CEV_scrollLoad("scroll/scroll.scl");
+
+    if(!scroll)
+    {
+        puts("foirage sur scroll");
+        return;
+    }
+    //else
+        //CEV_scrollDump(scroll);
+
+    //scroll->fontSize = 200;
+    //scroll->speed = 2;
+    //CEV_scrollSpaceSet(scroll, 50);
+    CEV_scrollPosSet(scroll, SCREEN_WIDTH/2);
+
+    CEV_scrollDump(scroll);
+
+    SDL_SetRenderDrawColor(render, 0x00, 0x00, 0x00, 0x00); /*background color*/
+
+    /**UP**/
+   char run = 1;/*
+    while(run)
+    {
+        SDL_RenderClear(render);
+        run = CEV_scrollUpdate(scroll);
+        SDL_RenderPresent(render); //shows it all
+        SDL_Delay(10);
+    }*/
+
+    /**DOWN**/
+/*    run = 1;
+    CEV_scrollModeSet(scroll, SCROLL_DOWN);
+    CEV_scrollRestart(scroll);
+
+    CEV_scrollDump(scroll);
+
+    while(run)
+    {
+        SDL_RenderClear(render);
+        run = CEV_scrollUpdate(scroll);
+        SDL_RenderPresent(render); //shows it all
+        SDL_Delay(10);
+    }*/
+
+    /**RIGHT**/
+ /*   run = 1;
+    CEV_scrollModeSet(scroll, SCROLL_RIGHT);
+    CEV_scrollPosSet(scroll, SCREEN_HEIGHT/2);
+    CEV_scrollRestart(scroll);
+
+    CEV_scrollDump(scroll);
+
+    while(run)
+    {
+        SDL_RenderClear(render);
+        run = CEV_scrollUpdate(scroll);
+        SDL_RenderPresent(render); //shows it all
+        SDL_Delay(10);
+    }
+*/
+    /**LEFT**/
+/*    run = 1;
+    CEV_scrollModeSet(scroll, SCROLL_LEFT);
+    CEV_scrollRestart(scroll);
+
+    CEV_scrollDump(scroll);
+
+    while(run)
+    {
+        SDL_RenderClear(render);
+        run = CEV_scrollUpdate(scroll);
+        SDL_RenderPresent(render); //shows it all
+        SDL_Delay(10);
+    }
+*/
+    /**STWA**/
+    run = 1;
+    //CEV_scrollModeSet(scroll, SCROLL_STWA);
+    CEV_scrollPosSet(scroll, SCREEN_WIDTH/2);
+    CEV_scrollRestart(scroll);
+
+    CEV_scrollDump(scroll);
+
+    while(run)
+    {
+        SDL_RenderClear(render);
+        run = CEV_scrollUpdate(scroll);
+        SDL_RenderPresent(render); /*shows it all*/
+        SDL_Delay(10);
+    }
+
+
+
+    CEV_scrollDestroy(scroll);
+    //CEV_fontClose(font);
+}
+
 /*USER END FUNCTIONS*/
 
 CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font, SDL_Color colour)
@@ -149,6 +279,8 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
         for(int i=0; i<num; i++)
             result->texts[i].img = NULL;
     }
+
+        printf("reached line %d.\n", __LINE__);
 
     for (int i=0; i<num; i++)
     {
@@ -280,7 +412,7 @@ void CEV_scrollPosSet(CEV_ScrollText* in, int pos)
 
         switch (in->mode)
         {//sets up start positions
-
+            case SCROLL_STWA:
             case SCROLL_UP:
                 CEV_rectPosCopy((SDL_Rect){.x = pos - wt/2, .y = in->renderDim.h},
                                 &in->texts[i].blitPos);
@@ -308,10 +440,13 @@ void CEV_scrollPosSet(CEV_ScrollText* in, int pos)
 int CEV_scrollUpdate(CEV_ScrollText *in)
 {//automatic scroll text update & display
 
+    //int(*L_scrollShow[4])(CEV_ScrollText*) = {L_scrollUp, L_scrollDown, L_scrollLeft, L_scrollRight};
+
     int sts = 1;//on activity && no error = 1, else 0
 
     switch (in->mode)
     {
+        case SCROLL_STWA :
         case SCROLL_UP :
             sts = L_scrollUp(in);
         break;
@@ -328,6 +463,7 @@ int CEV_scrollUpdate(CEV_ScrollText *in)
             sts = L_scrollLeft(in);
         break;
 
+
         default:
             sts = 0;
             fprintf(stderr, "Warn at %s / %d : scroll mode error.\n", __FUNCTION__, __LINE__);
@@ -335,7 +471,9 @@ int CEV_scrollUpdate(CEV_ScrollText *in)
         break;
     }
 
-    if(!L_scrollDisplay(in))
+    if(in->mode == SCROLL_STWA)
+        L_stwaDisplay(in);
+    else if(!L_scrollDisplay(in))
         sts = 0; //stops scrolling on error
 
 exit:
@@ -352,130 +490,114 @@ int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName)
 {//convert natural .txt file into scroll.srl file
 
 
-    int funcSts     = FUNC_OK;
+    if((srcName == NULL) || (dstName == NULL))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return ARG_ERR;
+    }
 
-    FILE *src       = NULL,
-         *dst       = NULL;
+    int funcSts = FUNC_OK;
 
-    CEV_Capsule lBuffer;
+    CEV_Text *src = CEV_textTxtLoad(srcName);
 
-    uint32_t fontSize   = 0,
-             speed      = 0,
-             space      = 0;
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
+        funcSts = FUNC_ERR;
+        goto end;
+    }
 
-    uint8_t  colors[4];
+    CEV_textDump(src);
 
-    int temp[4] ={0, 0, 0, 0};
+    readWriteErr = 0;
 
-    char lString[FILENAME_MAX],
+    FILE* dst = fopen(dstName, "wb");
+
+    if (IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        funcSts = FUNC_ERR;
+        goto err_1;
+    }
+
+    uint32_t valu32   = 0;
+    double temp[4] ={0.0};
+
+    char *fontName,
          folder[FILENAME_MAX],
          fileName[FILENAME_MAX],
          hasFolder = CEV_fileFolderNameGet(srcName, folder);
 
-    if((srcName == NULL) || (dstName == NULL))
-    {
-        fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
-        funcSts = ARG_ERR;
-        goto exit;
-    }
+    //id
+    valu32 = (uint32_t)CEV_txtParseValueFrom(src, "id");
+    valu32 = (valu32 & 0x00FFFFFF) | SCROLL_TYPE_ID;
+    write_u32le(valu32, dst);
 
-    readWriteErr = 0;
+    //font size (pxl)
+    valu32 = (uint32_t)CEV_txtParseValueFrom(src, "sizeFont");
+    write_u32le(valu32, dst);
 
-    src = fopen(srcName, "r");
-    dst = fopen(dstName, "wb");
+    //text color rgba
+    CEV_txtParseValueArrayFrom(src, "color", temp, 4);
+    for(int i=0; i<4; i++)
+        write_u8((uint8_t)temp[i], dst);
 
-    if ((src == NULL) || (dst == NULL))
-    {
-        fprintf(stderr, "Err at %s / %d : cannot open file.\n", __FUNCTION__, __LINE__, strerror(errno));
-        funcSts = FUNC_ERR;
-        goto err_1;
-    }
+    //scroll mode
+    fontName = CEV_txtParseTxtFrom(src, "mode");
+    valu32 = L_scrollModeStringToValue(fontName);
+    write_u32le(valu32, dst);
+    //spacing
+    valu32 = (uint32_t)CEV_txtParseValueFrom(src, "space");
+    write_u32le(valu32, dst);
 
-    rewind(src);
+    //speed
+    valu32 = (uint32_t)CEV_txtParseValueFrom(src, "vel");
+    write_u32le(valu32, dst);
 
-    fgets(lString, sizeof(lString)-1, src);//gets font filename
-    CEV_stringEndFormat(lString);
 
-    if(hasFolder)
-    {
-        strcpy(fileName, folder);
-        strcat(fileName, lString);
-    }
-    else
-        strcpy(fileName, lString);
+    //inserting CEV_Text
+    valu32 = CEV_txtParseIndexGetFrom(src, "text");
+    //inserting Text capsule
+    CEV_Text *srcTxt = CEV_textCreate(0, 10);
 
-    CEV_capsuleFromFile(&lBuffer, fileName);//loads font file into buffer
+    for(int i= valu32+1; i< src->linesNum; i++)
+        CEV_textAppend(srcTxt, CEV_textRead(src, i));
 
-    if(lBuffer.type != IS_FONT)
-    {
-        fprintf(stderr,"Warn at %s / %d : file is not ttf extension.\n", __FUNCTION__, __LINE__);
-        funcSts = FUNC_ERR;
-    }
+    CEV_textTypeWrite(srcTxt, dst);
+    CEV_textDestroy(srcTxt);
 
-    if(lBuffer.data == NULL)
+    //fetching font file
+    fontName = CEV_txtParseTxtFrom(src, "font");
+    sprintf(fileName, "%s%s", folder, fontName);
+    printf("at line %d fileName is %s\n", __LINE__, fileName);
+
+    CEV_Capsule caps;
+
+    //loading font file into buffer
+    if(CEV_capsuleFromFile(&caps, fileName))
     {
         fprintf(stderr,"Err at %s / %d : failed loading %s.\n", __FUNCTION__, __LINE__, fileName);
         funcSts = FUNC_ERR;
-        goto err_1;
-    }
-
-    //reads font size
-    fscanf(src, "%u", &fontSize);
-
-    //reads RGBA
-    fscanf(src, "%d %d %d %d\n", &temp[0], &temp[1], &temp[2], &temp[3]);
-
-    for(int i = 0; i<4; i++)
-        colors[i] = temp[i];
-
-    //reads mode
-    fgets(lString, sizeof(lString)-1, src);
-    CEV_stringEndFormat(lString);
-
-    //reads speed & space
-    fscanf(src, "%u %u\n", &space, &speed);
-
-    //starts writing data fileFormat
-
-    write_u32le(fontSize, dst); //font size
-
-    for(int i=0; i< sizeof(colors); i++) //rgba
-        write_u8(colors[i], dst);
-
-    write_u32le(L_scrollModeStringToValue(lString), dst);//read mode
-
-    write_u32le(space, dst);//scroll space
-    write_u32le(speed, dst);//scroll speed
-
-
-    //inserts text capsule
-    funcSts = L_scrollInsertText(src, dst);
-    if(funcSts != FUNC_OK)
-    {
-        fprintf(stderr,"Err at %s / %d : unable to insert text.\n", __FUNCTION__, __LINE__);
         goto err_2;
     }
 
-    //inserts raw font file
-    CEV_capsuleTypeWrite(&lBuffer, dst);
+    CEV_capsuleTypeWrite(&caps, dst);
+
 
     if(readWriteErr)
         funcSts = FUNC_ERR;
 
 err_2:
-    CEV_capsuleClear(&lBuffer);
+    CEV_capsuleClear(&caps);
 
 err_1:
-    if(src != NULL)
-        fclose(src);
 
-    if(dst != NULL)
+    if(NOT_NULL(dst))
         fclose(dst);
 
-exit :
-    if(readWriteErr)
-        funcSts = FUNC_ERR;
+    CEV_textDestroy(src);
 
+end:
     return funcSts;
 }
 
@@ -539,11 +661,9 @@ CEV_ScrollText* CEV_scrollTypeRead(FILE* file)
     CEV_ScrollText  *result = NULL,
                     scrollTemp;
 
-    CEV_Text        text    = {.line = NULL};
-    CEV_Capsule    lBuffer  = {.data = NULL};
-    TTF_Font        *font   = NULL;
-    SDL_RWops       *ops    = NULL;
-
+    CEV_Text    text    = {.line = NULL};
+    CEV_Capsule caps    = {.data = NULL};
+    CEV_Font    *font   = NULL;
 
     if(IS_NULL(file))
     {//bad arg
@@ -553,25 +673,18 @@ CEV_ScrollText* CEV_scrollTypeRead(FILE* file)
 
     L_scrollTypeHeaderRead(file, &scrollTemp);  //scroll parameters
     CEV_textTypeRead(file, &text);              //associated texts
-    CEV_capsuleTypeRead(file, &lBuffer);            //font capsule
+    CEV_textDump(&text);
+    CEV_capsuleTypeRead(file, &caps);        //font capsule
 
 
-    if(lBuffer.type != IS_FONT)
+    if(caps.type != IS_FONT)
     {//bad file type
         fprintf(stderr, "Err at %s / %d : embedded file is not scroll.\n", __FUNCTION__, __LINE__);
         goto exit;
     }
 
-    ops = SDL_RWFromMem(lBuffer.data, lBuffer.size);
-
-    if(ops == NULL)
-    {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
-        goto exit;
-    }
-
     //closes ops
-    font = TTF_OpenFontRW(ops, 1, scrollTemp.fontSize);
+    font = CEV_capsuleExtract(&caps, true);
 
     if(font == NULL)
     {
@@ -579,7 +692,9 @@ CEV_ScrollText* CEV_scrollTypeRead(FILE* file)
         goto exit;
     }
 
-    result = CEV_scrollCreate(text.line, text.linesNum, font, scrollTemp.color);
+    result = CEV_scrollCreate(text.line, text.linesNum, font->font, scrollTemp.color);
+
+    CEV_fontClose(font);
 
     if(result == NULL)
     {
@@ -594,14 +709,7 @@ CEV_ScrollText* CEV_scrollTypeRead(FILE* file)
 
 exit :
 
-    //if(ops != NULL)
-        //SDL_RWclose(ops);
-
     CEV_textClear(&text);
-
-    TTF_CloseFont(font);
-
-    CEV_capsuleClear(&lBuffer);
 
     return result;
 }
@@ -612,8 +720,7 @@ CEV_ScrollText* CEV_scrollTypeRead_RW(SDL_RWops* src)
 
     CEV_ScrollText  *result = NULL,
                     scrollTemp;
-    //CEV_Text        text    = {0};
-    CEV_Capsule    lBuffer  = {0};
+    CEV_Capsule    caps  = {0};
     TTF_Font        *font   = NULL;
     SDL_RWops       *ops    = NULL;
 
@@ -636,16 +743,16 @@ CEV_ScrollText* CEV_scrollTypeRead_RW(SDL_RWops* src)
         goto exit;
     }
 
-    CEV_capsuleTypeRead_RW(src, &lBuffer);              //font capsule
+    CEV_capsuleTypeRead_RW(src, &caps);              //font capsule
 
 
-    if(lBuffer.type != IS_FONT)
+    if(caps.type != IS_FONT)
     {//bad file type
         fprintf(stderr, "Err at %s / %d : embedded file is not scroll.\n", __FUNCTION__, __LINE__);
         goto exit;
     }
 
-    ops = SDL_RWFromMem(lBuffer.data, lBuffer.size);
+    ops = SDL_RWFromMem(caps.data, caps.size);
 
     if(ops == NULL)
     {
@@ -684,7 +791,7 @@ exit :
 
     TTF_CloseFont(font);
 
-    CEV_capsuleClear(&lBuffer);
+    CEV_capsuleClear(&caps);
 
     return result;
 }
@@ -706,6 +813,36 @@ static uint8_t L_scrollDisplay(CEV_ScrollText *in)
     }
 
     return 1;
+}
+
+
+static uint8_t L_stwaDisplay(CEV_ScrollText *in)
+{//blit tout les texts valides
+
+    SDL_Rect clip = {0, 0, 0, 1},
+             blit = {0, 0, 0, 1};
+
+    for(int i = in->lineFrom; i < in->lineTo; i++)
+    {//pour chaque text présent
+
+        L_ScrollTextLine *this = &in->texts[i];
+
+        clip.w = this->blitPos.w;
+        blit = this->blitPos;
+        blit.h = 1;
+
+        for(int j=0; j<this->blitPos.h; j++)
+        {
+            clip.y = j;
+            blit.y = this->blitPos.y+j;
+            blit.w = CEV_map(blit.y, 0, in->renderDim.h, in->renderDim.w/10, in->renderDim.w);
+            blit.x =(in->renderDim.w - blit.w)/2;
+
+            SDL_RenderCopy(in->render, this->img, &clip, &blit);
+        }
+    }
+
+    return 0;
 }
 
 
@@ -848,12 +985,14 @@ static uint8_t L_scrollDispThisLine(L_ScrollTextLine *ligne)
 
 static void L_scrollTypeHeaderRead(FILE* file, CEV_ScrollText *in)
 {//reads scroll header in file
+
     if ((in == NULL) || (file == NULL))
     {
         readWriteErr++;
         return;
     }
 
+    in->id       = read_u32le(file);
     in->fontSize = read_u32le(file);
     in->color.r  = read_u8(file);
     in->color.g  = read_u8(file);
@@ -868,12 +1007,14 @@ static void L_scrollTypeHeaderRead(FILE* file, CEV_ScrollText *in)
 
 static void L_scrollTypeHeaderRead_RW(SDL_RWops* src, CEV_ScrollText *dst)
 {//reads scroll header in virtual file
+
     if ((dst == NULL) || (src == NULL))
     {
         readWriteErr++;
         return;
     }
 
+    dst->id        = SDL_ReadLE32(src);
     dst->fontSize = SDL_ReadLE32(src);
     dst->color.r  = SDL_ReadU8(src);
     dst->color.g  = SDL_ReadU8(src);
@@ -887,13 +1028,13 @@ static void L_scrollTypeHeaderRead_RW(SDL_RWops* src, CEV_ScrollText *dst)
 
 
 static uint32_t L_scrollModeStringToValue(char* mode)
-{/*convert string to value for scroll mode*/
+{//converts string to value for scroll mode
 
    /** SCROLL_UP = 0, SCROLL_DOWN = 1, SCROLL_LEFT = 2, SCROLL_RIGHT = 3 */
 
-   char* ref[SCROLL_MODE_NUM] = SCROLL_MODE_LIST;
+   char* ref[SCROLL_LAST] = SCROLL_MODE_LIST;
 
-    for (int i = 0; i < SCROLL_MODE_NUM; i++)
+    for (int i = 0; i < SCROLL_LAST; i++)
     {
         if (!strcmp(mode, ref[i]))
             return i;
@@ -904,7 +1045,7 @@ static uint32_t L_scrollModeStringToValue(char* mode)
 
 
 static int L_scrollInsertText(FILE *src, FILE* dst)
-{/*insert CEV_Text capsule*/
+{//inserts CEV_Text capsule
 
     int         funcSts = FUNC_OK;
     CEV_Text    *text   = CEV_textTxtLoadf(src);
