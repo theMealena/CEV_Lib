@@ -144,7 +144,7 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
 
     //error management from here
 err_3 :
-    CEV_gifAnimFree(anim);
+    CEV_gifDestroy(anim);
     anim = NULL; //safety for err_1
 
 err_2 :
@@ -344,7 +344,7 @@ void CEV_gifReverse(CEV_GifAnim *anim)
 }
 
 
-void CEV_gifAnimFree(CEV_GifAnim *anim)
+void CEV_gifDestroy(CEV_GifAnim *anim)
 {//frees animation structure
 
     if(!anim)

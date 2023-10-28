@@ -37,7 +37,6 @@
  */
 static int L_scrollUp(CEV_ScrollText *in);
 
-
 /** \brief updates downward scrolling.
  *
  * \param in : CEV_ScrollText* to update.
@@ -45,7 +44,6 @@ static int L_scrollUp(CEV_ScrollText *in);
  * \return int : 1 while scrolling, 0 when done.
  */
 static int L_scrollDown(CEV_ScrollText *in);
-
 
 /** \brief updates leftward scrolling.
  *
@@ -55,7 +53,6 @@ static int L_scrollDown(CEV_ScrollText *in);
  */
 static int L_scrollLeft(CEV_ScrollText *in);
 
-
 /** \brief updates rightward scrolling.
  *
  * \param in : CEV_ScrollText* to update.
@@ -64,7 +61,6 @@ static int L_scrollLeft(CEV_ScrollText *in);
  */
 static int L_scrollRight(CEV_ScrollText *in);
 
-
 /** \brief displays all lines.
  *
  * \param in : CEV_ScrollText* to display.
@@ -72,7 +68,6 @@ static int L_scrollRight(CEV_ScrollText *in);
  * \return uint8_t : 0 if display failed.
  */
 static uint8_t L_scrollDisplay(CEV_ScrollText *in);
-
 
 /** \brief displays single line.
  *
@@ -83,9 +78,13 @@ static uint8_t L_scrollDisplay(CEV_ScrollText *in);
  */
 static uint8_t L_scrollDispThisLine(L_ScrollTextLine *ligne);
 
-
+/** \brief Displays in star wars style
+ *
+ * \param in CEV_ScrollText*
+ * \return uint8_t
+ *
+ */
 static uint8_t L_stwaDisplay(CEV_ScrollText *in);
-
 
 /** \brief convert scroll mode as string (from file) into numeric.
  *
@@ -94,7 +93,6 @@ static uint8_t L_stwaDisplay(CEV_ScrollText *in);
  * \return uint32_t as mode's numeric value.
  */
 static uint32_t L_scrollModeStringToValue(char* mode);
-
 
 /** \brief inserts text capsule into data file.
  *
@@ -106,7 +104,6 @@ static uint32_t L_scrollModeStringToValue(char* mode);
  */
 static int L_scrollInsertText(FILE *src, FILE* dst);
 
-
 /** \brief reads scroll header from data file.
  *
  * \param src : FILE* to read from.
@@ -115,7 +112,6 @@ static int L_scrollInsertText(FILE *src, FILE* dst);
  * \return void
  */
 static void L_scrollTypeHeaderRead(FILE* src, CEV_ScrollText *dst);
-
 
 /** \brief reads scroll header from virtual file.
  *
@@ -132,7 +128,7 @@ void TEST_scroll(void)
     int result;
     CEV_ScrollText *scroll = NULL;
     SDL_Renderer * render = CEV_videoSystemGet()->render;
-    //CEV_Font *font = CEV_fontFetch(1, "compiled.dat");
+    //CEV_Font *font = CEV_fontFetchById(1, "compiled.dat");
 
     puts("convertion");
     result = CEV_scrollConvertTxtToData("scroll/scrollEditable.txt", "scroll/scroll.scl");
@@ -167,7 +163,8 @@ void TEST_scroll(void)
 
     //scroll->fontSize = 200;
     //scroll->speed = 2;
-    //CEV_scrollSpaceSet(scroll, 50);
+    CEV_scrollSpaceSet(scroll, 5);
+    CEV_scrollModeSet(scroll, SCROLL_UP);
     CEV_scrollPosSet(scroll, SCREEN_WIDTH/2);
 
     CEV_scrollDump(scroll);
@@ -263,7 +260,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
 
     if (result == NULL)
     {
-        fprintf(stderr, "Err at %s / %d : unable to allocate : %s.\n", __FUNCTION__, __LINE__,  strerror(errno));
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__,  strerror(errno));
         goto err_1;
     }
 
@@ -271,18 +268,18 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
 
     if (result->texts == NULL)
     {
-        fprintf(stderr, "Err at %s / %d : unable to allocate : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         goto err_2;
     }
     else
     {
-        for(int i=0; i<num; i++)
+        for(unsigned i=0; i<num; i++)
             result->texts[i].img = NULL;
     }
 
-        printf("reached line %d.\n", __LINE__);
+        //printf("reached line %d.\n", __LINE__);
 
-    for (int i=0; i<num; i++)
+    for (unsigned i=0; i<num; i++)
     {
         result->texts[i].blitPos = (SDL_Rect){0, 0, 0, 0};
 
@@ -293,7 +290,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
                              &result->texts[i].blitPos.w, &result->texts[i].blitPos.h);
         else
         {
-            fprintf(stderr, "Err at %s / %d : creating texture.\n", __FUNCTION__, __LINE__);
+            fprintf(stderr, "Err at %s / %d : Creating texture.\n", __FUNCTION__, __LINE__);
             goto err_3;
         }
     }
@@ -312,7 +309,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
 
 
 err_3:
-    for (int i=0; i< num; i++)
+    for (unsigned i=0; i< num; i++)
     {
         if (result->texts[i].img != NULL)
             SDL_DestroyTexture(result->texts[i].img);
@@ -331,7 +328,7 @@ err_1:
 void CEV_scrollDestroy(CEV_ScrollText *in)
 {//libération d'une structure CEV_ScrollText
 
-    for (int i=0; i<in->lineNb; i++)
+    for (unsigned i=0; i<in->lineNb; i++)
         SDL_DestroyTexture(in->texts[i].img);
 
     free(in->texts);
@@ -343,7 +340,7 @@ void CEV_scrollDestroy(CEV_ScrollText *in)
 void CEV_scrollClear(CEV_ScrollText *in)
 {//libération du contenu + mise à 0/NULL
 
-    for (int i=0; i<in->lineNb; i++)
+    for (unsigned i=0; i<in->lineNb; i++)
         SDL_DestroyTexture(in->texts[i].img);
 
     free(in->texts);
@@ -360,23 +357,34 @@ void CEV_scrollClear(CEV_ScrollText *in)
 }
 
 
-void CEV_scrollDump(CEV_ScrollText *in)
+void CEV_scrollDump(CEV_ScrollText *this)
 {//dumps struct content into stdout
 
-    printf("dumping scroll at %p\n", in);
-    printf("holds %u lines\n", in->lineNb);
+    puts("*** BEGIN CEV_ScrollText ***");
 
-    for(int i=0; i< in->lineNb; i++)
+    if(IS_NULL(this))
     {
-        printf("speed = %d\n", in->speed);
-        printf("space = %d\n", in->space);
-        printf("index %d blit pos x=%d, y = %d\n", i, in->texts[i].blitPos.x, in->texts[i].blitPos.y);
-        printf("x = %u, y = %u, w = %u, h = %u\n", in->texts[i].blitPos.x,
-                                                    in->texts[i].blitPos.y,
-                                                    in->texts[i].blitPos.w,
-                                                    in->texts[i].blitPos.h);
-        printf("texture at %p\n", in->texts[i].img);
+        puts("This CEV_ScrollText is NULL");
+        goto end;
     }
+
+    printf("dumping scroll at %p\n", this);
+    printf("holds %u lines\n", this->lineNb);
+
+    for(unsigned i=0; i< this->lineNb; i++)
+    {
+        printf("speed = %d\n", this->speed);
+        printf("space = %d\n", this->space);
+        printf("index %d blit pos x=%d, y = %d\n", i, this->texts[i].blitPos.x, this->texts[i].blitPos.y);
+        printf("x = %u, y = %u, w = %u, h = %u\n", this->texts[i].blitPos.x,
+                                                    this->texts[i].blitPos.y,
+                                                    this->texts[i].blitPos.w,
+                                                    this->texts[i].blitPos.h);
+        printf("texture at %p\n", this->texts[i].img);
+    }
+
+end:
+    puts("*** END CEV_ScrollText ***");
 }
 
     /*CONTROL FUNCTIONS*/
@@ -405,7 +413,7 @@ void CEV_scrollPosSet(CEV_ScrollText* in, int pos)
 
     in->pos = pos;
 
-    for(int i=0; i<in->lineNb; i++)
+    for(unsigned i=0; i<in->lineNb; i++)
     {
         int wt = in->texts[i].blitPos.w,
             ht = in->texts[i].blitPos.h;
@@ -489,7 +497,6 @@ exit:
 int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName)
 {//convert natural .txt file into scroll.srl file
 
-
     if((srcName == NULL) || (dstName == NULL))
     {
         fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
@@ -506,8 +513,6 @@ int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName)
         funcSts = FUNC_ERR;
         goto end;
     }
-
-    CEV_textDump(src);
 
     readWriteErr = 0;
 
@@ -571,7 +576,7 @@ int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName)
     sprintf(fileName, "%s%s", folder, fontName);
     printf("at line %d fileName is %s\n", __LINE__, fileName);
 
-    CEV_Capsule caps;
+    CEV_Capsule caps = {0};
 
     //loading font file into buffer
     if(CEV_capsuleFromFile(&caps, fileName))
@@ -831,11 +836,15 @@ static uint8_t L_stwaDisplay(CEV_ScrollText *in)
         blit = this->blitPos;
         blit.h = 1;
 
-        for(int j=0; j<this->blitPos.h; j++)
+        int pxlHeight   = CEV_map(this->blitPos.y, 0, in->renderDim.h, 1, this->blitPos.h);
+
+        //par rangée de pixel
+        for(int j=0; j<pxlHeight; j++)
         {
-            clip.y = j;
-            blit.y = this->blitPos.y+j;
+            clip.y = CEV_map(j, 0, pxlHeight, 1, this->blitPos.h);
+            blit.y = this->blitPos.y +j;
             blit.w = CEV_map(blit.y, 0, in->renderDim.h, in->renderDim.w/10, in->renderDim.w);
+            //blit.h = CEV_map(blit.y, 0, in->renderDim.h, this->blitPos.h, 1);
             blit.x =(in->renderDim.w - blit.w)/2;
 
             SDL_RenderCopy(in->render, this->img, &clip, &blit);
@@ -849,7 +858,7 @@ static uint8_t L_stwaDisplay(CEV_ScrollText *in)
 static int L_scrollUp(CEV_ScrollText *in)
 {//procède au déplacement de tous les images de texte
 
-    for(int i = in->lineFrom; i < in->lineTo; i++)
+    for(unsigned i = in->lineFrom; i < in->lineTo; i++)
     {
         char lFront = (in->texts[i].blitPos.y + in->texts[i].blitPos.h) <= (in->renderDim.h - in->space);
 
@@ -880,7 +889,7 @@ static int L_scrollUp(CEV_ScrollText *in)
 static int L_scrollDown(CEV_ScrollText *in)
 {//procède au déplacement de tous les images de texte
 
-    for(int i = in->lineFrom; i < in->lineTo; i++)
+    for(unsigned i = in->lineFrom; i < in->lineTo; i++)
     {
         char lFront = (in->texts[i].blitPos.y >= in->space);
 
@@ -913,7 +922,7 @@ static int L_scrollLeft(CEV_ScrollText *in)
 
     /*---EXECUTION---*/
 
-    for(int i = in->lineFrom; i < in->lineTo; i++)
+    for(unsigned i = in->lineFrom; i < in->lineTo; i++)
     {
         char lFront = ((in->texts[i].blitPos.x + in->texts[i].blitPos.w) <= (in->renderDim.w - in->space));
 
@@ -944,7 +953,7 @@ static int L_scrollLeft(CEV_ScrollText *in)
 static int L_scrollRight(CEV_ScrollText *in)
 {//procède au déplacement de tous les images de texte
 
-    for(int i = in->lineFrom; i < in->lineTo; i++)
+    for(unsigned i = in->lineFrom; i < in->lineTo; i++)
     {
         char lFront = (in->texts[i].blitPos.x >= in->space);
         //moving pic

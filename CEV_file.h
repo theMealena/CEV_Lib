@@ -16,7 +16,8 @@
  * \param file : ptr on FILE.
  *
  * \return num of lines 0 otherwise.
- * \note file ought to be in text mode / csv or compliant.
+ *
+ * \note File ought to be in text mode / csv or compliant.
  */
 int CEV_fileNumOfLine(FILE *file);
 
@@ -26,7 +27,8 @@ int CEV_fileNumOfLine(FILE *file);
  * \param line : which line to reach.
  *
  * \return true on success, false otherwise.
- * \note file ought to be in text mode / csv or compliant.
+ *
+ * \note File ought to be in text mode / csv or compliant.
  */
 bool CEV_fileGotoLine(int line, FILE* file);
 
@@ -37,7 +39,8 @@ bool CEV_fileGotoLine(int line, FILE* file);
  * \param seprator : separator identifier.
  *
  * \return true on success, false otherwise.
- * \note file ought to be in text mode / csv or compliant.
+ *
+ * \note File ought to be in text mode / csv or compliant.
  */
 bool CEV_fileGotoColumn(int num, FILE *file, int separator);
 
@@ -47,7 +50,8 @@ bool CEV_fileGotoColumn(int num, FILE *file, int separator);
  * \param file : ptr on FILE.
  *
  * \return true on success, false otherwise.
- * \note file ought to be in text mode / csv or compliant.
+ *
+ * \note File ought to be in text mode / csv or compliant.
  */
 bool CEV_fileGotoNextLine(FILE *file);
 
@@ -107,7 +111,7 @@ void CEV_stringEndFormat(char* in);
  *
  * \return N/A.
  *
- * note : src must be long enough to be extended.
+ * \note Src must be long enough to be extended.
  */
 void CEV_stringGroup(char *src, unsigned int group);
 
@@ -119,7 +123,7 @@ void CEV_stringGroup(char *src, unsigned int group);
  *
  * \return line index of where string was found, -1 otherwise.
  *
- * note : src must be long enough to be extended.
+ * \note Src must be long enough to be extended.
  */
 int CEV_fileStrSearch(FILE* file, char* src);
 

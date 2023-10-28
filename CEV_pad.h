@@ -17,18 +17,18 @@
 #include <SDL.h>
 
 
-#define PAD_ANA_MAX_VAL 0x7FFF  /**< Max analog Value (32767) */
-#define PAD_ANA_MIN_VAL 0x8000  /**< Min analog Value (-32768) */
-#define PAD_ANA_DEADBOUND 0x400 /**< Default dead bound */
-#define PAD_ZONE_NUM 3          /**< Default zone num */
-#define PAD_X_AXIS 0            /**< X axis index */
-#define PAD_Y_AXIS 1            /**< Y axis index */
-#define PAD_X_ROT  3            /**< X rotation axis index */
-#define PAD_Y_ROT  4            /**< Y rotation axis index */
-#define PAD_Z_AXIS_L 2          /**< Z axis index (left trigger) */
-#define PAD_Z_AXIS_R 5          /**< Z axis index (right trigger) */
-#define PAD_BT_NUM 20           /**< Default pad num of button */
-#define PAD_AXIS_NUM 10         /**< Defulat pad num of axis */
+#define PAD_ANA_MAX_VAL 0x7FFF  /**< Max analog Value (32767). */
+#define PAD_ANA_MIN_VAL 0x8000  /**< Min analog Value (-32768). */
+#define PAD_ANA_DEADBOUND 0x400 /**< Default dead bound. */
+#define PAD_ZONE_NUM 3          /**< Default zone num. */
+#define PAD_X_AXIS 0            /**< X axis index. */
+#define PAD_Y_AXIS 1            /**< Y axis index. */
+#define PAD_X_ROT  3            /**< X rotation axis index. */
+#define PAD_Y_ROT  4            /**< Y rotation axis index. */
+#define PAD_Z_AXIS_L 2          /**< Z axis index (left trigger). */
+#define PAD_Z_AXIS_R 5          /**< Z axis index (right trigger). */
+#define PAD_BT_NUM 20           /**< Default pad num of button. */
+#define PAD_AXIS_NUM 10         /**< Defulat pad num of axis. */
 
 #ifndef PI
     #define PI (3.14159265)
@@ -43,10 +43,10 @@ extern "C" {
 typedef struct CEV_PadAxis
 {//added 20210513
 
-    int16_t calib[2],   /**< Calibrating values min/max */ /* TODO (drx#1#): à implémenter pour finition ? */
-            rawValue,   /**< Raw value given by event */
-            value,      /**< Scaled value with calib / dead range correction */
-            zone;       /**< Zoned value reduction */
+    int16_t calib[2],   /**< Calibrating values min/max. */ /* TODO (drx#1#): à implémenter pour finition ? */
+            rawValue,   /**< Raw value given by event. */
+            value,      /**< Scaled value with calib / dead range correction. */
+            zone;       /**< Zoned value reduction. */
 }
 CEV_PadAxis;
 
@@ -169,11 +169,11 @@ int CEV_padCircularZone(const CEV_Pad *pad);
 /** \brief Dumps Pad status.
  * note : Result is dumped to stdout.
  *
- * \param pad : Pad to display status from.
+ * \param this : Pad to display status from.
  *
  * \return N/A.
  */
-void CEV_padDump(const CEV_Pad *pad);
+void CEV_padDump(const CEV_Pad* this);
 
 
 /** \brief Adds warm plugged joystick.

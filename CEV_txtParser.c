@@ -18,7 +18,7 @@
  * \param in : char* to extract value from.
  *
  * \return double as value extracted, 0.0 is default value on error.
- * \note Value must be placed after '=' char.
+ *  Value must be placed after '=' char.
  */
 double L_valueFromString(char* in);
 
@@ -32,7 +32,7 @@ double L_valueFromString(char* in);
  *
  * \return int as num of values that could be read.
  *
- * \note Values shall be separated by the ';' char.
+ *  Values shall be separated by the ';' char.
  */
 int L_valueArrayFromString(char* src, double *dst, int maxNum);
 
@@ -127,7 +127,7 @@ int CEV_txtParseValueArrayFrom(CEV_Text *src, char* name, double* dst, int maxNu
 
 int CEV_txtParseIndexGetFrom(CEV_Text *src, char* name)
 {
-    for(int i = 0; i<src->linesNum; i++)
+    for(unsigned i = 0; i<src->linesNum; i++)
     {
         char* line = src->line[i];
 
@@ -142,7 +142,7 @@ int CEV_txtParseIndexGetFrom(CEV_Text *src, char* name)
 
 char* L_txtSeek(CEV_Text *src, char* name)
 {
-    for(int i = 0; i<src->linesNum; i++)
+    for(unsigned i = 0; i<src->linesNum; i++)
     {
         char* line = src->line[i];
 
@@ -164,7 +164,7 @@ double L_valueFromString(char* in)
     char* ptr = in;
 
     //going after '=' or end of ptr
-    while(*ptr++!='=' && *ptr!='\0');
+    while(*ptr++ != '=' && *ptr != '\0');
 
     double result = atof(ptr);
 
@@ -181,7 +181,7 @@ int L_valueArrayFromString(char* src, double *dst, int maxNum)
     char *ptr = src;
 
     //going to first value
-    while(*ptr++!='=' && *ptr!='\0');
+    while(*ptr++ != '=' && *ptr != '\0');
 
     while(*ptr != '\0')
     {
@@ -204,7 +204,7 @@ bool L_txtMatch(char* seek, char* in)
     if(IS_NULL(seek) || IS_NULL(in))
         return false;
 
-    int i = 0;
+    unsigned i = 0;
 
     while(seek[i] == in[i])
         i++;

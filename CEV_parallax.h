@@ -39,14 +39,10 @@ Fichier Data .plx
 uint 32	id
         nombre de couche N
 
-couche [N] :	float	ratio X
-                float	vitesse X
-                uint 8	is repeat X
-                uint 8  posMode X
-                float	ratio Y
-                float	vitesse Y
-                uint 8	is repeat Y
-                uint 8  posMode Y
+couche [N] :	float	ratio X,Y
+                float	vitesse X,Y
+                uint 8	is repeat X,Y
+                uint 8  posMode X,Y
                 Capsule image
 -----------------------------------------------------------------------------------------------
 
@@ -61,12 +57,12 @@ Layer index 0 is the farmost layer as in blit order.
 
 typedef enum PRLX_MODE
 {
-    PRLX_AUTO,      /**< Automatically handles background positioning */
-    PRLX_CENTERED,  /**< Unused */
-    PRLX_LEFT,      /**< Left border is refererence */
-    PRLX_RIGHT,     /**< Right border is reference */
-    PRLX_TOP,       /**< Top border is reference */
-    PRLX_BOTTOM,    /**< Bottom border is reference */
+    PRLX_AUTO,      /**< Automatically handles background positioning. */
+    PRLX_CENTERED,  /**< Unused. */
+    PRLX_LEFT,      /**< Left border is refererence. */
+    PRLX_RIGHT,     /**< Right border is reference. */
+    PRLX_TOP,       /**< Top border is reference. */
+    PRLX_BOTTOM,    /**< Bottom border is reference. */
     PRLX_LAST
 }
 PRLX_MODE;
@@ -74,11 +70,11 @@ PRLX_MODE;
 
 typedef struct
 {
-    float pos,  /**< position offset if vel not nul */
-        ratio,  /**< scroll ratio */
-        vel;    /**< auto scroll velocity */
+    float pos,  /**< position offset if vel not nul. */
+        ratio,  /**< scroll ratio. */
+        vel;    /**< auto scroll velocity. */
 
-    bool isRepeat;/**< weither to repeat or proportionnal */
+    bool isRepeat;/**< weither to repeat or proportionnal. */
 
     uint8_t posMode;
 }
@@ -89,11 +85,11 @@ PrlxAxis;
  */
 typedef struct CEV_ParaLayer
 {
-    SDL_Texture *texture;   /**< displayed texture */
-    SDL_Rect picSize;       /**< picture size */
-    PrlxAxis axisPar[2];    /**<axis parameters / instance*/
-    bool isGif;             /**< is animated as gif file */
-    CEV_GifAnim *anim;      /**< gif instance if so */
+    SDL_Texture *texture;   /**< displayed texture. */
+    SDL_Rect picSize;       /**< picture size. */
+    PrlxAxis axisPar[2];    /**<axis parameters / instance. */
+    bool isGif;             /**< is animated as gif file. */
+    CEV_GifAnim *anim;      /**< gif instance if so. */
 }
 CEV_ParaLayer;
 
@@ -102,13 +98,13 @@ CEV_ParaLayer;
  */
 typedef struct CEV_Parallax
 {
-    uint32_t id,            /**< Unique ID */
-             numOfLayer;    /**< number of layer */
+    uint32_t id,            /**< Unique ID. */
+             numOfLayer;    /**< number of layer. */
 
-    SDL_Rect *cameraPos,    /**< ptr to camera position */
-              worldDim;     /**< world dimension */
+    SDL_Rect *cameraPos,    /**< ptr to camera position. */
+              worldDim;     /**< world dimension. */
 
-    CEV_ParaLayer *layers;  /**< array of layers */
+    CEV_ParaLayer *layers;  /**< array of layers. */
 }
 CEV_Parallax;
 
@@ -117,6 +113,7 @@ CEV_Parallax;
  *
  * \param numOfLayer : number of layer.
  * \param cameraPos : ptr to the camera position.
+ *
  * \return CEV_Parallax* on success, NULL otherwise.
  */
 CEV_Parallax* CEV_parallaxCreate(int numOfLayer, SDL_Rect *cameraPos);
@@ -125,6 +122,7 @@ CEV_Parallax* CEV_parallaxCreate(int numOfLayer, SDL_Rect *cameraPos);
 /** \brief Destroys parallax object and its content.
  *
  * \param in : parallax object to destroy.
+ *
  * \return N/A.
  */
 void CEV_parallaxDestroy(CEV_Parallax *in);
@@ -133,8 +131,10 @@ void CEV_parallaxDestroy(CEV_Parallax *in);
 /** \brief Clears parallax object content.
  *
  * \param in : parallax object to clear.
+ *
  * \return N/A.
- * note : all ptr freed & set to NULL.
+ *
+ * \note All ptr freed & set to NULL.
  */
 void CEV_parallaxClear(CEV_Parallax *in);
 
@@ -151,6 +151,7 @@ void CEV_parallaxLayerClear(CEV_ParaLayer* in);
 /** \brief Displays all parallax layers.
  *
  * \param in : parallax object to display.
+ *
  * \return N/A.
  */
 void CEV_parallaxShowAll(CEV_Parallax *in);
@@ -160,30 +161,34 @@ void CEV_parallaxShowAll(CEV_Parallax *in);
  *
  * \param in : parallax object to display layer from.
  * \param index : layer to display.
+ *
  * \return N/A.
  */
 void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index);
 
 /** \brief Dumps structure into stdout.
  *
- * \param in : parallax object to dump.
+ * \param this : parallax object to dump.
+ *
  * \return N/A.
  */
-void CEV_parallaxDump(CEV_Parallax *in);
+void CEV_parallaxDump(CEV_Parallax *this);
 
 
 /** \brief Dumps structure into stdout.
  *
- * \param in : parallax layer to dump.
+ * \param this : parallax layer to dump.
+ *
  * \return N/A.
  */
-void CEV_parallaxLayerDump(CEV_ParaLayer* in);
+void CEV_parallaxLayerDump(CEV_ParaLayer* this);
 
 
 /** \brief Converts CSV descritpor file into data file.
  *
  * \param srcName : CSV file to read.
  * \param dstName : prlx file to create.
+ *
  * \return any of standard return value.
  */
 int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName);
@@ -198,13 +203,24 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName);
 CEV_Parallax* CEV_parallaxLoad(const char* fileName);
 
 
+/** \brief Saves parallax as file.
+ *
+ * \param src : CEV_Parallax* to be saved.
+ * \param fileName : const char* as the name of file.
+ *
+ * \return int of std function standard.
+ * \note Picture embedded whatever.
+ */
+int CEV_parallaxSave(CEV_Parallax* src, const char* fileName);
+
+
 /** \brief Loads parallax object from virtual RWops file.
  *
  * \param src : SDL_RWops* to load from.
  * \param freeSrc : internaly frees src if true.
  *
  * \return ptr to allocated parallax object.
- * note : if freeSrc is true, src is freed weither the function succeed or not.
+ * \note If freeSrc is true, src is freed weither the function succeed or not.
  */
 CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* src, uint8_t freeSrc);
 

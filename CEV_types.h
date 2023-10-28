@@ -6,15 +6,15 @@
 
 
 #define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
-#define FILE_TYPE_NUM 19
-#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani", "obj"}
+#define FILE_TYPE_NUM 20
+#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani", "obj", "bmf"}
 
 
 /** \brief defines file type
  */
 typedef enum FILE_TYPE
 {
-    IS_DEFAULT  = 0,    /**< unknow / generic */
+    IS_DEFAULT  = 0,    /**< unknown / generic */
     IS_DAT      = 1,    /**< any data  .dat */
     IS_DTX      = 2,    /**< CEV_Text  .dtx */
     IS_BMP      = 3,    /**< bmp       .bmp */
@@ -30,9 +30,10 @@ typedef enum FILE_TYPE
     IS_MUSIC    = 13,   /**< mp3       .mp3 */
     IS_PRLX     = 14,   /**< parallax  .plx */
     IS_WTHR     = 15,   /**< weather   .wtr */
-    IS_TXT      = 16,   /**< text file .txt */
+    IS_TXT      = 16,   /**< text file .txt */  // TODO (drx#1#09/15/23): Doublon avec CEV_Text ?
     IS_ANI      = 17,   /**< short animation .ani */
-    IS_OBJ      = 18    /**< is game object .obj */
+    IS_OBJ      = 18,   /**< is game object .obj */
+    IS_BMPFONT  = 19    /**< is bmp font .bmf */
 }
 FILE_TYPE;
 
@@ -104,8 +105,7 @@ void CEV_waveClose(CEV_Chunk* chunk);
  *
  * \param fileName : char* as name of file to open.
  *
- * \return CEV_Music* on success, NULL on error;
- *
+ * \return CEV_Music* on success, NULL on error.
  */
 CEV_Music* CEV_musicLoad(char *fileName);
 
@@ -131,13 +131,13 @@ void CEV_musicClear(CEV_Music* music);
 /** \brief Copies Texture into surface.
  *
  * \param src : SDL_Texture* to copy.
- * \param ptr : filled with Surface's pixel data.
+ * \param pxlData : filled with Surface's pixel data.
  *
  * \return SDL_Surface* as result, NULL on failure.
  *
- * note : ptr content is to be freed after Surface is freed.
+ * \note ptr content is to be freed after Surface is freed.
  */
-SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr);
+SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** pxlData);
 
 
 /** \brief Saves texture as png file.
@@ -176,7 +176,8 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst);
  * \param src : SDL_Texture* to fetch dimensions from.
  *
  * \return SDL_Rect filled with dimensions.
- * note : x,y set to 0.
+ *
+ * \note x,y set to 0.
  */
 SDL_Rect CEV_textureDimGet(SDL_Texture* src);
 
@@ -189,8 +190,16 @@ SDL_Rect CEV_textureDimGet(SDL_Texture* src);
  * \param dstRect : SDL_Rect* dst rect as blit position.
  *
  * \return int of standard function status.
- *
  */
 int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRect, SDL_Rect* dstRect);
 
+
+/** \brief SDL_Surface into CEV_Capsule.
+ *
+ * \param src : SDL_Surface* to encap.
+ * \param dst : CEV_Capsule* to load result into.
+ *
+ * \return int from std function status.
+ */
+int CEV_surfaceToCapsule(SDL_Surface* src, CEV_Capsule* dst);
 #endif // CEV_TYPES_H_INCLUDED

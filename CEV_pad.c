@@ -264,14 +264,25 @@ int CEV_padCircularZone(const CEV_Pad *pad)
 }
 
 
-void CEV_padDump(const CEV_Pad *pad)
+void CEV_padDump(const CEV_Pad *this)
 {/*Dumps pad sts to stdout**/
 
-    printf(" Pad name : %s\n", SDL_JoystickName(pad->joy));
-    printf(" Pad id : %d \n", pad->id);
-    printf(" Pad is haptic : %s\n", (pad->haptic == NULL)? "no" : "yes");
-    printf(" Pad button : %d\n",pad->btNum);
-    printf(" Pad axis : %d\n",pad->axesNum);
+    puts("*** BEGIN CEV_Pad ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_Pad is NULL");
+        goto end;
+    }
+
+    printf(" Pad name : %s\n", SDL_JoystickName(this->joy));
+    printf(" Pad id : %d \n", this->id);
+    printf(" Pad is haptic : %s\n", (this->haptic == NULL)? "no" : "yes");
+    printf(" Pad button : %d\n",this->btNum);
+    printf(" Pad axis : %d\n",this->axesNum);
+
+end:
+    puts("*** END CEV_Pad ***");
 }
 
 

@@ -27,14 +27,14 @@ void TEST_cevChrono(void);
  *
  * \return CEV_Chrono* which is recorded as global.
  *
- * \note return recorde if in is NULL.
+ * \note returns recorded value if in is NULL.
  */
 CEV_Chrono* CEV_chronoSet(CEV_Chrono *in);
 
 
 /** \brief Fetches chrono recorded for global access.
  *
- * \param void
+ * \param void.
  *
  * \return CEV_Chrono* which is recorded as global.
  */
@@ -43,7 +43,7 @@ CEV_Chrono* CEV_chronoGet(void);
 
 /** \brief Gets relative ticks.
  *
- * \param void
+ * \param void.
  *
  * \return uint32_t as elapsed time.
  */
@@ -54,7 +54,7 @@ uint32_t* CEV_chronoTicks(void);
  *
  * \param in : CEV_Chrono* to start.
  *
- * \return void
+ * \return void.
  */
 void CEV_chronoStart(CEV_Chrono *in);
 
@@ -72,7 +72,7 @@ uint32_t CEV_chronoUpdate(CEV_Chrono *in);
  *
  * \param in : CEV_Chrono* to pause.
  *
- * \return void
+ * \return void.
  */
 void CEV_chronoPause(CEV_Chrono *in);
 
@@ -81,7 +81,7 @@ void CEV_chronoPause(CEV_Chrono *in);
  *
  * \param in : CEV_Chrono* to unpause.
  *
- * \return void
+ * \return void.
  */
 void CEV_chronoUnpause(CEV_Chrono *in);
 

@@ -7,7 +7,7 @@
 //**********************************************************/
 
 
-/**
+/** data file format :
 u32 id
     num of Nview
     num of Xview
@@ -30,6 +30,7 @@ capsule : img if no pic Id
 
 
 #include <SDL.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <CEV_types.h>
@@ -40,10 +41,10 @@ capsule : img if no pic Id
 //                          0               1           2               3                   4
 #define SP_TYPE_ID (IS_SPS<<24)
 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 
 
@@ -67,11 +68,11 @@ enum {SP_CLIP = 0, SP_HBOX = 1};
  */
 typedef enum
 {
-    SP_LOOP_FOR = 0,
-    SP_FOR_REV = 1,
-    SP_FOR_ONCE = 2,
+    SP_LOOP_FOR     = 0,
+    SP_FOR_REV      = 1,
+    SP_FOR_ONCE     = 2,
     SP_FOR_REV_LOCK = 3,
-    SP_FOR_LOCK = 4,
+    SP_FOR_LOCK     = 4,
     SP_MODE_LAST
 }
 SP_LOOP_MODE;
@@ -85,7 +86,7 @@ enum {SP_HIDE = 0, SP_SHOW = 1};
 /** \brief sp view structure.
  */
 typedef struct SP_View
-{/*view structure*/
+{
 
     uint32_t picNum,    /**<number of picture*/
              delay,     /**<frame delay time ms*/
@@ -117,24 +118,25 @@ SP_Anim;
 typedef struct SP_Sprite
 {//sprite structure
 
-    //struct
-    //{
-        bool    isLocked[2],   /**<animation is locked and will not execute request until done*/
-                viewShow[2],   /**<show view/xview*/
-                run;           /**<is animated or freezed*/
+    struct
+    {
+        bool    isLocked,   /**<animation is locked and will not execute request until done*/
+                viewShow;   /**<show view/xview*/
 
-        int8_t      direction[2];  /**<actual direction = +/-1 */
 
-        uint32_t    picAct[2],      /**<active picture index*/
-                    viewAct[2],     /**<active view index*/
-                    timePrev[2];    /**<last absolute frame change*/
+        int8_t      direction;  /**<actual direction = +/-1 */
 
-        int32_t     viewReq[2][SP_NUM_OF_REQ_MAX];/**<next view/xview requests*/
-    //}control[2];
+        uint32_t    picAct,      /**<active picture index*/
+                    viewAct,     /**<active view index*/
+                    timePrev;    /**<last absolute frame change*/
 
-    double      scale;         /**<display scale*/
+        int32_t     viewReq[SP_NUM_OF_REQ_MAX];/**<next view/xview requests*/
+    }control[2];
 
-    SP_Anim*    anim;          /**<base spritesheet*/
+    bool run;       /**<is animated or freezed*/
+    double  scale;  /**<display scale*/
+
+    SP_Anim *anim;  /**<base spritesheet*/
 }
 SP_Sprite;
 
@@ -143,13 +145,22 @@ SP_Sprite;
 void TEST_sprite(void);
 
 
-/** \brief Dumps view content.
+/** \brief Dumps sprite content to stdout.
  *
- * \param view : SP_View* to dump.
+ * \param this : SP_Sprite* to dump.
  *
- * \return void
+ * \return void.
  */
-void SP_viewDump(SP_View* view);
+void SP_spriteDump(SP_Sprite* this);
+
+
+/** \brief Dumps view content to stdout.
+ *
+ * \param this : SP_View* to dump.
+ *
+ * \return void.
+ */
+void SP_viewDump(SP_View* this);
 
 
 /** \brief Dumps animation content
@@ -167,7 +178,7 @@ void SP_animDump(SP_Anim* anim);
  *
  * \return int as playing mode.
  *
- * note : result is from play mode enum.
+ * \note Result is from play mode enum.
  */
 int SP_spriteModeGet(SP_Sprite *sprite);
 
@@ -175,6 +186,7 @@ int SP_spriteModeGet(SP_Sprite *sprite);
 /*--spritesheet related functions --*/
 
 /**creation and alloc of animation*/
+
 /** \brief creates animation instance.
  *
  * \param nview : uint32_t number of Nview to create.
@@ -186,46 +198,13 @@ int SP_spriteModeGet(SP_Sprite *sprite);
 SP_Anim* SP_animCreate(uint32_t nview, uint32_t xview, SDL_Texture* sheet);
 
 
-void SP_animTypeWrite(SP_Anim *src, FILE *dst);
-
-/**free it all*/
-/** \brief fully free and destroy animation.
+/** \brief Loads single animation.
  *
- * \param anim : SP_Anim* to free.
- * \param freePic : let the function free the texture if true.
- *
- * \return N/A.
- */
-void SP_animDestroy(SP_Anim* anim, char freePic);
-
-
-/**gets texture*/
-/** \brief getting embedded Texture.
- *
- * \param anim : SP_Anim* to fetch texture from.
- *
- * \return SDL_Texture* if any, NULL otherwise.
- */
-SDL_Texture* SP_animTextureGet(SP_Anim *anim);
-
-
-/** \brief query animation.
- *
- * \param anim : SP_Anim* to query from.
- * \param nView : uint32_t* ptr filled with number of nviews.
- * \param xView : uint32_t* ptr filled with number of xviews.
- *
- * \return N/A.
- */
-void SP_animQuery(SP_Anim *anim, uint32_t* nView, uint32_t* xView);
-
-
-
-/** \brief Load single animation.
- *
- * \param fileName : const char*.
+ * \param fileName : const char* as name of file to load.
  *
  * \return SP_Anim* or NULL on error.
+ *
+ * \note readWriteErr is filled.
  */
 SP_Anim* SP_animLoad(const char* fileName);
 
@@ -237,97 +216,65 @@ SP_Anim* SP_animLoad(const char* fileName);
  *
  * \return SP_Anim* on success / NULL on error.
  *
- * \note If requested src is closed weither function succeeds or not.
+ * \note If requested src is closed weither function succeeds or not.\n
+ * \note readWriteErr is filled.
  */
 SP_Anim* SP_animLoad_RW(SDL_RWops* src, bool freeSrc);
 
 
-
-
-
-/*---animations and views settings---*/
-
-/**view global setting*/
-/** \brief view parameters set.
+/** \brief Saves animation.
  *
- * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
- * \param viewIndex : view index to modify.
- * \param clip : SDL_Rect as clipper.
- * \param hitBox : SDL_Rect as hit box.
- * \param time : time delay between frames (ms).
- * \param mode : play mode.
- * \param restart : restart pic index.
- * \param stop : stop pic index.
+ * \param src : SP_Anim* to be saved.
+ * \param fileName : char* as name of file to save into.
  *
- * \return N/A.
+ * \return int as sdt funcSts.
  *
+ * \note readWriteErr is filled.
  */
-void SP_viewSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t frameNum, SDL_Rect clip, SDL_Rect hitBox, uint32_t time, uint32_t mode, uint32_t restart, uint32_t stop);
+int SP_animSave(SP_Anim *src, char* fileName);
 
 
-/**sets view time*/
-/** \brief frame delay parameter
+/** \brief Writes animation into file.
  *
- * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
- * \param viewIndex : view index to modify.
- * \param time : time delay between frames (ms).
+ * \param src : SP_Anim* to be written.
+ * \param dst : FILE* to write into.
  *
- * \return N/A.
+ * \return int int as sdt funcSts.
+ * \note readWriteErr is filled.
  */
-void SP_viewDelaySet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t time);
+int SP_animTypeWrite(SP_Anim *src, FILE *dst);
 
 
-/**sets view play mode*/
-/** \brief display mode parameter
+
+/** \brief user friendly file into data file
  *
- * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
- * \param viewIndex : view index to modify.
- * \param mode : play mode.
+ * \param srcName : edited file to read from.
+ * \param dstName : data file to create.
  *
- * \return N/A.
+ * \return int int as sdt funcSts.
+ * \note readWriteErr is filled.
  */
-void SP_viewModeSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t mode);
+int SP_animConvertTxtToData(const char* srcName, const char* dstName);
 
 
-/**sets clip*/
-/** \brief display mode parameter
+/** \brief fully frees and destroys animation.
  *
- * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
- * \param viewIndex : view index to modify.
- * \param clip : SDL_Rect as clipper.
+ * \param anim : SP_Anim* to free.
  *
- * \return N/A.
+ * \return void.
+ * \note Texture is freed only if picture is embedded (picId == 0).
  */
-void SP_viewClipSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, SDL_Rect* clip);
+void SP_animDestroy(SP_Anim* anim);
 
 
-/**sets hitbox*/
-/** \brief hit box parameter
+/** \brief Clear anim structure content.
  *
- * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
- * \param viewIndex : view index to modify.
- * \param hbox : SDL_Rect as hit box.
+ * \param anim : SP_Anim* to clear.
  *
- * \return N/A.
+ * \return void.
+ * \note Texture is freed only if picture is embedded (picId == 0).
  */
-void SP_viewHitBoxSet(SP_Anim* anim, uint32_t viewIndex, SDL_Rect* hbox);
-
-/**sets restart index*/
-/** \brief restart parameter
- *
- * \param anim : SP_Anim* to modify.
- * \param viewType : view type to modify.
- * \param viewIndex : view index to modify.
- * \param restart : img index from which view will restart.
- *
- * \return N/A.
- */
-void SP_viewRestartSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t restart);
+void SP_animClear(SP_Anim* anim);
 
 
 
@@ -350,56 +297,50 @@ SP_Sprite* SP_spriteCreateFromAnim(SP_Anim *anim);
  * \param sprite : SP_Sprite* to modify.
  * \param anim : SP_Anim* the sprite will be related to.
  *
- * \return N/A.
- *
+ * \return void.
  */
 void SP_spriteLinkToAnim(SP_Sprite* sprite, SP_Anim *anim);
 
 
-/**resets sprite struct to default*/
+/** \brief Frees sprite and content.
+ *
+ * \param src : SP_Sprite* to destroy.
+ *
+ * \return void.
+ */
+void SP_spriteDestroy(SP_Sprite *src);
+
+
+/** \brief Clears structure content.
+ *
+ * \param src : SP_Sprite* to clear.
+ *
+ * \return void.
+ */
+void SP_spriteClear(SP_Sprite *src);
+
+
 /** \brief resets sprite.
  *
  * \param sprite : SP_Sprite* to reset.
  *
- * \return N/A.
+ * \return void.
  *
- *  link to spritesheet is kept as is.
+ * \note Link to spritesheet is kept as is.
  */
 void SP_spriteReset(SP_Sprite *sprite);
 
 
-/**sets scale*/
-/** \brief parameter a sprite's scale.
- *
- * \param sprite : SP_Sprite* to scale.
- * \param scale : double as scale value.(0.5=half, 2.0=twice).
- *
- * \return N/A.
- */
-void SP_spriteScaleSet(SP_Sprite* sprite, double scale);
-
-
-/**fetches scale*/
-/** \brief retrieve a sprite's scale.
- *
- * \param sprite : SP_Sprite* to fetch scale from.
- *
- * \return double as scale value.(0.5=half, 2.0=twice).
- */
-double SP_spriteScaleGet(SP_Sprite* sprite);
-
-/**animation**/
-/** \brief performs aniamtion aka next picture selection
+/** \brief Performs animation calculations.
  *
  * \param sprite : SP_Sprite* to animate
  *
- * \return void N/A
+ * \return void void
  */
 void SP_spriteUpdate(SP_Sprite* sprite);
 
 
-/**blits animation with ex*/
-/** \brief blits sprite.
+/** \brief Blits sprite.
  *
  * \param sprite : SP_Sprite* to blit.
  * \param pos : SDL_Point* as blit position (gravity of sprite).
@@ -407,45 +348,54 @@ void SP_spriteUpdate(SP_Sprite* sprite);
  * \param center : SDL_Point* to rotate around.
  * \param flip : one or combination of any SDL_RendererFlip.
  *
- * \return N/A.
+ * \return void.
  */
 void SP_spriteBlitEx(SP_Sprite* sprite, const SDL_Point* pos,const double angle, const SDL_Point* center, const SDL_RendererFlip flip);
 
 
-/**blits animation*/
-/** \brief blits sprite.
+/** \brief Blits sprite.
  *
  * \param sprite : SP_Sprite* to blit.
  * \param pos : SDL_Point* as blit position (gravity of sprite).
  *
- * \return N/A.
+ * \return void.
  */
 void SP_spriteBlit(SP_Sprite* sprite, const SDL_Point* pos);
 
 
-/** returns clip pos in sprite sheet*/
-/** \brief gets clip position.
+/** \brief Gets sprite actual playing mode.
+ *
+ * \param sprite : SP_Sprite* to fetch from.
+ *
+ * \return int from SP_LOOP_MODE enum.
+ * \sa SP_LOOP_MODE
+ */
+int SP_spriteModeGet(SP_Sprite *sprite);
+
+
+/** \brief Gets clip position.
  *
  * \param sprite : SP_Sprite* to query from.
- * \param viewType : type view to query.
+ * \param viewType : view type to query.
  *
- * \return SDL_Rect on actual SDL_Rect clipper.
+ * \return SDL_Rect on actual SDL_Rect clipper relative to spritesheet.
  */
 SDL_Rect SP_spriteClipGet(SP_Sprite* sprite, uint32_t viewType);
 
 
-/** \brief returns hitbox pos in spritesheet
+/** \brief Hitbox pos in spritesheet
  *
  * \param sprite : SP_Sprite* to fetch actual hitbox from.
  *
  * \return SDL_Rect as hitBox pos relative to spritesheet.
- *  Does not treat horizontal/vertical flip.
+ *
+ * \note Does not treat horizontal/vertical flip.
  */
 SDL_Rect SP_spriteHBoxClipGet(SP_Sprite* sprite);
 
 
-/**returns absolute pos of scaled hitBox */
-/** \brief queries hit box
+
+/** \brief Queries hit box position in sprite's world.
  *
  * \param sprite : SP_Sprite* to query from.
  * \param pos : SDL_Point as actual sprite position.
@@ -456,7 +406,6 @@ SDL_Rect SP_spriteHBoxClipGet(SP_Sprite* sprite);
 SDL_Rect SP_spriteHBoxGet(SP_Sprite* sprite, SDL_Point pos, SDL_RendererFlip flip);
 
 
-/**asynchroneous view change*/
 /** \brief forces view display
  *
  * \param sprite  : SP_Sprite* to modify.
@@ -464,7 +413,7 @@ SDL_Rect SP_spriteHBoxGet(SP_Sprite* sprite, SDL_Point pos, SDL_RendererFlip fli
  * \param viewIndex : which view to display.
  * \param frameIndex : which frame to display.
  *
- * \return N/A.
+ * \return void.
  */
 void SP_viewForce(SP_Sprite* sprite, uint32_t viewType, uint32_t viewIndex, uint32_t frameIndex);
 
@@ -488,64 +437,38 @@ char SP_viewRequest(SP_Sprite* sprite, uint32_t viewType, uint32_t viewIndex);
  * \param viewType : which view type to change.
  * \param display : 0 disables display, any other value enables display.
  *
- * \return N/A.
+ * \return void.
  */
-void SP_viewDisplay(SP_Sprite* sprite, uint32_t viewType, uint32_t display);
-
-/**stops playing sprite*/
-/** \brief freezes animation : pause.
- *
- * \param sprite : SP_Sprite* to pause.
- *
- * \return N/A.
- */
-void SP_spriteStop(SP_Sprite* sprite);
+void SP_viewDisplay(SP_Sprite* sprite, uint32_t viewType, bool display);
 
 
-/**starts playing sprite*/
-/** \brief plays animation
+/** \brief Plays animation.
  *
  * \param sprite : SP_Sprite* to animate.
  *
- * \return N/A.
+ * \return void.
  */
 void SP_spriteStart(SP_Sprite* sprite);
 
 
-/**queries locked status*/
-/** \brief is animation locked
+/** \brief Freezes animation : pause.
+ *
+ * \param sprite : SP_Sprite* to pause.
+ *
+ * \return void.
+ */
+void SP_spriteStop(SP_Sprite* sprite);
+
+
+/** \brief Queries locked status.
  *
  * \param sprite : SP_Sprite* to query.
  *
  * \return 1 if locked, 0 otherwise.
+ * \note NVIEW status is returned.
  */
 char SP_spriteIsLocked(SP_Sprite* sprite);
 
-
-/** \brief queries sprite status.
- *
- * \param sprite : SP_Sprite* to query.
- * \param actNview : int* filled with actual NVIEW view index.(or NULL)
- * \param actXview : int* filled with actual XVIEW view index.(or NULL)
- * \param actNpic : int* filled with actual NVIEW picture index.(or NULL)
- * \param actXpic : int* filled with actual XVIEW picture.(or NULL)
- *
- * \return N/A.
- */
-void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpic, int* actXpic);
-
-
-    /*---FILE RELATED FUNCTIONS---*/
-
-/**converts CSV file into sps file*/
-/** \brief user config file to data file
- *
- * \param srcName : edition file to read from.
- * \param dstName : data file to create.
- *
- * \return readWriteErr is filled.
- */
-int SP_animConvertTxtToData(const char* srcName, const char* dstName);
 
 #ifdef __cplusplus
 }

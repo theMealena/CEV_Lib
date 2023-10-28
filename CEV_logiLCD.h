@@ -12,15 +12,17 @@
  #define DATA_FILE "data/data.dat"
 #endif
 
-//lcd system structure
+
+/** \brief lcd system structure
+ */
 typedef struct REV_SystemLcd
 {
-    bool isInit;    //has LCD
+    bool isInit;            /**< has LCD */
 
-    unsigned int lcdType;   //COLOR / BW
+    unsigned int lcdType;   /**< COLOR / BW */
 
-    SDL_Surface *srcBckgd,  //neat background
-                *result;    //display result
+    SDL_Surface *srcBckgd,  /**< neat background */
+                *result;    /**< display result */
 }
 REV_SystemLcd;
 
@@ -35,6 +37,8 @@ bool REV_systemLcdInit(REV_SystemLcd *sys);
 
 
 /** \brief closes LCD lib
+ *
+ * \return void.
  */
 void REV_systemLcdClose(void);
 
@@ -48,7 +52,7 @@ REV_SystemLcd* REV_systemLcdGet(void);
 
 /** \brief set LCD background
  *
- * \param index : int in ressource file.
+ * \param index : int in resource file.
  *
  * \return void.
  */
@@ -58,11 +62,13 @@ void REV_lcdBackgroundSet(int index);
 void REV_lcdTitleSet(const char *src);
 
 /** \brief updates LCD display.
+ *
+ * \return void.
  */
 void REV_lcdShow(void);
 
 
-void REV_lcdLinesClear();
+void REV_lcdLinesClear(void);
 
 
 

@@ -201,6 +201,7 @@ void CEV_weatherStart(CEV_Weather* in);
  * \param in : CEV_Weather* to be stopped.
  *
  * \return void.
+ * \note Effect stops softly.
  */
 void CEV_weatherStop(CEV_Weather* in);
 
@@ -212,7 +213,7 @@ void CEV_weatherStop(CEV_Weather* in);
  * \return void.
  *
  * \note Usefull if behaviour needs to be changed.
- * Might need to call texture attach to resize particles display.
+    Might need to call texture attach to resize particles display.
  */
 void CEV_weatherParticleBuild(CEV_Weather* dst);
 
@@ -242,7 +243,8 @@ void CEV_weatherParticleMinSize(float src, CEV_Weather* dst);
  * \param void
  *
  * \return size_t as size of single particle structure size in bytes.
- * \note Particles is opaque, to be used if alloc / realloc is needed.
+ *
+ * \note Particles is an opaque structure, to be used if alloc / realloc is needed.
  */
 size_t CEV_weatherParticleSizeOf(void);
 
@@ -255,9 +257,9 @@ size_t CEV_weatherParticleSizeOf(void);
  *
  * \return void.
  *
- * \note Already attached Texture is not destroyed.
+ * \note Previous attached Texture is not destroyed.
  */
-void CEV_weatherTextureAttach(SDL_Texture* src, CEV_Weather* dst);
+void CEV_weatherAttachTexture(SDL_Texture* src, CEV_Weather* dst);
 
 
 /** \brief Sets / attach camera to be used for scrolling effect.
@@ -267,9 +269,9 @@ void CEV_weatherTextureAttach(SDL_Texture* src, CEV_Weather* dst);
  *
  * \return void
  *
- * \note weather behave like on fix screen if no camera is attached.
+ * \note Weather behave like on fix screen if no camera is attached.
  */
-void CEV_weatherCameraAttach(CEV_Camera* src, CEV_Weather* dst);
+void CEV_weatherAttachCamera(CEV_Camera* src, CEV_Weather* dst);
 
 
 
@@ -302,7 +304,7 @@ CEV_Weather *CEV_weatherLoad_RW(SDL_RWops* ops, char freeSrc);
  *
  * \return int : of standard function status.
  *
- * \note picture file is not embedded if picture is NULL.
+ *  \note picture file is not embedded if picture is NULL.
  */
 int CEV_weatherSave(CEV_Weather* src, CEV_Capsule* picture, char* fileName);
 
@@ -315,7 +317,7 @@ int CEV_weatherSave(CEV_Weather* src, CEV_Capsule* picture, char* fileName);
  *
  * \return int : of standard function status.
  *
- * \note picture file is not embedded if picture is NULL.
+ *  \note picture file is not embedded if picture is NULL.
  */
 int CEV_weatherTypeWrite(CEV_Weather* src, CEV_Capsule* picture, FILE* dst);
 

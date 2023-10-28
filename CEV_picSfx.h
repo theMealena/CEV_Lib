@@ -26,7 +26,7 @@ extern "C" {
  * \param which : index of effect to apply, -1 for random.
  * \param time : time ms the transition lasts (approx).
  *
- * \return N/A
+ * \return N/A.
  *
  */
 void CEV_videoSfxSelect(SDL_Texture* dst,int which, uint32_t time);

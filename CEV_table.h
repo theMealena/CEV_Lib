@@ -59,8 +59,8 @@ int CEV_tabSizeDouble(CEV_DynamicArray *table);
  *
  * \return one of the functions status.
  *
- * note : value content is copied and can be freed.
- * Will extend table if necessary.
+ * \note value content is copied and can be freed.
+    Will extend table if necessary.
  */
 int CEV_tabAddValue(CEV_DynamicArray *table, void *value);
 
@@ -74,8 +74,8 @@ int CEV_tabAddValue(CEV_DynamicArray *table, void *value);
  *
  * \return index at which value was written.
  *
- * note : value content is copied and can be freed.
- * Value is append if index is too high.
+ * \note value content is copied and can be freed.
+    Value is append if index is too high.
  */
 int CEV_tabIndexSet(CEV_DynamicArray *table, void *value, unsigned int index);
 
@@ -87,7 +87,7 @@ int CEV_tabIndexSet(CEV_DynamicArray *table, void *value, unsigned int index);
  *
  * \return N/A.
  *
- * note : Nothing done if index is out of range.
+ * \note Nothing done if index is out of range.
  */
 void CEV_tabRemoveIndex(CEV_DynamicArray *table, unsigned int index);
 
@@ -100,7 +100,6 @@ void CEV_tabRemoveIndex(CEV_DynamicArray *table, unsigned int index);
  * \param size : size of an element of the table.
  *
  * \return one of the functions status.
- *
  */
 int CEV_tabInit(CEV_DynamicArray *table, unsigned int num, size_t size);
 
@@ -129,8 +128,8 @@ void CEV_tabClear(CEV_DynamicArray *table);
  *
  * \param table : CEV_DynamicArray* to fetch from.
  * \param index : index of the element to fetch.
- * \return void* pointer on element requested beeing table[index].
  *
+ * \return void* pointer on element requested beeing table[index].
  */
 void *CEV_tabIndexGet(CEV_DynamicArray *table, unsigned int index);
 

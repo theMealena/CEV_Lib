@@ -17,16 +17,16 @@
 
 typedef struct CEV_Mp3
 {
-    Mix_Music* music;   /**< resulting Mix_Music */
+    Mix_Music* music;   /**< resulting Mix_Music. */
 
-    char artist[61],/**< artist name (length define by mp3 standard) */
-         title[61], /**< song title (length define by mp3 standard) */
-         album[61], /**< album name (length define by mp3 standard) */
-         year[10],  /**< release year */
-         track[10]; /**< track number  */
+    char artist[61],/**< artist name (length define by mp3 standard). */
+         title[61], /**< song title (length define by mp3 standard). */
+         album[61], /**< album name (length define by mp3 standard). */
+         year[10],  /**< release year. */
+         track[10]; /**< track number.  */
 
-    SDL_Texture *img;   /**< album cover */
-    void *rawData;      /**< mp3 raw file */
+    SDL_Texture *img;   /**< album cover. */
+    void *rawData;      /**< mp3 raw file. */
 }
 CEV_Mp3;
 
@@ -99,8 +99,9 @@ void CEV_mp3Destroy(CEV_Mp3* src);
  *
  * \param src : CEV_Mp3* to clear.
  *
- * \return void
- * note : freed content is set to NULL.
+ * \return void.
+ *
+ * \note Freed content is set to NULL.
  */
 void CEV_mp3Clear(CEV_Mp3* src);
 

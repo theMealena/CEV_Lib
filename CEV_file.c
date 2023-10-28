@@ -137,7 +137,7 @@ bool CEV_fileFileNameGet(const char* src, char* dst)
 
 bool CEV_fileFolderNameGet(const char *src, char *dst)
 {//dst is filled with folder from folder/name, name provided with '/' or '\\'
-
+//returns true if folder found, dst is filled with empty char '\0' otherwise
     bool funcSts = false;
 
     int srcLen   = strlen(src),
@@ -207,8 +207,8 @@ void CEV_stringGroup(char *src, unsigned int group)
 
     char *srcPtr, *dstPtr;       //nos pointeurs source et destination
 
-    int length = strlen(src),//taille de src pour savoir trouver la fin
-        count = 0;             //on va compter par group
+    int length      = strlen(src);//taille de src pour savoir trouver la fin
+    unsigned count  = 0;             //on va compter par group
 
     srcPtr = src + length; //on pointe la fin actuelle de src
     dstPtr = srcPtr + length/group - (length%group == 0); //on pointe la nouvelle fin supposée de src
@@ -276,7 +276,7 @@ int CEV_fileCopy(char *srcName, char *dstName)
 
     uint32_t fileSize = CEV_fileSize(srcFile);
 
-    for(int i=0; i<fileSize; i++)
+    for(unsigned i=0; i<fileSize; i++)
     {
         write_u8(read_u8(srcFile), dstFile);
     }

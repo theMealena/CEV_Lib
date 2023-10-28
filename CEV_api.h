@@ -105,6 +105,15 @@ CEV_Edge;
 /**miscellanous**/
 
 
+/** \brief Return bool value as string.
+ *
+ * \param in : bool to test.
+ *
+ * \return char* as "true" or "false".
+ */
+char* CEV_strBool(bool in);
+
+
 /** \brief extracts bitIndex from flag.
  *
  * \param flag : int to extract bit from.
@@ -202,7 +211,7 @@ void CEV_anySwap(void* valOne, void* valTwo, size_t size);
  *
  * \return void* on dst.
  *
- *  undefined behaviour if src and dst are on same mem field.
+ * \note Undefined behaviour if src and dst are on same mem field.
  */
 void* CEV_bitFieldDistribute(const void *src, int srcBit, void* dst, int dstBit, size_t length);
 
@@ -555,7 +564,7 @@ CEV_ICoord CEV_fcoordToIcoord(CEV_FCoord src);
  *
  * \return ptr on dst.
  *
- *  z component is untouched.
+ * \note z component is untouched.
  */
 CEV_ICoord* CEV_rectMidToIcoord(SDL_Rect src, CEV_ICoord *dst );
 
@@ -596,7 +605,7 @@ bool CEV_icoordIsInRect(CEV_ICoord point, SDL_Rect rect);
  *
  * \return distance between pta and ptb as double.
  *
- *  z included.
+ * \note z included.
  */
 double CEV_icoordDist(CEV_ICoord pta, CEV_ICoord ptb);
 
@@ -608,7 +617,7 @@ double CEV_icoordDist(CEV_ICoord pta, CEV_ICoord ptb);
  *
  * \return angle of pta->ptb in degres as double.
  *
- *  : 2d: x,y computed only.
+ * \note 2d: x,y computed only.
  */
 double CEV_icoordAngle2d(CEV_ICoord pta, CEV_ICoord ptb);
 
@@ -622,9 +631,6 @@ double CEV_icoordAngle2d(CEV_ICoord pta, CEV_ICoord ptb);
  * \return Icoord filled with sum.
  */
 CEV_ICoord CEV_icoordSum(CEV_ICoord pta, CEV_ICoord ptb);
-
-
-
 
 
  /** CEV_FCOORD **/
@@ -674,7 +680,7 @@ CEV_FCoord CEV_icoordToFcoord(CEV_ICoord src);
  *
  * \return ptr on dst.
  *
- *  z component is untouched.
+ * \note z component is untouched.
  */
 CEV_FCoord* CEV_rectMidToFcoord(SDL_Rect src, CEV_FCoord *dst);
 
@@ -715,7 +721,7 @@ bool CEV_fcoordIsInRect(CEV_FCoord point, SDL_Rect rect);
  *
  * \return distance between pta and ptb as double.
  *
- *  z included.
+ * \note z included.
  */
 double CEV_fcoordDist(CEV_FCoord pta, CEV_FCoord ptb);
 
@@ -727,7 +733,7 @@ double CEV_fcoordDist(CEV_FCoord pta, CEV_FCoord ptb);
  *
  * \return angle of pta->ptb in degres as double.
  *
- *  2d: x,y computed only.
+ * \note 2d: x,y computed only.
  */
 double CEV_fcoordAngle2d(CEV_FCoord pta, CEV_FCoord ptb);
 
@@ -753,6 +759,16 @@ CEV_FCoord CEV_fcoordSum(CEV_FCoord pta, CEV_FCoord ptb);
  * \return N/A.
  */
 void CEV_rectDump(SDL_Rect in);
+
+
+/** \brief Is Rect included in rect ?
+ *
+ * \param src : SDL_Rect that should fit into dst.
+ * \param dst : SDL_Rect in which src should fit into.
+ *
+ * \return bool true src fits into dst.
+ */
+bool CEV_rectIsInRect(SDL_Rect src, SDL_Rect dst);
 
 
 /** \brief rect corrected around point as gravity center.
@@ -922,11 +938,6 @@ void** CEV_allocate2d(size_t x, size_t y, size_t size);
  * \return void** to allocation / NULL on failure.
  */
 void*** CEV_allocate3d(size_t x, size_t y, size_t z, size_t size);
-
-
-
-
-
 
 
 #ifdef __cplusplus

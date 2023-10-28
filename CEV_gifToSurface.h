@@ -12,8 +12,6 @@
 #include "CEV_gif.h"
 #include "CEV_gifDeflate.h"
 
-//#define METHOD_OVERWRITE 1
-//#define METHOD_REDRAW 2
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,13 +53,13 @@ typedef struct L_GifInfo
          direction,     /**< play direction forth/back */
          refresh;       /**< redraw only without selecting picture */
 
-    uint8_t loopMode;
+    uint8_t loopMode;   /**< gif play mode */
 
-    unsigned int time,
-                timeAct;
+    unsigned int time,      /**< localized instance time */
+                timeAct;    /**< actual time value at measurment */
 
-    int         imgNum,
-                imgAct;
+    int         imgNum, /**< num of images */
+                imgAct; /**< actual selected image */
 
 }L_GifInfo;
 

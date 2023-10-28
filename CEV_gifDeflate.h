@@ -168,7 +168,7 @@ L_GifAppExt;//local unused
 typedef struct
 {
     unsigned int numOfBlocks;
-    char         *text;
+    char         *text; //allocated
 
 }
 L_GifComExt;//local
@@ -200,10 +200,10 @@ L_GifFile;
 
 /***Functions**/
 
-/*creates gif handler*/
+//creates gif handler
 L_GifFile *GIFL_gifLoad_RW(SDL_RWops* file);
 
-/*frees all gif structure allocations*/
+//frees all gif structure allocations
 void GIFL_gifFileFree(L_GifFile* gif);
 
 

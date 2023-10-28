@@ -37,9 +37,9 @@ static char L_gifAddLim(int mode, int* val, int num);
 /**external access functions**/
 
 char GIFL_gifAnimInit(CEV_GifAnim* anim, L_GifFile* gif)
-{/*animation initialization*/
+{//animation initialization
 
-    /*filling animation informations from gif file*/
+    //filling animation informations from gif file*/
     anim->pictures          = NULL;
     anim->status.imgNum     = gif->imgNum;
     anim->status.comment    = gif->comExt.text;
@@ -53,11 +53,11 @@ char GIFL_gifAnimInit(CEV_GifAnim* anim, L_GifFile* gif)
     strcpy(anim->status.signature, gif->header.signature);
     strcpy(anim->status.version, gif->header.version);
 
-    /*allocating frames table*/
+    //allocating frames table*/
     anim->pictures = malloc(anim->status.imgNum * sizeof(L_GifFrame));
 
     if (!anim->pictures)
-    {/*on error*/
+    {//on error*/
         fprintf(stderr,"Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         return GIF_ERR;
     }
@@ -75,24 +75,24 @@ char GIFL_gifAnimInit(CEV_GifAnim* anim, L_GifFile* gif)
 
 
 char GIFL_gifBlit(CEV_GifAnim* anim)
-{/*redraw main texture*/
+{//redraws main texture*/
 
-    if(!anim->status.refresh)       /*if not refresh only*/
-        L_gifPicSelectNxt(anim);    /*select next frame*/
+    if(!anim->status.refresh)       //if not refresh only*/
+        L_gifPicSelectNxt(anim);    //select next frame*/
 
-    int imgAct      = anim->status.imgAct;              /*rw purpose*/
-    char dispMethod = anim->pictures[imgAct].dispMethod;/*rw purpose*/
+    int imgAct      = anim->status.imgAct;              //rw purpose*/
+    char dispMethod = anim->pictures[imgAct].dispMethod;//rw purpose*/
 
     switch (dispMethod)
-    {/*select disposal method*/
+    {//select disposal method*/
 
-        default:/*default uses redraw, tests make it more appropriate, deal with it...*/
+        default://default uses redraw, tests make it more appropriate, deal with it...*/
 
-        case METHOD_REDRAW : /*redraws full surface*/
+        case METHOD_REDRAW : //redraws full surface*/
             L_gifTextureRedraw(anim->pictures[imgAct].pixels, &anim->pictures[imgAct].pos, anim->display.surface);
         break;
 
-        case METHOD_OVERWRITE : /*overwrites frame surface*/
+        case METHOD_OVERWRITE : //overwrites frame surface*/
             L_gifTextureOverlay(anim->pictures[imgAct].pixels, &anim->pictures[imgAct].pos, anim->display.surface);
         break;
     }
@@ -103,9 +103,9 @@ char GIFL_gifBlit(CEV_GifAnim* anim)
 
 
 void GIFL_gifFillSurface(uint8_t* pixels, L_GifFile* gif, int index)
-{/*fills pixel fields / consecutive*/
+{//fills pixel fields / consecutive*/
 
-    L_GifImage imageAct = gif->image[index]; /*easy rw*/
+    L_GifImage imageAct = gif->image[index]; //easy rw*/
 
     uint32_t *ptr = (uint32_t*)pixels;
 
@@ -113,36 +113,34 @@ void GIFL_gifFillSurface(uint8_t* pixels, L_GifFile* gif, int index)
 
     uint8_t  alphaColor = imageAct.control.alphaColorIndex;
 
-    int i;
-
-    unsigned int height,/*easy rw*/
-                 width; /*easy rw*/
+    unsigned int height,//easy rw*/
+                 width; //easy rw*/
 
     switch (imageAct.descriptor.imgPack.usesLocalColor)
-    {/*selecting which color table to use*/
-        case 0 :/*global*/
+    {//selecting which color table to use*/
+        case 0 ://global*/
             colorTable = gif->globalColor.table;
         break;
 
-        case 1 :/*local*/
+        case 1 ://local*/
             colorTable = imageAct.localColor.table;
         break;
 
-        default :/*shits happen..*/
+        default ://shits happen..*/
             fprintf(stderr,"Err at %s / %d : color table undefined.\n", __FUNCTION__, __LINE__);
             return;
         break;
     }
 
-    height  = imageAct.descriptor.height;/*rw purpose*/
-    width   = imageAct.descriptor.width; /*rw purpose*/
+    height  = imageAct.descriptor.height;//rw purpose*/
+    width   = imageAct.descriptor.width; //rw purpose*/
 
-    for (i = 0 ; i< height * width ; i++)
+    for (unsigned i = 0 ; i< height * width ; i++)
     {
-       L_GifColor tempColor = colorTable[imageAct.imageData[i]]; /*used for easy rw*/
+       L_GifColor tempColor = colorTable[imageAct.imageData[i]]; //used for easy rw*/
 
             if (imageAct.control.packField.alphaFlag && (alphaColor == imageAct.imageData[i]))
-            {/*if color has index designed to be alpha*/
+            {//if color has index designed to be alpha*/
                tempColor = (L_GifColor){0, 0, 0, 0};
             }
 
@@ -152,7 +150,7 @@ void GIFL_gifFillSurface(uint8_t* pixels, L_GifFile* gif, int index)
 
 
 void GIFL_gifFillSurfaceInterlace(uint8_t* pixels, L_GifFile* gif, int index)
-{/*fills pixel field / interlaced*/
+{//fills pixel field / interlaced*/
 
 /** interlace method values :
 
@@ -162,7 +160,7 @@ void GIFL_gifFillSurfaceInterlace(uint8_t* pixels, L_GifFile* gif, int index)
     pass4   = pass3 + (height)/2        temp = 2*i + 1
 */
 
-    L_GifImage imageAct = gif->image[index];/*used for easy rw*/
+    L_GifImage imageAct = gif->image[index];//used for easy rw*/
 
     uint32_t *ptr = (uint32_t*)pixels;
 
@@ -172,20 +170,20 @@ void GIFL_gifFillSurfaceInterlace(uint8_t* pixels, L_GifFile* gif, int index)
 
     int i, j, pass;
 
-    unsigned int height  = imageAct.descriptor.height, /*used for easy rw*/
-                 width   = imageAct.descriptor.width;  /*used for easy rw*/
+    unsigned int height  = imageAct.descriptor.height, //used for easy rw*/
+                 width   = imageAct.descriptor.width;  //used for easy rw*/
 
     switch (imageAct.descriptor.imgPack.usesLocalColor)
-    {/*selecting which color table to use*/
-        case 0 :/*global*/
+    {//selecting which color table to use*/
+        case 0 ://global*/
             ColorTable = gif->globalColor.table;
         break;
 
-        case 1 :/*local*/
+        case 1 ://local*/
             ColorTable = gif->image[index].localColor.table;
         break;
 
-        default :/*shits happen...*/
+        default ://shits happen...*/
             fprintf(stderr,"Err at %s / %d : color table undefined.\n", __FUNCTION__, __LINE__);
             return;
         break;
@@ -206,10 +204,9 @@ void GIFL_gifFillSurfaceInterlace(uint8_t* pixels, L_GifFile* gif, int index)
             {
                 L_GifColor tempColor = ColorTable[imageAct.imageData[i*width+j]];
 
-                /*if color index is to be alpha*/
+                //if color index is to be alpha
                 if (imageAct.control.packField.alphaFlag && (alphaColor == imageAct.imageData[i*width+j]))
                     tempColor.a = 0;
-
                 else// (drxvd#1#02/17/17): added 17/02/17
                     tempColor.a = 255;
 
@@ -225,7 +222,7 @@ void GIFL_gifFillSurfaceInterlace(uint8_t* pixels, L_GifFile* gif, int index)
 
 
 void GIFL_gifFitBoxInto(SDL_Rect* adapt , const SDL_Rect* ref)
-{/*fits adapt into ref*/
+{//fits adapt into ref*/
 
     if (adapt->x <0)
         adapt->x = 0;
@@ -243,7 +240,7 @@ void GIFL_gifFitBoxInto(SDL_Rect* adapt , const SDL_Rect* ref)
 
 //loc
 static int L_gifColorToInt(L_GifColor color)
-{/*color struct to int*/
+{//color struct to int*/
 
     //SDL1_version here under
     //return 0U | color.r<<format->rShift | color.g<<format->gShift | color.b<<format->bShift | color.a<<format->aShift;
@@ -253,12 +250,12 @@ static int L_gifColorToInt(L_GifColor color)
 
 //loc
 static void L_gifTextureRedraw(const uint8_t* pixels, const SDL_Rect* blitPos, SDL_Texture* dstTex)
-{/*redraw method, anything off the frame rect is made full alpha*/
+{//redraw method, anything off the frame rect is made full alpha*/
 
     int x, y,
-        width,  /*rw purpose*/
-        height, /*rw purpose*/
-        pitch;  /*rw purpose*/
+        width,  //rw purpose*/
+        height, //rw purpose*/
+        pitch;  //rw purpose*/
 
     void *access;
 
@@ -267,7 +264,7 @@ static void L_gifTextureRedraw(const uint8_t* pixels, const SDL_Rect* blitPos, S
 
     SDL_QueryTexture(dstTex, NULL, NULL, &width, &height);
 
-    SDL_LockTexture(dstTex, NULL, &access, &pitch); /*lock for pxl access*/
+    SDL_LockTexture(dstTex, NULL, &access, &pitch); //locks for pxl access*/
 
     dst = (uint32_t*)access;
 
@@ -281,7 +278,7 @@ static void L_gifTextureRedraw(const uint8_t* pixels, const SDL_Rect* blitPos, S
         }
     }
 
-    SDL_UnlockTexture(dstTex); /*unlock texture*/
+    SDL_UnlockTexture(dstTex); //unlocks texture*/
 }
 
 //loc
@@ -289,7 +286,7 @@ static void L_gifTextureOverlay(const uint8_t* pixels, const SDL_Rect* blitPos, 
 {/*overlay method, only frame rect is copied to surface*/
 
     int i, j,
-        pitch; /*rw purpose*/
+        pitch; //rw purpose*/
 
     uint32_t *src = (uint32_t*)pixels,
              *dst;
@@ -304,10 +301,10 @@ static void L_gifTextureOverlay(const uint8_t* pixels, const SDL_Rect* blitPos, 
     {
         for(j=0 ; j< blitPos->w; j++)
         {
-            int dstX = blitPos->x + j,/*rw purpose*/
-                dstY = blitPos->y + i;/*rw purpose*/
+            int dstX = blitPos->x + j,//rw purpose*/
+                dstY = blitPos->y + i;//rw purpose*/
 
-            uint32_t color  = src[i*blitPos->w + j];/*rw purpose*/
+            uint32_t color  = src[i*blitPos->w + j];//rw purpose*/
 
             if(COLOR_A(color))
                 dst[dstY*pitch/sizeof(uint32_t) + dstX] = color;
@@ -319,7 +316,8 @@ static void L_gifTextureOverlay(const uint8_t* pixels, const SDL_Rect* blitPos, 
 
 //loc
 static char L_gifPtIsInBox(int x, int y, const SDL_Rect* rect)
-{/*is this point in this Rect ?*/
+{//is this point in this Rect ?*/
+
     return ((x >= rect->x)
             && (x < (rect->x + rect->w))
             && (y >= rect->y)
@@ -328,7 +326,7 @@ static char L_gifPtIsInBox(int x, int y, const SDL_Rect* rect)
 
 //loc
 static char L_gifAddModulo(int mode,int* val,int num)
-{/*incrément / décrément de val par modulo***VALIDE***/
+{//incrément / décrément de val par modulo***VALIDE***/
 
     char result = 0;
 
@@ -365,7 +363,7 @@ static char L_gifAddModulo(int mode,int* val,int num)
 
 //loc
 static char L_gifAddLim(int mode, int* val, int num)
-{/*incrément / décrément de val par limite***VALIDE***/
+{//incrément / décrément de val par limite***VALIDE***/
     switch (mode)
     {
         case 0 :/*incremental*/
@@ -392,7 +390,7 @@ static char L_gifAddLim(int mode, int* val, int num)
 
 //loc
 static void L_gifPicSelectNxt(CEV_GifAnim* anim)
-{/*selects next frame to be displayed*/
+{//selects next frame to be displayed*/
 
     int *imgAct = &anim->status.imgAct;
 

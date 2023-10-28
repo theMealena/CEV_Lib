@@ -18,6 +18,11 @@
 
 /**miscellanous**/
 
+char* CEV_strBool(bool in)
+{
+    return in? "true" : "false";
+}
+
 
 bool CEV_bitGet(int flag, int bitIndex)
 {/*defini si bit bitIndex présent dans valeur***VALIDE***/
@@ -98,6 +103,7 @@ void CEV_intSwap(int* valOne, int* valTwo)
 
 void CEV_anySwap(void* valOne, void* valTwo, size_t size)
 {/*intervertie 2 valeurs sur size octets*/
+
 	char temp,
          *src =(char*)valOne,
          *dst =(char*)valTwo;
@@ -199,6 +205,9 @@ CEV_ICoord CEV_rowIndexTo3dCoord(int index, int width, int height)
 
 bool CEV_addModulo(int mode, int* val, int modulo)
 {/*incrément / décrément de val par modulo***VALIDE***/
+
+	if(!modulo || IS_NULL(val))
+        return false;
 
     bool sts = false;
 
@@ -373,10 +382,10 @@ bool CEV_fconstraint(float mini, float* value, float maxi)
 double CEV_map(double realVal, double realMin, double realMax, double retMin, double retMax)
 {/*scaling*/
 
-    if(((realMax-realMin) + retMin)!= 0)
+    if((realMax-realMin) != 0.0)
         return((retMax-retMin)*(realVal-realMin)/(realMax-realMin) + retMin);
     else
-        return 0;
+        return 0.0;
 }
 
 
@@ -486,6 +495,7 @@ bool CEV_pointIsInRect(SDL_Point point, SDL_Rect rect)
 
 double CEV_pointDist(SDL_Point pta, SDL_Point ptb)
 {/*distance between points*/
+
     double x = (double)pta.x - ptb.x,
            y = (double)pta.y - ptb.y;
 
@@ -708,6 +718,14 @@ void CEV_rectDump(SDL_Rect in)
     printf("x=%d, y=%d, w=%d, h=%d\n", in.x, in.y, in.w, in.h);
 }
 
+bool CEV_rectIsInRect(SDL_Rect src, SDL_Rect dst)
+{/*true if src is included in dst*/
+
+    return(    (src.x >= dst.x)
+            && ((src.x + src.w) <= (dst.x + dst.w))
+            && (src.y >= dst.y)
+            && ((src.y + src.h) <= (dst.y + dst.h)));
+}
 
 SDL_Rect *CEV_rectAroundPoint(SDL_Point src, SDL_Rect *dst)
 {/*sets rect with point as gravity center*/

@@ -2,7 +2,13 @@
 //** Done by  |      Date     |  version |    comment     **/
 //**------------------------------------------------------**/
 //**   CEV    |  25-09-2022   |   1.0    |    creation    **/
+//**   CEV    |  15-09-2023   |   1.1    |        #1      **/
 //**********************************************************/
+
+/*
+#1 - CEV_Animini own spriteMini removed.
+
+*/
 
 #ifndef CEV_SHORTANIM_H_INCLUDED
 #define CEV_SHORTANIM_H_INCLUDED
@@ -27,8 +33,8 @@
 
 /** fichier data .ani
 
-U32 : ID (type & id)
-    : ID fichier image (embarquée si 0)
+U32 : id (type & id)
+    : id fichier image (embarquée si 0)
     : delay
 
 S32 : time offset
@@ -42,12 +48,15 @@ CEV_capsule : fichier image si embarquée
 
 typedef struct S_CEV_AniMini CEV_AniMini;
 
+
 /** \brief short animation single instance.
  */
 typedef struct S_CEV_SpriteMini
 {//animation instance
 
-    bool switchAnim,    /**< enables 2nd line of animation */
+    bool *switchPtr,    /**< enables external switch command, overrides switchAnim */
+         *playPtr,      /**< enables external play command, overrides play */
+         switchAnim,    /**< enables 2nd line of animation */
          play;          /**< enables animation playing */
 
     uint8_t picAct;     /**< active picture index */
@@ -71,68 +80,75 @@ struct S_CEV_AniMini
     uint8_t numOfAnim,  /**< num of anim in animation */
             numOfPic[2];/**< num of pic per animation */
 
-    uint32_t ID,        /**< unique Id */
+    uint32_t id,        /**< unique own id */
              delay,     /**< delay between pics (ms) */
-             srcID;     /**< src picture ID if any */
+             picId;     /**< src picture id if any */
 
     int timeOffset;     /**< time offset to sync */
 
     SDL_Rect clip,      /**< single frame clip (top left animation rect)*/
              picDim;    /**< texture dimensions */
 
-    SDL_Texture *srcPic;/**< texture with animation */
-    CEV_SpriteMini sprite;   /**< self instance */
+    SDL_Texture *pic;    /**< texture with animation */
+    // #1 CEV_SpriteMini sprite;  /**< self instance */
 };
 
 
-/**dumping / debug */
 
+
+/** \brief Debug / stress test.
+ *
+ * \param void
+ * \return void
+ */
 void TEST_shortAnim(void);
 
 
 /** \brief Dumps CEV_AniMini structure content.
  *
- * \param in : CEV_AniMini* to dump.
+ * \param this : CEV_AniMini* to dump.
  *
- * \return N/A.
+ * \return void.
  *
- * note : is dumped into stdin.
+ * \note Result is dumped into stdout.
  */
-void CEV_aniMiniDump(CEV_AniMini* in);
+void CEV_aniMiniDump(CEV_AniMini* this);
 
 
 /** \brief Dumps CEV_SpriteMini structure content.
  *
- * \param in : CEV_AniMiniC* to dump.
+ * \param this : CEV_AniMiniC* to dump.
  *
- * \return N/A.
+ * \return void.
  *
- * note : is dumped into stdin.
+ * \note Result is dumped into stdout.
  */
-void CEV_spriteMiniDump(CEV_SpriteMini* in);
+void CEV_spriteMiniDump(CEV_SpriteMini* this);
 
 
 /*** Animation functions ***/
 
-/** \brief Destroys Animini and content
+/** \brief Destroys Animini content and itself.
  *
- * \param src : CEV_AniMini* to destroy
+ * \param this : CEV_AniMini* to destroy.
  *
- * \return N/A.
+ * \return void.
  *
- * \note picture is not freed if referenced.
+ * \warning Picture is not freed if referenced with id.
  */
-void CEV_aniMiniDestroy(CEV_AniMini *src);
+void CEV_aniMiniDestroy(CEV_AniMini *this);
 
 
 /** \brief Clear / frees structure content.
  *
- * \param dst : CEV_AniMini* to clear;
- * \param freePic : bool free embedded Texture if true:
+ * \param this : CEV_AniMini* to clear.
  *
- * \return N/A.
+ * \return void.
+ *
+ * \warning Picture is not freed if referenced with id.
  */
-void CEV_aniMiniClear(CEV_AniMini *dst, bool freePic);
+void CEV_aniMiniClear(CEV_AniMini *this);
+
 
 /*
 /** \brief Loads and creates mini animation from file.
@@ -144,62 +160,112 @@ void CEV_aniMiniClear(CEV_AniMini *dst, bool freePic);
 //CEV_AniMini* CEV_aniMiniLoadCreate(char *fileName);
 
 
-/** \brief Loads mini animation from file.
+/** \brief Loads CEV_AniMini from file.
  *
- * \param fileName : char* with name of file to be loaded.
+ * \param fileName : const char* as path and name of file to be loaded.
  *
- * \return CEV_AniMini* on success, NULL if failed.
+ * \return CEV_AniMini* on success, NULL on failure.
  */
-CEV_AniMini* CEV_aniMiniLoad(char *fileName);
+CEV_AniMini* CEV_aniMiniLoad(const char *fileName);
 
 
-/** \brief Loads mini animation from virtual file.
+/** \brief Loads CEV_AniMini from RWops.
  *
- * \param src : SDL_RWops* as virtual file to read from.
- * \param freeSrc : bool closes RWops src if true.
+ * \param src : SDL_RWops* to load from.
+ * \param freeSrc : bool to close RWops if true.
  *
- * \return CEV_AniMini* on success, NULL if failed.
+ * \return CEV_AniMini* on success, NULL on failure.
+ *
+ * \note If requested, src is closed weither function succeeds or not.
  */
 CEV_AniMini* CEV_aniMiniLoad_RW(SDL_RWops* src, bool freeSrc);
 
 
-/** \brief Saves mini animation to file.
+/** \brief Saves CEV_AniMini into file.
  *
- * \param src CEV_AniMini*
- * \param fileName char*
- * \param embedPic bool
+ * \param src : CEV_AniMini* to be saved.
+ * \param fileName : const char* as path and file name of resulting file.
  *
  * \return int of standard function status.
  */
-int CEV_aniMiniSave(CEV_AniMini *src, char *fileName, bool embedPic);
+int CEV_aniMiniSave(CEV_AniMini *src, const char *fileName);
 
 
-int CEV_aniMinConvertTxtToData(char *srcName, char *dstName);
+/** \brief Reads CEV_AniMini from file and fills structure.
+ *
+ * \param src : FILE* to read from.
+ * \param dst : CEV_AniMini* to fill with file content.
+ *
+ * \return int of standard function status
+ *
+ * \warning No free operation are performed on dst, thus dst should be cleared before
+ beeing filled from file.
+ */
+int CEV_aniMiniTypeRead(FILE* src, CEV_AniMini* dst);
 
 
 /** \brief Writes CEV_AniMini into file.
  *
  * \param src : CEV_AniMini* to write into file.
  * \param dst : FILE* to write into.
- * \param embedPic :  bool embed texture into file if true:
+ *
+ * \return int of standard function status.
+ *
+ * \note readWriteErr is updated by this function.
+ */
+int CEV_aniMiniTypeWrite(CEV_AniMini *src, FILE* dst);
+
+
+/** \brief Reads CEV_AniMini from RWops and fills structure.
+ *
+ * \param src : SDL_RWops*
+ * \param dst : CEV_AniMini* to fill with file content.
+ * \param freeSrc : bool weither to close RWops or not.
+ *
+ * \return int of standard function status.
+ *
+ * \note If requested, src is closed weither function succeeds or not.
+ */
+int CEV_aniMiniTypeRead_RW(SDL_RWops* src, CEV_AniMini* dst, bool freeSrc);//freed weither succeeds or fails if requested
+
+
+/** \brief Write CEV_AniMini structure into RWops.
+ *
+ * \param src : CEV_AniMini* to be written.
+ * \param dst : SDL_RWops* to write into.
  *
  * \return int of standard function status.
  */
-int CEV_aniMiniTypeWrite(CEV_AniMini *src, FILE* dst, bool embedPic);
+int CEV_aniMiniTypeWrite_RW(CEV_AniMini* src, SDL_RWops* dst);
+
+
+/** \brief Converts editable text file into data file.
+ *
+ * \param srcName : const char* as path and file name of source file.
+ * \param dstName : const char* as path and file name of resulting file.
+ *
+ * \return int of standard function status.
+ *
+ * \note file extension should be ".ani" to ensure recognition on auto-load.
+ */
+int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName);
 
 
 /** \brief Sets texture to be used for animation.
  *
  * \param src : SDL_Texture* to be used for animation.
  * \param dst : CEV_AniMini* to hold texture for animation.
+ * \param dstId : id of source if any.
  *
  * \return int of standard function status.
  *
- * note : Caculation are performed, thus direct attribution of SDL_Texture
- * into structure may fail.
- * Any existing texture is destroyed and replaced if nor referenced (srcID = nul).
+ * \note Caculation are performed, thus direct attribution of SDL_Texture
+ into structure may fail.
+ *
+* \warning Any src without ID will be freed upon attachment / clear / destroy operation.
+ Id'd resources will have to be freed at upper level.
  */
-int CEV_aniMiniTextureAttach(SDL_Texture* src, CEV_AniMini *dst);
+int CEV_aniMiniAttachTexture(SDL_Texture* src, CEV_AniMini *dst, uint32_t srcId);
 
 
 /** \brief Sets animation paraameters for animation.
@@ -210,12 +276,14 @@ int CEV_aniMiniTextureAttach(SDL_Texture* src, CEV_AniMini *dst);
  *
  * \return int of standard function status.
  *
- * note : Caculation are performed, thus direct attribution of values
- * into structure may fail.
- * Should be called AFTER texture has been set.
+ * \note Caculation are performed, thus direct attribution of values
+ into structure may fail.\n
+    Should be called AFTER texture has been set.
  */
 int CEV_aniMiniParamSet(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMini* dst);
 
+
+    /** sprite mini **/
 
 /** \brief New alloc'd instance for this animation.
  *
@@ -223,16 +291,26 @@ int CEV_aniMiniParamSet(uint8_t picNum_0, uint8_t picNum_1, CEV_AniMini* dst);
  *
  * \return : CEV_SpriteMini* accordingly filled or NULL on failure.
  */
-CEV_SpriteMini* CEV_aniMiniCreateAllocFrom(CEV_AniMini* src);
+CEV_SpriteMini* CEV_spriteMiniCreateFrom(CEV_AniMini* src);
+
+
+/** \brief Destroys SpriteMini content and itself.
+ *
+ * \param this : CEV_SpriteMini* to destroy.
+ *
+ * \return void.
+ */
+void CEV_spriteMiniDestroy(CEV_SpriteMini* this);
 
 
 /** \brief New instance for this animation.
  *
  * \param src : CEV_AniMini* to build instance from.
+ * \param dst : CEV_SpriteMini* as new sprite instance.
  *
  * \return : CEV_SpriteMini accordingly filled.
  */
-CEV_SpriteMini CEV_spriteMiniFrom(CEV_AniMini* src);
+int CEV_spriteMiniFrom(CEV_AniMini* src, CEV_SpriteMini* dst);
 
 
 /** \brief Clears / reset structure content.
@@ -246,38 +324,70 @@ void CEV_spriteMiniClear(CEV_SpriteMini* src);
 
 /** \brief Updates structure status.
  *
- * \param src : CEV_SpriteMini* to be updated.
+ * \param this : CEV_SpriteMini* to be updated.
  * \param now : uint32_t as reference time (ms).
  *
  * \return SDL_Rect as actual clip for animation.
- *
  */
-SDL_Rect CEV_spriteMiniUpdate(CEV_SpriteMini* src, uint32_t now);
+SDL_Rect CEV_spriteMiniUpdate(CEV_SpriteMini* this, uint32_t now);
 
 
-/*
-Toto* CEV_totoCreate(void);
+/** \brief Displays / updates mini sprite
+ *
+ * \param this : CEV_SpriteMini* to display
+ * \param dstRect : SDL_Rect as blit position.
+ * \param now : uint32_t as reference time (ms).
+ *
+ * \return void
+ *
+ * \note this function preforms update, thus CEV_spriteMiniUpdate() is not necessary if used.
+ */
+void CEV_spriteMiniBlit(CEV_SpriteMini* this, SDL_Rect dstRect, uint32_t now);
 
-void CEV_totoDestroy(Toto* in);//NULL compliant
 
-void CEV_totoClear(Toto* in);
+/** \brief Enable sprite to be animated.
+ *
+ * \param this : CEV_SpriteMini* to animate.
+ *
+ * \return void.
+ *
+ * \note Animation may restart at any frame of anuimation.
+ */
+void CEV_spriteMiniPlay(CEV_SpriteMini* this);
 
-Toto* CEV_totoLoad(char* fileName);
 
-Toto* CEV_totoLoad_RW(SDL_RWops* src, bool freeSrc);//free success or failure
+/** \brief Stops sprite animation.
+ *
+ * \param this : CEV_SpriteMini* to stop playing.
+ *
+ * \return void.
+ *
+ * \note Stopped animation will show frame 0 - switching animation is disabled..
+ */
+void CEV_spriteMiniStop(CEV_SpriteMini* this);
 
-int CEV_totoSave(Toto* src, char fileName);
 
-int CEV_totoTypeRead(FILE* src, Toto* dst);
+/** \brief Attaches external playing command.
+ *
+ * \param playCmd : bool* as external command.
+ * \param dst : CEV_SpriteMini* to attach to.
+ *
+ * \return void.
+ *
+ * \note any external command overrides internal state.
+ */
+void CEV_spriteMiniAttachPlayCmd(bool* playCmd, CEV_SpriteMini* dst);
 
-int CEV_totoTypeWrite(Toto* src, FILE* dst);
 
-int CEV_totoTypeRead_RW(SDL_RWops* src, Toto* dst, bool freeSrc);//free success or failure
-
-int CEV_totoTypeWrite_RW(Toto* src, SDL_RWops* dst);
-
-int CEV_totoToCapsule(Toto* src, CEV_Capsule *dst);
-
-int CEV_totoConvertTxtToData(char* srcName, char* dstName);*/
+/** \brief Attaches external animation switch command.
+ *
+ * \param switchCmd : bool* as external command.
+ * \param dst : CEV_SpriteMini* to attach to.
+ *
+ * \return void
+ *
+ * \note any external command overrides internal state.
+ */
+void CEV_spriteMiniAttachSwitchCmd(bool* switchCmd, CEV_SpriteMini* dst);
 
 #endif // CEV_SHORTANIM_H_INCLUDED

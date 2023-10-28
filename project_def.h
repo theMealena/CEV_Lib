@@ -7,13 +7,13 @@
 extern "C" {
 #endif
 
-/*default screen value*/
+//default screen value
 #define SCREEN_DEFAULT_IS_DESKTOP 0
 
 #define SCREEN_WDEFAULT   1280
 #define SCREEN_HDEFAULT   720
 
-/** if system auto size activated **/
+/** if system auto size activated (CEV_mixSystem.h) **/
 //neo geo definition 4/3
 #define SCREEN_WSMALL   320
 #define SCREEN_HSMALL   224
@@ -32,7 +32,7 @@ extern "C" {
 #define FONT_SIZE_M 12
 #define FONT_SIZE_S 10
 
-#define APP_NAME "level creator"
+#define APP_NAME "SDL Test"
 #define MY_ORG "the mealena"
 
 #define RELEASE 0
@@ -40,12 +40,12 @@ extern "C" {
 #if !RELEASE
     #define DEBUG 0     //show player's boxes
     #define VERBOSE 1   //displays prints in console
-    #define FILE_MAKE 0 //build ressources
+    #define FILE_MAKE 0 //build resources
     #define SOUND_EN 0  //enables / stops musics
 #else
     #define DEBUG 0     //show player's boxes
     #define VERBOSE 0   //displays prints in console
-    #define FILE_MAKE 0 //build ressources
+    #define FILE_MAKE 0 //build resources
     #define SOUND_EN 1  //enables / stops musics
 #endif
 
@@ -53,7 +53,7 @@ extern "C" {
 
 /***ADD local project definitions here below**/
 
-#define DATA_FILE "ressources\\data.dat"
+#define DATA_FILE "resources\\data.dat"
 
 /*profile purpose to save levels datas*/
 #define NUM_OF_WORLD 1      //max

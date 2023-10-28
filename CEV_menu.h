@@ -108,7 +108,7 @@ typedef struct CEV_MText
     unsigned char   value,      /**< local state, is 1 when text is hovered.*/
                     *valuePtr;  /**< ptr to external value command.*/
 
-    char* text;                 /**< array of char as string to display.*/
+    char text[64];                 /**< array of char as string to display.*/
 
     float scale;                /**< text scale as ratio of font size.*/
 
@@ -116,7 +116,7 @@ typedef struct CEV_MText
 
     SDL_Point pos;              /**< point on which justif is done.*/
 
-    SDL_Texture *pic[2];        /**< pictured texts. (off/on)*/
+    SDL_Color color[2];        /**< texts colors. (off/on)*/
     SDL_Rect blitPos;           /**< blit position.*/
 }
 CEV_MText;
@@ -149,7 +149,7 @@ typedef struct CEV_Menu
 {
     uint32_t id;                /**< Unique ID */
     unsigned int numOfButton;   /**< num of objects in this menu.*/
-
+    CEV_Font *font;             /**< Font used for text display */
     CEV_Edge edge;              /**< local edge detection.*/
 
     SDL_Rect **buttonPos;       /**< array of button positions for quick indexing selection.*/
@@ -161,8 +161,23 @@ CEV_Menu;
 
     //USER END FUNCTIONS
 
+/** \brief Dumps menu structure content into stdout.
+ *
+ * \param this : CEV_Menu* to dump.
+ *
+ * \return void.
+ */
 void CEV_menuDump(CEV_Menu *this);
+
+
+/** \brief Dumps menu's button structure content into stdout.
+ *
+ * \param this : CEV_MSelector* to dump.
+ *
+ * \return void.
+ */
 void CEV_menuButtonDump(CEV_MSelector* this);
+
 
 /** \brief Loads CEV_Menu from file.
  *
@@ -183,7 +198,7 @@ CEV_Menu* CEV_menuLoad(const char* fileName);
 CEV_Menu* CEV_menuLoad_RW(SDL_RWops* src, bool freeSrc);
 
 
-/** \brief Reads CEV_Menu from src and fills dst
+/** \brief Reads CEV_Menu from src and fills dst.
  *
  * \param src : FILE* to read from.
  * \param dst : CEV_Menu* to fill.
@@ -193,7 +208,7 @@ CEV_Menu* CEV_menuLoad_RW(SDL_RWops* src, bool freeSrc);
 int CEV_menuTypeRead(FILE* src, CEV_Menu* dst);
 
 
-/** \brief Reads CEV_Menu from src and fills dst
+/** \brief Reads CEV_Menu from src and fills dst.
  *
  * \param src : SDL_RWops* to read from.
  * \param dst : CEV_Menu* to fill.
@@ -255,8 +270,7 @@ void CEV_menuButtonValueLink(CEV_Menu * menu, unsigned int mastIndex, unsigned i
  * \param mastIndex : button index of which action will change slave value.
  * \param slave : unsigned char* variable address to be affected by button mastIndex
  *
- * \return void
- *
+ * \return void.
  */
 void CEV_menuButtonLink(CEV_Menu *menu, unsigned int mastIndex, unsigned char* slave);
 

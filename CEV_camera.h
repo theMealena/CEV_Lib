@@ -89,7 +89,8 @@ CEV_Camera;
  * \param mode : CEV_CameraMode as follow mode.
  *
  * \return void
- * note : Is to use with a declared camera VS camera loaded from file.
+ *
+ * \note Is to use with a declared camera VS camera loaded from file.
  */
 void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, unsigned int changeTime, CEV_CameraMode mode);
 
@@ -99,7 +100,6 @@ void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, u
  * \param fileName : char* as path and file name to load.
  *
  * \return CEV_Camera* on success, NULL on failure.
- *
  */
 CEV_Camera *CEV_cameraLoad(char *fileName);
 
@@ -109,7 +109,7 @@ CEV_Camera *CEV_cameraLoad(char *fileName);
  * \param src : CEV_Camera* to be saved.
  * \param fileName : const char* as filename to save as.
  *
- * \return int : any of std return value.
+ * \return int of std return value.
  */
 int CEV_cameraSave(CEV_Camera *src, const char* fileName);
 
@@ -121,7 +121,7 @@ int CEV_cameraSave(CEV_Camera *src, const char* fileName);
  *
  * \return CEV_Camera* as loaded from Vfile, NULL on error.
  *
- * note : src will be treated as asked wether function is successful or not.
+ * \note src will be treated as asked wether function is successful or not.
  */
 CEV_Camera *CEV_cameraLoad_RW(SDL_RWops *src, bool freeSrc);
 
@@ -132,16 +132,16 @@ CEV_Camera *CEV_cameraLoad_RW(SDL_RWops *src, bool freeSrc);
  *
  * \return int : One direction if follow point is off camera, 0 otherwise.
  *
- * note : If follow point was to be off camera at bottom, shall return CAMERA_DOWN
+ * \note If follow point was to be off camera at bottom, shall return CAMERA_DOWN
  */
 int CEV_cameraUpdate(CEV_Camera *in);
 
 
-/** \brief Brings camera back on follow point
+/** \brief Brings camera back on follow point.
  *
  * \param in : CEV_Camera* which camera.
  *
- * \return void
+ * \return void.
  */
 void CEV_cameraReset(CEV_Camera *in);
 
@@ -152,9 +152,9 @@ void CEV_cameraReset(CEV_Camera *in);
  * \param w : int as width dimension (pxl).
  * \param h : int as height dimension (pxl).
  *
- * \return void
+ * \return void.
  *
- * note : setting values of 0 or negative will set demension to be render dimension
+ * \note Setting values of 0 or negative will set dimension to be render dimension
  */
 void CEV_cameraDimensionSet(CEV_Camera *src, int w, int h);
 
@@ -165,8 +165,7 @@ void CEV_cameraDimensionSet(CEV_Camera *src, int w, int h);
  * \param time : unsigned int as ms before open field changes.
  * \param axis : int which axis to modify CEV_X, CEV_Y.
  *
- * \return void
- *
+ * \return void.
  */
 void CEV_cameraOpenFieldAuto(CEV_Camera *in, unsigned int time, int axis);
 
@@ -176,9 +175,9 @@ void CEV_cameraOpenFieldAuto(CEV_Camera *in, unsigned int time, int axis);
  * \param in : CEV_Camera* to set.
  * \param direction : int as new direction.
  *
- * \return void
+ * \return void.
  *
- * note : Does not override automatic direction switch.
+ * \note Does not override automatic direction switch.
  */
 void CEV_cameraOpenFieldSet(CEV_Camera *in, int direction);
 
@@ -188,9 +187,9 @@ void CEV_cameraOpenFieldSet(CEV_Camera *in, int direction);
  * \param in : CEV_Camera* to lock.
  * \param direction : int as wich direction to lock OR'd together.
  *
- * \return void
+ * \return void.
  *
- * note : Can be used to disable backtracking.
+ * \note Can be used to disable backtracking.
  */
 void CEV_cameraDirectionLock(CEV_Camera *in, int direction);
 
@@ -201,10 +200,10 @@ void CEV_cameraDirectionLock(CEV_Camera *in, int direction);
  * \param velMax : int as maximum velocity that can be reached as pxl/frame.
  * \param direction : int as wich axis to apply this parameter, Or'd together.
  *
- * \return void
+ * \return void.
  *
- * note : any of CAMERA_RIGHT / CAMERA_LEFT sets horizontal maximum velocity.
- * same for UP/DOWN.
+ * \note Any of CAMERA_RIGHT / CAMERA_LEFT sets horizontal maximum velocity.
+ * \note Same for UP/DOWN.
  */
 void CEV_cameraMaxVelocitySet(CEV_Camera* in, int velMax, int direction);
 
@@ -215,7 +214,7 @@ void CEV_cameraMaxVelocitySet(CEV_Camera* in, int velMax, int direction);
  * \param mode : CEV_CameraMode following mode.
  * \param axis : int which axis to set (CEV_X, CEV_Y).
  *
- * \return void
+ * \return void.
  */
 void CEV_cameraFollowModeSet(CEV_Camera *in, CEV_CameraMode mode, int axis);
 
@@ -227,8 +226,7 @@ void CEV_cameraFollowModeSet(CEV_Camera *in, CEV_CameraMode mode, int axis);
  * \param direction : int as which direction to auto scroll.
  * \param velocity : int as auto scroll velocity in pxl/frame.
  *
- * \return void
- *
+ * \return void.
  */
 void CEV_cameraScrollSet(CEV_Camera* in, bool autoScroll, int direction, int velocity);
 

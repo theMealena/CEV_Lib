@@ -73,8 +73,7 @@ void CEV_zoomScaleSet(CEV_Zoom* dst, float scale);
  *
  * \param src : CEV_Zoom* to fetch clip from.
  *
- * \return SDL_Rect as actual clip position:
- *
+ * \return SDL_Rect as actual clip position.
  */
 SDL_Rect* CEV_zoomClipGet(CEV_Zoom* src);
 

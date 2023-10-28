@@ -12,17 +12,21 @@
 //**********************************************************/
 //- CEV 2021 05 20- removed capsule data free from L_capsuleToXxx functions -> capsule cleared in calling functions.
 //- CEV 2022 07 24- Added Capsule functions set
-//- CEV 2023 03 19- V2.0, now works with capsules IDs instead of index.
+//- CEV 2023 03 19- V2.0, now works with capsules IDs or index.
 
 /** \file   CEV_dataFile.c
  * \author  CEV
  * \version 2.0.0
  * \date    March 2023
- * \brief   Multi file in one ressources.
+ * \brief   Multi file in one resources.
  *
  * \details
  */
 
+
+// TODO (drx#1#04/23/23): Finir les fonctions en version fetchtByIndex, fetchByIdFromFile, fetchByIndexFromFile.
+// TODO (drx#1#04/23/23): Peut-être passer en lecture directe du fichier et éviter de passer par la capsule puis le Rwops
+// TODO (drx#1#08/26/23): Ajouter le BmpFont
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,6 +48,8 @@
 #include "CEV_maps.h"
 #include "CEV_parallax.h"
 #include "CEV_weather.h"
+#include "CEV_aniMini.h"
+#include "CEV_objects.h"
 
 /***** Local functions****/
 
@@ -83,26 +89,37 @@ static CEV_Parallax* L_capsuleToParallax(CEV_Capsule* caps);
 //raw to weather
 static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps);
 
+//raw to CEV_Animini
+static CEV_AniMini* L_capsuleToAniMini(CEV_Capsule* caps);
+
+//raw to object / performs selection
+static void* L_capsuleToObject(CEV_Capsule *caps);
+
 
 /*file manipulation*/
-static size_t L_gotoDataIndex(unsigned int index, FILE* file);  //unused in v2 ?
-static void L_gotoAndDiscard(unsigned int index, FILE *file);   //unused in v2 ?
+//static size_t L_gotoDataIndex(unsigned int index, FILE* file);  //unused in v2 ?
+//static void L_gotoAndDiscard(unsigned int index, FILE *file);   //unused in v2 ?
+
+//reads capsule from file
 static void L_capsuleDataTypeRead(FILE* src, CEV_Capsule* dst);
+
+//reads capsule from RWpos
 static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst);
 
 //return offset pos in file from id
-static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFileHolder* src);
+static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFile* src);
 
 //return offset pos in file from index
-static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFileHolder* src);
+static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFile* src);
 
-static void L_rsrcFileHolderHeaderRead(FILE* src, CEV_RsrcFileHolderHeader* dst);
+//reads resource file header
+static void L_rsrcFileHeaderRead(FILE* src, CEV_RsrcFileHeader* dst);
 
 
 //Ressource file handling
 
-int CEV_rsrcLoad(const char* fileName, CEV_RsrcFileHolder* dst)
-{//loads file & fills ressource holder _v2
+int CEV_rsrcLoad(const char* fileName, CEV_RsrcFile* dst)
+{//loads file & fills resource holder _v2
 
     int funcSts = FUNC_OK;
     FILE* src   = NULL;
@@ -123,7 +140,7 @@ int CEV_rsrcLoad(const char* fileName, CEV_RsrcFileHolder* dst)
 
     dst->numOfFiles = read_u32le(src);
 
-    dst->list = calloc(dst->numOfFiles, sizeof(CEV_RsrcFileHolderHeader));
+    dst->list = calloc(dst->numOfFiles, sizeof(CEV_RsrcFileHeader));
 
     if(IS_NULL(dst->list))
     {
@@ -132,9 +149,9 @@ int CEV_rsrcLoad(const char* fileName, CEV_RsrcFileHolder* dst)
         goto err_1;
     }
 
-    for(int i=0; i< dst->numOfFiles; i++)
+    for(unsigned i=0; i< dst->numOfFiles; i++)
     {
-        L_rsrcFileHolderHeaderRead(src, &dst->list[i]);
+        L_rsrcFileHeaderRead(src, &dst->list[i]);
     }
 
     return readWriteErr? FUNC_ERR : FUNC_OK;
@@ -147,16 +164,16 @@ err_1:
 }
 
 
-void CEV_rsrcClear(CEV_RsrcFileHolder* dst)
+void CEV_rsrcClear(CEV_RsrcFile* dst)
 {//clears structure content _v2
 
-    dst->numOfFiles = 0;
+    if(IS_NULL(dst))
+        return;
 
-    fclose(dst->fSrc);
     free(dst->list);
+    fclose(dst->fSrc);
 
-    dst->fSrc = NULL;
-    dst->list = NULL;
+    *dst = (CEV_RsrcFile){0};
 }
 
 
@@ -164,13 +181,11 @@ void CEV_rsrcClear(CEV_RsrcFileHolder* dst)
 /*----Type Any----*/
 
 
-void* CEV_anyFetch(uint32_t id, CEV_RsrcFileHolder* src)
+void* CEV_anyFetchById(uint32_t id, CEV_RsrcFile* src)
 {//returns finished load of any file type _v2
 
-    CEV_Capsule lCaps   = {NULL};//raw data informations
-
+    CEV_Capsule lCaps   = {0};//raw data informations
     void* result        = NULL; //result
-
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -178,18 +193,109 @@ void* CEV_anyFetch(uint32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    if (CEV_capsuleFetch(id, src, &lCaps) != FUNC_OK)//loads raw data into lCaps
-       goto exit;
+    if (CEV_capsuleFetchById(id, src, &lCaps) != FUNC_OK)//loads raw data into lCaps
+    {
+        fprintf(stderr, "Err at %s / %d : Failed fetching capsule.\n", __FUNCTION__, __LINE__ );
+        goto exit;
+    }
 
     result = CEV_capsuleExtract(&lCaps, true); //will free caps.data only if possible.
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Warn at %s / %d : Capsule extraction failed.\n", __FUNCTION__, __LINE__ );
+    }
 
 exit:
     return result;
 }
 
 
+void* CEV_anyFetchByIndex(uint32_t index, CEV_RsrcFile* src)
+{//returns finished load of any file type _v2
+
+    CEV_Capsule lCaps   = {0};//raw data informations
+    void* result        = NULL; //result
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if (CEV_capsuleFetchByIndex(index, src, &lCaps) != FUNC_OK)//loads raw data into lCaps
+    {
+        fprintf(stderr, "Err at %s / %d : Failed fetching capsule.\n", __FUNCTION__, __LINE__ );
+        goto exit;
+    }
+
+    result = CEV_capsuleExtract(&lCaps, true); //will free caps.data only if possible.
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Warn at %s / %d : Capsule extraction failed.\n", __FUNCTION__, __LINE__ );
+    }
+
+exit:
+    return result;
+}
+
+
+void* CEV_anyFetchByIdFromFile(uint32_t id, const char* fileName)
+{//returns finished load of any file from file
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_RsrcFile rsrc = {0}; //file handle
+    void *result = NULL;
+
+    if(!CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        result = CEV_anyFetchById(id, &rsrc);//fetching requested resource
+
+    if(IS_NULL(result))
+    {//on error
+        fprintf(stderr, "Err at %s / %d : Unable to load %08X from %s.\n", __FUNCTION__, __LINE__, id, fileName);
+    }
+
+    CEV_rsrcClear(&rsrc);//clearing
+
+    return result;
+}
+
+
+void* CEV_anyFetchByIndexFromFile(uint32_t index, const char* fileName)
+{//returns finished load of any file from file
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_RsrcFile rsrc = {0}; //file handle
+    void *result = NULL;
+
+    if(!CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        result = CEV_anyFetchByIndex(index, &rsrc);//fetching requested resource
+
+    if(IS_NULL(result))
+    {//on error
+        fprintf(stderr, "Err at %s / %d : Unable to load %08X from %s.\n", __FUNCTION__, __LINE__, index, fileName);
+    }
+
+    CEV_rsrcClear(&rsrc);//clearing
+
+    return result;
+}
+
+
+
 /*// TODO (drx#1#): à tester...
-void* CEV_anyFetchByIndex(uint32_t index, char* fileName, int* type)
+void* CEV_anyFetchByIdByIndex(uint32_t index, char* fileName, int* type)
 {
     void* result = NULL;
 
@@ -211,15 +317,15 @@ void* CEV_anyFetchByIndex(uint32_t index, char* fileName, int* type)
 
     if(index >= numOfFile)
     {
-        fprintf(stderr, "Err at %s / %d : Index provided is higher than ressources available in file.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Index provided is higher than resources available in file.\n", __FUNCTION__, __LINE__ );
         goto end;
     }
 
     //going to indexth header
     fseek(src, index * 64, SEEK_CUR);
 
-    CEV_RsrcFileHolderHeader header;
-    L_rsrcFileHolderHeaderRead(src, &header);
+    CEV_RsrcFileHeader header;
+    L_rsrcFileHeaderRead(src, &header);
 
     fseek(src, header.offset, SEEK_SET);
 
@@ -243,9 +349,8 @@ end:
 */
 
 
-int CEV_capsuleFetch(uint32_t id, CEV_RsrcFileHolder* src, CEV_Capsule* dst)
-{//gets capsule from file holder _v2
-
+int CEV_capsuleFetchById(uint32_t id, CEV_RsrcFile* src, CEV_Capsule* dst)
+{//gets capsule from file holder base on id
 
     if((src == NULL) || (dst == NULL))
     {//checking args
@@ -265,7 +370,72 @@ int CEV_capsuleFetch(uint32_t id, CEV_RsrcFileHolder* src, CEV_Capsule* dst)
 
     CEV_capsuleTypeRead(src->fSrc, dst);
 
-    return readWriteErr? FUNC_OK : FUNC_ERR;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
+}
+
+
+int CEV_capsuleFetchByIndex(uint32_t index, CEV_RsrcFile* src, CEV_Capsule* dst)
+{//gets capsule from file holder _based on index
+
+    if((src == NULL) || (dst == NULL))
+    {//checking args
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return ARG_ERR;
+    }
+
+    size_t offset = L_rsrcIndexToOffset(index, src);
+
+    if(!offset)
+    {
+        fprintf(stderr, "Err at %s / %d : id provided does not exist.\n", __FUNCTION__, __LINE__);
+        return FUNC_ERR;
+    }
+
+    fseek(src->fSrc, offset, SEEK_SET);
+
+    CEV_capsuleTypeRead(src->fSrc, dst);
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
+}
+
+
+int CEV_capsuleFetchByIdFromFile(uint32_t id, const char* fileName, CEV_Capsule* dst)
+{//gets capsule from file base on id
+
+    CEV_RsrcFile rsrc = {0};
+
+    if((fileName == NULL) || (dst == NULL))
+    {//checking args
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return ARG_ERR;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        CEV_capsuleFetchById(id, &rsrc, dst);
+
+    CEV_rsrcClear(&rsrc);
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
+}
+
+
+int CEV_capsuleFetchByIndexFromFile(uint32_t index, const char* fileName, CEV_Capsule* dst)
+{//gets capsule from file base on id
+
+    CEV_RsrcFile rsrc = {0};
+
+    if((fileName == NULL) || (dst == NULL))
+    {//checking args
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return ARG_ERR;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        CEV_capsuleFetchByIndex(index, &rsrc, dst);
+
+    CEV_rsrcClear(&rsrc);
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
 
@@ -273,7 +443,7 @@ int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName)
 {//fills Capsule from file _v2
 
     FILE* file  = NULL;
-    //readWriteErr = 0;
+    readWriteErr = 0;
 
     if(IS_NULL(caps) || IS_NULL(fileName))
     {
@@ -285,7 +455,7 @@ int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName)
 
     if (IS_NULL(file))
     {
-        printf("Err at %s / %d : unable to open file %s : %s\n", __FUNCTION__, __LINE__, fileName, strerror(errno));
+        printf("Err at %s / %d : Unable to open file %s : %s\n", __FUNCTION__, __LINE__, fileName, strerror(errno));
         return FUNC_ERR;
     }
 
@@ -327,7 +497,7 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
 
             if (returnVal == NULL)
             {
-                fprintf(stderr, "Err at %s / %d : unable to allocate returnVal :%s\n", __FUNCTION__, __LINE__, strerror(errno));
+                fprintf(stderr, "Err at %s / %d : %s\n", __FUNCTION__, __LINE__, strerror(errno));
                 goto exit;
             }
             CEV_memCopy(caps->data, returnVal, caps->size);
@@ -393,8 +563,16 @@ void* CEV_capsuleExtract(CEV_Capsule* caps, bool freeData)
             returnVal = L_capsuleToWeather(caps);
         break;
 
+        case IS_ANI :
+            returnVal = L_capsuleToAniMini(caps);
+        break;
+
+        case IS_OBJ :
+            returnVal = L_capsuleToObject(caps);
+        break;
+
         default :
-            fprintf(stderr,"Warn at %s / %d : unrecognized file format.\n", __FUNCTION__, __LINE__);//should not occur
+            fprintf(stderr,"Warn at %s / %d : Unrecognized file format.\n", __FUNCTION__, __LINE__);//should not occur
             return NULL;
         break;
     }
@@ -412,8 +590,8 @@ exit:
 SDL_Surface* CEV_surfaceLoad(const char* fileName)
 {//direct load from any file _v2
 
-    SDL_Surface *newSurface = NULL,
-                *tempSurface = NULL;
+    SDL_Surface *newSurface     = NULL,
+                *tempSurface    = NULL;
 
     if(fileName == NULL)
         return NULL;
@@ -423,7 +601,7 @@ SDL_Surface* CEV_surfaceLoad(const char* fileName)
     if(tempSurface == NULL)
         fprintf(stderr, "Err at %s / %d : %s\n", __FUNCTION__, __LINE__, IMG_GetError());
 
-    newSurface = SDL_ConvertSurfaceFormat(tempSurface, SDL_PIXELFORMAT_ABGR8888, 0);
+    newSurface = SDL_ConvertSurfaceFormat(tempSurface, CEV_PIXELFORMAT, 0);
     SDL_SetSurfaceBlendMode(newSurface, SDL_BLENDMODE_BLEND);
 
     SDL_FreeSurface(tempSurface);
@@ -433,12 +611,12 @@ SDL_Surface* CEV_surfaceLoad(const char* fileName)
 }
 
 
-SDL_Surface* CEV_surfaceFetch(uint32_t id, CEV_RsrcFileHolder* src)
-{//fetch data index as SDL_Surface in compiled file _v2
+SDL_Surface* CEV_surfaceFetchById(uint32_t id, CEV_RsrcFile* src)
+{//fetch data index as SDL_Surface from resources based on id
 
     SDL_Surface *surface    = NULL,
                 *temp       = NULL;
-    CEV_Capsule  lCaps      = {NULL};
+    CEV_Capsule  lCaps      = {0};
 
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
@@ -451,7 +629,7 @@ SDL_Surface* CEV_surfaceFetch(uint32_t id, CEV_RsrcFileHolder* src)
 
     if(!offset)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr, "Err at %s / %d : id %08X provided does not exist.\n", __FUNCTION__, __LINE__, id);
         return NULL;
     }
 
@@ -461,7 +639,7 @@ SDL_Surface* CEV_surfaceFetch(uint32_t id, CEV_RsrcFileHolder* src)
 
     if (!IS_PIC(lCaps.type))
     {
-        fprintf(stderr,"Err at %s / %d : id  %u provided is not a picture.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id  %08X provided is not a picture.\n", __FUNCTION__, __LINE__, id);
         goto err_1;
     }
 
@@ -473,7 +651,7 @@ SDL_Surface* CEV_surfaceFetch(uint32_t id, CEV_RsrcFileHolder* src)
         goto err_1;
     }
 
-    surface = SDL_ConvertSurfaceFormat(temp, SDL_PIXELFORMAT_ABGR8888, 0);
+    surface = SDL_ConvertSurfaceFormat(temp, CEV_PIXELFORMAT, 0);
 
     if(IS_NULL(surface))
     {
@@ -495,20 +673,168 @@ end:
 }
 
 
+SDL_Surface* CEV_surfaceFetchByIndex(uint32_t index, CEV_RsrcFile* src)
+{//fetch data index as SDL_Surface from resources based on index
+
+    SDL_Surface *surface    = NULL,
+                *temp       = NULL;
+    CEV_Capsule  lCaps      = {0};
+
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr,"Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        goto end;
+    }
+
+    size_t offset = L_rsrcIndexToOffset(index, src);
+
+    if(!offset)
+    {
+        fprintf(stderr, "Err at %s / %d : index %u provided does not exist.\n", __FUNCTION__, __LINE__, index);
+        return NULL;
+    }
+
+    fseek(src->fSrc, offset, SEEK_SET);
+
+    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+
+    if (!IS_PIC(lCaps.type))
+    {
+        fprintf(stderr,"Err at %s / %d : index  %u provided is not a picture.\n", __FUNCTION__, __LINE__, index);
+        goto err_1;
+    }
+
+    temp = IMG_Load_RW(SDL_RWFromMem(lCaps.data, lCaps.size), 1);
+
+    if(IS_NULL(temp))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, IMG_GetError());
+        goto err_1;
+    }
+
+    surface = SDL_ConvertSurfaceFormat(temp, CEV_PIXELFORMAT, 0);
+
+    if(IS_NULL(surface))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, IMG_GetError());
+        goto err_2;
+    }
+
+    SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND);
+
+
+err_2:
+    SDL_FreeSurface(temp);
+
+err_1:
+    CEV_capsuleClear(&lCaps);
+
+end:
+    return(surface);
+}
+
+
+SDL_Surface* CEV_surfaceFetchByIdFromFile(uint32_t id, const char* fileName)
+{//fetch data id as SDL_Surface from compiled file _v2
+
+    SDL_Surface *surface    = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr,"Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        goto end;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        surface = CEV_surfaceFetchById(id, &rsrc);
+
+    if(IS_NULL(surface))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load surface.\n", __FUNCTION__, __LINE__);
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+end:
+    return(surface);
+}
+
+
+SDL_Surface* CEV_surfaceFetchByIndexFromFile(uint32_t index, const char* fileName)
+{//fetch data index as SDL_Surface from compiled file _v2
+
+    SDL_Surface *surface    = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr,"Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        goto end;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        surface = CEV_surfaceFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(surface))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load surface.\n", __FUNCTION__, __LINE__);
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+end:
+    return(surface);
+}
+
+
+SDL_Surface* CEV_surfaceFromCapsule(CEV_Capsule* src, bool freeSrc)
+{//extracts surface from CEV_Capsule
+
+    SDL_Surface *result = NULL;
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL Arg provided.\n", __FUNCTION__, __LINE__ );
+        goto end;
+    }
+
+    if(!IS_PIC(src->type))
+    {
+        fprintf(stderr, "Err at %s / %d : CEV_Capsule is not picture.\n", __FUNCTION__, __LINE__ );
+        goto end;
+    }
+
+    SDL_RWops *ops      = SDL_RWFromConstMem(src->data, src->size);
+    SDL_Surface *loaded = IMG_Load_RW(ops, true);
+    result              = SDL_ConvertSurfaceFormat(loaded, CEV_PIXELFORMAT, 0);
+    SDL_FreeSurface(loaded);
+
+end:
+
+    if(freeSrc)
+        CEV_capsuleClear(src);
+
+    return result;
+}
+
 
 /*----SDL_Textures----*/
 
 SDL_Texture* CEV_textureLoad(const char* fileName)
 {//direct load from file as texture _v2
 
-    SDL_Texture     *texture = NULL;;
-    SDL_Renderer    *render  = CEV_videoSystemGet()->render;
+    SDL_Texture *texture    = NULL;;
+    SDL_Renderer *render    = CEV_videoSystemGet()->render;
 
     texture = IMG_LoadTexture(render, fileName);
 
     if(IS_NULL(texture))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load %s, %s\n",__FUNCTION__, __LINE__, fileName, IMG_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to load %s, %s\n",__FUNCTION__, __LINE__, fileName, IMG_GetError());
         return NULL;
     }
 
@@ -518,11 +844,11 @@ SDL_Texture* CEV_textureLoad(const char* fileName)
 }
 
 
-SDL_Texture* CEV_textureFetch(uint32_t id, CEV_RsrcFileHolder* src)
-{//fetchs data id as SDL_Texture in ressources _v2
+SDL_Texture* CEV_textureFetchById(uint32_t id, CEV_RsrcFile* src)
+{//fetchs data id as SDL_Texture in resources _v2
 
     SDL_Texture* texture    = NULL;
-    CEV_Capsule lCaps       = {NULL};
+    CEV_Capsule lCaps       = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -530,21 +856,11 @@ SDL_Texture* CEV_textureFetch(uint32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
-
-    if(!offset)
-    {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
-        return NULL;
-    }
-
-    fseek(src->fSrc, offset, SEEK_SET);
-
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if(!IS_PIC(lCaps.type))
-    {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not a picture.\n", __FUNCTION__, __LINE__, id);
+    {//checking we have pic
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not a picture.\n", __FUNCTION__, __LINE__, id);
         goto err_1;
     }
 
@@ -552,11 +868,11 @@ SDL_Texture* CEV_textureFetch(uint32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(texture))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load texture.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to load texture.\n", __FUNCTION__, __LINE__);
         goto err_1;
     }
 
-    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+    //SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 
 err_1:
     CEV_capsuleClear(&lCaps);
@@ -565,13 +881,11 @@ err_1:
 }
 
 
-/*-----Texts from compiled file-----*/
+SDL_Texture* CEV_textureFetchByIndex(uint32_t index, CEV_RsrcFile* src)
+{//fetchs data index as SDL_Texture in resources _v2
 
-CEV_Text* CEV_textFetch(uint32_t id, CEV_RsrcFileHolder* src)
-{//fetches CEV_Text in ressouces _v2
-
-    CEV_Text* result    = NULL;
-    CEV_Capsule lCaps   ={NULL};
+    SDL_Texture* texture    = NULL;
+    CEV_Capsule lCaps       = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -579,21 +893,102 @@ CEV_Text* CEV_textFetch(uint32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if(!IS_PIC(lCaps.type))
+    {//checking we have pic
+        fprintf(stderr,"Err at %s / %d : index %u provided is not a picture.\n", __FUNCTION__, __LINE__, index);
+        goto err_1;
+    }
+
+    texture = L_capsuleToPic(&lCaps);
+
+    if(IS_NULL(texture))
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr, "Err at %s / %d : Unable to load texture.\n", __FUNCTION__, __LINE__);
+        goto err_1;
+    }
+
+    //SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+
+err_1:
+    CEV_capsuleClear(&lCaps);
+
+    return(texture);
+}
+
+
+SDL_Texture* CEV_textureFetchByIdFromFile(uint32_t id, const char* fileName)
+{//fetchs data id as SDL_Texture in file
+
+    SDL_Texture* texture    = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return NULL;
     }
 
-    fseek(src->fSrc, offset, SEEK_SET);
+    if(CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        texture = CEV_textureFetchById(id, &rsrc);
 
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    if(IS_NULL(texture))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load texture.\n", __FUNCTION__, __LINE__);
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return(texture);
+}
+
+
+SDL_Texture* CEV_textureFetchByIndexFromFile(uint32_t index, const char* fileName)
+{//fetchs data index as SDL_Texture in file
+
+    SDL_Texture* texture    = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        texture = CEV_textureFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(texture))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load texture.\n", __FUNCTION__, __LINE__);
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return(texture);
+}
+
+
+/*-----Texts from compiled file-----*/
+
+CEV_Text* CEV_textFetchById(uint32_t id, CEV_RsrcFile* src)
+{//fetches CEV_Text from ressouces id based
+
+    CEV_Text* result    = NULL;
+    CEV_Capsule lCaps   ={0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if(lCaps.type != IS_DTX)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not text.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not text.\n", __FUNCTION__, __LINE__, id);
         goto err_1;
 
     }
@@ -602,7 +997,7 @@ CEV_Text* CEV_textFetch(uint32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load result.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load result.\n", __FUNCTION__, __LINE__ );
     }
 
 err_1 :
@@ -612,13 +1007,11 @@ err_1 :
 }
 
 
-/*----TTF_Font from compiled file----*/
+CEV_Text* CEV_textFetchByIndex(uint32_t index, CEV_RsrcFile* src)
+{//fetches CEV_Text from ressouces index based
 
-CEV_Font* CEV_fontFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetch font in compiled data file and fills lCaps _v2
-
-    CEV_Font* result    = NULL;
-    CEV_Capsule lCaps   = {NULL};
+    CEV_Text* result    = NULL;
+    CEV_Capsule lCaps   ={0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -626,21 +1019,101 @@ CEV_Font* CEV_fontFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if(lCaps.type != IS_DTX)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : index %u provided is not text.\n", __FUNCTION__, __LINE__, index);
+        goto err_1;
+
+    }
+
+    result = L_capsuleToTxt(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load result.\n", __FUNCTION__, __LINE__ );
+    }
+
+err_1 :
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Text* CEV_textFetchByIdFromFile(uint32_t id, const char* fileName)
+{//fetches CEV_Text from file id based
+
+    CEV_Text* result        = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return NULL;
     }
 
-    fseek(src->fSrc, offset, SEEK_SET);
+    if(CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        result = CEV_textFetchById(id, &rsrc);
 
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load result.\n", __FUNCTION__, __LINE__);
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return(result);
+}
+
+
+CEV_Text* CEV_textFetchByIndexFromFile(uint32_t index, const char* fileName)
+{//fetches CEV_Text from file index based
+
+    CEV_Text* result        = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(CEV_rsrcLoad(fileName, &rsrc)) //loading file
+        result = CEV_textFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load result.\n", __FUNCTION__, __LINE__);
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return(result);
+}
+
+
+
+/*----TTF_Font from compiled file----*/
+
+CEV_Font* CEV_fontFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetch font from resources id based
+
+    CEV_Font* result    = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if(lCaps.type != IS_FONT)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided is not font.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr, "Err at %s / %d : id %08X provided is not font.\n", __FUNCTION__, __LINE__, id);
         goto err_1;
     }
 
@@ -648,11 +1121,97 @@ CEV_Font* CEV_fontFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load font.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
     }
 
 err_1 :
     CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Font* CEV_fontFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetch font from resources index based
+
+    CEV_Font* result    = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
+
+    if(lCaps.type != IS_FONT)
+    {
+        fprintf(stderr, "Err at %s / %d : index %u provided is not font.\n", __FUNCTION__, __LINE__, index);
+        goto err_1;
+    }
+
+    result = L_capsuleToFont(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+err_1 :
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Font* CEV_fontFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch font from file id based
+
+    CEV_Font* result        = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_fontFetchById(id, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_Font* CEV_fontFetchByIndexFromFile(int32_t index,  const char* fileName)
+{//fetch font from file index based
+
+    CEV_Font* result        = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_fontFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
 
     return result;
 }
@@ -661,8 +1220,8 @@ err_1 :
 
 /*----WAV from compiled file----*/
 
-CEV_Chunk* CEV_waveFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetches wave in ressources _v2
+CEV_Chunk* CEV_waveFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetches wave in resources _v2
 
     CEV_Chunk * result  = NULL;
     CEV_Capsule lCaps   = {0};
@@ -673,21 +1232,11 @@ CEV_Chunk* CEV_waveFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
-
-    if(!offset)
-    {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
-        return NULL;
-    }
-
-    fseek(src->fSrc, offset, SEEK_SET);
-
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_WAV)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not wav.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not wav.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -695,11 +1244,97 @@ CEV_Chunk* CEV_waveFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load wav.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load wav.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
     CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Chunk* CEV_waveFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetches wave in resources _v2
+
+    CEV_Chunk * result  = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
+
+    if (lCaps.type != IS_WAV)
+    {
+        fprintf(stderr,"Err at %s / %d : index %u provided is not wav.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToWav(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load wav.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Chunk* CEV_waveFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch wave from file id based
+
+    CEV_Chunk* result       = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_waveFetchById(id, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load wave.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_Chunk* CEV_waveFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch wave from file index based
+
+    CEV_Chunk* result       = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_waveFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load wave.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
 
     return result;
 }
@@ -707,11 +1342,11 @@ end:
 
 /*---MUSIC from compiled file---*/
 
-CEV_Music* CEV_musicFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetches CEV_Music in ressources _v2
+CEV_Music* CEV_musicFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetches CEV_Music in resources id based
 
-    CEV_Music*  result  = NULL;
-    CEV_Capsule lCaps   = {NULL};
+    CEV_Music* result   = NULL;
+    CEV_Capsule lCaps   = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -719,21 +1354,11 @@ CEV_Music* CEV_musicFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
-
-    if(!offset)
-    {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
-        return NULL;
-    }
-
-    fseek(src->fSrc, offset, SEEK_SET);
-
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_MUSIC)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not music.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not music.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -741,7 +1366,7 @@ CEV_Music* CEV_musicFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load music.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load music.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
@@ -751,13 +1376,11 @@ end:
 }
 
 
-/*----animations from compiled file----*/
+CEV_Music* CEV_musicFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetches CEV_Music in resources index based
 
-SP_Anim* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetch sprite in ressources _v2
-
-    SP_Anim* result = NULL;
-    CEV_Capsule lCaps   = {NULL};
+    CEV_Music* result   = NULL;
+    CEV_Capsule lCaps   = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -765,21 +1388,100 @@ SP_Anim* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if (lCaps.type != IS_MUSIC)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : index %u provided is not music.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToMusic(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load music.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Music* CEV_musicFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch music from file id based
+
+    CEV_Music* result       = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return NULL;
     }
 
-    fseek(src->fSrc, offset, SEEK_SET);
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_musicFetchById(id, &rsrc);
 
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load music.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_Music* CEV_musicFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch music from file index based
+
+    CEV_Music* result       = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_musicFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load music.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+
+/*----animations (sprite resource) from compiled file----*/
+
+SP_Anim* CEV_animFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetch sprite in resources id based _v2
+
+    SP_Anim* result     = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_SPS)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not sprite.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not sprite.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -787,7 +1489,7 @@ SP_Anim* CEV_animListFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load sprite.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load sprite.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
@@ -797,11 +1499,11 @@ end:
 }
 
 
-CEV_GifAnim* CEV_gifFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetch gif file in ressources _v2
+SP_Anim* CEV_animFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetch sprite in resources index based _v2
 
-    CEV_GifAnim* result = NULL;
-    CEV_Capsule  lCaps  = {NULL};
+    SP_Anim* result     = NULL;
+    CEV_Capsule lCaps   = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -809,21 +1511,100 @@ CEV_GifAnim* CEV_gifFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if (lCaps.type != IS_SPS)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : index %u provided is not sprite.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToAnim(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load sprite.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+SP_Anim* CEV_animFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch SP_Anim from file id based
+
+    SP_Anim* result         = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return NULL;
     }
 
-    fseek(src->fSrc, offset, SEEK_SET);
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_animFetchById(id, &rsrc);
 
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load sprite.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+SP_Anim* CEV_animFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch SP_Anim from file index based
+
+    SP_Anim* result         = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_animFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load sprite.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+
+/*----gif animation from compiled file----*/
+
+CEV_GifAnim* CEV_gifFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetch gif file in resources by id _v2
+
+    CEV_GifAnim* result = NULL;
+    CEV_Capsule  lCaps  = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_GIF)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not gif.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not gif.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -831,7 +1612,7 @@ CEV_GifAnim* CEV_gifFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load gif.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load gif.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
@@ -841,13 +1622,11 @@ end:
 }
 
 
-/*----Scroll fetch----*/
+CEV_GifAnim* CEV_gifFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetch gif file in resources by index _v2
 
-CEV_ScrollText* CEV_scrollFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetches scroll text in compiled data file _v2
-
-    CEV_ScrollText* result = NULL;
-    CEV_Capsule     lCaps  = {NULL};
+    CEV_GifAnim* result = NULL;
+    CEV_Capsule  lCaps  = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -855,21 +1634,100 @@ CEV_ScrollText* CEV_scrollFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if (lCaps.type != IS_GIF)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : index %u provided is not gif.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToGif(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load gif.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_GifAnim* CEV_gifFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch CEV_GifAnim from file id based
+
+    CEV_GifAnim* result     = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return NULL;
     }
 
-    fseek(src->fSrc, offset, SEEK_SET);
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_gifFetchById(id, &rsrc);
 
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load gif.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_GifAnim* CEV_gifFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch CEV_GifAnim from file index based
+
+    CEV_GifAnim* result     = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_gifFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load gif.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+
+/*----Scroll fetch----*/
+
+CEV_ScrollText* CEV_scrollFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetches scroll text in compiled data file _v2
+
+    CEV_ScrollText* result  = NULL;
+    CEV_Capsule lCaps       = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_SCROLL)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not scroller.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not scroller.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -877,11 +1735,97 @@ CEV_ScrollText* CEV_scrollFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load scroller.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load scroller.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
     CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_ScrollText* CEV_scrollFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetches scroll text in compiled data file _v2
+
+    CEV_ScrollText* result  = NULL;
+    CEV_Capsule lCaps       = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
+
+    if (lCaps.type != IS_SCROLL)
+    {
+        fprintf(stderr,"Err at %s / %d : index %u provided is not scroller.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToScroll(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load scroller.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_ScrollText* CEV_scrollFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch CEV_ScrollText from file id based
+
+    CEV_ScrollText* result  = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_scrollFetchById(id, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_ScrollText* CEV_scrollFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch CEV_ScrollText from file index based
+
+    CEV_ScrollText* result  = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_scrollFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
 
     return result;
 }
@@ -889,11 +1833,11 @@ end:
 
 /*-----menu fetch-----*/
 
-CEV_Menu* CEV_menuFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetch menu in compiled data file
+CEV_Menu* CEV_menuFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetch menu in compiled data file by id
 
-    CEV_Menu* result = NULL;
-    CEV_Capsule     lCaps  = {NULL};
+    CEV_Menu* result    = NULL;
+    CEV_Capsule lCaps   = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -901,21 +1845,11 @@ CEV_Menu* CEV_menuFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
-
-    if(!offset)
-    {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
-        return NULL;
-    }
-
-    fseek(src->fSrc, offset, SEEK_SET);
-
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_SCROLL)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not scroller.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not scroller.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -923,7 +1857,7 @@ CEV_Menu* CEV_menuFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load scroller.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load scroller.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
@@ -933,13 +1867,11 @@ end:
 }
 
 
-/*---- map fetch ----*/
+CEV_Menu* CEV_menuFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetch menu in compiled data file by index
 
-CEV_TileMap* CEV_mapFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetches tile map from ressources _v2
-
-    CEV_TileMap *result = NULL;
-    CEV_Capsule lCaps   = {NULL};
+    CEV_Menu* result    = NULL;
+    CEV_Capsule lCaps   = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -947,21 +1879,100 @@ CEV_TileMap* CEV_mapFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if (lCaps.type != IS_SCROLL)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : index %u provided is not scroller.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToMenu(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load scroller.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Menu* CEV_menuFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch CEV_Menu from file id based
+
+    CEV_Menu* result        = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return NULL;
     }
 
-    fseek(src->fSrc, offset, SEEK_SET);
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_menuFetchById(id, &rsrc);
 
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_Menu* CEV_menuFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch CEV_Menu from file index based
+
+    CEV_Menu* result        = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_menuFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load font.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+
+/*---- map fetch ----*/
+
+CEV_TileMap* CEV_mapFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetches tile CEV_TileMap resources by id _v2
+
+    CEV_TileMap *result = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_MAP)
     {
-        fprintf(stderr,"Warn at %s / %d : id %u provided is not map.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Warn at %s / %d : id %08X provided is not map.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -969,11 +1980,97 @@ CEV_TileMap* CEV_mapFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load map.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load map.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
     CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_TileMap* CEV_mapFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetches tile CEV_TileMap resources by index _v2
+
+    CEV_TileMap *result = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
+
+    if (lCaps.type != IS_MAP)
+    {
+        fprintf(stderr,"Warn at %s / %d : index %u provided is not map.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToMap(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load map.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_TileMap* CEV_mapFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch CEV_TileMap from file id based
+
+    CEV_TileMap* result     = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_mapFetchById(id, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load map.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_TileMap* CEV_mapFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch CEV_TileMap from file index based
+
+    CEV_TileMap* result     = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_mapFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load map.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
 
     return result;
 }
@@ -981,11 +2078,11 @@ end:
 
 /*----background parallax fetch ----*/
 
-CEV_Parallax* CEV_parallaxFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetch parallax background from ressources _v2
+CEV_Parallax* CEV_parallaxFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetch CEV_Parallax from resources by id _v2
 
-    CEV_Parallax    *result = NULL;
-    CEV_Capsule     lCaps   = {NULL};
+    CEV_Parallax * result   = NULL;
+    CEV_Capsule lCaps       = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -993,21 +2090,11 @@ CEV_Parallax* CEV_parallaxFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
-
-    if(!offset)
-    {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
-        return NULL;
-    }
-
-    fseek(src->fSrc, offset, SEEK_SET);
-
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
+    CEV_capsuleFetchById(id, src, &lCaps);
 
     if (lCaps.type != IS_PRLX)
     {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not parallax.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not parallax.\n", __FUNCTION__, __LINE__, id);
         goto end;
     }
 
@@ -1015,7 +2102,7 @@ CEV_Parallax* CEV_parallaxFetch(int32_t id, CEV_RsrcFileHolder* src)
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load parallax.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load parallax.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
@@ -1025,13 +2112,11 @@ end:
 }
 
 
-/*----weather fetch----*/
+CEV_Parallax* CEV_parallaxFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetch CEV_Parallax from resources by index _v2
 
-CEV_Weather* CEV_weatherFetch(int32_t id, CEV_RsrcFileHolder* src)
-{//fetches weather from ressources
-
-    CEV_Weather     *result = NULL;
-    CEV_Capsule     lCaps   = {NULL};
+    CEV_Parallax* result    = NULL;
+    CEV_Capsule lCaps       = {0};
 
     if(IS_NULL(src) || IS_NULL(src->fSrc))
     {
@@ -1039,29 +2124,19 @@ CEV_Weather* CEV_weatherFetch(int32_t id, CEV_RsrcFileHolder* src)
         return NULL;
     }
 
-    size_t offset = L_rsrcIdToOffset(id, src);
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
 
-    if(!offset)
+    if (lCaps.type != IS_PRLX)
     {
-        fprintf(stderr, "Err at %s / %d : id %u provided does not exist.\n", __FUNCTION__, __LINE__, id);
-        return NULL;
-    }
-
-    fseek(src->fSrc, offset, SEEK_SET);
-
-    CEV_capsuleTypeRead(src->fSrc, &lCaps);
-
-    if (lCaps.type != IS_WTHR)
-    {
-        fprintf(stderr,"Err at %s / %d : id %u provided is not weather.\n", __FUNCTION__, __LINE__, id);
+        fprintf(stderr,"Err at %s / %d : index %u provided is not parallax.\n", __FUNCTION__, __LINE__, index);
         goto end;
     }
 
-    result = L_capsuleToWeather(&lCaps);
+    result = L_capsuleToParallax(&lCaps);
 
     if(IS_NULL(result))
     {
-        fprintf(stderr, "Err at %s / %d : unable to load weather.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to load parallax.\n", __FUNCTION__, __LINE__ );
     }
 
 end:
@@ -1070,6 +2145,179 @@ end:
     return result;
 }
 
+
+CEV_Parallax* CEV_parallaxFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch CEV_Parallax from file id based
+
+    CEV_Parallax* result    = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_parallaxFetchById(id, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load Parallax.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_Parallax* CEV_parallaxFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch CEV_Parallax from file index based
+
+    CEV_Parallax* result    = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_parallaxFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load Parallax.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+/*----weather fetch----*/
+
+CEV_Weather* CEV_weatherFetchById(int32_t id, CEV_RsrcFile* src)
+{//fetches weather from resources by id
+
+    CEV_Weather *result = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchById(id, src, &lCaps);
+
+    if (lCaps.type != IS_WTHR)
+    {
+        fprintf(stderr,"Err at %s / %d : id %08X provided is not weather.\n", __FUNCTION__, __LINE__, id);
+        goto end;
+    }
+
+    result = L_capsuleToWeather(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load weather.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Weather* CEV_weatherFetchByIndex(int32_t index, CEV_RsrcFile* src)
+{//fetches weather from resources by index
+
+    CEV_Weather *result = NULL;
+    CEV_Capsule lCaps   = {0};
+
+    if(IS_NULL(src) || IS_NULL(src->fSrc))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    CEV_capsuleFetchByIndex(index, src, &lCaps);
+
+    if (lCaps.type != IS_WTHR)
+    {
+        fprintf(stderr,"Err at %s / %d : index %u provided is not weather.\n", __FUNCTION__, __LINE__, index);
+        goto end;
+    }
+
+    result = L_capsuleToWeather(&lCaps);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load weather.\n", __FUNCTION__, __LINE__ );
+    }
+
+end:
+    CEV_capsuleClear(&lCaps);
+
+    return result;
+}
+
+
+CEV_Weather* CEV_weatherFetchByIdFromFile(int32_t id, const char* fileName)
+{//fetch CEV_Weather from file id based
+
+    CEV_Weather *result     = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_weatherFetchById(id, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load weather.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
+
+
+CEV_Weather* CEV_weatherFetchByIndexFromFile(int32_t index, const char* fileName)
+{//fetch CEV_Weather from file index based
+
+    CEV_Weather* result     = NULL;
+    CEV_RsrcFile rsrc = {0};
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    if(!CEV_rsrcLoad(fileName, &rsrc))
+        result = CEV_weatherFetchByIndex(index, &rsrc);
+
+    if(IS_NULL(result))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to load weather.\n", __FUNCTION__, __LINE__ );
+    }
+
+    CEV_rsrcClear(&rsrc);
+
+    return result;
+}
 
 /*----- Encapsulation -----*/
 
@@ -1146,17 +2394,19 @@ int CEV_idTofType(uint32_t id)
 
 char* CEV_idToExt(uint32_t id)
 {//id to file extension
+
     return CEV_fTypeToExt(CEV_idTofType(id));
 }
 
 
 uint32_t CEV_ftypeToId(int type)
 {//file type to id
+
     return type<<24;
 }
 
 
-int CEV_fTypeFromName(char* fileName)
+int CEV_fTypeFromName(const char* fileName)
 {//turns file extention into file type enum
 
     char *extList[FILE_TYPE_NUM] = FILE_TYPE_LIST;  //list of known ext
@@ -1215,7 +2465,7 @@ static CEV_Text* L_capsuleToTxt(CEV_Capsule* caps)
     CEV_Text* result = CEV_textLoad_RW(vFile, 1);
 
     if(IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create texte from data.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to create texte from data.\n", __FUNCTION__, __LINE__);
 
     return(result);
 }
@@ -1271,7 +2521,7 @@ static CEV_GifAnim *L_capsuleToGif(CEV_Capsule* caps)
     CEV_GifAnim* result     = CEV_gifAnimLoadRW(vFile, render, 1); //closes rwops
 
     if(result == NULL)
-        fprintf(stderr, "Err at %s / %d : unable to create animation from data.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to create animation from data.\n", __FUNCTION__, __LINE__);
 
     return result;
 }
@@ -1290,7 +2540,7 @@ static CEV_Chunk* L_capsuleToWav(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))//MIX does not check SDL_RWops* != NULL better do it myself*/
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
@@ -1306,7 +2556,7 @@ static CEV_Chunk* L_capsuleToWav(CEV_Capsule* caps)
 
     if (IS_NULL(result))
     {
-         fprintf(stderr, "Err at %s / %d : unable to allocate : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+         fprintf(stderr, "Err at %s / %d : Unable to allocate : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
          goto err;
     }
 
@@ -1335,7 +2585,7 @@ static CEV_Music* L_capsuleToMusic(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))//MIX does not check SDL_RWops* != NULL better do it myself*/
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
@@ -1351,7 +2601,7 @@ static CEV_Music* L_capsuleToMusic(CEV_Capsule* caps)
 
     if (result == NULL)
     {
-         fprintf(stderr, "Err at %s / %d : unable to allocate result : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+         fprintf(stderr, "Err at %s / %d : Unable to allocate result : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
          goto err;
     }
 
@@ -1379,7 +2629,7 @@ static CEV_Font* L_capsuleToFont(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
@@ -1395,7 +2645,7 @@ static CEV_Font* L_capsuleToFont(CEV_Capsule* caps)
 
     if (IS_NULL(result))
     {
-         fprintf(stderr, "Err at %s / %d : unable to allocate result: %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+         fprintf(stderr, "Err at %s / %d : Unable to allocate result: %s.\n", __FUNCTION__, __LINE__, strerror(errno));
          goto err;
     }
 
@@ -1423,14 +2673,14 @@ static SP_Anim* L_capsuleToAnim(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
     SP_Anim *result = NULL;//SP_animListLoad_RW(vFile, 1);
 
     if (IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create animSet.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to create animSet.\n", __FUNCTION__, __LINE__);
 
 
     return result;
@@ -1450,14 +2700,14 @@ static CEV_TileMap* L_capsuleToMap(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
     CEV_TileMap *result = CEV_mapLoad_RW(vFile, 1);
 
     if (IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create map.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to create map.\n", __FUNCTION__, __LINE__);
 
     return result;
 }
@@ -1476,14 +2726,14 @@ static CEV_Menu* L_capsuleToMenu(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
     CEV_Menu* result = CEV_menuLoad_RW(vFile, 1);
 
     if(IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create text scroll.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to create text scroll.\n", __FUNCTION__, __LINE__ );
 
     return result;
 
@@ -1504,14 +2754,14 @@ static CEV_ScrollText* L_capsuleToScroll(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
     CEV_ScrollText* result = CEV_scrollLoad_RW(vFile, 1);
 
     if(IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create text scroll.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : Unable to create text scroll.\n", __FUNCTION__, __LINE__ );
 
     return result;
 }
@@ -1530,14 +2780,14 @@ static CEV_Parallax* L_capsuleToParallax(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
     CEV_Parallax *result = CEV_parallaxLoad_RW(vFile, 1);
 
     if(IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create parallax.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to create parallax.\n", __FUNCTION__, __LINE__);
 
     return  result;
 }
@@ -1556,16 +2806,65 @@ static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps)
 
     if (IS_NULL(vFile))
     {
-        fprintf(stderr, "Err at %s / %d : unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
         return NULL;
     }
 
     CEV_Weather* result = CEV_weatherLoad_RW(vFile, 1);
 
     if (IS_NULL(result))
-        fprintf(stderr, "Err at %s / %d : unable to create weather.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : Unable to create weather.\n", __FUNCTION__, __LINE__);
 
     return result;
+}
+
+
+
+static CEV_AniMini* L_capsuleToAniMini(CEV_Capsule* caps)
+{//converts to Animini
+
+    if (IS_NULL(caps) || (!caps->size) || IS_NULL(caps->data))
+    {//bad arg
+        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    SDL_RWops* vFile = SDL_RWFromMem(caps->data, caps->size);
+
+    if (IS_NULL(vFile))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        return NULL;
+    }
+
+    CEV_AniMini* result = CEV_aniMiniLoad_RW(vFile, 1);
+
+    if (IS_NULL(result))
+        fprintf(stderr, "Err at %s / %d : Unable to create weather.\n", __FUNCTION__, __LINE__);
+
+    return result;
+
+}
+
+
+static void* L_capsuleToObject(CEV_Capsule *caps)
+{//converts to object
+
+    if (IS_NULL(caps) || (!caps->size) || IS_NULL(caps->data))
+    {//bad arg
+        fprintf(stderr, "Err at %s / %d : argument error.\n", __FUNCTION__, __LINE__);
+        return NULL;
+    }
+
+    SDL_RWops* vFile = SDL_RWFromMem(caps->data, caps->size);
+
+    if (IS_NULL(vFile))
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to create virtual file : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
+        return NULL;
+    }
+
+   return (void*)CEV_objectLoad_RW(vFile, true);
 }
 
 
@@ -1584,7 +2883,7 @@ static void L_capsuleDataTypeRead(FILE* src, CEV_Capsule* dst)
     }
     else if (fread(dst->data, 1, dst->size, src) != dst->size)
     {
-        fprintf(stderr, "Err at %s / %d : unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        fprintf(stderr, "Err at %s / %d : Unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         CEV_capsuleClear(dst);
         readWriteErr++;
     }
@@ -1610,7 +2909,7 @@ static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst)
     }
     else if (SDL_RWread(src, dst->data, 1, dst->size) != dst->size)
     {
-        fprintf(stderr, "Err at %s / %d : unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        fprintf(stderr, "Err at %s / %d : Unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         CEV_capsuleClear(dst);
         readWriteErr++;
     }
@@ -1618,13 +2917,13 @@ static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst)
 
 
 
-static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFileHolder* src)
+static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFile* src)
 {//finds offset of an id
 
     if(IS_NULL(src) || IS_NULL(src->list))
         return 0;
 
-    for(int i=0; i<src->numOfFiles; i++)
+    for(unsigned i=0; i<src->numOfFiles; i++)
     {
         if(src->list[i].id == id)
             return src->list[i].offset;
@@ -1635,7 +2934,7 @@ static size_t L_rsrcIdToOffset(uint32_t id, CEV_RsrcFileHolder* src)
 }
 
 
-static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFileHolder* src)
+static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFile* src)
 {//finds offset of an id
 
     if(IS_NULL(src) || IS_NULL(src->list))
@@ -1648,8 +2947,9 @@ static size_t L_rsrcIndexToOffset(uint32_t index, CEV_RsrcFileHolder* src)
 }
 
 
-static void L_rsrcFileHolderHeaderRead(FILE* src, CEV_RsrcFileHolderHeader* dst)
-{
+static void L_rsrcFileHeaderRead(FILE* src, CEV_RsrcFileHeader* dst)
+{//reads resource file header
+
     dst->id     = read_u32le(src);
     dst->offset = (size_t)read_u32le(src);
 

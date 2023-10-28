@@ -43,7 +43,6 @@ text et mseBox.
 
 
 
-/**Direct value display*/
  /** \brief displays value from TTF font.
  *
  * \param val : value to be displayed.
@@ -53,12 +52,12 @@ text et mseBox.
  * \param mode : display align mode.
  * \param ratio : ratio of FONT_MAX.
  *
- * \return one of function status
+ * \return one of function status.
  */
 int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio);
 
 
-/**Direct text display*/
+
 /** \brief displays text from TTF font.
  *
  * \param text : text to be displayed.
@@ -69,17 +68,17 @@ int CEV_dispValue(const int val, TTF_Font *font, SDL_Color colour, SDL_Point poi
  * \param mode : display align mode.
  * \param ratio : ratio of FONT_MAX.
  *
- * \return one of function status
+ * \return one of function status.
  */
  int CEV_dispText(const char *text,TTF_Font *font, SDL_Color colour, SDL_Point point, int mode, float ratio);
 
 
-/** \brief display simple warning box
+/** \brief display simple warning box.
 *
-* \param title : box title
-* \param message : message to display
+* \param title : box title.
+* \param message : message to display.
 *
-* \return N/A
+* \return N/A.
 */
 void CEV_dispWarning(char *title, char *message);
 
@@ -101,25 +100,25 @@ int CEV_dispConfirm(char *title, char* message);
 * \param opt0 : first choice text (escape key).
 * \param opt1 : second choice text (return key).
 *
-* \return 1 as "opt1", <=0 otherwise
+* \return 1 as "opt1", <=0 otherwise.
 */
 int CEV_dispChoice2(char *title, char* message, char* opt0, char* opt1);
 
 
-/** \brief display simple choice box
+/** \brief display simple choice box.
 *
-* \param title : box title
-* \param message : message to display
+* \param title : box title.
+* \param message : message to display.
 * \param opt0 : first choice text (escape key).
 * \param opt1 : second choice text.
 * \param opt2 : third choice text (return key).
 *
-* \return int : as selected option
+* \return int : as selected option.
 */
 int CEV_dispChoice3(char *title, char* message, char* opt0, char* opt1, char* opt2);
 
-/**Texture from font**/
-/** \brief creates SDL_Texture*.
+
+/** \brief creates SDL_Texture* from font.
  *
  * \param text : text to be displayed on texture.
  * \param font : the font text is base upon.
@@ -145,8 +144,9 @@ void CEV_renderColorSet(SDL_Renderer* render, SDL_Color color);
  * \param render SDL_Renderer* to fetch color from.
  * \param color SDL_Color* to store color into.
  *
- * \return N/A
- */void CEV_renderColorGet(SDL_Renderer* render, SDL_Color* color);
+ * \return N/A.
+ */
+ void CEV_renderColorGet(SDL_Renderer* render, SDL_Color* color);
 
 
 /**adjusts display position*/

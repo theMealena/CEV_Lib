@@ -24,16 +24,18 @@
 #define SCREEN_WIDTH    (CEV_videoSystemGet()->info.logicW)
 #define SCREEN_HEIGHT   (CEV_videoSystemGet()->info.logicH)
 
-/*SDLinit flags*/
+//SDLinit flags
 #define CEV_SDL_FLAG        (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER)
-/*SDL window*/
-#define CEV_WIN_FLAG        (0/*| SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP*/)
-/*SDL_Render*/
+//SDL window
+#define CEV_WIN_FLAG        (0 /*| SDL_WINDOW_BORDERLESS| SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP*/)
+//SDL_Render
 #define CEV_RENDER_FLAG     (SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)
-/*SDL_IMG*/
+//SDL_IMG
 #define CEV_SDL_IMG_FLAG    (IMG_INIT_JPG | IMG_INIT_PNG)
-/*SDL_Mixer*/
+//SDL_Mixer
 #define CEV_MIX_FLAG        (/*MIX_INIT_MOD | */MIX_INIT_MP3)
+
+#define CEV_PIXELFORMAT SDL_PIXELFORMAT_ABGR32
 
 
 #define CEV_MUSIC_VOLUME    (MIX_MAX_VOLUME/4)
@@ -42,10 +44,10 @@
 #define CEV_MIX_FORMAT      MIX_DEFAULT_FORMAT
 #define CEV_MONO            1
 #define CEV_STEREO          2
-#define CEV_CHANNEL_NUM     16      /*number of channel to be used*/
-#define CEV_CHUNK_SIZE      2048    /*sound chunk bitsize*/
+#define CEV_CHANNEL_NUM     16      //number of channel to be used
+#define CEV_CHUNK_SIZE      2048    //sound chunk bitsize
 
-#define CEV_AUTO_SIZE 0 //automatically find display ratio
+#define CEV_AUTO_SIZE 0 //automatically finds display ratio
 
 
 #ifdef __cplusplus
@@ -114,51 +116,51 @@ CEV_MainSystem;
         /*USER END FUNCTIONS*/
 
 
-/** \brief initialze most common system as display and sound
+/** \brief initialze most common system as display and sound.
  *-SDL
  *-SDL_mixer
  *-TTF
  *-SDL_IMG
- * \return any of function status
+ * \return any of function status.
  */
 int CEV_systemInit(void);
 
 
 
-/** \brief free / close all sub systems
+/** \brief free / close all sub systems.
  *
- * \return N/A
+ * \return N/A.
  */
 void CEV_systemClose(void);
 
 
-/** \brief fetches main system
+/** \brief fetches main system.
  *
- * \return CEV_MainSystem* or NULL if system not defined
+ * \return CEV_MainSystem* or NULL if system not defined.
  */
 CEV_MainSystem* CEV_systemGet(void);
 
 
-/** \brief fetches sound system
+/** \brief fetches sound system.
  *
- * \return CEV_SoundSystem* or NULL if not defined
+ * \return CEV_SoundSystem* or NULL if not defined.
  */
 CEV_SoundSystem* CEV_soundSystemGet(void);
 
 
-/** \brief fetches video system
+/** \brief fetches video system.
  *
- * \return CEV_VideoSystem* or NULL if not defined
+ * \return CEV_VideoSystem* or NULL if not defined.
  *
  */
 CEV_VideoSystem* CEV_videoSystemGet(void);
 
 
-/** \brief fetch loaded music
+/** \brief fetch loaded music.
  *
- * \param N/A
+ * \param N/A.
  *
- * \return valid ptr or NULL if empty
+ * \return valid ptr or NULL if empty.
  */
 CEV_Music *CEV_playingMusicGet(void);
 

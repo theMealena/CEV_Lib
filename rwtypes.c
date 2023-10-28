@@ -22,6 +22,7 @@ uint8_t read_u8(FILE* f)
     return b;
 }
 
+
 int8_t read_s8(FILE* f)
 {
     int8_t b;
@@ -31,12 +32,14 @@ int8_t read_s8(FILE* f)
     return b;
 }
 
+
 void write_u8(uint8_t val, FILE* f)
 {/*ecriture u8 dans fichier*/
 
    if(fwrite(&val, 1, sizeof(val), f) != sizeof(val))
         readWriteErr++;
 }
+
 
 void write_s8(int8_t val, FILE *f)
 {/*ecriture s8 dans fichier*/
@@ -263,6 +266,7 @@ void write_s64le(int64_t val, FILE*f)
     write_u64le((uint64_t) val, f);
 }
 
+
 uint64_t read_u64be(FILE* f)
 {/*lecture dans fichier be*/
     uint8_t b[8];
@@ -289,7 +293,6 @@ int64_t read_s64be(FILE* f)
             (uint64_t)b[4]<<24 | (uint64_t)b[5]<<16 |
             (uint64_t)b[6]<<8 | (uint64_t)b[7];
 }
-
 
 
 void write_u64be(uint64_t val, FILE*f)

@@ -177,7 +177,7 @@ void GIFL_gifFileFree(L_GifFile *gif)
     if(gif == NULL)
         return;
 
-    for(int i=0; i<gif->imgNum; i++)
+    for(unsigned i=0; i<gif->imgNum; i++)
     {
         free(gif->image[i].localColor.table);
         free(gif->image[i].imageData);
@@ -468,8 +468,6 @@ static void L_gifLsdPackRead_RW(SDL_RWops* src, L_GifLSDpack* dst)
 static void L_gifColorTabRead_RW(unsigned int numOfColor, SDL_RWops* src, L_GifColorTable *dst)
 {/*fills color table*/
 
-    int i;
-
     dst->table = malloc(numOfColor*sizeof(L_GifColor));
 
     if (dst->table == NULL)
@@ -481,7 +479,7 @@ static void L_gifColorTabRead_RW(unsigned int numOfColor, SDL_RWops* src, L_GifC
 
     dst->numOfColors = numOfColor;
 
-    for(i= 0; i<numOfColor; i++)
+    for(unsigned i= 0; i<numOfColor; i++)
     {
         dst->table[i].r = SDL_ReadU8(src);
         dst->table[i].g = SDL_ReadU8(src);
@@ -687,11 +685,10 @@ static uint16_t L_gifGetBitFieldValue16(void *data, unsigned int *bitStart, size
 
 static void L_gifDicoInit(L_GifDico * dico, unsigned int code)
 {/*init dictionnary*/
-    int i;
 
     dico->actSize = code+2;
 
-    for(i=0; i< code; i++)
+    for(unsigned i=0; i< code; i++)
     {
         dico->entry[i].prev  = -1;
         dico->entry[i].value = (uint8_t)i;

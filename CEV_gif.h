@@ -17,17 +17,17 @@ extern "C" {
 #endif
 
 
-/** \brief reading mode
+/** \brief reading mode.
  */
 typedef enum GIF_MODE
 {
-    GIF_ALL        = -1,
-    GIF_REPEAT_FOR = 0,
-    GIF_ONCE_FOR   = 1,
-    GIF_FORTH_BACK = 2,
-    GIF_REPEAT_REV = 3,
-    GIF_ONCE_REV   = 4,
-    GIF_STOP       = 5
+    GIF_ALL        = -1,    /**< All / Everything. */
+    GIF_REPEAT_FOR = 0,     /**< Plays repeatedly forward. */
+    GIF_ONCE_FOR   = 1,     /**< Plays once forward and stops. */
+    GIF_FORTH_BACK = 2,     /**< Plays repeatedly forth and back. */
+    GIF_REPEAT_REV = 3,     /**< Plays repeatedly backward. */
+    GIF_ONCE_REV   = 4,     /**< Plays once backward and stops. */
+    GIF_STOP       = 5      /**< Stops playing. */
 }
 GIF_MODE;
 
@@ -35,19 +35,19 @@ GIF_MODE;
  */
 typedef enum GIF_METHOD
 {
-    METHOD_OVERWRITE  = 1,
-    METHOD_REDRAW     = 2
+    METHOD_OVERWRITE  = 1,  /**< Overwrites upon existing. */
+    METHOD_REDRAW     = 2   /**< Wipes everything before writting. */
 }
 GIF_METHOD;
 
 enum
 {
-    GIF_FATAL   = -2,
-    GIF_ERR     = -1,
-    GIF_OK      = 0
+    GIF_FATAL   = -2,   /**< Fatal error occured. */
+    GIF_ERR     = -1,   /**< Error occured. */
+    GIF_OK      = 0     /**< Ok. */
 };
 
-/** \brief gif animation instance
+/** \brief gif animation instance.
  */
 typedef struct CEV_GifAnim CEV_GifAnim;
 
@@ -161,7 +161,7 @@ void CEV_gifTimeSet(CEV_GifAnim *anim, int index, uint16_t timeMs);
  *
  * \return N/A
  *
- * \sa _GIF_MODE
+ * \sa GIF_MODE
  */
 void CEV_gifLoopMode(CEV_GifAnim *anim, unsigned int loopMode);
 
@@ -199,7 +199,7 @@ void CEV_gifReverse(CEV_GifAnim *anim);
  *
  * \return N/A
  */
-void CEV_gifAnimFree(CEV_GifAnim *anim);
+void CEV_gifDestroy(CEV_GifAnim *anim);
 
 
 /** \brief Loop status.
@@ -218,7 +218,7 @@ char CEV_gifLoopStatus(CEV_GifAnim *anim);
  *
  * \return frame method.
  *
- * \sa _GIF_METHOD
+ * \sa GIF_METHOD
  */
 char CEV_gifMethod(CEV_GifAnim* anim, unsigned int index);
 
@@ -231,7 +231,7 @@ char CEV_gifMethod(CEV_GifAnim* anim, unsigned int index);
  *
  * \return N/A.
  *
- * \sa _GIF_METHOD
+ * \sa GIF_METHOD
  */
 void CEV_gifMethodSet(CEV_GifAnim* anim, int index, uint8_t method);
 

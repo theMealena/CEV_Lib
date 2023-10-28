@@ -27,7 +27,7 @@
 #include "CEV_texts.h"
 #include "CEV_txtParser.h"
 
-// TODO (drx#1#03/05/17): vérifier la sécurité des fonctions de relecture / ecriture fichier
+// TODO (drx#1#03/05/17): vérifier la sécurité des fonctions de relecture / ecriture fichier + manquant (save)
 
 
 // LOCAL FUNCTIONS DECLARATION
@@ -43,7 +43,7 @@ static int L_menuButtonTypeToValue(char* string);
         // TEXT BUTTON
 
 //displays text button
-static void L_mTextDisp(CEV_MText *text);
+static void L_mTextDisp(CEV_MText* text, TTF_Font* font);
 //reads text button from file
 static void L_mTextTypeRead(FILE* src, CEV_MText* dst, TTF_Font* font);
 //reads text button from RWops
@@ -53,7 +53,7 @@ static void L_mTextClear(CEV_MText *this);
 //reads an convert M_IS_TEXT type
 static void L_mTextConvertTxtToData(CEV_Text* src, FILE* dst, int index);
 //dumps text button content
-static void L_menuTxtDump(CEV_MText* this);
+static void L_mTextDump(CEV_MText* this);
 
         // PIC BUTTON
 
@@ -70,7 +70,7 @@ static void L_mPicClear(CEV_MPic *this);
 //reads an convert M_IS_PIC type
 static void L_mPicConvertTxtToData(CEV_Text* src, FILE* dst, char* folder, int index);
 //dumps pic button content
-static void L_menuPicDump(CEV_MPic* this);
+static void L_mPicDump(CEV_MPic* this);
 
 
         // SLIDER
@@ -88,20 +88,20 @@ static void L_mSlideClear(CEV_MSlide *this);
 //reads an convert M_IS_SLIDE type
 static void L_mSlideConvertTxtToData(CEV_Text *src, FILE *dst, char *folder, int index);
 //dumps slider content
-static void L_menuSlideDump(CEV_MSlide* this);
+static void L_mSlideDump(CEV_MSlide* this);
 
 
-int TEST_menu(void)
+void TEST_menu(void)
 {
 
     CEV_Input* input = CEV_inputGet();
     SDL_Renderer* render = CEV_videoSystemGet()->render;
 
-    CEV_menuConvertTxtToData("menu/menu_option.txt", "menu/menu.mdat");
+    CEV_menuConvertTxtToData("menu/menuEditable.txt", "menu/menu.mdat");
 
     CEV_Menu* menu = CEV_menuLoad("menu/menu.mdat");
 
-    CEV_menuDump(menu);
+    //CEV_menuDump(menu);
 
     bool quit = false;
     int select = 0;
@@ -149,46 +149,65 @@ int TEST_menu(void)
 
 void CEV_menuDump(CEV_Menu *this)
 {//dumps structure content
-    puts(" - BEGIN - DUMPING CEV_Menu ****");
+
+    puts("*** BEGIN CEV_Menu ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_Menu is NULL");
+        goto end;
+    }
+
     printf("Has %u buttons.\n",
             this->numOfButton);
 
 
-    for(int i=0; i<this->numOfButton; i++)
+    for(unsigned i=0; i<this->numOfButton; i++)
     {
+        printf("Button %d is :\n", i);
         CEV_menuButtonDump(&this->button[i]);
     }
 
-    puts(" - END - DUMPING CEV_Menu ****");
+end:
+    puts("*** END CEV_Menu ***");
 }
 
 
 void CEV_menuButtonDump(CEV_MSelector* this)
 {//dumps button structure content
+
     switch(this->type)
     {
         case M_IS_SLIDE:
-            L_menuSlideDump((CEV_MSlide*)this);
+            puts("Is Type slider");
+            L_mSlideDump((CEV_MSlide*)this);
         break;
 
         case M_IS_PIC:
-            L_menuPicDump((CEV_MPic*)this);
+            puts("Is Type picture");
+            L_mPicDump((CEV_MPic*)this);
         break;
 
         case M_IS_TEXT:
-            L_menuTxtDump((CEV_MText*)this);
+            puts("Is Type text");
+            L_mTextDump((CEV_MText*)this);
         break;
 
         default:
             puts("Unknown button type\n");
         break;
     }
-
 }
 
 
 CEV_Menu* CEV_menuLoad(const char* fileName)
 {//loads CEV_Menu from file
+
+    if(IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL Arg provided.\n", __FUNCTION__, __LINE__ );
+        return NULL;
+    }
 
     SDL_RWops* file = SDL_RWFromFile(fileName, "rb");
 
@@ -204,6 +223,12 @@ CEV_Menu* CEV_menuLoad(const char* fileName)
 
 CEV_Menu* CEV_menuLoad_RW(SDL_RWops* src, bool freeSrc)
 {//loads CEV_Menu from RWops
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL Arg provided.\n", __FUNCTION__, __LINE__ );
+        return NULL;
+    }
 
     CEV_Menu *result = calloc(1, sizeof(CEV_Menu));
 
@@ -280,7 +305,7 @@ int CEV_menuTypeRead(FILE* src, CEV_Menu* dst)
         funcSts = FUNC_ERR;
     }
 
-    for(int i=0; i< dst->numOfButton; i++)
+    for(unsigned i=0; i< dst->numOfButton; i++)
     {
         uint32_t lType = read_u32le(src);
 
@@ -377,7 +402,7 @@ int CEV_menuTypeRead_RW(SDL_RWops* src, CEV_Menu* dst)
         funcSts = FUNC_ERR;
     }
 
-    for(int i=0; i< dst->numOfButton; i++)
+    for(unsigned i=0; i< dst->numOfButton; i++)
     {
         uint32_t lType = SDL_ReadLE32(src);
 
@@ -411,7 +436,7 @@ int CEV_menuTypeRead_RW(SDL_RWops* src, CEV_Menu* dst)
     }
 
 end:
-    CEV_fontClose(font);
+    dst->font = font;
 
     return funcSts;
 }
@@ -423,7 +448,7 @@ void CEV_menuDestroy(CEV_Menu* menu)
     if(IS_NULL(menu))
         return;
 
-    for(int i=0; i<menu->numOfButton; i++)
+    for(unsigned i=0; i<menu->numOfButton; i++)
     {
         switch (menu->button[i].type)
         {
@@ -444,6 +469,7 @@ void CEV_menuDestroy(CEV_Menu* menu)
         }
     }
 
+    CEV_fontClose(menu->font);
     free(menu->button);
     free(menu->buttonPos);
 
@@ -496,7 +522,7 @@ int CEV_menuUpdate(CEV_Menu* menu, int selected, char clic, int x)
                 }
 
                 lSelect->text.value = (i == selected);//hover
-                L_mTextDisp(&lSelect->text);
+                L_mTextDisp(&lSelect->text, menu->font->font);
             break;
 
             default:
@@ -511,7 +537,7 @@ int CEV_menuUpdate(CEV_Menu* menu, int selected, char clic, int x)
 CEV_MSelector* CEV_menuButtonGet(CEV_Menu* menu, unsigned int index)
 {//fetches button
 
-    if(index>=menu->numOfButton)
+    if(index >= menu->numOfButton )
         return NULL;
     else
         return &menu->button[index];
@@ -544,6 +570,31 @@ void CEV_menuButtonLink(CEV_Menu* menu, unsigned int mastIndex, unsigned char* s
 }
 
 
+int CEV_menuTextColorSet(CEV_MSelector *bt, SDL_Color color, bool state)
+{
+
+    if(IS_NULL(bt))
+    {
+        fprintf(stderr, "Err at %s / %d : Arg provided is NULL.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    if(bt->type != M_IS_TEXT)
+    {
+        fprintf(stderr, "Err at %s / %d : Selector provided is not of type \"text\".\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    CEV_MText *this = &bt->text;
+
+    this->color[state] = color;
+
+    return 0;
+
+}
+
+
+
 int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
 {//converts parameters file into program friendly data
 
@@ -563,7 +614,7 @@ int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
         return FUNC_ERR;
     }
 
-    CEV_textDump(src);
+    //CEV_textDump(src);
 
     uint32_t    id,
                 buttonNum,
@@ -617,7 +668,7 @@ int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
         CEV_capsuleClear(&caps);
     }
 
-    for(int i =0; i<buttonNum; i++)
+    for(unsigned i =0; i<buttonNum; i++)
     {
         sprintf(lString, "[%d]type", i);
 
@@ -660,10 +711,11 @@ err_1:
 
     //TEXT BUTTON
 
-static void L_mTextDisp(CEV_MText* text)
+static void L_mTextDisp(CEV_MText* text, TTF_Font* font)
 {//displays text from menu
 
-    SDL_RenderCopy(CEV_videoSystemGet()->render, text->pic[text->value? 1:0], NULL, &text->blitPos);
+    CEV_dispText(text->text, font, text->color[text->value? 1:0], text->pos, text->justif, text->scale);
+    //SDL_RenderCopy(CEV_videoSystemGet()->render, text->pic[text->value? 1:0], NULL, &text->blitPos);
 }
 
 
@@ -672,14 +724,14 @@ static void L_mTextTypeRead(FILE* src, CEV_MText* dst, TTF_Font* font)
 
     char textTemp[256] = ""; //text
 
-    SDL_Color color[2];//colors off/hover
+    /*SDL_Color color[2];//colors off/hover*/
 
     for(int i=0; i<2; i++)
     {
-        color[i].r = read_u8(src);
-        color[i].g = read_u8(src);
-        color[i].b = read_u8(src);
-        color[i].a = read_u8(src);
+        dst->color[i].r = read_u8(src);
+        dst->color[i].g = read_u8(src);
+        dst->color[i].b = read_u8(src);
+        dst->color[i].a = read_u8(src);
     }
 
     dst->pos.x  = read_u32le(src);
@@ -691,6 +743,11 @@ static void L_mTextTypeRead(FILE* src, CEV_MText* dst, TTF_Font* font)
     //reading text line
     while(textTemp[index++] = (char)read_u8(src));
 
+    strcpy(dst->text, textTemp);
+
+    TTF_SizeText(font, textTemp, &dst->blitPos.w, &dst->blitPos.h);
+    CEV_dispBlitPos(&dst->blitPos, dst->pos, dst->justif, dst->scale);
+/*
     for(int i=0; i<2; i++)
     {
         dst->pic[i] = CEV_createTTFTexture(textTemp, font, color[i]);
@@ -706,7 +763,7 @@ static void L_mTextTypeRead(FILE* src, CEV_MText* dst, TTF_Font* font)
     dst->blitPos = CEV_textureDimGet(dst->pic[0]);
     CEV_rectDimScale(&dst->blitPos, dst->scale);
     CEV_dispBlitPos(&dst->blitPos, dst->pos, dst->justif, dst->scale);
-
+*/
     dst->type = M_IS_TEXT;
 }
 
@@ -716,14 +773,12 @@ static void L_mTextTypeRead_RW(SDL_RWops* src, CEV_MText* dst, TTF_Font* font)
 
     char textTemp[256] = ""; //text
 
-    SDL_Color color[2];//colors off/hover
-
     for(int i=0; i<2; i++)
     {
-        color[i].r = SDL_ReadU8(src);
-        color[i].g = SDL_ReadU8(src);
-        color[i].b = SDL_ReadU8(src);
-        color[i].a = SDL_ReadU8(src);
+        dst->color[i].r = SDL_ReadU8(src);
+        dst->color[i].g = SDL_ReadU8(src);
+        dst->color[i].b = SDL_ReadU8(src);
+        dst->color[i].a = SDL_ReadU8(src);
     }
 
     dst->pos.x  = SDL_ReadLE32(src);
@@ -731,10 +786,15 @@ static void L_mTextTypeRead_RW(SDL_RWops* src, CEV_MText* dst, TTF_Font* font)
     dst->justif = SDL_ReadLE32(src);
     dst->scale  = (float)SDL_ReadLE32(src)/100.0;
 
-    char index = 0;
+    int index = 0;
     //reading text line
-    while((textTemp[index++]) = SDL_ReadU8(src));
+    while(textTemp[index++] = SDL_ReadU8(src));
 
+    strcpy(dst->text, textTemp);
+
+    TTF_SizeText(font, textTemp, &dst->blitPos.w, &dst->blitPos.h);
+    CEV_dispBlitPos(&dst->blitPos, dst->pos, dst->justif, dst->scale);
+/*
     for(int i=0; i<2; i++)
     {
         dst->pic[i] = CEV_createTTFTexture(textTemp, font, color[i]);
@@ -750,7 +810,7 @@ static void L_mTextTypeRead_RW(SDL_RWops* src, CEV_MText* dst, TTF_Font* font)
     dst->blitPos = CEV_textureDimGet(dst->pic[0]);
     CEV_rectDimScale(&dst->blitPos, dst->scale);
     CEV_dispBlitPos(&dst->blitPos, dst->pos, dst->justif, dst->scale);
-
+*/
     dst->type = M_IS_TEXT;
 }
 
@@ -797,25 +857,31 @@ static void L_mTextConvertTxtToData(CEV_Text* src, FILE* dst, int index)
 
     size_t length = strlen(lTxt);
 
-    for(int i=0; i<=length; i++)
+    for(unsigned i=0; i<=length; i++)
         write_u8(lTxt[i], dst);
 }
 
 
 static void L_mTextClear(CEV_MText *this)
 {//clears content
-
+/*
     for(int i =0; i<2; i++)
-        SDL_DestroyTexture(this->pic[i]);
+        SDL_DestroyTexture(this->pic[i]);*/
 
     *this = (CEV_MText){0};
 }
 
 
-static void L_menuTxtDump(CEV_MText* this)
+static void L_mTextDump(CEV_MText* this)
 {//dumps text button content
 
-    puts(" - BEGIN - DUMPING CEV_MText ****");
+    puts("*** BEGIN CEV_MText ***");
+
+    if(IS_NULL(this))
+    {
+        puts("this CEV_MText is NULL");
+        goto end;
+    }
 
     printf("Value is %u and points to %p\n text is : %s\n",
             this->value, this->valuePtr, this->text);
@@ -826,9 +892,17 @@ static void L_menuTxtDump(CEV_MText* this)
     CEV_rectDump(this->blitPos);
 
     for(int i=0; i<2; i++)
-        printf("Texture %d is at %p\n", i, this->pic[i]);
+    {
+        printf("Color %d is : %d, %d, %d, %d\n", i,
+                this->color[i].r,
+                this->color[i].g,
+                this->color[i].b,
+                this->color[i].a);
 
-    puts(" - END - DUMPING CEV_MText ****");
+    }
+
+end:
+    puts("*** END CEV_MText ***");
 
 }
 
@@ -988,10 +1062,16 @@ err_1:
 }
 
 
-static void L_menuPicDump(CEV_MPic* this)
+static void L_mPicDump(CEV_MPic* this)
 {//dumps pic button content
 
-    puts(" - BEGIN - DUMPING CEV_MPic ****");
+    puts("*** BEGIN CEV_MPic ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_MPic is NULL");
+        goto end;
+    }
 
     printf("Has %d states\n", this->stateNum);
 
@@ -1006,7 +1086,8 @@ static void L_menuPicDump(CEV_MPic* this)
 
     printf("Texture is at %p\n",this->pic);
 
-    puts(" - END - DUMPING CEV_MPic ****");
+end:
+    puts("*** END CEV_MPic ***");
 }
 
     //SLIDER
@@ -1198,10 +1279,16 @@ end:
 }
 
 
-static void L_menuSlideDump(CEV_MSlide* this)
+static void L_mSlideDump(CEV_MSlide* this)
 {//dumps pic button content
 
-    puts(" - BEGIN - DUMPING CEV_MSlide ****");
+    puts("*** BEGIN CEV_MSlide ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_MSlide is NULL");
+        goto end;
+    }
 
     printf("Value is %u and points to %p.\n",
             this->value, this->valuePtr);
@@ -1217,9 +1304,10 @@ static void L_menuSlideDump(CEV_MSlide* this)
         CEV_rectDump(this->clip[i]);
     }
 
-    printf("Texture is at %p\n",this->pic);
+    printf("Texture is at %p\n", this->pic);
 
-    puts(" - END - DUMPING CEV_MSlide ****");
+end:
+    puts("*** END  CEV_MSlide ***");
 
 }
         //MENU

@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <ctype.h>
 #include <SDL.h>
 #include "project_def.h"
 #include "CEV_api.h"
@@ -346,7 +347,7 @@ CEV_Text* CEV_textLoad_RW(SDL_RWops* src, bool freeSrc)
     if(IS_NULL(src))
         return NULL;
 
-    uint32_t numOfLine = SDL_ReadLE32(src),
+    uint32_t numOfLine  = SDL_ReadLE32(src),
              maxLineLen = SDL_ReadLE32(src);
 
     result = CEV_textCreate(numOfLine, maxLineLen);
@@ -481,7 +482,7 @@ exit :
 void CEV_textTypeWrite(CEV_Text* text, FILE* dst)
 {//saves text struct as text data at file position
 
-    int line = 0, car = 0;
+    unsigned line = 0, car = 0;
     readWriteErr = 0;
 
     /**contrôles*/
@@ -513,7 +514,7 @@ void CEV_textTypeWrite(CEV_Text* text, FILE* dst)
 int CEV_textTypeWrite_RW(CEV_Text* src, SDL_RWops* dst)
 {//saves text struct as text data at file position
 
-    int i = 0, j = 0;
+    unsigned i = 0, j = 0;
     readWriteErr = 0;
 
     /**contrôles*/
@@ -635,7 +636,7 @@ void CEV_textDestroy(CEV_Text* in)
     if(IS_NULL(in))
         return;
 
-    for(int i = 0; i < in->linesNum ; i++)
+    for(unsigned i = 0; i < in->linesNum ; i++)
         free(in->line[i]);
 
     free(in->line);
@@ -652,7 +653,7 @@ void CEV_textClear(CEV_Text* in)
 
     if(in->line)
     {
-        for(int i = 0; i<in->linesNum; i++)
+        for(unsigned i = 0; i<in->linesNum; i++)
             free(in->line[i]);
     }
 
@@ -665,17 +666,29 @@ void CEV_textClear(CEV_Text* in)
 }
 
 
-void CEV_textDump(CEV_Text* in)
+void CEV_textDump(CEV_Text* this)
 {//dumps structure content
 
-    printf("text holds %u lines\n", in->linesNum);
-    printf("of max size %u char\n", in->lineSize);
+    puts("*** BEGIN CEV_Text ***");
 
-    for(int i=0; i<in->linesNum; i++)
+    if (IS_NULL(this))
     {
-        char* thisLine = CEV_textRead(in, i);
-        printf("line %d : %s ; (%u allocated)\n", i, thisLine, L_lineAllocSizeRead(thisLine));
+        puts("This CEV_Text is NULL");
+        goto end;
     }
+
+    printf("Instance is at %p\n", this);
+    printf("Text holds %u lines\n", this->linesNum);
+    printf("of max size %u char\n", this->lineSize);
+
+    for(unsigned i=0; i<this->linesNum; i++)
+    {
+        char* thisLine = CEV_textRead(this, i);
+        printf("Line %d : %s ; (%u allocated)\n", i, thisLine, L_lineAllocSizeRead(thisLine));
+    }
+
+end:
+    puts("*** END CEV_Text ***");
 }
 
 
@@ -684,8 +697,8 @@ void CEV_textDump(CEV_Text* in)
 static void L_LineFieldRead_RW(SDL_RWops* src, CEV_Text* dst)
 {//fills texts fields from rwops
 
-    int line = 0,
-        car  = 0;
+    unsigned line = 0,
+             car  = 0;
 
     char lString[FILENAME_MAX] = "*";
 
@@ -710,8 +723,8 @@ static void L_LineFieldRead_RW(SDL_RWops* src, CEV_Text* dst)
 static void L_LineFieldRead(FILE* src, CEV_Text* dst)
 {//fills texts fields from dataFile
 
-    int line = 0,
-        car = 0;
+    unsigned line = 0,
+             car = 0;
 
     char lString[FILENAME_MAX] = "*";
 
@@ -760,10 +773,14 @@ static int L_LineFieldReadTxt(FILE* src, CEV_Text *dst)
 static int L_fileDim(CEV_Text *text, FILE* file)
 {//needs rewind before call to scan full file
 
-    int temp        = '*',   //temporary var
+    int temp        = '*';   //temporary var
+
+    unsigned
         maxLine     = 0,     //largest line size
         lineNb      = 0;     //number of line in file
+
     char lastChar   = 0;     //last char of file for count
+
     long pos        = 0;     //mem to bring cursor back to where it was
 
     if ((file == NULL) || (text == NULL))

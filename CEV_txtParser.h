@@ -57,11 +57,12 @@ int CEV_txtParseValueArrayFrom(CEV_Text *src, char* name, double* dst, int maxNu
  */
 int CEV_txtParseIndexGetFrom(CEV_Text *src, char* name);
 
+
 /** \brief stress test / tries.
  *
  * \param void
- * \return void
  *
+ * \return void
  */
 void TEST_txtParse(void);
 

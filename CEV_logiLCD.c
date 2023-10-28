@@ -141,14 +141,14 @@ void REV_lcdBackgroundSet(int index)
     switch (sys->lcdType)
     {
         case LOGI_LCD_TYPE_COLOR:
-// TODO (drx#1#): résoudre problème du nom du fichier ici versus ressource holder
-            sys->srcBckgd = CEV_surfaceFetch(index, DATA_FILE);
+// TODO (drx#1#): résoudre problème du nom du fichier ici versus resource holder
+            sys->srcBckgd = CEV_anyFetchByIndexFromFile(index, DATA_FILE);
 
         break;
 
         case LOGI_LCD_TYPE_MONO:
 
-            sys->srcBckgd = CEV_surfaceFetch(index+1, DATA_FILE);
+            sys->srcBckgd = CEV_anyFetchByIndexFromFile(index+1, DATA_FILE);
 
         break;
     }

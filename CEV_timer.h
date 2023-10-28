@@ -22,7 +22,7 @@ extern "C" {
  */
 typedef struct CEV_Timer
 {
-	uint8_t     run,        /**< run order*/
+	uint8_t     run,        /**< run request*/
                 processing, /**< counting down*/
                 cmd;        /**< command*/
 
@@ -36,95 +36,119 @@ typedef struct CEV_Timer
 CEV_Timer;
 
 
+/** \brief Dumps timer content to sdtio.
+ *
+ * \param this : CEV_Timer* to dump.
+ *
+ * \return void
+ */
+void CEV_timerDump(CEV_Timer* this);
 
-/**
- *  \brief Initialize timer.
- *  \param Timer to set as ptr.
- *  \param Time time in ms.
- *  \return N/A.
+/** \brief Initialize timer.
+ *
+ * \param Timer to set as ptr.
+ * \param Time time in ms.
+ *
+ * \return N/A.
  */
 void CEV_timerInit(CEV_Timer* in, unsigned int val);
 
 
-/**
- *  \brief TON timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true, 0 otherwise
- *  note : cmd = run && preset ms elapsed
+/** \brief TON timer.
+ * \param Timer to control as ptr.
+ *
+ * \return 1 When cmd is true, 0 otherwise.
+ *
+ * \note cmd = run && preset ms elapsed.
  */
 char CEV_timerTon(CEV_Timer *in);
 
 
-/**
- *  \brief TOF timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : cmd = run || (!run && processing)
+/** \brief TOF timer.
+ *
+ * \param Timer to control as ptr.
+ *
+ * \return 1 When cmd is true 0 otherwise.
+ *
+ * \note cmd = run || (!run && processing).
  */
 char CEV_timerTof(CEV_Timer *in);
 
 
-/**
- *  \brief Delay On timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : RE cmd = RE run + preset ms elapsed
+/** \brief Delay On timer.
+*
+ * \param Timer to control as ptr.
+ *
+ * \return 1 When cmd is true 0 otherwise.
+ *
+ * \note RE cmd = RE run + preset ms elapsed.
  */
 char CEV_timerDelayOn(CEV_Timer* in);
 
 
-/**
- *  \brief Pulse timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : cmd = RE run || processing
+/** \brief Pulse timer.
+ *
+ * \param Timer to control as ptr.
+ *
+ * \return 1 When cmd is true 0 otherwise
+ *
+ * \note cmd = RE run || processing
  */
 char CEV_timerPulse(CEV_Timer* in);
 
 
-/**
- *  \brief repeat timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : RE cmd = RE run || (run && preset elapsed)
- *  note : runs like autofire loop
+/** \brief repeat timer.
+ *
+ * \param Timer to control as ptr.
+ *
+ *  \return 1 When cmd is true 0 otherwise.
+ *
+ *  \note RE cmd = RE run || (run && preset elapsed)
+    runs like autofire loop.
  */
 char CEV_timerRepeat(CEV_Timer* in);
 
 
-/**
- *  \brief locked repeat timer.
+/** \brief locked repeat timer.
+ *
  *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : RE cmd = run && !processing
+ *
+ *  \return 1 When cmd is true 0 otherwise.
+ *
+ *  \note RE cmd = run && !processing.
  */
 char CEV_timerRepeatLocked(CEV_Timer* in);
 
 
-/**
- *  \brief blinking timer.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : cmd = square signal of period = preset while run
+/** \brief blinking timer.
+ *
+ * \param Timer to control as ptr.
+ *
+ * \return 1 When cmd is true 0 otherwise.
+ *
+ * \note cmd = square signal of period = preset while run.
  */
 char CEV_timerEverBlink(CEV_Timer *in);
 
 
-/**
- *  \brief blinking timer limited.
- *  \param Timer to control as ptr.
- *  \return 1 When cmd is true 0 otherwise
- *  note : cmd = RE run && square signal of period 200 while processing
- *  note : can repeat while run
+/** \brief blinking timer limited.
+ *
+ * \param Timer to control as ptr.
+ *
+ * \return 1 When cmd is true 0 otherwise.
+ *
+ * \note cmd = RE run && square signal of period 200 while processing
+    can repeat while run.
  */
 char CEV_timerBlinkLimited(CEV_Timer *in);
 /*clignote pendant preset ms sur RE run*/
 
 
-/**
- *  \brief reset timer.
+/** \brief reset timer.
+ *
  *  \param Timer to control as ptr.
- *  \return N/A
+ *
+ *  \return N/A.
  */
 void CEV_timerReset(CEV_Timer *in);
 

@@ -103,7 +103,7 @@ static void L_flakeInit(CEV_Particle* in, SDL_Rect renderDim, int vx);
  *
  * \return void.
  *
- * \note Is not called if particle does not belong to [min, max].
+ *  Is not called if particle does not belong to [min, max].
  */
 static void L_flakePosNext(CEV_Particle* in, int vx, int vy);
 
@@ -129,7 +129,7 @@ static void L_dropInit(CEV_Particle* in, SDL_Rect renderDim, int angle);
  *
  * \return void.
  *
- * \note Is not called if particle does not belong to [min, max].
+ *  Is not called if particle does not belong to [min, max].
  */
 static void L_dropPosNext(CEV_Particle* in, int Vx, int Vy);
 
@@ -155,7 +155,7 @@ static void L_leafInit(CEV_Particle* in, SDL_Rect renderDim, int vx);
  *
  * \return void.
  *
- * \note Is not called if particle does not belong to [min, max].
+ *  Is not called if particle does not belong to [min, max].
  */
 static void L_leafPosNext(CEV_Particle* in, int vx, int vy);
 
@@ -180,7 +180,7 @@ static bool L_particlePosToDisplay(CEV_Particle* in, SDL_Rect renderDim, int off
  *
  * \return void.
  */
-static void L_particleTextureAttach(CEV_Particle* in, SDL_Rect texutreDim);
+static void L_particleAttachTexture(CEV_Particle* in, SDL_Rect texutreDim);
 
 
 ///module testing and stress
@@ -190,8 +190,8 @@ void TEST_weather(void)
     bool load       = true, //loads file / creates otherwise
          convert    = true; //convert from txt before reloading
 
-    //CEV_RsrcFileHolder ressources;
-    //CEV_rsrcLoad("dataFile/data.dat", &ressources);
+    //CEV_RsrcFile resources;
+    //CEV_rsrcLoad("dataFile/data.dat", &resources);
 
     char *picFile = "weather/snowflake2.png";
     SDL_Renderer *render = CEV_videoSystemGet()->render;
@@ -214,7 +214,7 @@ void TEST_weather(void)
 
 
         weather = CEV_weatherCreate(WEATHER_FALL, 50, -5, 2);
-        CEV_weatherTextureAttach(particle, weather);
+        CEV_weatherAttachTexture(particle, weather);
     }
     else
     {
@@ -227,12 +227,12 @@ void TEST_weather(void)
         */
 
         //direct load
-        weather = CEV_weatherLoad("weather/weatherTest.wtr");//CEV_weatherFetch(0x0F000002, &ressources);
+        weather = CEV_weatherLoad("weather/weatherTest.wtr");//CEV_weatherFetchById(0x0F000002, &resources);
 
         CEV_weatherDump(weather, false);
     }
 
-    CEV_weatherCameraAttach(&cam, weather);
+    CEV_weatherAttachCamera(&cam, weather);
 
     bool quit = false;
 
@@ -294,8 +294,8 @@ void TEST_weather(void)
 
     CEV_weatherDestroy(weather, true);
 
-    //CEV_rsrcClear(&ressources);
-    //CEV_gifAnimFree(anim);
+    //CEV_rsrcClear(&resources);
+    //CEV_gifDestroy(anim);
 }
 
 
@@ -304,11 +304,11 @@ void TEST_weather(void)
 void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
 {//dumps weather structure content to stdout
 
-    puts("****DUMPING Weather****");
+    puts("*** BEGIN CEV_Weather ***");
 
     if(IS_NULL(this))
     {
-        puts("received NULL");
+        puts("This CEV_Weather is NULL");
         goto end;
     }
 
@@ -364,7 +364,7 @@ void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
 
     if(dumpParticles)
     {
-        for(int i=0; i<this->numax; i++)
+        for(unsigned i=0; i<this->numax; i++)
         {
             printf("Particle %d holds :\n");
             CEV_weatherParticleDump(this->particles +i);
@@ -372,7 +372,7 @@ void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
     }
 
 end:
-    puts("****END DUMP Weather****");
+    puts("*** END CEV_Weather ***");
 
 }
 
@@ -380,11 +380,11 @@ end:
 void CEV_weatherParticleDump(CEV_Particle* this)
 {//dumps particle structure content to stdout
 
-    puts("****DUMPING particle****");
+    puts("*** BEGIN CEV_Particle ***");
 
     if(IS_NULL(this))
     {
-        puts("received NULL");
+        puts("This CEV_Particle is NULL");
         goto end;
     }
 
@@ -410,7 +410,7 @@ void CEV_weatherParticleDump(CEV_Particle* this)
     printf("is %s\n", this->disp? "activated" : "deactivated");
 
 end:
-    puts("****END DUMP Particle****");
+    puts("*** END CEV_Particle ***");
 }
 
 
@@ -536,7 +536,7 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
 
     if(in->run ||in->anyActive)
     {
-        for(int i=0; i<in->num; i++)
+        for(unsigned i=0; i<in->num; i++)
         {
             CEV_Particle *Lparticle = in->particles + i;
 
@@ -600,33 +600,46 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
 unsigned int CEV_weatherParticleNumSet(CEV_Weather* in, unsigned int num)
 {//modify num of particles to display
 
-    if(num > in->numax)
-        num = in->numax;
+    if(NOT_NULL(in))
+    {
+        if(num > in->numax)
+            num = in->numax;
 
-    in->num = num;
+        in->num = num;
 
-    return in->num;
+        return in->num;
+    }
+
+    return 0;
 }
 
 
 unsigned int CEV_weatherParticleNumReset(CEV_Weather* in)
 {//resets num of particle to max
 
-    in->num = in->numax;
+    if(NOT_NULL(in))
+    {
+        in->num = in->numax;
+        return in->num;
+    }
 
-    return in->num;
+    return 0;
 }
 
 
 void CEV_weatherStart(CEV_Weather* in)
 {//starts weather to display
-    in->run = true;
+
+    if(NOT_NULL(in))
+        in->run = true;
 }
 
 
 void CEV_weatherStop(CEV_Weather* in)
 {//stops weather to display
-    in->run = false;
+
+    if(NOT_NULL(in))
+        in->run = false;
 }
 
 
@@ -651,7 +664,7 @@ void CEV_weatherParticleBuild(CEV_Weather* dst)
         five = dst->num - eighty - fifteen;  //what's left in foreground
 
 
-    for(int i=0; i<dst->num; i++)
+    for(unsigned i=0; i<dst->num; i++)
     {
         switch(dst->type)
         {
@@ -688,7 +701,7 @@ void CEV_weatherParticleBuild(CEV_Weather* dst)
 void CEV_weatherParticleMaxSize(float src, CEV_Weather* dst)
 {//sets particles maximum size ratio
 
-    for(int i=0; i<dst->numax; i++)
+    for(unsigned i=0; i<dst->numax; i++)
     {
         //limiting display scale
         dst->particles[i].coord.z = MIN(dst->particles[i].coord.z, src);
@@ -703,7 +716,7 @@ void CEV_weatherParticleMaxSize(float src, CEV_Weather* dst)
 void CEV_weatherParticleMinSize(float src, CEV_Weather* dst)
 {//sets particles minimum size ratio
 
-    for(int i=0; i<dst->numax; i++)
+    for(unsigned i=0; i<dst->numax; i++)
     {
         //limiting display scale
         dst->particles[i].coord.z = MAX(dst->particles[i].coord.z, src);
@@ -722,7 +735,7 @@ size_t CEV_weatherParticleSizeOf(void)
 }
 
 
-void CEV_weatherTextureAttach(SDL_Texture* src, CEV_Weather* dst)
+void CEV_weatherAttachTexture(SDL_Texture* src, CEV_Weather* dst)
 {//attaches texture to weather
 
     if(IS_NULL(src) || IS_NULL(dst))
@@ -743,13 +756,13 @@ void CEV_weatherTextureAttach(SDL_Texture* src, CEV_Weather* dst)
     dst->offScreen      = 2 * CEV_pointDist(CLEAR_POINT,
                                             (SDL_Point){dst->textureSize.w, dst->textureSize.h});
 
-    for(int i=0; i<dst->numax; i++)
-        L_particleTextureAttach(dst->particles +i, dst->textureSize);
+    for(unsigned i=0; i<dst->numax; i++)
+        L_particleAttachTexture(dst->particles +i, dst->textureSize);
 
 }
 
 
-void CEV_weatherCameraAttach(CEV_Camera* src, CEV_Weather* dst)
+void CEV_weatherAttachCamera(CEV_Camera* src, CEV_Weather* dst)
 {//attaches camera
 
     dst->scrollCorrectionX = &src->scrollActPos.x;
@@ -838,7 +851,7 @@ CEV_Weather* CEV_weatherLoad_RW(SDL_RWops* src, char freeSrc)
         goto err_2;
     }
 
-    CEV_weatherTextureAttach(picture, result);
+    CEV_weatherAttachTexture(picture, result);
     result->ID      = ID;
     result->srcID   = srcID;
 
@@ -931,7 +944,7 @@ int CEV_weatherConvertTxtToData(char* srcName, char* dstName)
     {//on error
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         funcSts = FUNC_ERR;
-        goto err_1;
+        goto err;
     }
 
     int vx  = 0,
@@ -983,10 +996,9 @@ int CEV_weatherConvertTxtToData(char* srcName, char* dstName)
 
     fclose(dst);
 
-err_1:
+err:
     CEV_textDestroy(src);
 
-end:
     return funcSts;
 }
 
@@ -1154,7 +1166,7 @@ static bool L_particlePosToDisplay(CEV_Particle* in, SDL_Rect renderDim, int off
 }
 
 
-static void L_particleTextureAttach(CEV_Particle* in, SDL_Rect texutreDim)
+static void L_particleAttachTexture(CEV_Particle* in, SDL_Rect texutreDim)
 {//sets texture related parameters
 
     in->pos         = texutreDim;               //copying texture dimensions

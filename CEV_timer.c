@@ -8,14 +8,38 @@
 
 
 #include <stdint.h>
+#include <stdio.h>
 #include <SDL.h>
 #include "CEV_Timer.h"
 #include "CEV_api.h"
 
 
+void CEV_timerDump(CEV_Timer* this)
+{//dumps timer content to stdout
+
+    puts("*** BEGIN CEV_Timer ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_Timer is NULL");
+        goto end;
+    }
+
+    printf("Timer is at %p\n", this);
+    printf("Run is %s\n", CEV_strBool(this->run));
+    printf("Processing is %s\n", CEV_strBool(this->processing));
+    printf("Command is %s\n", CEV_strBool(this->cmd));
+    printf("Preset value is %u\n", this->preset);
+    printf("Previous recorded is %lu\n", this->lst);
+    printf("Accu is %u\n", this->accu);
+
+end:
+    puts("*** END CEV_Timer ***");
+
+}
 
 void CEV_timerInit(CEV_Timer* in, unsigned int val)
-{/*timer init*/
+{//timer init
 
     in->run         = 0;
     in->accu        = (uint32_t)val;
@@ -29,7 +53,7 @@ void CEV_timerInit(CEV_Timer* in, unsigned int val)
 
 
 char CEV_timerTon(CEV_Timer *in)
-{/*timer TON*/
+{//timer TON
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -60,7 +84,7 @@ char CEV_timerTon(CEV_Timer *in)
 
 
 char CEV_timerTof(CEV_Timer *in)
-{/*timer TOF*/
+{//timer TOF
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -87,7 +111,7 @@ char CEV_timerTof(CEV_Timer *in)
 
 
 char CEV_timerDelayOn(CEV_Timer* in)
-{/*timer delay ON*/
+{//timer delay ON
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -116,7 +140,7 @@ char CEV_timerDelayOn(CEV_Timer* in)
 
 
 char CEV_timerPulse(CEV_Timer* in)
-{/*timer pulse*/
+{//timer pulse
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -145,7 +169,7 @@ char CEV_timerPulse(CEV_Timer* in)
 
 
 char CEV_timerRepeat(CEV_Timer* in)
-{/*timer REPEAT*/
+{//timer REPEAT
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -175,7 +199,7 @@ char CEV_timerRepeat(CEV_Timer* in)
 
 
 char CEV_timerRepeatLocked(CEV_Timer* in)
-{/*timer repeat locked*/
+{//timer repeat locked
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -203,7 +227,7 @@ char CEV_timerRepeatLocked(CEV_Timer* in)
 
 
 char CEV_timerEverBlink(CEV_Timer *in)
-{/*timer blink forever*/
+{//timer blink forever
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -229,7 +253,7 @@ char CEV_timerEverBlink(CEV_Timer *in)
 
 
 char CEV_timerBlinkLimited(CEV_Timer *in)
-{/*timer lasting blink*/
+{//timer lasting blink
 
     unsigned int sinceLast = 0;
     uint32_t now = SDL_GetTicks();
@@ -257,7 +281,7 @@ char CEV_timerBlinkLimited(CEV_Timer *in)
 
 
 void CEV_timerReset(CEV_Timer *in)
-{/*timer reset*/
+{//timer reset
 
     in->accu = in->preset;
     in->lst  = SDL_GetTicks();

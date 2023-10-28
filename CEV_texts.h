@@ -46,7 +46,7 @@ CEV_Text;
  *
  * \return CEV_Text ptr on success, NULL on error.
  *
- * note : stderr is filed with error if any.
+ * \note stderr is filed with error if any.
  */
 CEV_Text* CEV_textCreate(unsigned int lines, unsigned int maxLength);
 
@@ -59,7 +59,8 @@ CEV_Text* CEV_textCreate(unsigned int lines, unsigned int maxLength);
  * \param src : "string" to be written.
  *
  * \return return any of standard status.
- * note : internal strings need maintenance, do not use std func on CEV_Text strings
+ *
+ * \note internal strings need maintenance, do not use std func on CEV_Text strings
  */
 int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src);
 
@@ -70,7 +71,8 @@ int CEV_textWrite(CEV_Text* dst, unsigned int index, const char* src);
  * \param index : "string" index to read from.
  *
  * \return  ptr* to start of string address.
- * note : internal strings need maintenance, do not use std func on CEV_Text strings
+ *
+ * \note internal strings need maintenance, do not use std func on CEV_Text strings
  */
 char* CEV_textRead(CEV_Text *src, unsigned int index);
 
@@ -110,8 +112,8 @@ void CEV_textSortZA(CEV_Text *src);
  *
  * \return any of function status.
  *
- * note : dstName should have .tdat extension type.
- * any line starting with '/' char are ignored.
+ * \note dstName should have .tdat extension type.
+    any line starting with '/' char are ignored.
  */
 int CEV_textConvertTxtToData(const char *srcName, const char *dstName);
 
@@ -131,7 +133,8 @@ CEV_Text* CEV_textLoad(const char *fileName);
  * \param freeSrc : SDL_RWops is closed if true.
  *
  * \return : CEV_Text* on success, NULL on failure.
- * note : : if freeScrc is true, src is freed weither the fonction succeeds or not.
+ *
+ * \note if freeScrc is true, src is freed weither the fonction succeeds or not.
  */
 CEV_Text* CEV_textLoad_RW(SDL_RWops* src, bool freeSrc);
 
@@ -139,10 +142,11 @@ CEV_Text* CEV_textLoad_RW(SDL_RWops* src, bool freeSrc);
 /** \brief Loads user parameter file.
  *
  * \param fileName : file to load.
+ *
  * \return CEV_Text* on succes, NULL on error.
  *
- * note : opens "natural" txt file.
- * any line starting with '/' char are ignored as beeing comment.
+ * \note opens "natural" txt file.
+    any line starting with '/' char are ignored as beeing comment.
  * \sa CEV_textTxtLoadf()
  */
 CEV_Text* CEV_textTxtLoad(const char *fileName);
@@ -151,9 +155,10 @@ CEV_Text* CEV_textTxtLoad(const char *fileName);
 /** \brief Loads opened user parameter file.
  *
  * \param src : opend file to read from.
+ *
  * \return CEV_Text* on succes, NULL on error.
  *
- * note : reads "natural" txt file.
+ * \note reads "natural" txt file.
  * \sa CEV_textTxtLoad()
  */
 CEV_Text* CEV_textTxtLoadf(FILE* src);
@@ -173,6 +178,7 @@ int CEV_textSave(CEV_Text *text, const char* fileName);
  *
  * \param src : CEV_Text* to read from.
  * \param dst : FILE* to write into.
+ *
  * \return readWriteError is incremented on error.
  *
  * \sa CEV_textTypeRead()
@@ -183,9 +189,9 @@ void CEV_textTypeWrite(CEV_Text* src, FILE* dst);
 /** \brief Writes CEV_Text into virtual file.
  *
  * \param text : CEV_Text* to read from.
- * \param dst  : SDL_RWops* to write into
- * \return int
+ * \param dst  : SDL_RWops* to write into.
  *
+ * \return int as std function status.
  */
 int CEV_textTypeWrite_RW(CEV_Text* src, SDL_RWops* dst);
 
@@ -208,7 +214,8 @@ void CEV_textTypeRead(FILE *src, CEV_Text* dst);
  * \param dst : CEV_Text* to fill.
  *
  * \return void
- * note : readWriteErr is used.
+ *
+ * \note readWriteErr is used.
  */
 void CEV_textTypeRead_RW(SDL_RWops* src, CEV_Text* dst);
 
@@ -218,7 +225,6 @@ void CEV_textTypeRead_RW(SDL_RWops* src, CEV_Text* dst);
  * \param dst : CEV_Capsule* to store result.
  *
  * \return int : of std function status.
- *
  */
 int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst);
 
@@ -229,7 +235,6 @@ int CEV_textToCapsule(CEV_Text* src, CEV_Capsule* dst);
  * \param freeData  : internally closes ops if not 0.
  *
  * \return CEV_Text* on succes, NULL on error.
- *
  */
 CEV_Text* CEV_textTxtLoad_RW(SDL_RWops* src, char freeData);
 
@@ -264,11 +269,11 @@ void CEV_textClear(CEV_Text* in);
 
 /** \brief Dumps structure content into stdout.
  *
- * \param in : CEV_Text* to dump.
+ * \param this : CEV_Text* to dump.
  *
  * \return N/A.
  */
-void CEV_textDump(CEV_Text* in);
+void CEV_textDump(CEV_Text* this);
 
 
 /** \brief Seeks string in file.
@@ -283,10 +288,12 @@ int CEV_fileStrSearch(FILE* file, char* src);
 
 
 /** \brief cleans file string into memory friendly string :
- * note : removes '/\r' and '/\n' replaced by '/\0'.
+ *
  * \param in : char* to clean.
  *
  * \return N/A.
+ *
+ * \note removes '/\r' and '/\n' replaced by '/\0'.
  */
 void CEV_stringEndFormat(char* in);
 
@@ -303,6 +310,7 @@ void CEV_stringGroup(char *src, unsigned int group);
 
 /** \brief stress / test
  * \param void
+ *
  * \return void
  */
 void TEST_text(void);

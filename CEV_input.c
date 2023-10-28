@@ -25,7 +25,7 @@
 
 
 bool CEV_inputUpdate(void)
-{/*Updating inputs*/
+{//Updates inputs
 
     CEV_Input* input = CEV_inputGet();//main struct
 
@@ -44,7 +44,7 @@ bool CEV_inputUpdate(void)
     {
         switch (event.type)
         {
-            /**keyboard**/
+            /*keyboard*/
             case SDL_KEYDOWN :
                 if(!event.key.repeat)
                 {
@@ -66,7 +66,7 @@ bool CEV_inputUpdate(void)
                     result              = true;
             break;
 
-            /**mouse**/
+            /*mouse*/
             case SDL_MOUSEBUTTONDOWN :
                     input->mouse.button[event.button.button] = true;
                     input->lastDevice   = MOUSE;
@@ -103,7 +103,7 @@ bool CEV_inputUpdate(void)
                 input->lastDevice   = MOUSE;
             break;
 
-            /**pads**/
+            /*pads*/
             case SDL_JOYBUTTONDOWN :
                 input->pad[event.jbutton.which].button[event.jbutton.button] = true;
                 input->lastDevice   = PAD;
@@ -138,7 +138,7 @@ bool CEV_inputUpdate(void)
                 CEV_padRemoveWarm(event.jdevice.which);   //removed by Id
             break;
 
-            /**misc**/
+            /*misc*/
             case SDL_QUIT :
                 input->window.quitApp = true;
                 result                = true;
@@ -173,7 +173,7 @@ bool CEV_inputUpdate(void)
 
 
 int CEV_inputInit()
-{/*Main input init*/
+{//Main input init
 
     CEV_Input* input = NULL;
 
@@ -190,7 +190,7 @@ int CEV_inputInit()
 
 
 void CEV_inputFree()
-{/*destruction*/
+{//destruction
 
     CEV_Input *input = CEV_inputGet();
 
@@ -202,7 +202,7 @@ void CEV_inputFree()
 
 
 void CEV_inputClear()
-{/**resets all input values*/
+{//resets all input values
 
     CEV_Input *input = CEV_inputGet();
 
@@ -236,7 +236,7 @@ void CEV_inputClear()
 
 
 CEV_Input* CEV_inputSet(CEV_Input *ptr)
-{/*records inputs ptr */
+{//records inputs ptr
 
     static CEV_Input* funcSts = NULL;
 
@@ -248,14 +248,14 @@ CEV_Input* CEV_inputSet(CEV_Input *ptr)
 
 
 CEV_Input* CEV_inputGet()
-{/*fetches inputs**/
+{//fetches inputs
 
     return CEV_inputSet(NULL);
 }
 
 
 void CEV_inputValue(int *val)
-{
+{//inputs value
 
     bool anyValue = false;
     int lValue = 0;
@@ -290,7 +290,7 @@ void CEV_inputValue(int *val)
 }
 
 int CEV_mouseBoxPtr(SDL_Rect** box ,int num)
-{/*mouse box with ptr table**/
+{//mouse box with ptr table
 
     SDL_Point msePos = CEV_inputGet()->mouse.pos;
 
@@ -305,7 +305,7 @@ int CEV_mouseBoxPtr(SDL_Rect** box ,int num)
 
 
 int CEV_mouseBox(SDL_Rect* box ,int num)
-{/*mouse box**/
+{//mouse box
 
     SDL_Point *msePos = &CEV_inputGet()->mouse.pos;
 

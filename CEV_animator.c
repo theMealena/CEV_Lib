@@ -12,8 +12,11 @@
 CEV /04-2023 /1.1.0
     - blit / blitEx does not update sprite status anymore, needs spriteUpdate()
     - convert function now uses CEV_Text / parsing from txt file.
-    - functions renamed to fit CEV_lib std model
+    - functions renamed to fit CEV_lib std model.
+    - Deprecated functions removed due to structures gone public.
 */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -34,17 +37,15 @@ CEV /04-2023 /1.1.0
 #include "CEV_txtParser.h"
 #include "rwtypes.h"
 
-// TODO (drx#1#04/10/23): revoir la structure pour une table de struct a lieu de chaque parametre en double.
-// TODO (drx#1#04/11/23): supprimer les fonctions dépréciées ?
 
 /*---LOCAL FUNCTIONS DECLARATION---*/
 
 
 //resets sprite instance
-static void L_animSpriteInit(SP_Sprite* sprite, int viewIndex);
+static void L_spriteInit(SP_Sprite* sprite, int viewIndex);
 
 //selects next picture
-static void L_animNextPicture(SP_Sprite* sprite, int viewIndex);
+static void L_spritePicureNxt(SP_Sprite* sprite, int viewIndex);
 
 //scaling / display position correction
 static void L_spriteBlitPosScale(double scale, SDL_Rect clip, const SDL_Point display, SDL_Rect* result);
@@ -53,13 +54,13 @@ static void L_spriteBlitPosScale(double scale, SDL_Rect clip, const SDL_Point di
 static void L_spriteClipUpdate(SP_Sprite* sprite, int viewType, SDL_Rect* clip);
 
 //limit
-static bool L_animLim(int limInf, int val, int limSup);
+static bool L_lim(int limInf, int val, int limSup);
 
-//read anim file
+//reads view from file
 static void L_animViewTypeRead_RW(SDL_RWops* src, SP_View* dst);
 
 //fetch view request
-static int32_t L_viewNxtReqGet(int32_t *req);
+static int32_t L_viewReqNxtGet(int32_t *req);
 
 //stores request
 static char L_viewReqAppend(int32_t *req, int32_t view);
@@ -70,9 +71,14 @@ static void L_viewReqClear(int32_t *req);
 
 /*-- file format dedicated locals --*/
 
-static void L_animViewTypeWrite(SP_View *src, FILE *dst);
-static uint32_t L_animModeStringToValue(char* mode);
+//writes view type into file
+static void L_viewTypeWrite(SP_View *src, FILE *dst);
+
+//Converts CEV_Text as text file as view written into dst
 static void L_viewConvertTxtToData(CEV_Text *src, FILE *dst, int index);
+
+//SP_LOOP_MODE from text into enum's value
+static uint32_t L_animModeStringToValue(char* mode);
 
 
 void TEST_sprite(void)
@@ -84,13 +90,13 @@ void TEST_sprite(void)
     SDL_Renderer *render = CEV_videoSystemGet()->render;
     CEV_Input *input = CEV_inputGet();
 
-    printf("convert = %d\n", SP_animConvertTxtToData("sprite/spriteEditable.txt", "sprite/stringman.sps"));
+    printf("convert = %d\n", SP_animConvertTxtToData("sprite/spriteSave.txt", "sprite/save.sps"));
     //SP_AnimList* animTab = SP_animListLoad("bonhommelarite.dat");
 
-    //CEV_Font *font = CEV_fontFetch(1, "compiled.dat");
+    //CEV_Font *font = CEV_fontFetchById(1, "compiled.dat");
 
     //printf("animTab contient %d animations.\n", animTab->num);
-    SP_Anim* anim = /*SP_animListGetIndex(animTab, 0);*/SP_animLoad("sprite/stringman.sps");
+    SP_Anim* anim = SP_animLoad("sprite/save.sps");
 
 
 
@@ -103,6 +109,8 @@ void TEST_sprite(void)
     SDL_Rect blitClip = CEV_textureDimGet(anim->sheet);
 
     SP_Sprite *bonhomme = SP_spriteCreateFromAnim(anim);
+    SP_spriteStart(bonhomme);
+    bonhomme->scale = 5.0;
 
     SP_viewDisplay(bonhomme,SP_NVIEW, SP_SHOW);
     //SP_spriteStart(bonhomme);
@@ -176,7 +184,9 @@ void TEST_sprite(void)
         SDL_Delay(10);
     }
 
+
     SP_spriteDestroy(bonhomme);
+    SP_animDestroy(anim);
 
     //SP_animListFree(animTab, 1);
 
@@ -185,71 +195,83 @@ void TEST_sprite(void)
 
 /*-------- DEBUG  ---------*/
 
-void SP_spriteDump(SP_Sprite* sprite)
+void SP_spriteDump(SP_Sprite* this)
 {//dumps srpite structure content
-    if(IS_NULL(sprite))
+
+    puts("*** BEGIN SP_Sprite ***");
+
+    if(IS_NULL(this))
 	{
-		printf("sprite is NULL\n");
-        return;
+		puts("this SP_Sprite is NULL");
+        goto end;
 	}
 
-    puts("***STARTS DUMPING SPRITE CONTENT***");
-
-    printf("Animation at %p\n", sprite->anim);
-    printf("Scale is %f\n", sprite->scale);
-    printf("Animation is %s\n", sprite->run ? "Running" : "Stopped");
+    printf("Sprite is at %p\n", this);
+    printf("Animation at %p\n", this->anim);
+    printf("Scale is %f\n", this->scale);
+    printf("Animation is %s\n", this->run ? "Running" : "Stopped");
 
     for(int i=0; i<2; i++)
     {
         printf("*Dumping %s :*\n", i? "NVIEW" : "XVIEW");
-        printf(" Is locked : %d\n", sprite->isLocked[i]);
-        printf(" Show view : %d\n", sprite->viewShow[i]);
-        printf(" Direction : %d\n", sprite->direction[i]);
-        printf(" Act View : %d\n", sprite->viewAct[i]);
-        printf(" Act Pic : %d\n", sprite->picAct[i]);
+        printf(" Is locked : %d\n", this->control[i].isLocked);
+        printf(" Show view : %d\n", this->control[i].viewShow);
+        printf(" Direction : %d\n", this->control[i].direction);
+        printf(" Act View : %d\n", this->control[i].viewAct);
+        printf(" Act Pic : %d\n", this->control[i].picAct);
 
         printf(" View requests are :");
         for(int j=0; j<SP_NUM_OF_REQ_MAX; j++)
         {
-            printf(" %d;", sprite->viewReq[i][j]);
+            printf(" %d;", this->control[i].viewReq[j]);
 
         }
         puts("\n");
     }
 
-    puts("***ENDS DUMPING SPRITE CONTENT***");
+end:
+    puts("***END SP_Sprite ***");
 
 }
 
 
-void SP_viewDump(SP_View* view)
+void SP_viewDump(SP_View* this)
 {//dumps view content
 
-    puts("- BEGIN - DUMPING SP_VIEW ****");
+    puts("*** BEGIN SP_View ***");
+
+    if(IS_NULL(this))
+	{
+		puts("this SP_View is NULL");
+        goto end;
+	}
+
     printf("picNum = %d\n delay = %d\n restart = %d\n stop = %d\n mode = %d\n",
-        view->picNum, view->delay, view->restart, view->stop, view->mode);
-    puts("- END - DUMPING SP_VIEW ****");
+        this->picNum, this->delay, this->restart, this->stop, this->mode);
+
+end:
+    puts("*** END SP_View ***");
 }
 
 
 void SP_animDump(SP_Anim* anim)
 {//dumps anim content
 
-    puts("- BEGIN - DUMPING SP_ANIM ****");
+    puts("*** BEGIN SP_Anim ***");
 
     printf("spritesheet at %p\n", anim->sheet);
 
     for(int view = 0; view<SP_VIEW_LAST; view++)
     {
         printf("For %s : %d views\n", view? "XVIEW" : "NVIEW", anim->viewNum[view]);
-        for(int i=0; i<anim->viewNum[view]; i++)
+        for(unsigned i=0; i<anim->viewNum[view]; i++)
         {
             printf("View num %d\n", i);
             SP_viewDump(&anim->view[view][i]);
 
         }
     }
-    puts("- END - DUMPING SP_ANIM ****");
+    puts("*** END SP_Anim ***");
 }
 
 
@@ -361,7 +383,7 @@ SP_Anim* SP_animLoad_RW(SDL_RWops* src, bool freeSrc)
     result->picId   = picId;
 
     for (int i = 0; i<SP_VIEW_LAST; i++)
-        for(int j = 0; j<result->viewNum[i]; j++)
+        for(unsigned j = 0; j<result->viewNum[i]; j++)
             L_animViewTypeRead_RW(src, &result->view[i][j]);
 
     //reading // extracting pic if embedded
@@ -391,7 +413,7 @@ end:
 int SP_animSave(SP_Anim *src, char* fileName)
 {//saves animation into file
 
-    readWriteErr = 0;
+    //readWriteErr = 0;
 
     FILE *dst = fopen(fileName, "wb");
 
@@ -407,7 +429,7 @@ int SP_animSave(SP_Anim *src, char* fileName)
 }
 
 
-void SP_animTypeWrite(SP_Anim *src, FILE *dst)
+int SP_animTypeWrite(SP_Anim *src, FILE *dst)
 {//writes src into dst
 
     write_u32le(src->id, dst);          //writting id
@@ -417,8 +439,8 @@ void SP_animTypeWrite(SP_Anim *src, FILE *dst)
 
     //writting views parameters
     for(int i=0; i<SP_VIEW_LAST; i++)
-        for(int j = 0; j<src->viewNum[i]; j++)
-            L_animViewTypeWrite(&src->view[i][j], dst);
+        for(unsigned j = 0; j<src->viewNum[i]; j++)
+            L_viewTypeWrite(&src->view[i][j], dst);
 
     //inserting picture
     if(NOT_NULL(src->sheet))
@@ -428,12 +450,13 @@ void SP_animTypeWrite(SP_Anim *src, FILE *dst)
         CEV_capsuleTypeWrite(&caps, dst);
         CEV_capsuleClear(&caps);
     }
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
 
 int SP_animConvertTxtToData(const char* srcName, const char* dstName)
 {//converts txt file into data format.
-
 
     CEV_Text* src = CEV_textTxtLoad(srcName);
 
@@ -471,7 +494,7 @@ int SP_animConvertTxtToData(const char* srcName, const char* dstName)
     write_u32le(picId, dst);
 
     //each view
-    for(int i= 0; i< vNum + xNum; i++)
+    for(unsigned i= 0; i< vNum + xNum; i++)
         L_viewConvertTxtToData(src, dst, i);
 
     //inserting picture if not referenced
@@ -513,24 +536,25 @@ err_1 :
 }
 
 
-void SP_animDestroy(SP_Anim* anim, char freePic)
+void SP_animDestroy(SP_Anim* anim)
 {//frees it all
 
     if(IS_NULL(anim))
         return;
 
-    SP_animClear(anim, freePic);
+    SP_animClear(anim);
 
     free(anim);
 }
 
 
-void SP_animClear(SP_Anim* anim, char freePic)
+void SP_animClear(SP_Anim* anim)
 {//clears content
+
     if(IS_NULL(anim))
         return;
 
-    if (freePic && NOT_NULL(anim->sheet))
+    if (!anim->picId && NOT_NULL(anim->sheet))
     {
         SDL_DestroyTexture(anim->sheet);
     }
@@ -542,85 +566,6 @@ void SP_animClear(SP_Anim* anim, char freePic)
 }
 
 
-//deprecated
-SDL_Texture* SP_animTextureGet(SP_Anim *anim)
-{//gets texture
-
-    return anim->sheet;
-}
-
-
-//deprecated
-void SP_animQuery(SP_Anim *anim, uint32_t* nView, uint32_t* xView)
-{//queries animation
-
-    if(nView != NULL)
-        *nView = anim->viewNum[SP_NVIEW];
-
-    if(xView != NULL)
-        *xView = anim->viewNum[SP_XVIEW];
-}
-
-
-
-/*--animations and views settings--*/
-
-/*** DEPRECATED STARTS -> structure made public**/
-
-void SP_viewSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t frameNum, SDL_Rect clip, SDL_Rect hitBox, uint32_t time, uint32_t mode, uint32_t restart, uint32_t stop)
-{//view setting
-
-    SP_View* Lview = &anim->view[viewType][viewIndex];
-
-    Lview->restart  = restart;
-    Lview->stop     = stop;
-    Lview->mode     = mode;
-    Lview->delay  = time;
-    Lview->picNum   = frameNum;
-
-    //if (clip != NULL)
-        Lview->rect[SP_CLIP] = clip;
-
-    if (/*hitBox != NULL && */viewType == SP_NVIEW)
-        Lview->rect[SP_HBOX] = hitBox;
-}
-
-
-void SP_viewDelaySet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t time)
-{//sets view delay
-
-    anim->view[viewType][viewIndex].delay = time;
-}
-
-
-void SP_viewModeSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t mode)
-{//sets view mode
-
-    anim->view[viewType][viewIndex].mode = mode;
-}
-
-
-void SP_viewClipSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, SDL_Rect* clip)
-{//sets clip
-
-    anim->view[viewType][viewIndex].rect[SP_CLIP] = *clip;
-}
-
-
-void SP_viewHitBoxSet(SP_Anim* anim, uint32_t viewIndex, SDL_Rect* hbox)
-{//sets hitbox
-
-    anim->view[SP_NVIEW][viewIndex].rect[SP_HBOX] = *hbox;
-}
-
-
-void SP_viewRestartSet(SP_Anim* anim, uint32_t viewType, uint32_t viewIndex, uint32_t restart)
-{//set restart index
-
-    anim->view[viewType][viewIndex].restart = restart;
-}
-
-/*** DEPRECATED STOPS **/
 
 /*-- Sprite based related functions --*/
 
@@ -641,18 +586,6 @@ SP_Sprite* SP_spriteCreateFromAnim(SP_Anim *anim)
 }
 
 
-void SP_spriteDestroy(SP_Sprite *src)
-{//destroys content and itself
-    free(src);
-}
-
-
-void SP_spriteClear(SP_Sprite *src)
-{//clear structure content
-    *src = (SP_Sprite){0};
-}
-
-
 void SP_spriteLinkToAnim(SP_Sprite* sprite, SP_Anim *anim)
 {//links existing sprite to anim
 
@@ -665,10 +598,16 @@ void SP_spriteLinkToAnim(SP_Sprite* sprite, SP_Anim *anim)
 }
 
 
-int SP_spriteModeGet(SP_Sprite *sprite)
-{//fetches playing mode
+void SP_spriteDestroy(SP_Sprite *src)
+{//destroys content and itself
+    free(src);
+}
 
-    return sprite->anim->view[SP_NVIEW][1].mode;
+
+void SP_spriteClear(SP_Sprite *src)
+{//clear structure content
+
+    *src = (SP_Sprite){0};
 }
 
 
@@ -679,36 +618,20 @@ void SP_spriteReset(SP_Sprite *sprite)
         return;
 
     sprite->scale   = 1.0;
-    sprite->run     = true;
+    sprite->run     = false;
 
     for (int i =0; i<SP_VIEW_LAST; i++)
     {
-        sprite->timePrev[i]  = SDL_GetTicks();
-        sprite->viewShow[i]  = SP_HIDE;
-        sprite->direction[i] = 1;
+        sprite->control[i].timePrev  = SDL_GetTicks();
+        sprite->control[i].viewShow  = SP_HIDE;
+        sprite->control[i].direction = 1;
 
         if(sprite->anim != NULL)
             SP_viewForce(sprite, i, 0, 0);
 
-        L_viewReqClear(sprite->viewReq[i]);
+        L_viewReqClear(sprite->control[i].viewReq);
     }
 }
-
-//deprecated
-void SP_spriteScaleSet(SP_Sprite* sprite, double scale)
-{//sets scale
-
-    if(sprite != NULL)
-        sprite->scale = scale;
-}
-
-//deprecated
-double SP_spriteScaleGet(SP_Sprite* sprite)
-{//fetch scale
-
-    return sprite->scale;
-}
-
 
 
 void SP_spriteUpdate(SP_Sprite* sprite)
@@ -720,44 +643,45 @@ void SP_spriteUpdate(SP_Sprite* sprite)
         return;
 
 
-
     for (int i=0; i<SP_VIEW_LAST && sprite->anim->viewNum[i]; i++)
     {
         //ez coding shortcuts
 
-        uint32_t    *actViewNum  = &sprite->viewAct[i],
+        uint32_t    *actViewNum  = &sprite->control[i].viewAct,
                     delay        = anim->view[i][*actViewNum].delay,
-                    timeElapsed  = SDL_GetTicks() - sprite->timePrev[i];
+                    timeElapsed  = SDL_GetTicks() - sprite->control[i].timePrev;
 
-//       if (!sprite->viewShow[i])//if view inactive
+//       if (!sprite->control[i].viewShow)//if view inactive
 //            continue; //skip code
 
         if (timeElapsed >= delay)
         {//if time elapsed
 
-            uint32_t viewReq    = sprite->viewReq[i][0] != SP_NONE,
-                    viewLocked  = sprite->isLocked[i];
+            uint32_t viewReq    = sprite->control[i].viewReq[0] != SP_NONE,
+                    viewLocked  = sprite->control[i].isLocked;
 
             if (viewReq)
             {//if view request
                 if (!viewLocked)
                 {//if view unlocked
-                    *actViewNum = L_viewNxtReqGet(sprite->viewReq[i]);  //changing actual view
-                    L_animSpriteInit(sprite, i);                        //reset selected view
+                    *actViewNum = L_viewReqNxtGet(sprite->control[i].viewReq);  //changing actual view
+                    L_spriteInit(sprite, i);                        //reset selected view
                 }
                 else
                 {
                     if (anim->view[i][*actViewNum].mode == SP_FOR_REV_LOCK)
-                        sprite->direction[i] = -1;  //change direction
+                        sprite->control[i].direction = -1;  //change direction
 
-                    L_animNextPicture(sprite, i);   //select next picture
+                    L_spritePicureNxt(sprite, i);   //select next picture
                 }
             }
             else
-                L_animNextPicture(sprite, i);
+                L_spritePicureNxt(sprite, i);
         }
     }
 }
+
+
 
 void SP_spriteBlitEx(SP_Sprite* sprite, const SDL_Point* pos,const double angle, const SDL_Point* center, const SDL_RendererFlip flip)
 {//blits sprite with ex // no update
@@ -778,7 +702,7 @@ void SP_spriteBlitEx(SP_Sprite* sprite, const SDL_Point* pos,const double angle,
 
     for(int i=0; i<SP_VIEW_LAST; i++)
     {
-        if (sprite->viewShow[i])
+        if (sprite->control[i].viewShow)
         {
             L_spriteClipUpdate(sprite, i, &clipPos);
             L_spriteBlitPosScale(sprite->scale, clipPos, *pos, &scaledPos);
@@ -809,7 +733,7 @@ void SP_spriteBlit(SP_Sprite* sprite, const SDL_Point* pos)
 
     for(int i=0; i<SP_VIEW_LAST; i++)
     {
-        if (sprite->viewShow[i])
+        if (sprite->control[i].viewShow)
         {
             L_spriteClipUpdate(sprite, i, &clip);
             L_spriteBlitPosScale(sprite->scale, clip, *pos, &blit);
@@ -819,6 +743,12 @@ void SP_spriteBlit(SP_Sprite* sprite, const SDL_Point* pos)
 }
 
 
+int SP_spriteModeGet(SP_Sprite *sprite)
+{//fetches playing mode
+
+    return sprite->anim->view[SP_NVIEW][1].mode;
+}
+
 
 SDL_Rect SP_spriteClipGet(SP_Sprite* sprite, uint32_t viewType)
 {//returns clip pos in sprite sheet
@@ -827,8 +757,8 @@ SDL_Rect SP_spriteClipGet(SP_Sprite* sprite, uint32_t viewType)
 
     if((sprite != NULL) && (viewType<SP_VIEW_LAST))
     {
-        result = sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP];
-        result.x = result.w * sprite->picAct[viewType];
+        result = sprite->anim->view[viewType][sprite->control[viewType].viewAct].rect[SP_CLIP];
+        result.x = result.w * sprite->control[viewType].picAct;
     }
     else
         result = CLEAR_RECT;
@@ -840,12 +770,12 @@ SDL_Rect SP_spriteClipGet(SP_Sprite* sprite, uint32_t viewType)
 SDL_Rect SP_spriteHBoxClipGet(SP_Sprite* sprite)
 {//return hbox position on spritesheet
 
-    SDL_Rect box  = sprite->anim->view[SP_NVIEW][sprite->viewAct[SP_NVIEW]].rect[SP_HBOX],
-             clip = sprite->anim->view[SP_NVIEW][sprite->viewAct[SP_NVIEW]].rect[SP_CLIP],
+    SDL_Rect box  = sprite->anim->view[SP_NVIEW][sprite->control[SP_NVIEW].viewAct].rect[SP_HBOX],
+             clip = sprite->anim->view[SP_NVIEW][sprite->control[SP_NVIEW].viewAct].rect[SP_CLIP],
              result = box;
 
 
-    result.x = clip.x + box.x + ((unsigned)sprite->picAct[SP_NVIEW] * clip.w);
+    result.x = clip.x + box.x + ((unsigned)sprite->control[SP_NVIEW].picAct * clip.w);
     result.y = clip.y + box.y;
 
     return result;
@@ -855,8 +785,8 @@ SDL_Rect SP_spriteHBoxClipGet(SP_Sprite* sprite)
 SDL_Rect SP_spriteHBoxGet(SP_Sprite* sprite, SDL_Point pos, SDL_RendererFlip flip)
 {//returns hitBox pos in sprite's world
 
-    SDL_Rect box  = sprite->anim->view[SP_NVIEW][sprite->viewAct[SP_NVIEW]].rect[SP_HBOX],
-             clip = sprite->anim->view[SP_NVIEW][sprite->viewAct[SP_NVIEW]].rect[SP_CLIP],
+    SDL_Rect box  = sprite->anim->view[SP_NVIEW][sprite->control[SP_NVIEW].viewAct].rect[SP_HBOX],
+             clip = sprite->anim->view[SP_NVIEW][sprite->control[SP_NVIEW].viewAct].rect[SP_CLIP],
              result;
 
 
@@ -895,17 +825,17 @@ void SP_viewForce(SP_Sprite* sprite, uint32_t viewType, uint32_t viewIndex, uint
         || (frameIndex >= sprite->anim->view[viewType][viewIndex].picNum))
         return;
 
-    sprite->viewAct[viewType]   = viewIndex; //View change
+    sprite->control[viewType].viewAct   = viewIndex; //View change
 
     for (int i =0; i<SP_XVIEW; i++)
-        L_viewReqClear(sprite->viewReq[i]);
+        L_viewReqClear(sprite->control[i].viewReq);
 
-    L_animSpriteInit(sprite, viewType);
-    sprite->picAct[viewType] = frameIndex;
+    L_spriteInit(sprite, viewType);
+    sprite->control[viewType].picAct = frameIndex;
 // TODO (drx#1#): comment débloquer le forcage, et obtenir le lock depuis SP_spriteIsLocked() dès le forçage.
 //last modif 14/05/2019
-/*    if((sprite->direction[viewType] == SP_FOR_ONCE) || (sprite->direction[viewType]==SP_FOR_REV_LOCK))
-        sprite->isLocked[viewType] = 1;*/
+/*    if((sprite->control[viewType].direction == SP_FOR_ONCE) || (sprite->control[viewType].direction==SP_FOR_REV_LOCK))
+        sprite->control[viewType].isLocked = 1;*/
 
 }
 
@@ -918,25 +848,17 @@ char SP_viewRequest(SP_Sprite* sprite, uint32_t viewType, uint32_t viewIndex)
         || (viewIndex >= sprite->anim->viewNum[viewType]))
         return -1;
 
-    return L_viewReqAppend(sprite->viewReq[viewType], viewIndex);
+    return L_viewReqAppend(sprite->control[viewType].viewReq, viewIndex);
 }
 
 
-void SP_viewDisplay(SP_Sprite* sprite, uint32_t viewType, uint32_t display)
+void SP_viewDisplay(SP_Sprite* sprite, uint32_t viewType, bool display)
 {//enable / disable the display of a view
 
     if (viewType > SP_XVIEW)
         return;
 
-    sprite->viewShow[viewType] = display;
-}
-
-
-void SP_spriteStop(SP_Sprite* sprite)
-{//stops playing sprite
-
-    if(sprite != NULL)
-        sprite->run = false;
+    sprite->control[viewType].viewShow = display;
 }
 
 
@@ -948,40 +870,23 @@ void SP_spriteStart(SP_Sprite* sprite)
 }
 
 
+void SP_spriteStop(SP_Sprite* sprite)
+{//stops playing sprite
+
+    if(sprite != NULL)
+        sprite->run = false;
+}
+
+
 char SP_spriteIsLocked(SP_Sprite* sprite)
 {//is locked anim still playing
 
-    return sprite->isLocked[SP_NVIEW];
+    return sprite->control[SP_NVIEW].isLocked;
 }
-
-
-void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpic, int* actXpic)
-{//gets informations
-
-    if IS_NULL(sprite)
-        return;
-
-    if(actNview != NULL)
-        *actNview = sprite->viewAct[SP_NVIEW];
-
-    if(actXview != NULL)
-        *actXview = sprite->viewAct[SP_XVIEW];
-
-    if(actNpic != NULL)
-        *actNpic = sprite->picAct[SP_NVIEW];
-
-    if(actXpic != NULL)
-        *actXpic = sprite->picAct[SP_XVIEW];
-}
-
-
-/*--File Format function--*/
-
 
 
 
  /*--LOCAL FUNCTIONS---*/
-
 
 
 static void L_viewConvertTxtToData(CEV_Text *src, FILE *dst, int index)
@@ -1031,7 +936,7 @@ static void L_viewConvertTxtToData(CEV_Text *src, FILE *dst, int index)
 }
 
 
-static void L_animViewTypeWrite(SP_View *src, FILE *dst)
+static void L_viewTypeWrite(SP_View *src, FILE *dst)
 {//writes view structure content
 
     write_u32le(src->picNum, dst);
@@ -1064,78 +969,78 @@ static uint32_t L_animModeStringToValue(char* mode)
 }
 
 
-static void L_animSpriteInit(SP_Sprite* sprite, int viewIndex)
+static void L_spriteInit(SP_Sprite* sprite, int viewIndex)
 {//newly selected sprite parameters
 
-    SP_View *view = &(sprite->anim->view[viewIndex][sprite->viewAct[viewIndex]]);
+    SP_View *view = &(sprite->anim->view[viewIndex][sprite->control[viewIndex].viewAct]);
 
-    sprite->direction[viewIndex] = 1;
-    sprite->picAct[viewIndex]    = 0;
-    sprite->timePrev[viewIndex]  = SDL_GetTicks();
-    sprite->isLocked[viewIndex]  = ((view->mode == SP_FOR_REV_LOCK) || (view->mode == SP_FOR_ONCE));
+    sprite->control[viewIndex].direction    = 1;
+    sprite->control[viewIndex].picAct       = 0;
+    sprite->control[viewIndex].timePrev     = SDL_GetTicks();
+    sprite->control[viewIndex].isLocked     = ((view->mode == SP_FOR_REV_LOCK) || (view->mode == SP_FOR_ONCE));
 }
 
 
-static void L_animNextPicture(SP_Sprite* sprite, int viewIndex)
+static void L_spritePicureNxt(SP_Sprite* sprite, int viewIndex)
 {//selects next picture to be shown
 
-     SP_View *view = &(sprite->anim->view[viewIndex][sprite->viewAct[viewIndex]]);
+     SP_View *view = &(sprite->anim->view[viewIndex][sprite->control[viewIndex].viewAct]);
 
      switch (view->mode)
      {
         case SP_LOOP_FOR :
 
-            if(sprite->picAct[viewIndex] >= view->picNum-1)
-                sprite->picAct[viewIndex] = view->restart;
+            if(sprite->control[viewIndex].picAct >= view->picNum-1)
+                sprite->control[viewIndex].picAct = view->restart;
             else
-                sprite->picAct[viewIndex]++;
+                sprite->control[viewIndex].picAct++;
         break;
 
         case SP_FOR_REV :
 
-            if(!L_animLim(0, sprite->picAct[viewIndex] + sprite->direction[viewIndex], view->picNum-1))
-                sprite->direction[viewIndex] *= -1;
+            if(!L_lim(0, sprite->control[viewIndex].picAct + sprite->control[viewIndex].direction, view->picNum-1))
+                sprite->control[viewIndex].direction *= -1;
 
-            sprite->picAct[viewIndex] += sprite->direction[viewIndex];
+            sprite->control[viewIndex].picAct += sprite->control[viewIndex].direction;
         break;
 
         case SP_FOR_ONCE :
 
-            if(sprite->picAct[viewIndex] < view->picNum-1)
+            if(sprite->control[viewIndex].picAct < view->picNum-1)
             //{
-                sprite->picAct[viewIndex]++;
+                sprite->control[viewIndex].picAct++;
                 //sprite->isLocked[viewIndex] = false;//
             //}//
             else//
                 //sprite->isLocked[viewIndex] = true;//
-                sprite->isLocked[viewIndex] = sprite->picAct[viewIndex] < view->picNum-1;
+                sprite->control[viewIndex].isLocked = sprite->control[viewIndex].picAct < view->picNum-1;
 
         break;
 
         case SP_FOR_REV_LOCK :
 
-            switch (sprite->direction[viewIndex])
+            switch (sprite->control[viewIndex].direction)
             {
                 case 1 :
-                    if(sprite->picAct[viewIndex] >= view->picNum-1)
-                        sprite->picAct[viewIndex] = view->restart;
+                    if(sprite->control[viewIndex].picAct >= view->picNum-1)
+                        sprite->control[viewIndex].picAct = view->restart;
                     else
-                        sprite->picAct[viewIndex]++;
+                        sprite->control[viewIndex].picAct++;
                 break;
 
                 case -1 :
-                    if(sprite->picAct[viewIndex] > 0)
-                        sprite->picAct[viewIndex]--;
+                    if(sprite->control[viewIndex].picAct > 0)
+                        sprite->control[viewIndex].picAct--;
 
                 break;
             }
 
-            sprite->isLocked[viewIndex] = (sprite->picAct[viewIndex] != 0);
+            sprite->control[viewIndex].isLocked = (sprite->control[viewIndex].picAct != 0);
 
         break;
      }
 
-     sprite->timePrev[viewIndex] = SDL_GetTicks(); //memo time
+     sprite->control[viewIndex].timePrev = SDL_GetTicks(); //memo time
 }
 
 
@@ -1152,16 +1057,16 @@ static void L_spriteBlitPosScale(double scale, SDL_Rect clip, const SDL_Point di
 static void L_spriteClipUpdate(SP_Sprite* sprite, int viewType, SDL_Rect* clip)
 {//selects clip in sprite sheet
 
-    *clip = sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP];
+    *clip = sprite->anim->view[viewType][sprite->control[viewType].viewAct].rect[SP_CLIP];
 
-    clip->x = sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP].w * sprite->picAct[viewType];
+    clip->x = sprite->anim->view[viewType][sprite->control[viewType].viewAct].rect[SP_CLIP].w * sprite->control[viewType].picAct;
     //clip->y = sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP].y;
     //clip->w = sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP].w;
     //clip->h = sprite->anim->view[viewType][sprite->viewAct[viewType]].rect[SP_CLIP].h;
 }
 
 
-static bool L_animLim(int limInf, int val, int limSup)
+static bool L_lim(int limInf, int val, int limSup)
 {//interval checked within limits included
 
     if (limInf<=limSup)
@@ -1194,7 +1099,7 @@ static void L_animViewTypeRead_RW(SDL_RWops* src, SP_View* dst)
 }
 
 
-static int32_t L_viewNxtReqGet(int32_t *req)
+static int32_t L_viewReqNxtGet(int32_t *req)
 {//gets request from stack
 
     int32_t result = req[0];

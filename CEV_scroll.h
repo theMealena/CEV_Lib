@@ -69,7 +69,7 @@ SCROLL_MODE;
 /** \brief inner scroll structure
  */
 typedef struct L_ScrollTextLine
-{/*infos pour une ligne de text*/
+{
 
     SDL_Texture *img; /**< pic of text */
     SDL_Rect blitPos; /**< display position */
@@ -126,6 +126,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
 /** \brief fully destroys a CEV_Scroll, including itself.
  *
  * \param in : CEV_ScrollText* to be freed.
+ *
  * \return N/A
  */
 void CEV_scrollDestroy(CEV_ScrollText *in);
@@ -143,11 +144,11 @@ void CEV_scrollClear(CEV_ScrollText *in);
 
 /** \brief dumps struct content into stdout.
  *
- * \param in : CEV_ScrollText* to dump.
+ * \param this : CEV_ScrollText* to dump.
  *
  * \return void.
  */
-void CEV_scrollDump(CEV_ScrollText *in);
+void CEV_scrollDump(CEV_ScrollText *this);
 
         //CONTROL FUNCTIONS*/
 
@@ -187,8 +188,8 @@ void CEV_scrollRestart(CEV_ScrollText* in);
  *
  * \return N/A.
  *
- * note : Position is automatically interpreted as x or y
- * according to display mode
+ * \note Position is automatically interpreted as x or y
+    according to display mode
  */
 void CEV_scrollPosSet(CEV_ScrollText* in, int pos);
 
@@ -230,7 +231,7 @@ CEV_ScrollText* CEV_scrollLoad(const char* fileName);
  * \param freeSrc : bool free src if true;
  *
  * \return CEV_ScrollText* on success, NUL on error.
- * note : if freeSrc is true, src is freed weither function succeed or not.
+ * \note if freeSrc is true, src is freed weither function succeed or not.
  */
 CEV_ScrollText* CEV_scrollLoad_RW(SDL_RWops* src, bool freeSrc);
 

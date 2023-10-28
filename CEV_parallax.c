@@ -66,7 +66,6 @@ static void L_blitYrepeat(SDL_Renderer *render, SDL_Texture *texture, SDL_Rect b
 static int L_paralayerWrite_RW(CEV_ParaLayer *thisLayer, SDL_RWops* dst);
 
 
-
 /** \brief convert CSV file into data file.
  *
  * \param src : FILE* as CSV_file to read from.
@@ -113,9 +112,17 @@ static int L_prlxModeStrToValue(char* str);
 void TEST_parallax(void)
 {//test / stress library
 
-    CEV_parallaxConvertTxtToData("prlx\\parseTest.txt", "prlx\\bcgd01.plx");
+    bool reload = 1;
+    CEV_Parallax * thisPrlx = NULL;
 
-    CEV_Parallax * thisPrlx = CEV_parallaxLoad("prlx\\bcgd01.plx");
+    if(!reload)
+    {
+        CEV_parallaxConvertTxtToData("prlx\\parseTest.txt", "prlx\\bcgd01.plx");
+        thisPrlx = CEV_parallaxLoad("prlx\\bcgd01.plx");
+    }
+    else
+        thisPrlx = CEV_parallaxLoad("prlx\\bcgd01.plx");
+
 
     SDL_Rect
         world  = {0, 0, 800, 5000},
@@ -136,6 +143,10 @@ void TEST_parallax(void)
     SDL_Color drawColor ={.r=255,.g=0,.b=0,SDL_ALPHA_OPAQUE};
 
     bool quit = false;
+    int lay = 0;
+    CEV_Timer time;
+    CEV_timerInit(&time, 5000);
+        time.run = 1;
 
     while(!quit)
     {
@@ -174,6 +185,12 @@ void TEST_parallax(void)
             input->key[SDL_SCANCODE_F10] = false;
         }
 
+        if(CEV_timerRepeat(&time))
+        {
+            CEV_addModulo(INC, &lay, 4);
+            printf("display layer %d\n", lay);
+        }
+
         CEV_rectConstraint(&camera, world);
 
         CEV_parallaxShowAll(thisPrlx);
@@ -187,8 +204,11 @@ void TEST_parallax(void)
 
         SDL_Delay(10);
     }
-}
 
+    CEV_parallaxSave(thisPrlx, "prlx\\bcgd02.plx");
+
+    CEV_parallaxDestroy(thisPrlx);
+}
 
 
 CEV_Parallax* CEV_parallaxCreate(int numOfLayer, SDL_Rect *cameraPos)
@@ -248,7 +268,7 @@ void CEV_parallaxClear(CEV_Parallax *in)
         return;
     }
 
-    for(int i=0; i < in->numOfLayer; i++)
+    for(unsigned i=0; i < in->numOfLayer; i++)
     {
         CEV_parallaxLayerClear(&in->layers[i]);
     }
@@ -269,7 +289,7 @@ void CEV_parallaxLayerClear(CEV_ParaLayer* in)
 
     if(in->isGif)
     {
-        CEV_gifAnimFree(in->anim);//destroys gif + texture
+        CEV_gifDestroy(in->anim);//destroys gif + texture
     }
     else
     {
@@ -286,7 +306,7 @@ void CEV_parallaxShowAll(CEV_Parallax *in)
     if(IS_NULL(in))
         return;
 
-    for (int i=0; i<in->numOfLayer; i++)
+    for (unsigned i=0; i<in->numOfLayer; i++)
         CEV_parallaxShowLayer(in, i);
 }
 
@@ -399,76 +419,88 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
 }
 
 
-void CEV_parallaxDump(CEV_Parallax *in)
+void CEV_parallaxDump(CEV_Parallax *this)
 {//dumps to stdout
 
-    if(IS_NULL(in))
+    puts("*** BEGIN CEV_Parallax ***");
+
+    if(IS_NULL(this))
     {
-        fprintf(stderr, "Err at %s / %d :  arg is NULL, nothing to be done.\n", __FUNCTION__, __LINE__ );
-        return;
+        puts("This CEV_Parallax is NULL");
+        goto end;
     }
 
-    printf("id = %d\n", in->id);
-    printf("numOfLayer = %d\n", in->numOfLayer);
+    printf("id = %d\n", this->id);
+    printf("numOfLayer = %d\n", this->numOfLayer);
 
-    if(in->cameraPos)
-        printf("camera at %p with %d, %d, %d, %d\n", in->cameraPos,
-                                                    in->cameraPos->x,
-                                                    in->cameraPos->y,
-                                                    in->cameraPos->w,
-                                                    in->cameraPos->h);
+    if(this->cameraPos)
+        printf("camera at %p with %d, %d, %d, %d\n", this->cameraPos,
+                                                    this->cameraPos->x,
+                                                    this->cameraPos->y,
+                                                    this->cameraPos->w,
+                                                    this->cameraPos->h);
     else
-        printf("camera is NULL\n");
+        puts("camera is NULL");
 
-    printf("world with %d, %d, %d, %d\n", in->worldDim.x,
-                                        in->worldDim.y,
-                                        in->worldDim.w,
-                                        in->worldDim.h);
+    printf("world with %d, %d, %d, %d\n", this->worldDim.x,
+                                        this->worldDim.y,
+                                        this->worldDim.w,
+                                        this->worldDim.h);
 
-    if(in->layers)
+    if(this->layers)
     {
-        printf("layers at %p\n", in->layers);
+        printf("layers at %p\n", this->layers);
 
-        for(int i=0; i<in->numOfLayer; i++)
+        for(unsigned i=0; i<this->numOfLayer; i++)
         {
             printf("Layer %d content :\n", i);
-            CEV_parallaxLayerDump(&in->layers[i]);
+            CEV_parallaxLayerDump(&this->layers[i]);
         }
     }
     else
         puts("Layers are not allocated");
+
+end:
+    puts("*** END CEV_Parallax ***");
 }
 
 
-void CEV_parallaxLayerDump(CEV_ParaLayer* in)
+void CEV_parallaxLayerDump(CEV_ParaLayer* this)
 {//dumps to stdout
 
-    printf("texture at : %p\n", in->texture);
-    printf("picsize with %d, %d, %d, %d\n", in->picSize.x,
-                                            in->picSize.y,
-                                            in->picSize.w,
-                                            in->picSize.h);
+    puts("*** BEGIN CEV_Paralayer ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_ParaLayer is NULL");
+        goto end;
+    }
+
+    printf("texture at : %p\n", this->texture);
+    printf("picsize with %d, %d, %d, %d\n", this->picSize.x,
+                                            this->picSize.y,
+                                            this->picSize.w,
+                                            this->picSize.h);
 
     for(int i=0; i<2; i++)
     {
         printf("Axis %c :\n", i?'y':'x');
 
-        printf("ratio = %f, pos = %f, vel = %f\n", in->axisPar[i].ratio,
-                                                    in->axisPar[i].pos,
-                                                    in->axisPar[i].vel);
+        printf("ratio = %f, pos = %f, vel = %f\n", this->axisPar[i].ratio,
+                                                    this->axisPar[i].pos,
+                                                    this->axisPar[i].vel);
 
-        printf("isrepeat = %s\n", in->axisPar[i].isRepeat? "true" :"false");
-        printf("display mode = %d\n", in->axisPar[i].posMode);
+        printf("isrepeat = %s\n", CEV_strBool(this->axisPar[i].isRepeat));
+        printf("display mode = %d\n", this->axisPar[i].posMode);
     }
 
-    printf("isGif = %s\n", in->isGif? "true" :"false");
-    if(in->anim)
-        printf("anim at %p\n", in->anim);
-    else
-        puts("anim is NULL");
+    printf("isGif = %s\n", CEV_strBool(this->isGif));
+    printf("anim at %p\n", IS_NULL(this->anim)? NULL : this->anim);
+    printf("x = %f, y = %f\n", this->axisPar[0].pos, this->axisPar[1].pos);
 
+end:
+    puts("*** END CEV_Paralayer ***");
 
-    printf("x = %f, y = %f\n", in->axisPar[0].pos, in->axisPar[1].pos);
 }
 
 
@@ -486,7 +518,7 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
     FILE *dst       = NULL;
 
     char folderName[FILENAME_MAX] = "\0",
-         fileLine[50],
+         //fileLine[50],
          hasFolder =  0;
 
     readWriteErr = 0;
@@ -516,10 +548,10 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
     write_u32le(num, dst);
 
     //number of layers
-    num = (uint32_t)CEV_txtParseValueFrom(src, "layer num");
+    num = (uint32_t)CEV_txtParseValueFrom(src, "layerNum");
     write_u32le(num, dst);
 
-    for(int i=0; i<num; i++)
+    for(unsigned i=0; i<num; i++)
     {
         L_parallaxLayerTxtToData(src, dst, hasFolder? folderName : NULL, i);
     }
@@ -549,20 +581,16 @@ err:
 
 CEV_Parallax* CEV_parallaxLoad(const char* fileName)
 {//load parallax data file
-     /*---DECLARATIONS---*/
 
     CEV_Parallax *result = NULL;
     SDL_RWops    *ops = NULL;
 
-    /*---PRL---*/
 
     if IS_NULL(fileName)
     {
         fprintf(stderr,"Err at %s / %d : fileName is NULL\n", __FUNCTION__, __LINE__);
         return NULL;
     }
-
-    /*---EXECUTION---*/
 
     ops = SDL_RWFromFile(fileName, "rb");
 
@@ -585,20 +613,19 @@ int CEV_parallaxSave(CEV_Parallax* src, const char* fileName)
 
     int funcSts = FUNC_OK;
 
-    FILE* dst = fopen(fileName, "wb");
+    SDL_RWops* ops = SDL_RWFromFile(fileName, "wb");
 
-    CEV_Capsule caps;
-
-    CEV_parallaxToCapsule(src, &caps);
-
-    if(fwrite(caps.data, 1, caps.size, dst) != caps.size)
+    if(IS_NULL(ops))
     {
-        fprintf(stderr, "Err at %s / %d : could not write into file %s : %d.\n", __FUNCTION__, __LINE__, fileName, ferror(dst));
-        funcSts = FUNC_ERR;
+        fprintf(stderr, "Err at %s / %d : ops is NULL : %s.\n", __FUNCTION__, __LINE__ , SDL_GetError());
     }
 
-    fclose(dst);
-    CEV_capsuleClear(&caps);
+    CEV_parallaxWrite_RW(src, ops);
+
+    if(SDL_RWclose(ops))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__ , SDL_GetError());
+    }
 
     return funcSts;
 }
@@ -633,7 +660,7 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
         goto err_2;
     }
 
-    for (int i =0; i<result->numOfLayer; i++)
+    for (unsigned i =0; i<result->numOfLayer; i++)
     {
         result->layers[i].picSize = (SDL_Rect){0,0,0,0};
 
@@ -681,15 +708,19 @@ err_1 :
 int CEV_parallaxWrite_RW(CEV_Parallax* src, SDL_RWops* dst)
 {//writes parallax into RWops file
 
-    readWriteErr += SDL_WriteBE32(dst, src->numOfLayer);
+    readWriteErr += SDL_WriteLE32(dst, src->id);
+    readWriteErr += SDL_WriteLE32(dst, src->numOfLayer);
 
-    for (int i=0; i<src->numOfLayer; i++)
+    for (unsigned i=0; i<src->numOfLayer; i++)
         readWriteErr += L_paralayerWrite_RW(&src->layers[i], dst);
 
     return readWriteErr;
 }
 
 
+// FIXME (drx#1#04/30/23): Passer par un fichier temp, le SDL_AllocRW est douteux. ...
+//NE PAS UTILISER
+/*
 int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst)
 {//creates capsule from structure
 
@@ -727,10 +758,10 @@ int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst)
     SDL_RWread(vFile, dst->data, size, 1);
 
 end:
-    SDL_RWclose(vFile);
+    SDL_FreeRW(vFile);
     return funcSts;
 }
-
+*/
 
 /*** Local functions ***/
 
@@ -773,7 +804,15 @@ static int L_paralayerWrite_RW(CEV_ParaLayer *thisLayer, SDL_RWops* dst)
         sdlRWerr *= SDL_WriteU8(dst, thisLayer->axisPar[i].posMode);
     }
 
-    return sdlRWerr;
+    CEV_Capsule pic = {0};
+
+    CEV_textureToCapsule(thisLayer->texture, &pic);
+
+    CEV_capsuleTypeWrite_RW(&pic, dst);
+
+    CEV_capsuleClear(&pic);
+
+    return !sdlRWerr;
 }
 
 
@@ -783,8 +822,7 @@ static void L_parallaxLayerTxtToData(CEV_Text *src, FILE *dst, char *folder, int
     float ratio, vel;
 
     char fileName[FILENAME_MAX] = "\0",
-         lString[FILENAME_MAX],
-         fileLine[100];
+         lString[FILENAME_MAX];
 
     char  repeat, posMode;
 
@@ -893,7 +931,8 @@ static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* laye
 
 
 static int L_prlxModeStrToValue(char* str)
-{
+{//convert text enum to numerical enum
+
     char* ref[PRLX_LAST] = PRLX_TYPE_NAMES;
 
     for (int i = 0; i < PRLX_LAST; i++)

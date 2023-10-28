@@ -69,7 +69,7 @@ void CEV_musicClear(CEV_Music* music)
 }
 
 
-SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr)
+SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** pxlData)
 {//convert texture into surface
 
     if IS_NULL(src)
@@ -83,11 +83,11 @@ SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr)
 
     SDL_Renderer* render = CEV_videoSystemGet()->render;
 
-    uint32_t format = SDL_PIXELFORMAT_RGBA8888;
+    uint32_t format = CEV_PIXELFORMAT;
     int w, h;
 
     //quering dimension
-    SDL_QueryTexture(src, NULL, NULL, &w, &h);
+    SDL_QueryTexture(src, &format, NULL, &w, &h);
 
     //texture as copy of src
     SDL_Texture* srcCpy = SDL_CreateTexture(render, format, SDL_TEXTUREACCESS_TARGET, w, h);
@@ -99,10 +99,11 @@ SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr)
     }
 
     SDL_SetRenderTarget(render, srcCpy);    //copy as render
+    //SDL_RenderClear(render);
     SDL_RenderCopy(render, src, NULL, NULL);//blitting src on srcCpy
 
     //allocating pixel field
-    pix = malloc(w * h * 32);
+    pix = calloc(1, w * h * 32);
 
     if IS_NULL(pix)
     {
@@ -122,8 +123,9 @@ SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** ptr)
     }
 
     SDL_SetRenderTarget(render, NULL);
+
     SDL_DestroyTexture(srcCpy);
-    *ptr = pix;
+    *pxlData = pix;
 
 end:
     return result;
@@ -196,14 +198,14 @@ int CEV_textureSavePNG_RW(SDL_Texture *src, SDL_RWops* dst)
 int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 {//texture into png file's CEV_Capsule
 
+
     int funcSts = FUNC_OK;
 
-    char fileName[L_tmpnam];
-    tmpnam(fileName);
+    char *fileName/*[L_tmpnam]*/ = NULL;
+    fileName = tmpnam(NULL)+1;
     strcat(fileName, ".png");
-    //printf("fileName is : %s\n", fileName);
 
-    //saving png into virtual file
+    //saving png as new file file
     if(CEV_textureSavePNG(src, fileName))
     {
         fprintf(stderr, "Err at %s / %d : unable to save texture into file.\n", __FUNCTION__, __LINE__ );
@@ -213,7 +215,7 @@ int CEV_textureToCapsule(SDL_Texture* src, CEV_Capsule* dst)
 
     if(CEV_capsuleFromFile(dst, fileName))
     {
-        fprintf(stderr, "Err at %s / %d : unable to convert file into capsule.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : unable to convert %s into capsule.\n", __FUNCTION__, __LINE__, fileName);
         funcSts = FUNC_ERR;
     }
 
@@ -242,7 +244,7 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
     if (IS_NULL(src) || IS_NULL(dst))
     {
         fprintf(stderr, "Err at %s / %d : One arg at least is NULL.\n", __FUNCTION__, __LINE__ );
-        return FUNC_ERR;
+        return ARG_ERR;
     }
 
     int access;
@@ -298,6 +300,38 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
 }
 
 
+int CEV_surfaceToCapsule(SDL_Surface* src, CEV_Capsule* dst)
+{//inserts SDL_Surface into CEV_Capsule
+
+    int funcSts = FUNC_OK;
+
+    char *fileName/*[L_tmpnam]*/ = NULL;
+    fileName = tmpnam(NULL)+1;
+    strcat(fileName, ".png");
+
+    //saving png as new file file
+    if(IMG_SavePNG(src, fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to save surface into file.\n", __FUNCTION__, __LINE__ );
+        funcSts = FUNC_ERR;
+        goto end;
+    }
+
+    if(CEV_capsuleFromFile(dst, fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : unable to convert %s into capsule.\n", __FUNCTION__, __LINE__, fileName);
+        funcSts = FUNC_ERR;
+    }
+
+end:
+    remove(fileName);
+
+    return funcSts;
+
+}
+
+
+
 static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dstDim, SDL_Rect* dstBlit)
 {
 
@@ -307,7 +341,7 @@ static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dst
     CEV_constraint(0, &dstBlit->h, dstDim->h);
 
     /*correcting source rect if out of dimensions*/
-    if(srcClip->x<0)
+    if(srcClip->x < 0)
     {
         srcClip->w += srcClip->x;
         srcClip->x = 0;
@@ -316,7 +350,7 @@ static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dst
     if(srcClip->x + srcClip->w > srcDim->w)
         srcClip->w = srcDim->w - srcClip->x;
 
-    if(srcClip->y<0)
+    if(srcClip->y < 0)
     {
         srcClip->h += srcClip->y;
         srcClip->y = 0;
@@ -326,7 +360,7 @@ static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dst
         srcClip->h = srcDim->h - srcClip->y;
 
     /*correcting dst rect if out of dimensions*/
-    if(dstBlit->x<0)
+    if(dstBlit->x < 0)
     {
         srcClip->w += dstBlit->x;
         srcClip->x -= dstBlit->x;
@@ -338,7 +372,7 @@ static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dst
         dstBlit->w = dstDim->w - dstBlit->x;
     }
 
-    if(dstBlit->y<0)
+    if(dstBlit->y < 0)
     {
         srcClip->h += dstBlit->y;
         srcClip->y -= dstBlit->y;

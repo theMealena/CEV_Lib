@@ -150,7 +150,7 @@ CEV_TileMap* CEV_mapLoad(const char* fileName)
 }
 
 
-int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
+int CEV_mapSave(CEV_TileMap* src, const char* dstFileName)
 {//saves map into file
 
 	/**PRL**/
@@ -169,11 +169,11 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
 	/**EXE**/
 
 	readWriteErr = 0;
-
-	CEV_Capsule caps;
+    bool embeddPic = false;
+	CEV_Capsule caps = {0};
 
 	//if tile set is to be embedded
-	if(embeddPic)
+	if(!src->tileSetId)
     {
         if NOT_NULL(src->tileSetPic)
         {
@@ -184,7 +184,8 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName, bool embeddPic)
             //CEV_capsuleFromFile(&caps, dstFileName);
             //creating png capsule from texture
             CEV_textureToCapsule(src->tileSetPic, &caps);
-            src->tileSetId = 0;
+            embeddPic = true;
+
         }
         else
         {
@@ -271,7 +272,7 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
             goto err;
         }
 
-        CEV_mapTextureAttach(result, tex);
+        CEV_mapAttachTexture(result, tex);
     }
 
 	//close RWops if requested
@@ -410,7 +411,7 @@ void CEV_mapClear(CEV_TileMap *map)
     }
 
     //frees tilemap content
-    for (int i=0; i < map->numLayer; i++)
+    for (unsigned i=0; i < map->numLayer; i++)
     {//for every layer
         for (int j=0; j<map->dim.world.tiles.w; j++)
             free(map->tileMap[i][j]); //for every column
@@ -429,7 +430,7 @@ void CEV_mapClear(CEV_TileMap *map)
 }
 
 
-bool CEV_mapTextureAttach(CEV_TileMap* map, SDL_Texture* texture)
+bool CEV_mapAttachTexture(CEV_TileMap* map, SDL_Texture* texture)
 {//associates texture containing tiles and sets clips
 
     if(IS_NULL(map) || IS_NULL(texture))
@@ -529,7 +530,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
             //drawing
             if(layer<0)
             {
-                for(int i=0; i<src->numLayer; i++)
+                for(unsigned i=0; i<src->numLayer; i++)
                 {
                     if(src->tileMap[i][x][y].index>=0)
                     {
@@ -901,7 +902,7 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst)
     }
 
     //reading tiles matrix
-    for (int layer=0; layer<dst->numLayer; layer++)
+    for (unsigned layer=0; layer<dst->numLayer; layer++)
     {
         for(int x=0; x<dst->dim.world.tiles.w; x++)
         {
@@ -941,7 +942,7 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst)
 	write_u32le(src->tileSize, dst);
 
     //tiles
-    for(int layer=0; layer<src->numLayer; layer++)
+    for(unsigned layer=0; layer<src->numLayer; layer++)
     {
         for(int x=0; x<src->dim.world.tiles.w; x++)
         {

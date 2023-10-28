@@ -16,10 +16,10 @@
 #include "CEV_api.h"
 
 
-#define MSE_BT_NUM 20  /**< mouse button array size*/
-#define KEYBOARD 0
-#define MOUSE    1
-#define PAD      2
+#define MSE_BT_NUM 20   /**< Mouse button array size. */
+#define KEYBOARD 0      /**< Keyboard index (as last used). */
+#define MOUSE    1      /**< Mouse index (as last used). */
+#define PAD      2      /**< Pad index (as last used). */
 
 
 #if SDL_MAJOR_VERSION == 2
@@ -53,7 +53,7 @@ CEV_Window;
 typedef struct CEV_Mouse
 {
 
-    bool button[MSE_BT_NUM]; /**< Mouse buttons array. */
+    bool button[MSE_BT_NUM];/**< Mouse buttons array. */
     SDL_Point pos;          /**< Actual mouse position. */
     SDL_Point rel;          /**< Relative mouse movement. */
 }
@@ -89,14 +89,15 @@ bool CEV_inputUpdate();
 /** \brief Input initialisation.
  *
  * \return FUNC_OK if init, FATAL on error.
- *
  */
 int CEV_inputInit();
 
 
 /** \brief Frees input structure.
- * note : memory clean-up.
+ *
  * \return N/A.
+ *
+ * \note Memory clean-up.
  */
 void CEV_inputFree();
 
@@ -126,6 +127,12 @@ CEV_Input* CEV_inputSet(CEV_Input *ptr);
 CEV_Input* CEV_inputGet();
 
 
+/** \brief Gets value from inputs.
+ *
+ * \param val : int* to contain resulting value.
+ *
+ * \return void
+ */
 void CEV_inputValue(int *val);
 
 
@@ -149,8 +156,6 @@ int CEV_mouseBox(SDL_Rect* box ,int num);
  *
  */
 int CEV_mouseBoxPtr(SDL_Rect** box ,int num);
-
-
 
 
 #ifdef __cplusplus

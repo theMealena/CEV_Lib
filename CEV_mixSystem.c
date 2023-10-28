@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <SDL.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 #include "project_def.h"
@@ -207,6 +208,8 @@ static int L_videoSystemCreate(void)
     CEV_VideoSystem  *sys   = CEV_videoSystemGet();
     SDL_Renderer    *render = NULL;
     SDL_Window      *window = NULL;
+
+    //SDL_SetHint(SDL_HINT_JOYSTICK_RAWINPUT, "0");
 
     if (SDL_Init(CEV_SDL_FLAG)<0)
     {/*SDL initialization*/
