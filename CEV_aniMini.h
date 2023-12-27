@@ -19,6 +19,9 @@
 
 //file IS_ANI (17)
 
+#define ANI_TYPE_ID (IS_ANI<<24)
+#define IS_ANI_ID(x) ((x & 0xFF000000) == ANI_TYPE_ID)
+
 
 /**cahier des charges :
 - 2 lignes d'animation max.
@@ -33,14 +36,14 @@
 
 /** fichier data .ani
 
-U32 : id (type & id)
-    : id fichier image (embarquée si 0)
-    : delay
+U32 : id (type & id)                    0x00
+    : id fichier image (embarquée si 0) 0x04
+    : delay                             0x08
 
-S32 : time offset
-U8  : nombre d'animation
-    : num images animation 0
-    : num images animation 1
+S32 : time offset                       0x0C
+U8  : nombre d'animation                0x10
+    : num images animation 0            0x11
+    : num images animation 1            0x12
 
 CEV_capsule : fichier image si embarquée
 */
@@ -59,7 +62,7 @@ typedef struct S_CEV_SpriteMini
          switchAnim,    /**< enables 2nd line of animation */
          play;          /**< enables animation playing */
 
-    uint8_t picAct;     /**< active picture index */
+    uint8_t frameAct;     /**< active picture index */
 
     int timeOffset;     /**< time offset to sync */
 
@@ -78,7 +81,7 @@ struct S_CEV_AniMini
     //bool isSync;        /**< animation sync'ed with absolute time */
 
     uint8_t numOfAnim,  /**< num of anim in animation */
-            numOfPic[2];/**< num of pic per animation */
+            numOfFrame[2];/**< num of pic per animation */
 
     uint32_t id,        /**< unique own id */
              delay,     /**< delay between pics (ms) */
@@ -92,8 +95,6 @@ struct S_CEV_AniMini
     SDL_Texture *pic;    /**< texture with animation */
     // #1 CEV_SpriteMini sprite;  /**< self instance */
 };
-
-
 
 
 /** \brief Debug / stress test.
@@ -149,15 +150,6 @@ void CEV_aniMiniDestroy(CEV_AniMini *this);
  */
 void CEV_aniMiniClear(CEV_AniMini *this);
 
-
-/*
-/** \brief Loads and creates mini animation from file.
- *
- * \param fileName : char*  with name of file to be loaded.
- *
- * \return CEV_AniMini* as result or NULL on failure.
- */
-//CEV_AniMini* CEV_aniMiniLoadCreate(char *fileName);
 
 
 /** \brief Loads CEV_AniMini from file.
@@ -251,11 +243,22 @@ int CEV_aniMiniTypeWrite_RW(CEV_AniMini* src, SDL_RWops* dst);
 int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName);
 
 
+/** \brief Export aniMini as editable file.
+ *
+ * \param src : AniMini* to export.
+ * \param dstName : const char* as path and resulting fileName.
+ *
+ * \return int  as sdt funcSts.
+ * \note picture is produced  next to resulting file
+ * random name given to embedded picture if any.
+ */
+int CEV_aniMiniExport(CEV_AniMini *src, const char *dstName);
+
+
 /** \brief Sets texture to be used for animation.
  *
  * \param src : SDL_Texture* to be used for animation.
  * \param dst : CEV_AniMini* to hold texture for animation.
- * \param dstId : id of source if any.
  *
  * \return int of standard function status.
  *
@@ -265,7 +268,7 @@ int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName);
 * \warning Any src without ID will be freed upon attachment / clear / destroy operation.
  Id'd resources will have to be freed at upper level.
  */
-int CEV_aniMiniAttachTexture(SDL_Texture* src, CEV_AniMini *dst, uint32_t srcId);
+int CEV_aniMiniAttachTexture(SDL_Texture* src, CEV_AniMini *dst);
 
 
 /** \brief Sets animation paraameters for animation.

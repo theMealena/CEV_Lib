@@ -14,6 +14,7 @@
 #include <CEV_aniMini.h>
 #include <CEV_txtParser.h>
 #include <CEV_types.h>
+#include <CEV_file.h>
 #include <rwtypes.h>
 #include "CEV_button.h"
 #include "CEV_platform.h"
@@ -58,8 +59,8 @@ void TEST_switchButton(void)
     if(createBtn)
     {
         button = calloc(1, sizeof(CEV_SwitchButton));
-        button->ID = SWITCHBTN_OBJECT;
-        button->animID = 0;
+        button->id = SWITCHBTN_TYPE_ID;
+        button->animId = 0;
         button->anim = CEV_aniMiniLoad("animini/testshortanim.ani");
         CEV_spriteMiniFrom(button->anim, &button->sprite );
         button->anim->delay = 1000;
@@ -124,9 +125,9 @@ void CEV_switchButtonDump(CEV_SwitchButton* this)
         goto end;
     }
 
-    printf("ID is : %08X\ndst_Id is: %08X\nvalue is: %d\n",
-            this->ID,
-            this->dstID,
+    printf("id is : %08X\ndst_Id is: %08X\nvalue is: %d\n",
+            this->id,
+            this->ctrlId,
             this->value);
 
     printf("linked bool at: %p\nlinked num at: %p\n is activated: %u\n is reversible: %u\n",
@@ -169,9 +170,14 @@ void CEV_switchButtonClear(CEV_SwitchButton* this)
     if(IS_NULL(this))
         return;
 
-    if(!this->animID)
-    {
+    if(!this->animId)
+    {//if embedded
         CEV_aniMiniDestroy(this->anim);
+    }
+
+    if(!this->chunkId)
+    {//if embedded
+        CEV_waveClose(this->sound);
     }
 
     *this = (CEV_SwitchButton){0};
@@ -203,13 +209,13 @@ void CEV_switchButtonAttachAnim(CEV_AniMini* src, CEV_SwitchButton* dst)
         return;
     }
 
-    if(!dst->animID)//was embedded, otherwise is held somewhere else
+    if(!dst->animId)//was embedded, otherwise is held somewhere else
         CEV_aniMiniDestroy(dst->anim);//NULL compliant
 
     CEV_rectDimCopy(src->clip, &dst->clip);
     CEV_spriteMiniFrom(src, &dst->sprite);
     dst->anim 	= src;
-	dst->animID = src->id;
+	dst->animId = src->id;
 }
 
 
@@ -301,9 +307,9 @@ int CEV_switchButtonTypeWrite(CEV_SwitchButton* src, FILE* dst)
 
     int funcSts = FUNC_OK;
 
-    write_u32le(src->ID, dst);      //own ID
-    write_u32le(src->dstID, dst);   //its dst ID
-    write_u32le(src->animID, dst);  //its animation ID
+    write_u32le(src->id, dst);      //own id
+    write_u32le(src->ctrlId, dst);   //its dst id
+    write_u32le(src->animId, dst);  //its animation id
     write_u32le(src->value, dst);   //its value
     write_u32le(src->pos.x, dst);   //x pos in world
     write_u32le(src->pos.y, dst);   //y pos in world
@@ -314,7 +320,7 @@ int CEV_switchButtonTypeWrite(CEV_SwitchButton* src, FILE* dst)
 
     write_u8(src->isReversible, dst); //is reversible
 
-    if(!src->animID)//means to embed animini
+    if(!src->animId)//means to embed animini
     {
         CEV_aniMiniTypeWrite(src->anim, dst);
     }
@@ -334,16 +340,16 @@ int CEV_switchButtonTypeRead_RW(SDL_RWops* src, CEV_SwitchButton* dst, bool free
 
     //CEV_switchButtonClear(dst);
 
-    dst->ID = SDL_ReadLE32(src); //its ID
+    dst->id = SDL_ReadLE32(src); //its ID
 
-    if (SWITCHBTN_OBJECT != (dst->ID & 0xFFFF0000))
+    if (SWITCHBTN_TYPE_ID != (dst->id & 0xFFFF0000))
     {
         fprintf(stderr, "Err at %s / %d : File does not contain switchButton.\n", __FUNCTION__, __LINE__ );
         return ARG_ERR;
     }
 
-    dst->dstID          = SDL_ReadLE32(src);//destination ID
-    dst->animID         = SDL_ReadLE32(src);//its animini ID
+    dst->ctrlId         = SDL_ReadLE32(src);//destination ID
+    dst->animId         = SDL_ReadLE32(src);//its animini ID
     dst->value          = SDL_ReadLE32(src);//value
     dst->pos.x          = SDL_ReadLE32(src);//position.x in world
     dst->pos.y          = SDL_ReadLE32(src); //position.x in world
@@ -353,8 +359,8 @@ int CEV_switchButtonTypeRead_RW(SDL_RWops* src, CEV_SwitchButton* dst, bool free
     dst->hitBox.h       = SDL_ReadLE32(src);//relative hitbox.h
     dst->isReversible   = SDL_ReadU8(src);  //reversible
 
-    //checking if animation embedded with animID <> 0
-    if(!dst->animID)
+    //checking if animation embedded with animId <> 0
+    if(!dst->animId)
     {
         dst->anim = CEV_aniMiniLoad_RW(src, false);
 
@@ -440,8 +446,6 @@ int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
 
     CEV_Text *src = CEV_textTxtLoad(srcName);
 
-    CEV_textDump(src);
-
     if(IS_NULL(src))
     {
         fprintf(stderr, "Err at %s / %d : Unable to load CEV_Text.\n", __FUNCTION__, __LINE__ );
@@ -459,7 +463,7 @@ int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
 
     //id
     uint32_t valu32 = CEV_txtParseValueFrom(src, "id");
-    valu32 = (valu32 & 0xFFFF0000) | SWITCHBTN_OBJECT;
+    valu32 = (valu32 & 0xFFFF0000) | SWITCHBTN_TYPE_ID;
     write_u32le(valu32, dst);
 
     //destination id
@@ -492,19 +496,19 @@ int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
     char *aniMiniName = CEV_txtParseTxtFrom(src, "aniMini");
 
     if(!animId && NOT_NULL(aniMiniName))
-    {
-
-        CEV_AniMini *ani = CEV_aniMiniLoad(aniMiniName);
-        CEV_aniMiniTypeWrite(ani, dst);
-        CEV_aniMiniDestroy(ani);
+    {// TODO (drx#1#12/12/23): Manque extraction du dossier du fichier, à corriger, voir dans platform
+        CEV_fileInsert(aniMiniName, dst);
     }
+
+    if(readWriteErr)
+        funcSts = FUNC_ERR;
 
 err_1:
     CEV_textDestroy(src);
 
     fclose(dst);
 
-    return 0;
+    return funcSts;
 }
 
 
@@ -514,7 +518,7 @@ static void L_switchButtonPreset(CEV_SwitchButton* this)
     this->clip = this->anim->clip;
     CEV_rectDimCopy(this->clip, &this->pos);
     //CEV_spriteMiniPlay(&(this->anim->sprite), true);//playing at start up
-    this->aniCtrl.preset = this->anim->numOfPic[0] * this->anim->delay;
+    this->aniCtrl.preset = this->anim->numOfFrame[0] * this->anim->delay;
     this->aniCtrl.run = true;
 }
 
@@ -526,7 +530,7 @@ static void L_switchButtonAnim(CEV_SwitchButton* this)
 
     if(this->reActive.any)
     {
-        this->aniCtrl.preset = this->anim->numOfPic[this->sprite.switchAnim] * this->anim->delay;
+        this->aniCtrl.preset = this->anim->numOfFrame[this->sprite.switchAnim] * this->anim->delay;
     }
     //bool needsUpdate = (this->sprite.picAct != this->anim->numOfPic[this->sprite.toggleAnim]);
 

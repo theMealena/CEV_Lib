@@ -43,7 +43,7 @@ extern "C" {
 typedef struct CEV_PadAxis
 {//added 20210513
 
-    int16_t calib[2],   /**< Calibrating values min/max. */ /* TODO (drx#1#): à implémenter pour finition ? */
+    int16_t calib[2],   /**< Calibrating values min/max. */ /* TODO (drx#8#): à implémenter pour finition ? */
             rawValue,   /**< Raw value given by event. */
             value,      /**< Scaled value with calib / dead range correction. */
             zone;       /**< Zoned value reduction. */

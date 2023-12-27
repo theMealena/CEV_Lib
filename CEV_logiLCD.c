@@ -141,7 +141,7 @@ void REV_lcdBackgroundSet(int index)
     switch (sys->lcdType)
     {
         case LOGI_LCD_TYPE_COLOR:
-// TODO (drx#1#): résoudre problème du nom du fichier ici versus resource holder
+// TODO (drx#2#): résoudre problème du nom du fichier ici versus resource holder
             sys->srcBckgd = CEV_anyFetchByIndexFromFile(index, DATA_FILE);
 
         break;

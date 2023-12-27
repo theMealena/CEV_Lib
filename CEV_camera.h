@@ -3,6 +3,9 @@
 //**------------------------------------------------------**/
 //**   CEV    |  2022/03/06   |   1.0    | rev & test / added to CEV_lib
 //**********************************************************/
+// CEV - 2023-11-26 - Removed time parameter in init.
+
+
 
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
@@ -56,7 +59,7 @@ typedef struct S_CameraParam
         camDim,         /**< display (render) dimension */
         posCalc,        /**< calculated camera position */
         *posAct,        /**< camera real position  */
-        autoScrollVel; /**< autoscroll pxl/frame vel*/
+        autoScrollVel;  /**< autoscroll pxl/frame vel*/
 
     bool autoReverse;   /**< enables direction change */
 
@@ -85,14 +88,13 @@ CEV_Camera;
  * \param in : CEV_Camera* to init.
  * \param followPt : CEV_FCoord* to be followed by camera.
  * \param constraint : SDL_Rect in which camera should be constraint (world).
- * \param changeTime : unsigned int as delay (ms) for camera to react to direction change.
  * \param mode : CEV_CameraMode as follow mode.
  *
  * \return void
  *
  * \note Is to use with a declared camera VS camera loaded from file.
  */
-void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, unsigned int changeTime, CEV_CameraMode mode);
+void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, CEV_CameraMode mode);
 
 
 /** \brief Laods camera from file.

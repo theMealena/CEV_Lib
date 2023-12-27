@@ -21,8 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL.h>
-#include <rwtypes.h>
-
+#include "rwtypes.h"
 #include "CEV_mixSystem.h"
 #include "CEV_file.h"
 #include "CEV_api.h"
@@ -30,6 +29,9 @@
 #include "CEV_dataFile.h"
 #include "CEV_texts.h"
 #include "CEV_txtParser.h"
+#include "CEV_timer.h"
+#include "CEV_display.h"
+#include "CEV_camera.h"
 
 
 /** \brief Repeatedly blits texture on X
@@ -264,7 +266,7 @@ void CEV_parallaxClear(CEV_Parallax *in)
 
     if(IS_NULL(in))
     {
-        fprintf(stderr, "Err at %s / %d :  arg is NULL, nothing to be done.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d :  NULL arg provided.\n", __FUNCTION__, __LINE__ );
         return;
     }
 
@@ -293,7 +295,7 @@ void CEV_parallaxLayerClear(CEV_ParaLayer* in)
     }
     else
     {
-        SDL_DestroyTexture(in->texture);
+        SDL_DestroyTexture(in->pic);
     }
 
     CEV_memSet(in, 0, sizeof(CEV_ParaLayer));
@@ -406,15 +408,15 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index)
     if (thisLayer->axisPar[0].isRepeat && !thisLayer->axisPar[1].isRepeat)
     {
         //clip.h = camera.h;
-        L_blitXrepeat(render, thisLayer->texture, blitPos, camera.w);
+        L_blitXrepeat(render, thisLayer->pic, blitPos, camera.w);
     }
 
     else if (thisLayer->axisPar[1].isRepeat && !thisLayer->axisPar[0].isRepeat)
     {
-        L_blitYrepeat(render, thisLayer->texture, blitPos, camera.h);
+        L_blitYrepeat(render, thisLayer->pic, blitPos, camera.h);
     }
     else
-        SDL_RenderCopy(render, thisLayer->texture, NULL, &blitPos);
+        SDL_RenderCopy(render, thisLayer->pic, NULL, &blitPos);
 
 }
 
@@ -476,7 +478,7 @@ void CEV_parallaxLayerDump(CEV_ParaLayer* this)
         goto end;
     }
 
-    printf("texture at : %p\n", this->texture);
+    printf("texture at : %p\n", this->pic);
     printf("picsize with %d, %d, %d, %d\n", this->picSize.x,
                                             this->picSize.y,
                                             this->picSize.w,
@@ -504,12 +506,23 @@ end:
 }
 
 
+void CEV_parallaxAttachCamera(CEV_Camera *src, CEV_Parallax *dst)
+{
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d :  NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
+
+    dst->cameraPos = &src->scrollActPos;
+}
+
 
 /**** file related functions ****/
 
 
 int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
-{//converts CSV file into data file
+{//converts txt file into data file
 
         /*---DECLARATIONS---*/
     uint32_t num = 0;
@@ -679,7 +692,7 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* ops, uint8_t freeSrc)
 
         L_paraLayerTextureGet_RW(ops, &result->layers[i]);
 
-        SDL_QueryTexture(result->layers[i].texture,
+        SDL_QueryTexture(result->layers[i].pic,
                             NULL,
                             NULL,
                             &result->layers[i].picSize.w,
@@ -718,7 +731,7 @@ int CEV_parallaxWrite_RW(CEV_Parallax* src, SDL_RWops* dst)
 }
 
 
-// FIXME (drx#1#04/30/23): Passer par un fichier temp, le SDL_AllocRW est douteux. ...
+// FIXME (drx#2#04/30/23): Passer par un fichier temp, le SDL_AllocRW est douteux. ...
 //NE PAS UTILISER
 /*
 int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst)
@@ -806,7 +819,7 @@ static int L_paralayerWrite_RW(CEV_ParaLayer *thisLayer, SDL_RWops* dst)
 
     CEV_Capsule pic = {0};
 
-    CEV_textureToCapsule(thisLayer->texture, &pic);
+    CEV_textureToCapsule(thisLayer->pic, &pic);
 
     CEV_capsuleTypeWrite_RW(&pic, dst);
 
@@ -901,9 +914,9 @@ static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* laye
 
     if (IS_PIC(img.type))
     {
-        layer->texture = CEV_capsuleExtract(&img, true);//frees data
+        layer->pic = CEV_capsuleExtract(&img, true);//frees data
 
-        if IS_NULL(layer->texture)
+        if IS_NULL(layer->pic)
         {
             fprintf(stderr,"Err at %s / %d : unable to extract capsule content.\n",__FUNCTION__, __LINE__);
             return NULL;
@@ -920,13 +933,13 @@ static SDL_Texture *L_paraLayerTextureGet_RW(SDL_RWops* ops, CEV_ParaLayer* laye
             return NULL;
         }
 
-        layer->texture = CEV_gifTextureGet(layer->anim);
+        layer->pic = CEV_gifTextureGet(layer->anim);
         CEV_gifLoopMode(layer->anim, GIF_REPEAT_FOR);
     }
     else
         CEV_capsuleClear(&img);
 
-    return layer->texture;
+    return layer->pic;
 }
 
 

@@ -7,7 +7,7 @@
 //**********************************************************/
 
 
-// TODO (drx#1#): modifier les typeread pour lire et remplir sans allouer
+// TODO (drx#2#): modifier les typeread pour lire et remplir sans allouer
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,12 +71,12 @@ static uint8_t L_scrollDisplay(CEV_ScrollText *in);
 
 /** \brief displays single line.
  *
- * \param ligne : L_ScrollTextLine* to display.
+ * \param line : L_ScrollTextLine* to display.
  *
  * \return uint8_t : 0 if display failed.
  *
  */
-static uint8_t L_scrollDispThisLine(L_ScrollTextLine *ligne);
+static uint8_t L_scrollDispThisLine(L_ScrollTextLine *line);
 
 /** \brief Displays in star wars style
  *
@@ -274,7 +274,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
     else
     {
         for(unsigned i=0; i<num; i++)
-            result->texts[i].img = NULL;
+            result->texts[i].pic = NULL;
     }
 
         //printf("reached line %d.\n", __LINE__);
@@ -283,10 +283,10 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
     {
         result->texts[i].blitPos = (SDL_Rect){0, 0, 0, 0};
 
-        result->texts[i].img = CEV_createTTFTexture(texts[i], font, colour);
+        result->texts[i].pic = CEV_createTTFTexture(texts[i], font, colour);
 
-        if (result->texts[i].img != NULL)
-            SDL_QueryTexture(result->texts[i].img, NULL, NULL,
+        if (result->texts[i].pic != NULL)
+            SDL_QueryTexture(result->texts[i].pic, NULL, NULL,
                              &result->texts[i].blitPos.w, &result->texts[i].blitPos.h);
         else
         {
@@ -297,7 +297,7 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
 
     result->lineFrom    = 0;
     result->lineTo      = 1;
-    result->lineNb      = num;
+    result->numOfLine      = num;
     result->color       = colour;
     result->render      = CEV_videoSystemGet()->render;
     result->renderDim.x = 0;
@@ -311,8 +311,8 @@ CEV_ScrollText* CEV_scrollCreate(char** texts, unsigned int num, TTF_Font* font,
 err_3:
     for (unsigned i=0; i< num; i++)
     {
-        if (result->texts[i].img != NULL)
-            SDL_DestroyTexture(result->texts[i].img);
+        if (result->texts[i].pic != NULL)
+            SDL_DestroyTexture(result->texts[i].pic);
     }
 
     free(result->texts);
@@ -328,8 +328,8 @@ err_1:
 void CEV_scrollDestroy(CEV_ScrollText *in)
 {//libération d'une structure CEV_ScrollText
 
-    for (unsigned i=0; i<in->lineNb; i++)
-        SDL_DestroyTexture(in->texts[i].img);
+    for (unsigned i=0; i<in->numOfLine; i++)
+        SDL_DestroyTexture(in->texts[i].pic);
 
     free(in->texts);
 
@@ -340,8 +340,8 @@ void CEV_scrollDestroy(CEV_ScrollText *in)
 void CEV_scrollClear(CEV_ScrollText *in)
 {//libération du contenu + mise à 0/NULL
 
-    for (unsigned i=0; i<in->lineNb; i++)
-        SDL_DestroyTexture(in->texts[i].img);
+    for (unsigned i=0; i<in->numOfLine; i++)
+        SDL_DestroyTexture(in->texts[i].pic);
 
     free(in->texts);
 
@@ -349,7 +349,7 @@ void CEV_scrollClear(CEV_ScrollText *in)
     in->color       = (SDL_Color){0, 0, 0, 0};
     in->fontSize    =
     in->lineAct     =
-    in->lineNb      =
+    in->numOfLine      =
     in->lineFrom    =
     in->lineTo      =
     in->space       =
@@ -369,9 +369,9 @@ void CEV_scrollDump(CEV_ScrollText *this)
     }
 
     printf("dumping scroll at %p\n", this);
-    printf("holds %u lines\n", this->lineNb);
+    printf("holds %u lines\n", this->numOfLine);
 
-    for(unsigned i=0; i< this->lineNb; i++)
+    for(unsigned i=0; i< this->numOfLine; i++)
     {
         printf("speed = %d\n", this->speed);
         printf("space = %d\n", this->space);
@@ -380,7 +380,7 @@ void CEV_scrollDump(CEV_ScrollText *this)
                                                     this->texts[i].blitPos.y,
                                                     this->texts[i].blitPos.w,
                                                     this->texts[i].blitPos.h);
-        printf("texture at %p\n", this->texts[i].img);
+        printf("texture at %p\n", this->texts[i].pic);
     }
 
 end:
@@ -413,7 +413,7 @@ void CEV_scrollPosSet(CEV_ScrollText* in, int pos)
 
     in->pos = pos;
 
-    for(unsigned i=0; i<in->lineNb; i++)
+    for(unsigned i=0; i<in->numOfLine; i++)
     {
         int wt = in->texts[i].blitPos.w,
             ht = in->texts[i].blitPos.h;
@@ -847,7 +847,7 @@ static uint8_t L_stwaDisplay(CEV_ScrollText *in)
             //blit.h = CEV_map(blit.y, 0, in->renderDim.h, this->blitPos.h, 1);
             blit.x =(in->renderDim.w - blit.w)/2;
 
-            SDL_RenderCopy(in->render, this->img, &clip, &blit);
+            SDL_RenderCopy(in->render, this->pic, &clip, &blit);
         }
     }
 
@@ -868,7 +868,7 @@ static int L_scrollUp(CEV_ScrollText *in)
         if (in->texts[i].blitPos.y < -(in->texts[i].blitPos.h))
         {//if pic off the screen
             //start scan further
-            in->lineFrom += (in->lineFrom + 1 <= in->lineNb);
+            in->lineFrom += (in->lineFrom + 1 <= in->numOfLine);
 
             if(in->lineFrom == in->lineTo)
                 return 0;
@@ -878,7 +878,7 @@ static int L_scrollUp(CEV_ScrollText *in)
             && ((in->texts[i].blitPos.y + in->texts[i].blitPos.h) <= (in->renderDim.h - in->space))
             && !lFront )
         {//if space reached, launch next pic
-                in->lineTo += (in->lineTo+1 <= in->lineNb);
+                in->lineTo += (in->lineTo+1 <= in->numOfLine);
         }
     }
 
@@ -899,7 +899,7 @@ static int L_scrollDown(CEV_ScrollText *in)
         if (in->texts[i].blitPos.y > in->renderDim.h)
         {//if pic off the screen
             //start scan further
-            in->lineFrom += (in->lineFrom + 1 <= in->lineNb);
+            in->lineFrom += (in->lineFrom + 1 <= in->numOfLine);
 
             if(in->lineFrom == in->lineTo)
                 return 0;
@@ -909,7 +909,7 @@ static int L_scrollDown(CEV_ScrollText *in)
             && (in->texts[i].blitPos.y >= in->space)
             && !lFront)
         {//if space reached, launch next pic
-                in->lineTo += (in->lineTo + 1 <= in->lineNb);
+                in->lineTo += (in->lineTo + 1 <= in->numOfLine);
         }
     }
 
@@ -932,7 +932,7 @@ static int L_scrollLeft(CEV_ScrollText *in)
         if (in->texts[i].blitPos.x < -(in->texts[i].blitPos.w))
         {//if pic off the screen
             //start scan further
-            in->lineFrom += (in->lineFrom + 1 <= in->lineNb);
+            in->lineFrom += (in->lineFrom + 1 <= in->numOfLine);
 
             if(in->lineFrom == in->lineTo)
                 return 0;
@@ -942,7 +942,7 @@ static int L_scrollLeft(CEV_ScrollText *in)
             && ((in->texts[i].blitPos.x + in->texts[i].blitPos.w) <= (in->renderDim.w - in->space))
             && !lFront)
         {//if space reached, launch next pic
-                in->lineTo += (in->lineTo + 1 <= in->lineNb);
+                in->lineTo += (in->lineTo + 1 <= in->numOfLine);
         }
     }
 
@@ -962,7 +962,7 @@ static int L_scrollRight(CEV_ScrollText *in)
         if ((in->texts[i].blitPos.x) > in->renderDim.w)
         {//if pic off the screen
             //start scan further
-            in->lineFrom += (in->lineFrom + 1 <= in->lineNb);
+            in->lineFrom += (in->lineFrom + 1 <= in->numOfLine);
 
             if(in->lineFrom == in->lineTo)
                 return 0;
@@ -972,7 +972,7 @@ static int L_scrollRight(CEV_ScrollText *in)
             && (in->texts[i].blitPos.x >= in->space)
             && !lFront)
         {//if space reached, launch next pic
-                in->lineTo += in->lineTo+1 <= in->lineNb;
+                in->lineTo += in->lineTo+1 <= in->numOfLine;
         }
     }
 
@@ -980,12 +980,12 @@ static int L_scrollRight(CEV_ScrollText *in)
 }
 
 
-static uint8_t L_scrollDispThisLine(L_ScrollTextLine *ligne)
+static uint8_t L_scrollDispThisLine(L_ScrollTextLine *line)
 {//blit une image de text
 
     SDL_Renderer *render = CEV_videoSystemGet()->render;
 
-    if (SDL_RenderCopy(render, ligne->img, NULL, &ligne->blitPos)<0)
+    if (SDL_RenderCopy(render, line->pic, NULL, &line->blitPos)<0)
         return 0;
 
     return(1);

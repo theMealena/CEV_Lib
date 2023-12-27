@@ -22,6 +22,7 @@
 
 #include "CEV_gif.h"
 #include "CEV_types.h"
+#include "CEV_camera.h"
 
 
 /*
@@ -85,7 +86,7 @@ PrlxAxis;
  */
 typedef struct CEV_ParaLayer
 {
-    SDL_Texture *texture;   /**< displayed texture. */
+    SDL_Texture *pic;   /**< displayed texture. */
     SDL_Rect picSize;       /**< picture size. */
     PrlxAxis axisPar[2];    /**<axis parameters / instance. */
     bool isGif;             /**< is animated as gif file. */
@@ -173,6 +174,16 @@ void CEV_parallaxShowLayer(CEV_Parallax *in, unsigned index);
  * \return N/A.
  */
 void CEV_parallaxDump(CEV_Parallax *this);
+
+
+/** \brief attaches camera to parallax
+ *
+ * \param src : CEV_Camera* to attach.
+ * \param dst : CEV_Parallax* to be attached to.
+ *
+ * \return void.
+ */
+void CEV_parallaxAttachCamera(CEV_Camera *src, CEV_Parallax *dst);
 
 
 /** \brief Dumps structure into stdout.

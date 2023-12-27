@@ -39,7 +39,7 @@ char* CEV_txtParseTxtFrom(CEV_Text* src, char* name);
  * \param src : CEV_Text* from which values must be extracted.
  * \param name : char* as parameter's name.
  * \param dst : double* array that will be filled with read values.
- * \param maxNum : int as maximum values to read (dst[] size.
+ * \param maxNum : int as maximum values to read (dst[] size).
  *
  * \return int as num of values that could be read.
  *

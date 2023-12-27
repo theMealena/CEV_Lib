@@ -13,19 +13,14 @@
   / |
  z  y
 
-with (float)Z = 1.0 as nearest, 0.1.. as furthest
+with (float)Z = 1.0 as nearest, 0.1 as furthest
 
 - file extension : file.wtr
 
-- ID as 0xTTOOIIII
+- id as 0xTTOOIIII
 TT = Type of file = IS_WTHR (15 - 0x0F)
 OO = type of Object (0)
 IIII = ID for this game object
-
-
-- CSV file content / tab separator :
-12  WEATHER_RAIN    200         -2  5   thisPic.png
-ID  type            num of part Vx  Vy  picture file relative to CSV
 
 - weather file content :
     u32 : Unique ID
@@ -35,7 +30,7 @@ ID  type            num of part Vx  Vy  picture file relative to CSV
         : Vy
     u8  : Weather type
 
-    if !SrcID
+    if !picId
     CEV_Capsule : png as texture.
 **/
 
@@ -74,17 +69,17 @@ typedef struct S_CEV_Weather
         *scrollCorrectionX, /**< enables scroll correction, link to camera x pos. */
         *scrollCorrectionY; /**< enables scroll correction, link to camera y pos. */
 
-    uint32_t ID,        /**< own identifier. filed*/
-             srcID,     /**< picture (texture) id. filed 0x0 if embedded*/
+    uint32_t id,        /**< own identifier. filed*/
+             picId,     /**< picture (texture) id. filed 0x0 if embedded*/
              num,        /**< actual num of particles to display. filed*/
              numax;      /**< max num of particles available for display. */
 
     float angle;        /**< RAIN ONLY as falling rain angle / direction. */
 
-    SDL_Rect renderSize,    /**< main render size. */
-             textureSize;   /**< particle picture size. */
+    SDL_Rect renderDim,    /**< main render size. */
+             picDim;   /**< particle picture size. */
 
-    SDL_Texture* texture;   /**< particle pic. filed*/
+    SDL_Texture* pic;   /**< particle pic. filed*/
 
     CEV_Particle* particles;        /**< array of numax particles instances. */
 }

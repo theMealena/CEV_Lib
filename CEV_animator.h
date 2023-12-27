@@ -4,6 +4,7 @@
 //**   CEV    |  11-2016      |   0.0    |    creation    **/
 //**   CEV    |  15-02-2017   |   1.0    |   rev & test   **/
 //**   CEV    |  04-2023      |   1.1.0  | CEV_lib format **/
+//**   CEV    |  12-2023      |   1.1.1  | export added   **/
 //**********************************************************/
 
 
@@ -88,11 +89,12 @@ enum {SP_HIDE = 0, SP_SHOW = 1};
 typedef struct SP_View
 {
 
-    uint32_t picNum,    /**<number of picture*/
+    uint32_t numOfFrame,/**<number of frame*/
              delay,     /**<frame delay time ms*/
              restart,   /**<restart frame index*/
-             stop,      /**<stop frame index*/
-             mode;      /**<read mode*/
+             stop;      /**<stop frame index*/
+
+    SP_LOOP_MODE mode;  /**<read mode*/
 
     SDL_Rect rect[2];   /**<clip and hitbox; hitbox position is relative to clip*/
 }
@@ -104,14 +106,14 @@ SP_View;
 typedef struct SP_Anim
 {
     uint32_t id,            /**< Unique Id */
-             picId,         /**< picture unique ID if not embedded */
-             viewNum[2];    /**<number of view / xtra */
+             picId,         /**< Picture unique ID if not embedded */
+             numOfView[2];  /**<number of view / xtra */
     SP_View* view[2];       /**<2 tables of SP_View / xtra*/
-    SDL_Texture* sheet;     /**<spritesheet*/
+    SDL_Texture* pic;     /**<spritesheet*/
 }
 SP_Anim;
 
-// TODO (drx#1#): implémenter le stop dans les boucles
+// TODO (drx#6#): implémenter le stop dans les boucles
 
 /** \brief sp sprite structure.
  */
@@ -191,11 +193,11 @@ int SP_spriteModeGet(SP_Sprite *sprite);
  *
  * \param nview : uint32_t number of Nview to create.
  * \param xview : uint32_t number of Xview to create
- * \param sheet : SDL_Texture* aka spritesheet.
+ * \param pic : SDL_Texture* aka spritesheet.
  *
  * \return SP_Anim* if success, NULL on error.
  */
-SP_Anim* SP_animCreate(uint32_t nview, uint32_t xview, SDL_Texture* sheet);
+SP_Anim* SP_animCreate(uint32_t nview, uint32_t xview, SDL_Texture* pic);
 
 
 /** \brief Loads single animation.
@@ -246,15 +248,28 @@ int SP_animTypeWrite(SP_Anim *src, FILE *dst);
 
 
 
-/** \brief user friendly file into data file
+/** \brief User friendly file into data file
  *
  * \param srcName : edited file to read from.
  * \param dstName : data file to create.
  *
- * \return int int as sdt funcSts.
+ * \return int as sdt funcSts.
  * \note readWriteErr is filled.
  */
 int SP_animConvertTxtToData(const char* srcName, const char* dstName);
+
+
+
+/** \brief Export SP_Anim as editable file.
+ *
+ * \param src : SP_Anim* to export.
+ * \param dstName : const char* as path and resulting fileName.
+ *
+ * \return int  as sdt funcSts.
+ * \note picture is produced  next to resulting file
+ * random name given to embedded picture if any.
+ */
+int SP_animExport(SP_Anim *src, const char* dstName);
 
 
 /** \brief fully frees and destroys animation.
@@ -276,6 +291,15 @@ void SP_animDestroy(SP_Anim* anim);
  */
 void SP_animClear(SP_Anim* anim);
 
+
+/** \brief Attaches SDL_Texture to SP_Anim.
+ *
+ * \param src : SDL_Texture* to attach.
+ * \param dst : SP_Anim* to attach texture to.
+ *
+ * \return void.
+ */
+void SP_animAttachTexture(SDL_Texture *src, SP_Anim* dst);
 
 
 /*---sprites related functions---*/
@@ -329,6 +353,27 @@ void SP_spriteClear(SP_Sprite *src);
  * \note Link to spritesheet is kept as is.
  */
 void SP_spriteReset(SP_Sprite *sprite);
+
+
+/**sets scale*/
+/** \brief parameter a sprite's scale.
+ *
+ * \param sprite : SP_Sprite* to scale.
+ * \param scale : double as scale value.(0.5=half, 2.0=twice).
+ *
+ * \return N/A.
+ */
+void SP_spriteScaleSet(SP_Sprite* sprite, double scale);
+
+
+/**fetches scale*/
+/** \brief retrieve a sprite's scale.
+ *
+ * \param sprite : SP_Sprite* to fetch scale from.
+ *
+ * \return double as scale value.(0.5=half, 2.0=twice).
+ */
+double SP_spriteScaleGet(SP_Sprite* sprite);
 
 
 /** \brief Performs animation calculations.
@@ -469,6 +514,18 @@ void SP_spriteStop(SP_Sprite* sprite);
  */
 char SP_spriteIsLocked(SP_Sprite* sprite);
 
+
+/** \brief queries sprite status.
+ *
+ * \param sprite : SP_Sprite* to query.
+ * \param actNview : int* filled with actual NVIEW view index.(or NULL)
+ * \param actXview : int* filled with actual XVIEW view index.(or NULL)
+ * \param actNpic : int* filled with actual NVIEW picture index.(or NULL)
+ * \param actXpic : int* filled with actual XVIEW picture.(or NULL)
+ *
+ * \return N/A.
+ */
+void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpic, int* actXpic);
 
 #ifdef __cplusplus
 }

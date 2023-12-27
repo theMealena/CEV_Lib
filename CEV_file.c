@@ -16,6 +16,12 @@
 int CEV_fileNumOfLine(FILE *file)
 {//num of line in file (text mode / csv)
 
+    if(IS_NULL(file))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
     int temp        = '*',   //temporary var
         lineNb      = 0,     //number of line in file
         start       = ftell(file),
@@ -47,8 +53,13 @@ int CEV_fileNumOfLine(FILE *file)
 
 
 bool CEV_fileGotoLine(int line, FILE* file)
-{//goes to line, (text mode / csv)
+{//goes to line, (text mode / csv) true if found, false if not found / err
 
+    if(IS_NULL(file))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
     int cpt = 0;
 
     rewind(file);
@@ -70,6 +81,13 @@ bool CEV_fileGotoLine(int line, FILE* file)
 
 bool CEV_fileGotoColumn(int num, FILE *file, int separator)
 {//reaches begin of column (text mode / CSV)
+
+    if(IS_NULL(file))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
+
     int count = 0;
 
     while (count < num)
@@ -87,7 +105,13 @@ bool CEV_fileGotoColumn(int num, FILE *file, int separator)
 
 
 bool CEV_fileGotoNextLine(FILE *file)
-{//reches begin of next line (text mode)
+{//reaches begin of next line (text mode)
+
+    if(IS_NULL(file))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
 
     int temp = '*';
 
@@ -104,6 +128,12 @@ bool CEV_fileGotoNextLine(FILE *file)
 size_t CEV_fileSize(FILE* file)
 {//size of a file as byte
 
+    if(IS_NULL(file))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return 0;
+    }
+
     long pos = ftell(file), //recording pos
          size = 0;          //resulting size
 
@@ -118,7 +148,13 @@ size_t CEV_fileSize(FILE* file)
 
 
 bool CEV_fileFileNameGet(const char* src, char* dst)
-{/*dst is filled with name from folder/name*/
+{//dst is filled with name from folder/name
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
 
     int len = strlen(src);
 
@@ -138,6 +174,13 @@ bool CEV_fileFileNameGet(const char* src, char* dst)
 bool CEV_fileFolderNameGet(const char *src, char *dst)
 {//dst is filled with folder from folder/name, name provided with '/' or '\\'
 //returns true if folder found, dst is filled with empty char '\0' otherwise
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
+
     bool funcSts = false;
 
     int srcLen   = strlen(src),
@@ -166,7 +209,13 @@ bool CEV_fileFolderNameGet(const char *src, char *dst)
 
 
 bool CEV_fileFolderUp(char* str)
-{/* parent folder of folder/folder */
+{// parent folder of folder/folder
+
+    if(IS_NULL(str))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return 0;
+    }
 
     bool funcSts = false;
     int srcLen   = strlen(str),
@@ -187,7 +236,13 @@ bool CEV_fileFolderUp(char* str)
 
 
 void CEV_stringEndFormat(char* in)
-{/*replace CR/LF with nul char*/
+{//replace CR/LF with nul char
+
+    if(IS_NULL(in))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
 
     int maxScan = strlen(in) - 1; /*'\n' and '\r' are included in strlen in binary mode*/
 
@@ -203,7 +258,13 @@ void CEV_stringEndFormat(char* in)
 
 
 void CEV_stringGroup(char *src, unsigned int group)
-{/*groupement de chiffres*/
+{//groupement de chiffres
+
+    if(IS_NULL(src) || !group)
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
 
     char *srcPtr, *dstPtr;       //nos pointeurs source et destination
 
@@ -233,7 +294,13 @@ void CEV_stringGroup(char *src, unsigned int group)
 
 
 int CEV_fileStrSearch(FILE* file, char* src)
-{/*seeks string in file and returns line index*/
+{//seeks string in file and returns line index
+
+    if(IS_NULL(file) || IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
 
     long            pos         = ftell(file);
     char            line[256];
@@ -260,7 +327,14 @@ int CEV_fileStrSearch(FILE* file, char* src)
 
 
 int CEV_fileCopy(char *srcName, char *dstName)
-{
+{//copies file
+
+    if(IS_NULL(srcName) || IS_NULL(dstName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
     int funcSts = FUNC_OK;
     readWriteErr = 0;
 
@@ -269,7 +343,7 @@ int CEV_fileCopy(char *srcName, char *dstName)
 
     if(IS_NULL(srcFile) || IS_NULL(dstFile))
     {
-        fprintf(stderr, "Err at %s / %d :   .\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         funcSts = FUNC_ERR;
         goto end;
     }
@@ -289,5 +363,36 @@ end:
     fclose(dstFile);
 
     return funcSts;
+}
 
+int CEV_fileInsert(char* srcName, FILE* dst)
+{
+    int funcSts = FUNC_OK;
+
+    if(IS_NULL(srcName) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    FILE* src = fopen(srcName, "rb");
+
+    if(IS_NULL(src))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        return FUNC_ERR;
+    }
+
+    uint32_t fileSize = CEV_fileSize(src);
+
+    for(unsigned i=0; i<fileSize; i++)
+    {
+        write_u8(read_u8(src), dst);
+    }
+
+    fclose(src);
+
+    funcSts = readWriteErr? FUNC_ERR : FUNC_OK;
+
+    return funcSts;
 }

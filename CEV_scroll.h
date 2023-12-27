@@ -70,11 +70,10 @@ SCROLL_MODE;
  */
 typedef struct L_ScrollTextLine
 {
-
-    SDL_Texture *img; /**< pic of text */
+    SDL_Texture *pic; /**< pic of text */
     SDL_Rect blitPos; /**< display position */
-
-}L_ScrollTextLine;
+}
+L_ScrollTextLine;
 
 
 
@@ -82,18 +81,17 @@ typedef struct L_ScrollTextLine
 /** \brief Main scroll structure
  */
 typedef struct CEV_ScrollText
-{//scroll management structure
-
-
+{
     unsigned int id,        /**< unique id */
                  lineAct,   /**< actual line */
-                 lineNb,    /**< number of lines available */
+                 numOfLine,    /**< number of lines available */
                  lineFrom,  /**< start line index */
                  lineTo,    /**< stop line index */
                  space,     /**< space size between pics, pxl */
-                 mode,      /**< scrolling mode */
                  fontSize,  /**< font size */
                  speed;     /**< pxl / frame */
+
+    SCROLL_MODE mode;      /**< scrolling mode */
 
     int pos;                /**< display position */
 

@@ -315,7 +315,7 @@ bool CEV_lim(int limInf, int val, int limSup)
 
 
 bool CEV_reachValue(float* value, float reach, float by)
-{/*value to reach*/
+{//value to reach returns true when value is reached
 
     if(*value < reach)
     {
@@ -327,7 +327,6 @@ bool CEV_reachValue(float* value, float reach, float by)
             return true;
         }
     }
-
     else if (*value > reach)
     {
         *value -= by;
@@ -337,6 +336,10 @@ bool CEV_reachValue(float* value, float reach, float by)
             *value = reach;
             return true;
         }
+    }
+    else //is equal
+    {
+        return true;
     }
 
     return false;
@@ -430,6 +433,12 @@ double CEV_vectAngle(double x, double y)
 
 
 /*** SDL Point ***/
+
+void CEV_pointDump(SDL_Point this)
+{
+    printf("x=%d, y=%d\n", this.x, this.y);
+}
+
 
 bool CEV_pointAreEqual(SDL_Point* pta, SDL_Point* ptb)
 {/*same point*/
@@ -809,23 +818,20 @@ SDL_Rect* CEV_rectPosCopy(SDL_Rect src, SDL_Rect* dst)
 SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, SDL_Rect border)
 {/*keeps rect inside border */
 
-    if(rect->w > border.w)
-        rect->w = border.w;
-
-    if(rect->h > border.h)
-        rect->h = border.h;
-
+    
     if (rect->x < border.x)
         rect->x = border.x;
 
-    else if ((rect->x + rect->w) > (border.x + border.w))
-        rect->x = border.w - rect->w /*- 1*/;
+    else if ((rect->x + rect->w) >= (border.x + border.w))
+        rect->x = border.w - rect->w;
 
     if (rect->y < border.y )
         rect->y = border.y;
 
-    else if ((rect->y + rect->h) > (border.y + border.h))
-        rect->y = border.h - rect->h /*- 1*/;
+    else if ((rect->y + rect->h) >= (border.y + border.h))
+        rect->y = border.h - rect->h;
+
+    return rect;
 
     return rect;
 }
@@ -885,6 +891,7 @@ SDL_Rect CEV_rectCenteredInRect(SDL_Rect src, SDL_Rect into)
 
 SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2)
 {//sums SDL_Rect
+
     SDL_Rect result;
 
     int leftX   = MIN(rect1.x, rect2.x),
@@ -899,6 +906,23 @@ SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2)
 
     return result;
 }
+
+
+SDL_Rect CEV_rectSymmetryHor(SDL_Rect src, int x)
+{//horizontal symmetry around x
+
+    src.x = x - (src.x - x) - src.w;
+    return src;
+}
+
+
+SDL_Rect CEV_rectSymmetryVert(SDL_Rect src, int y)
+{//vertical symmetry around y
+
+    src.y = y - (src.y - y) - src.h;
+    return src;
+}
+
 
 
 /*** Allocations **/

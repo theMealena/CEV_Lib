@@ -925,7 +925,7 @@ static void L_mPicClic(CEV_MPic * pic)
 
     int lVal = pic->value;
 
-    CEV_addModulo(INC, &lVal, pic->stateNum);
+    CEV_addModulo(INC, &lVal, pic->numOfState);
 
     pic->value = lVal;
 
@@ -938,7 +938,7 @@ static void L_mPicClic(CEV_MPic * pic)
 static void L_mPicTypeRead(FILE* src, CEV_MPic* dst)
 {//single pic button read from file
 
-    dst->stateNum   = read_u32le(src);  // num of button state.
+    dst->numOfState   = read_u32le(src);  // num of button state.
     dst->blitPos.x  = read_u32le(src);  // blit x
     dst->blitPos.y  = read_u32le(src);  // blit y
     dst->type       = M_IS_PIC;
@@ -956,7 +956,7 @@ static void L_mPicTypeRead(FILE* src, CEV_MPic* dst)
     }
 
     dst->clip = CEV_textureDimGet(dst->pic);    //texture size is clip
-    dst->clip.w /= dst->stateNum;               //clip width is num of state
+    dst->clip.w /= dst->numOfState;               //clip width is num of state
     CEV_rectDimCopy(dst->clip, &dst->blitPos);  //blit at clip pos
 
 
@@ -969,7 +969,7 @@ end:
 static void L_mPicTypeRead_RW(SDL_RWops* src, CEV_MPic* dst)
 {//single pic button read from RWops
 
-    dst->stateNum   = SDL_ReadLE32(src);  // num of button state.
+    dst->numOfState   = SDL_ReadLE32(src);  // num of button state.
     dst->blitPos.x  = SDL_ReadLE32(src);  // blit x
     dst->blitPos.y  = SDL_ReadLE32(src);  // blit y
     dst->type       = M_IS_PIC;
@@ -987,7 +987,7 @@ static void L_mPicTypeRead_RW(SDL_RWops* src, CEV_MPic* dst)
     }
 
     dst->clip = CEV_textureDimGet(dst->pic);    //texture size is clip
-    dst->clip.w /= dst->stateNum;               //clip width is num of state
+    dst->clip.w /= dst->numOfState;               //clip width is num of state
     CEV_rectDimCopy(dst->clip, &dst->blitPos);  //blit at clip pos
 
 
@@ -1017,7 +1017,7 @@ static void L_mPicConvertTxtToData(CEV_Text *src, FILE *dst, char* folder, int i
     double storage[2];
 
     //num of state for this button
-    sprintf(parName, "[%d]stateNum", index);
+    sprintf(parName, "[%d]numOfState", index);
     valu32 = (uint32_t)CEV_txtParseValueFrom(src, parName);
     write_u32le(valu32, dst);
 
@@ -1073,7 +1073,7 @@ static void L_mPicDump(CEV_MPic* this)
         goto end;
     }
 
-    printf("Has %d states\n", this->stateNum);
+    printf("Has %d states\n", this->numOfState);
 
     printf("Value is %u and points to %p.\n",
             this->value, this->valuePtr);

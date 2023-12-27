@@ -14,34 +14,34 @@
 #include <CEV_aniMini.h>
 
 
-#define SWITCHBTN_OBJECT 0x12030000
-#define IS_SWITCHBTN(x) ((x & 0xFFFF0000) == SWITCHBTN_OBJECT)
+#define SWITCHBTN_TYPE_ID 0x12030000
+#define IS_SWITCHBTN(x) ((x & 0xFFFF0000) == SWITCHBTN_TYPE_ID)
 
 
 /*is part of game objects
 file.obj
 
-ID as 0xTTOOIIII
+id as 0xTTOOIIII
 
 TT = type of file = IS_OBJ (18)
 OO = type of object = 03
-IIII = ID for this game object
+IIII = id for this game object
 */
 
 /* FILE FORMAT
-u32 this buton ID
-u32 piloted object ID
-u32 animation ID
+u32 this buton id
+u32 piloted object id
+u32 animation id
 u32 its value
 u32 x pos in world
 u32 y pos in world
 u32 x,y,w,h hitbox
 u8 is reversible
-CEV_Capsule aniMini if animID <> 0 (not encapsuled)
+CEV_Capsule aniMini if animId <> 0 (not encapsuled)
 */
 
 
-// TODO (drx#1#): embed resource for now, use resource ID later
+// TODO (drx#3#): embed resource for now, use resource id later
 
 /*
 la int value est transmise à chaque changement de front
@@ -53,9 +53,10 @@ sinon bool reste vrai une fois activé.
  */
 typedef struct S_CEV_SwitchButton
 {
-    uint32_t ID,        /**< this object ID */
-             dstID,     /**< ID of controlled object */
-             animID;    /**< animation resource ID (unused - later option)*/
+    uint32_t id,        /**< this object id */
+             ctrlId,     /**< id of controlled object */
+             animId,    /**< animation resource id (unused - later option)*/
+             chunkId;   /**< sound id */
 
     int value,          /**< switch value */
         *nDst;          /**< link to object's command value */
@@ -68,11 +69,12 @@ typedef struct S_CEV_SwitchButton
     CEV_AniMini *anim;      /**< its animation constant*/
     CEV_SpriteMini sprite;  /**< its mini sprite*/
 
-    SDL_Rect pos,   /**< position in world top left*/
-             clip,  /**< clip */
-             hitBox;/**< hitbox */
+    SDL_Rect pos,           /**< position in world top left*/
+             clip,          /**< clip */
+             hitBox;        /**< hitbox */
 
-    CEV_Edge reActive;  /** <re edge for single commmand send */
+    CEV_Edge reActive;      /**< re edge for single commmand send */
+    CEV_Chunk* sound;       /**< Sound emitted when activated */
 }
 CEV_SwitchButton;
 

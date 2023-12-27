@@ -110,7 +110,7 @@ void CEV_rsrcClear(CEV_RsrcFile* dst);
  * \return void* on anything that was requested, NULL on error.
  * \note Returns CEV_Capsule* if DEFAULT or DAT file type is spotted.
  */
-void* CEV_anyIdFetch(uint32_t id, CEV_RsrcFile* src);
+void* CEV_anyFetchById(uint32_t id, CEV_RsrcFile* src);
 
 
 /** \brief Fetches anything based on index.
@@ -190,14 +190,14 @@ int CEV_capsuleFetchByIdFromFile(uint32_t id, const char* fileName, CEV_Capsule*
 int CEV_capsuleFetchByIndexFromFile(uint32_t index, const char* fileName, CEV_Capsule* dst);
 
 
-/** \brief loads file into a capsule as it
- *
- * \param caps : CEV_Capsule* to store file.
- * \param fileName : file to be opened and stored.
- *
- * \return any of the function status.
- */
-int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName);
+///** \brief loads file into a capsule as it
+// *
+// * \param caps : CEV_Capsule* to store file.
+// * \param fileName : file to be opened and stored.
+// *
+// * \return any of the function status.
+// */
+//int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName);
 
 
 /** \brief Extracts exploitable data from capsule (texture, gif...).
@@ -794,68 +794,68 @@ CEV_Weather* CEV_weatherFetchByIndexFromFile(int32_t index, const char* fileName
 
 /*----- Encapsulation -----*/
 
-/** \brief writes capsule into file.
- *
- * \param src : CEV_Capsule* to be written.
- * \param dst : FILE* to write into at actual position.
- *
- * \return readWriteErr is set on error.
- *
- * \note file is written as it is, it is necessary to place yourself
-  in the file before writing.
- */
-void CEV_capsuleTypeWrite(CEV_Capsule *src, FILE *dst);
+///** \brief writes capsule into file.
+// *
+// * \param src : CEV_Capsule* to be written.
+// * \param dst : FILE* to write into at actual position.
+// *
+// * \return readWriteErr is set on error.
+// *
+// * \note file is written as it is, it is necessary to place yourself
+//  in the file before writing.
+// */
+//void CEV_capsuleTypeWrite(CEV_Capsule *src, FILE *dst);
 
 
-/** \brief reads capsule from file.
- *
- * \param src : FILE* to read from actual position.
- * \param dst : CEV_Capsule* to be filled.
- *
- * \return readWriteErr is set.
- *
- * \note file is read as it is, it is necessary to place yourself
-  in the file before reading.
- */
-void CEV_capsuleTypeRead(FILE *src, CEV_Capsule *dst);
-
-
-/** \brief writes capsule into virtual file.
- *
- * \param src : CEV_Capsule* to read from.
- * \param dst : SDL_RWops* to write into.
- *
- * \return void.
- */
-void CEV_capsuleTypeWrite_RW(CEV_Capsule* src, SDL_RWops* dst);
-
-
-/** \brief virtual file to mem.
- *
- * \param caps : CEV_Capsule* to be filled.
- * \param src : SDL_RWops* to read from actual position.
- *
- * \return readWriteErr is set.
- */
-void CEV_capsuleTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst);
-
-
-/** \brief clean up / free fileInfo content.
- *
- * \param caps : CEV_Capsule* to clear.
- *
- * \return N/A.
- */
-void CEV_capsuleClear(CEV_Capsule *caps);
-
-
-/** \brief free content and itself.
- *
- * \param caps : CEV_Capsule* to free.
- *
- * \return N/A.
- */
-void CEV_capsuleDestroy(CEV_Capsule *caps);
+///** \brief reads capsule from file.
+// *
+// * \param src : FILE* to read from actual position.
+// * \param dst : CEV_Capsule* to be filled.
+// *
+// * \return readWriteErr is set.
+// *
+// * \note file is read as it is, it is necessary to place yourself
+//  in the file before reading.
+// */
+//void CEV_capsuleTypeRead(FILE *src, CEV_Capsule *dst);
+//
+//
+///** \brief writes capsule into virtual file.
+// *
+// * \param src : CEV_Capsule* to read from.
+// * \param dst : SDL_RWops* to write into.
+// *
+// * \return void.
+// */
+//void CEV_capsuleTypeWrite_RW(CEV_Capsule* src, SDL_RWops* dst);
+//
+//
+///** \brief virtual file to mem.
+// *
+// * \param caps : CEV_Capsule* to be filled.
+// * \param src : SDL_RWops* to read from actual position.
+// *
+// * \return readWriteErr is set.
+// */
+//void CEV_capsuleTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst);
+//
+//
+///** \brief clean up / free fileInfo content.
+// *
+// * \param caps : CEV_Capsule* to clear.
+// *
+// * \return N/A.
+// */
+//void CEV_capsuleClear(CEV_Capsule *caps);
+//
+//
+///** \brief free content and itself.
+// *
+// * \param caps : CEV_Capsule* to free.
+// *
+// * \return N/A.
+// */
+//void CEV_capsuleDestroy(CEV_Capsule *caps);
 
 
 /** \brief Convert id into file type.

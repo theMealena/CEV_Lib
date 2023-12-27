@@ -89,7 +89,7 @@ typedef struct CEV_MPic
     unsigned char   value,      /**< local value (0-255).*/
                     *valuePtr;  /**< ptr to external value command.*/
 
-    unsigned int    stateNum;     /**< num of states.*/
+    unsigned int    numOfState;     /**< num of states.*/
 
     SDL_Texture     *pic;       /**< base picture to display.*/
 

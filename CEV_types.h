@@ -1,6 +1,7 @@
 #ifndef CEV_TYPES_H_INCLUDED
 #define CEV_TYPES_H_INCLUDED
 
+#include <stdio.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
@@ -202,4 +203,78 @@ int CEV_blitSurfaceToTexture(SDL_Surface *src, SDL_Texture* dst, SDL_Rect* srcRe
  * \return int from std function status.
  */
 int CEV_surfaceToCapsule(SDL_Surface* src, CEV_Capsule* dst);
+
+
+/** \brief loads file into a capsule as it
+ *
+ * \param caps : CEV_Capsule* to store file.
+ * \param fileName : file to be opened and stored.
+ *
+ * \return any of the function status.
+ */
+int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName);
+
+
+/** \brief writes capsule into file.
+ *
+ * \param src : CEV_Capsule* to be written.
+ * \param dst : FILE* to write into at actual position.
+ *
+ * \return readWriteErr is set on error.
+ *
+ * \note file is written as it is, it is necessary to place yourself
+  in the file before writing.
+ */
+void CEV_capsuleTypeWrite(CEV_Capsule *src, FILE *dst);
+
+
+/** \brief reads capsule from file.
+ *
+ * \param src : FILE* to read from actual position.
+ * \param dst : CEV_Capsule* to be filled.
+ *
+ * \return readWriteErr is set.
+ *
+ * \note file is read as it is, it is necessary to place yourself
+  in the file before reading.
+ */
+void CEV_capsuleTypeRead(FILE *src, CEV_Capsule *dst);
+
+
+/** \brief writes capsule into virtual file.
+ *
+ * \param src : CEV_Capsule* to read from.
+ * \param dst : SDL_RWops* to write into.
+ *
+ * \return void.
+ */
+void CEV_capsuleTypeWrite_RW(CEV_Capsule* src, SDL_RWops* dst);
+
+
+/** \brief virtual file to mem.
+ *
+ * \param caps : CEV_Capsule* to be filled.
+ * \param src : SDL_RWops* to read from actual position.
+ *
+ * \return readWriteErr is set.
+ */
+void CEV_capsuleTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst);
+
+
+/** \brief clean up / free fileInfo content.
+ *
+ * \param caps : CEV_Capsule* to clear.
+ *
+ * \return N/A.
+ */
+void CEV_capsuleClear(CEV_Capsule *caps);
+
+
+/** \brief free content and itself.
+ *
+ * \param caps : CEV_Capsule* to free.
+ *
+ * \return N/A.
+ */
+void CEV_capsuleDestroy(CEV_Capsule *caps);
 #endif // CEV_TYPES_H_INCLUDED

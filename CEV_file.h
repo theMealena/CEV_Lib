@@ -75,12 +75,14 @@ size_t CEV_fileSize(FILE* file);
 bool CEV_fileFileNameGet(const char* src, char* dst);
 
 
-/** \brief extract folder from full path name.
+/** \brief extract folder from full path and name.
  *
  * \param src : full name path+file name.
  * \param dst : stores result as path only.
  *
  * \return 1 on success, 0 otherwise.
+ *
+ * \note folder name provided with strin end '/' or '\\'
  */
 bool CEV_fileFolderNameGet(const char *src, char *dst);
 
@@ -138,5 +140,14 @@ int CEV_fileStrSearch(FILE* file, char* src);
  */
 int CEV_fileCopy(char *srcName, char *dstName);
 
+
+/** \brief insert file into another one
+ *
+ * \param srcName : char* as path and name of file to read.
+ * \param dst : FILE* as file to write into at current cursor.
+ *
+ * \return int : any of std return value.
+ */
+int CEV_fileInsert(char* srcName, FILE* dst);
 
 #endif // CEV_FILE_H_INCLUDED

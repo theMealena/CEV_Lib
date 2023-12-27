@@ -245,7 +245,7 @@ end:
 
 void CEV_dispBlitPos(SDL_Rect* pos, SDL_Point point, int mode, float ratio)
 {
-//TODO (drx#1#): mettre une valeur par défaut, j'ai oublié CEV_TOP en argument et ça n'affiche rien
+//TODO (drx#6#): mettre une valeur par défaut, j'ai oublié CEV_TOP en argument et ça n'affiche rien
     CEV_rectDimScale(pos, ratio);
 
     if (mode & CEV_LEFT)

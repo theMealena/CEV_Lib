@@ -3,7 +3,7 @@
 //**------------------------------------------------------**/
 //**   CEV    |  2022/03/06   |   1.0    | rev & test / added to CEV_lib
 //**********************************************************/
-
+// CEV - 2023-11-26 - Removed time parameter in init.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,7 +60,7 @@ void TEST_camera(void)
     SDL_Rect constraint   = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
     CEV_Camera camera;
-    CEV_cameraInit(&camera, &followThis, constraint, 500, CAMERA_THIRD);
+    CEV_cameraInit(&camera, &followThis, constraint, CAMERA_THIRD);
     CEV_cameraDimensionSet(&camera, SCREEN_WIDTH /10, SCREEN_HEIGHT /10);
 
     camera.param[CEV_X].velMax = camera.param[CEV_Y].velMax = 10;
@@ -98,7 +98,7 @@ void TEST_camera(void)
 }
 
 
-void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, unsigned int changeTime, CEV_CameraMode mode)
+void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, CEV_CameraMode mode)
 {//Init new camera
 
     for(int i=0; i<2; i++)
@@ -110,7 +110,7 @@ void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, u
         in->param[i].velMax = 0;
         in->param[i].autoReverse = false;
         in->param[i].mode = mode? mode : CAMERA_THIRD; //avoiding 0
-        CEV_timerInit(&in->param[i].timer, changeTime);
+        //CEV_timerInit(&in->param[i].timer, changeTime);
     }
 
     in->param[CEV_X].camDim     = SCREEN_WIDTH;
@@ -197,7 +197,7 @@ CEV_Camera *CEV_cameraLoad_RW(SDL_RWops *src, bool freeSrc)
         return NULL;
     }
 
-    if (L_cameraTypeRead_RW(src, result) != FUNC_OK);
+    if(L_cameraTypeRead_RW(src, result) != FUNC_OK)
     {
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         goto err;
@@ -215,7 +215,6 @@ err:
     free(result);
 
     return NULL;
-
 }
 
 

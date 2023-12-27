@@ -201,7 +201,7 @@ static int L_gifExtRead_RW(SDL_RWops* src, L_GifFile *dst)
             L_gifGceRead_RW(src, &dst->gce);
         break;
 
-        /* NOTE (drx#1#): eventually to be taken into consideration but why ? */
+        // NOTE (drx#9#): eventually to be taken into consideration but why ?
         case 0x01 :/*Plain Text extension*/
         case 0xff :/*Application Extension*/
             L_gifBlockSkipRW(src);
@@ -446,7 +446,7 @@ static void L_gifLsdRead_RW(SDL_RWops* src, L_GifLSD* dst)
 
     L_gifLsdPackRead_RW(src, &dst->packField);
 
-/* NOTE (drx#1#): background color unused ? W8&C if it ever becomes a problem */
+// NOTE (drx#9#): background color unused ? W8&C if it ever becomes a problem
     dst->bckgrdColorIndex   = SDL_ReadU8(src);
     temp                    = SDL_ReadU8(src);/*useless info*/
     dst->pxlAspectRatio     = (temp + 15) / 64;

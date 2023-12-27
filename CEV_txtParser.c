@@ -106,7 +106,7 @@ char* CEV_txtParseTxtFrom(CEV_Text* src, char* name)
 
     char* ptr =  L_txtSeek(src, name);
 
-    if(IS_NULL(ptr ))
+    if(IS_NULL(ptr))
         return NULL;
 
     //going after '=' or end of ptr

@@ -312,9 +312,9 @@ void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
         goto end;
     }
 
-    printf("ID is : %u\nsrc_Id is: %u\ntype is: %d\n",
-            this->ID,
-            this->srcID,
+    printf("id is : %u\nsrc_Id is: %u\ntype is: %d\n",
+            this->id,
+            this->picId,
             this->type);
 
     printf("num is : %u\nnumax is: %u\nangle is %f\noffScreen is %u\n",
@@ -324,16 +324,16 @@ void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
             this->offScreen);
 
     printf("texture at: %p\nparticles at: %p\n",
-            this->texture,
+            this->pic,
             this->particles);
 
     puts("Render size is : ");
-        CEV_rectDump(this->renderSize);
+        CEV_rectDump(this->renderDim);
 
-    if(this->texture)
+    if(this->pic)
     {
         puts("Texture size is : ");
-        CEV_rectDump(this->textureSize);
+        CEV_rectDump(this->picDim);
     }
     else
     {
@@ -434,11 +434,11 @@ CEV_Weather* CEV_weatherCreate(uint8_t type, unsigned int num, int vx, int vy)
 
     //setting parameters
     SDL_RenderGetLogicalSize(CEV_videoSystemGet()->render,
-                              &result->renderSize.w,
-                              &result->renderSize.h);
+                              &result->renderDim.w,
+                              &result->renderDim.h);
 
-    result->textureSize         = CLEAR_RECT;
-    result->texture             = NULL;
+    result->picDim         = CLEAR_RECT;
+    result->pic             = NULL;
     result->type                = type;
     result->num                 = num;
     result->numax               = num;
@@ -494,8 +494,8 @@ void CEV_weatherClear(CEV_Weather* in, bool freePic)
 
     if(freePic)
     {
-        SDL_DestroyTexture(in->texture);
-        in->texture = NULL;
+        SDL_DestroyTexture(in->pic);
+        in->pic = NULL;
     }
 
     free(in->particles);
@@ -520,7 +520,7 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
     if(IS_NULL(in))
         return;
 
-    if(IS_NULL(in->texture))
+    if(IS_NULL(in->pic))
     {
         fprintf(stderr, "Err at %s / %d : no SDL_Texture attached.\n", __FUNCTION__, __LINE__ );
         return;
@@ -549,15 +549,15 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
                 Lparticle->pos.x -= (IS_NULL(in->scrollCorrectionX)?
                                         0 :
                                         (int)(*in->scrollCorrectionX * Lparticle->coord.z))
-                                            %(in->renderSize.w + in->offScreen);
+                                            %(in->renderDim.w + in->offScreen);
 
                 Lparticle->pos.y -= (IS_NULL(in->scrollCorrectionY)?
                                         0 :
                                         (int)(*in->scrollCorrectionY * Lparticle->coord.z))
-                                            %(in->renderSize.h + in->offScreen);
+                                            %(in->renderDim.h + in->offScreen);
 
                 //activating particle when offscreen
-                if(L_particlePosToDisplay(Lparticle, in->renderSize, in->offScreen))
+                if(L_particlePosToDisplay(Lparticle, in->renderDim, in->offScreen))
                     Lparticle->disp = in->run;
 
                 SDL_Rect temp = Lparticle->pos;//copied to keep original untouched
@@ -579,7 +579,7 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
                 if(Lparticle->disp)
                 {
                     SDL_RenderCopyEx(render,
-                                    in->texture,
+                                    in->pic,
                                     NULL,
                                     &temp,
                                     Lparticle->angle,
@@ -670,7 +670,7 @@ void CEV_weatherParticleBuild(CEV_Weather* dst)
         {
             case WEATHER_SNOW :
 
-                L_flakeInit(&dst->particles[i], dst->renderSize, dst->Vx);
+                L_flakeInit(&dst->particles[i], dst->renderDim, dst->Vx);
 
             break;
 
@@ -683,14 +683,14 @@ void CEV_weatherParticleBuild(CEV_Weather* dst)
                 else
                     dst->particles[i].coord.z = CEV_frand(0.1, 0.3);
 
-                L_dropInit(&dst->particles[i], dst->renderSize, dst->angle);
-                //dst->particles = L_rainCreate(num, dst->renderSize, dst->textureSize, vx, vy);
+                L_dropInit(&dst->particles[i], dst->renderDim, dst->angle);
+                //dst->particles = L_rainCreate(num, dst->renderDim, dst->picDim, vx, vy);
             break;
 
             case WEATHER_FALL :
 
-                L_leafInit(&dst->particles[i], dst->renderSize, dst->Vx);
-                //dst->particles = L_fallCreate(num, dst->renderSize, dst->textureSize, vx);
+                L_leafInit(&dst->particles[i], dst->renderDim, dst->Vx);
+                //dst->particles = L_fallCreate(num, dst->renderDim, dst->picDim, vx);
             break;
 
         }
@@ -706,7 +706,7 @@ void CEV_weatherParticleMaxSize(float src, CEV_Weather* dst)
         //limiting display scale
         dst->particles[i].coord.z = MIN(dst->particles[i].coord.z, src);
         //copying original texture dim
-        CEV_rectDimCopy(dst->textureSize, &dst->particles[i].pos);
+        CEV_rectDimCopy(dst->picDim, &dst->particles[i].pos);
         //scaling display dim
         CEV_rectDimScale(&dst->particles[i].pos, dst->particles[i].coord.z);
     }
@@ -721,7 +721,7 @@ void CEV_weatherParticleMinSize(float src, CEV_Weather* dst)
         //limiting display scale
         dst->particles[i].coord.z = MAX(dst->particles[i].coord.z, src);
         //copying original texture dim
-        CEV_rectDimCopy(dst->textureSize, &dst->particles[i].pos);
+        CEV_rectDimCopy(dst->picDim, &dst->particles[i].pos);
         //scaling display dim
         CEV_rectDimScale(&dst->particles[i].pos, dst->particles[i].coord.z);
     }
@@ -746,18 +746,18 @@ void CEV_weatherAttachTexture(SDL_Texture* src, CEV_Weather* dst)
 
 
     //replacing texture by destroying any existing one
-    //if(NOT_NULL(dst->texture))
+    //if(NOT_NULL(dst->pic))
     //{
-        //SDL_DestroyTexture(dst->texture);
+        //SDL_DestroyTexture(dst->pic);
     //}
 
-    dst->textureSize    = CEV_textureDimGet(src);
-    dst->texture        = src;
+    dst->picDim    = CEV_textureDimGet(src);
+    dst->pic        = src;
     dst->offScreen      = 2 * CEV_pointDist(CLEAR_POINT,
-                                            (SDL_Point){dst->textureSize.w, dst->textureSize.h});
+                                            (SDL_Point){dst->picDim.w, dst->picDim.h});
 
     for(unsigned i=0; i<dst->numax; i++)
-        L_particleAttachTexture(dst->particles +i, dst->textureSize);
+        L_particleAttachTexture(dst->particles +i, dst->picDim);
 
 }
 
@@ -811,8 +811,8 @@ CEV_Weather* CEV_weatherLoad_RW(SDL_RWops* src, char freeSrc)
 
     //reading parameters into locals
     uint32_t
-            ID              = SDL_ReadLE32(src),
-            srcID           = SDL_ReadLE32(src),
+            id              = SDL_ReadLE32(src),
+            picId           = SDL_ReadLE32(src),
             numOfParticles  = SDL_ReadLE32(src);
 
     int32_t
@@ -823,7 +823,7 @@ CEV_Weather* CEV_weatherLoad_RW(SDL_RWops* src, char freeSrc)
 
     CEV_Capsule capsPict;
 
-    if(!srcID)
+    if(!picId)
     {//extracting picture if embedded
 
         CEV_capsuleTypeRead_RW(src, &capsPict);
@@ -852,8 +852,8 @@ CEV_Weather* CEV_weatherLoad_RW(SDL_RWops* src, char freeSrc)
     }
 
     CEV_weatherAttachTexture(picture, result);
-    result->ID      = ID;
-    result->srcID   = srcID;
+    result->id      = id;
+    result->picId   = picId;
 
     goto end;
 
@@ -902,8 +902,8 @@ int CEV_weatherTypeWrite(CEV_Weather* src, CEV_Capsule* picture, FILE* dst)
 
     readWriteErr = 0;
 
-    write_u32le(src->ID, dst);
-    write_u32le(IS_NULL(picture)? 0 : src->srcID, dst);
+    write_u32le(src->id, dst);
+    write_u32le(IS_NULL(picture)? 0 : src->picId, dst);
     write_u32le(src->num, dst);
     //write_u32le(src->numax, dst);
     write_s32le(src->Vx, dst);
@@ -976,7 +976,7 @@ int CEV_weatherConvertTxtToData(char* srcName, char* dstName)
 
 
     id = (id & 0x00FFFFFF) | WEATHER_ID;
-    write_u32le(id, dst); //ID
+    write_u32le(id, dst); //id
     write_u32le(srcId , dst); //pic embedded or not
     write_u32le(numOfParticles, dst);
     write_u32le(vx, dst);

@@ -114,6 +114,52 @@ static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst);
 static void L_tileInit(MAP_Tile* tile);
 
 
+void CEV_mapDump(CEV_TileMap* this)
+{//dumps CEV_TileMap content (main parameters)
+
+    puts("*** BEGIN CEV_TileMap  ***");
+
+    if(IS_NULL(this))
+	{
+		puts("This CEV_TileMap is NULL");
+        goto end;
+	}
+    printf("\tis at %p\n", this);
+    printf("\ttileSize : %d\n", this->tileSize);
+    printf("\tpicture id : %08X\n", this->picId);
+    printf("\ttexture is at %p\n", this->pic);
+
+    puts("World in pixels is :");
+    CEV_rectDump(this->dim.world.pixels);
+    puts("World in tiles is :");
+    CEV_rectDump(this->dim.world.tiles);
+
+    puts("TileSet in pixels is :");
+    CEV_rectDump(this->dim.tileSet.pixels);
+    puts("TileSet in tiles is :");
+    CEV_rectDump(this->dim.tileSet.tiles);
+
+    puts("Display in pixels is :");
+    CEV_rectDump(this->dim.display.pixels);
+    puts("Display in tiles is :");
+    CEV_rectDump(this->dim.display.tiles);
+
+    puts("Display offset in pixels is :");
+    CEV_rectDump(this->dim.dispOffset.pixels);
+    puts("Display offset in tiles is :");
+    CEV_rectDump(this->dim.dispOffset.tiles);
+
+
+	// #1 printf("\town sprite's content is : \n");
+
+    // #1 CEV_spriteMiniDump(&this->sprite);
+
+end:
+    puts("***END CEV_TileMap ***");
+
+
+
+}
 
 	/*User functions implementation*/
 
@@ -173,17 +219,17 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName)
 	CEV_Capsule caps = {0};
 
 	//if tile set is to be embedded
-	if(!src->tileSetId)
+	if(!src->picId)
     {
-        if NOT_NULL(src->tileSetPic)
+        if NOT_NULL(src->pic)
         {
             //saving texture as png first
-            //CEV_textureSavePNG(src->tileSetPic, dstFileName);
+            //CEV_textureSavePNG(src->pic, dstFileName);
 
             //now picking this file as capsule
             //CEV_capsuleFromFile(&caps, dstFileName);
             //creating png capsule from texture
-            CEV_textureToCapsule(src->tileSetPic, &caps);
+            CEV_textureToCapsule(src->pic, &caps);
             embeddPic = true;
 
         }
@@ -246,7 +292,7 @@ CEV_TileMap* CEV_mapLoad_RW(SDL_RWops* src, char freeSrc)
 		return NULL;
 	}
 
-	result->tileSetId = tileSet;
+	result->picId = tileSet;
 
 	//go and read mapping
 	L_mapTypeRead_RW(src, result);
@@ -326,8 +372,8 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 	}
 
 	//attributting members default values
-	result->numLayer                = layer;
-	result->tileSetId               = 0;
+	result->numOfLayer              = layer;
+	result->picId                   = 0;
 	result->firstCall               = true;
 	result->xScroll                 = false;
 	result->yScroll                 = false;
@@ -336,7 +382,7 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 	result->tileSize 	            = tilePix;
 	result->dim.tileSet.tiles       = CLEAR_RECT;
 	result->dim.tileSet.pixels      = CLEAR_RECT;
-	result->tileSetPic              = NULL;
+	result->pic                     = NULL;
 	result->dim.dispOffset.pixels   = CLEAR_RECT;
 
 	//allocating tilemap content matrix
@@ -364,7 +410,7 @@ CEV_TileMap* CEV_mapCreate(int layer, int width, int height, int tilePix)
 
 	for(int i=0; i<width; i++)
         for(int j=0; j<height; j++)
-        result->tileProps[i][j] = (MAP_TileProps){-1, -1};
+        result->tileProps[i][j] = (MAP_TileProps){-1, -1, -1};
 
     return result;
 
@@ -411,7 +457,7 @@ void CEV_mapClear(CEV_TileMap *map)
     }
 
     //frees tilemap content
-    for (unsigned i=0; i < map->numLayer; i++)
+    for (unsigned i=0; i < map->numOfLayer; i++)
     {//for every layer
         for (int j=0; j<map->dim.world.tiles.w; j++)
             free(map->tileMap[i][j]); //for every column
@@ -426,7 +472,7 @@ void CEV_mapClear(CEV_TileMap *map)
 
     free(map->tileProps);
 
-	SDL_DestroyTexture(map->tileSetPic);
+	SDL_DestroyTexture(map->pic);
 }
 
 
@@ -439,7 +485,7 @@ bool CEV_mapAttachTexture(CEV_TileMap* map, SDL_Texture* texture)
         return false;
     }
 
-	map->tileSetPic = texture;
+	map->pic = texture;
 
 	SDL_QueryTexture(texture,
                         NULL,
@@ -450,7 +496,7 @@ bool CEV_mapAttachTexture(CEV_TileMap* map, SDL_Texture* texture)
 	map->dim.tileSet.tiles.w  = map->dim.tileSet.pixels.w / map->tileSize;
 	map->dim.tileSet.tiles.h  = map->dim.tileSet.pixels.h / map->tileSize;
 
-    for(int i=0; i<map->numLayer; i++)
+    for(int i=0; i<map->numOfLayer; i++)
     {
         for (int x=0; x<map->dim.world.tiles.w; x++)
         {
@@ -484,7 +530,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
         return;
     }
 
-    if(layer >= src->numLayer)
+    if(layer >= src->numOfLayer)
     {
         fprintf(stderr, "Err at %s / %d : layer index (%d) is not available.\n ", __FUNCTION__, __LINE__, layer);
         return;
@@ -497,8 +543,8 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
     }
 
     //keeping values in range
-    CEV_constraint(0, &dispX, src->dim.world.pixels.w - src->dim.display.pixels.w);
-    CEV_constraint(0, &dispY, src->dim.world.pixels.h - src->dim.display.pixels.h);
+    CEV_constraint(0, &dispX, src->dim.world.pixels.w - src->dim.display.pixels.w -1);
+    CEV_constraint(0, &dispY, src->dim.world.pixels.h - src->dim.display.pixels.h -1);
 
     //updating camera pos
     src->dim.display.pixels.x = dispX;
@@ -519,9 +565,9 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 
     unsigned int now = SDL_GetTicks();
 
-	for(int x = inWorld.x; x < inWorld.x + inWorld.w; x++)
+	for(int x = inWorld.x; x <= inWorld.x + inWorld.w; x++)
 	{
-	    for(int y = inWorld.y; y < inWorld.y + inWorld.h; y++)
+	    for(int y = inWorld.y; y <= inWorld.y + inWorld.h; y++)
         {
             //where to draw tile
             SDL_Rect blitPos = CEV_mapBlitPos(src, x, y, dispX, dispY);
@@ -530,7 +576,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
             //drawing
             if(layer<0)
             {
-                for(unsigned i=0; i<src->numLayer; i++)
+                for(unsigned i=0; i<src->numOfLayer; i++)
                 {
                     if(src->tileMap[i][x][y].index>=0)
                     {
@@ -547,7 +593,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 
                         CEV_rectConstraint(&clipPos, src->dim.tileSet.pixels);
 
-                        SDL_RenderCopy(dst, src->tileSetPic, &clipPos, &blitPos);
+                        SDL_RenderCopy(dst, src->pic, &clipPos, &blitPos);
                     }
                 }
             }
@@ -568,7 +614,7 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 
                     CEV_rectConstraint(&clipPos, src->dim.tileSet.pixels);
 
-                    SDL_RenderCopy(dst, src->tileSetPic, &clipPos, &blitPos);
+                    SDL_RenderCopy(dst, src->pic, &clipPos, &blitPos);
                 }
             }
         }
@@ -722,7 +768,7 @@ int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index)
     else if ((pos.y < 0) || (pos.y >= src->dim.world.pixels.h))
         return ARG_ERR;
 
-    else if (layer > (src->numLayer-1))
+    else if (layer > (src->numOfLayer-1))
         return ARG_ERR;
 
     else if (index<0 || index>9)
@@ -823,7 +869,7 @@ SDL_Rect CEV_mapWorldRectToMatrixTile(CEV_TileMap *src, SDL_Rect pos)
 }
 
 
-MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int layer)
+MAP_TileProps *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY)
 {//fetches tile prperties
 
     if IS_NULL(src)
@@ -838,11 +884,8 @@ MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int 
     else if ((tileY < 0) || (tileY >= src->dim.world.tiles.h))
          return NULL;
 
-    else if (layer > (src->numLayer-1))
-        return NULL;
-
     else
-        return &src->tileMap[layer][tileX][tileY];
+        return &src->tileProps[tileX][tileY];
 }
 
 
@@ -877,12 +920,12 @@ static void L_mapAnimUpdate(MAP_Tile *tile, unsigned int now)
         fprintf(stderr, "Err at %s / %d : Received NULL Arg.\n", __FUNCTION__, __LINE__ );
         return;
     }
-    else if (!tile->anim.delayMs || !tile->anim.picNum)
+    else if (!tile->anim.delayMs || !tile->anim.numOfFrame)
         return;
 
     unsigned int picAct = tile->anim.picAct;
 
-    tile->anim.picAct = (((now/tile->anim.delayMs)% tile->anim.picNum) + tile->anim.picStart)%tile->anim.picNum;
+    tile->anim.picAct = (((now/tile->anim.delayMs)% tile->anim.numOfFrame) + tile->anim.picStart)%tile->anim.numOfFrame;
 
     if(picAct != tile->anim.picAct)
     {
@@ -902,7 +945,7 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst)
     }
 
     //reading tiles matrix
-    for (unsigned layer=0; layer<dst->numLayer; layer++)
+    for (unsigned layer=0; layer<dst->numOfLayer; layer++)
     {
         for(int x=0; x<dst->dim.world.tiles.w; x++)
         {
@@ -935,14 +978,14 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst)
     }
 
     //map parameters
-    write_u32le(src->numLayer, dst);
-    write_u32le(src->tileSetId, dst);
+    write_u32le(src->numOfLayer, dst);
+    write_u32le(src->picId, dst);
 	write_u32le(src->dim.world.tiles.w, dst);
 	write_u32le(src->dim.world.tiles.h, dst);
 	write_u32le(src->tileSize, dst);
 
     //tiles
-    for(unsigned layer=0; layer<src->numLayer; layer++)
+    for(unsigned layer=0; layer<src->numOfLayer; layer++)
     {
         for(int x=0; x<src->dim.world.tiles.w; x++)
         {
@@ -1026,7 +1069,7 @@ static void L_tileAnimTypeRead_RW(SDL_RWops *src, MAP_TileAnim *dst)
         return;
     }
 
-    dst->picNum     = SDL_ReadLE32(src);
+    dst->numOfFrame = SDL_ReadLE32(src);
     dst->picStart   = SDL_ReadLE32(src);
     dst->picAct     = dst->picStart;
     dst->delayMs    = SDL_ReadLE32(src);
@@ -1043,7 +1086,7 @@ static void L_tileAnimTypeWrite(MAP_TileAnim *src, FILE *dst)
         return;
     }
 
-    write_u32le(src->picNum, dst);
+    write_u32le(src->numOfFrame, dst);
     write_u32le(src->picStart, dst);
     write_u32le(src->delayMs, dst);
 }

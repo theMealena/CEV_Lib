@@ -14,10 +14,17 @@
 #include "CEV_types.h"
 #include "CEV_mixSystem.h"
 #include "CEV_dataFile.h"
+#include "rwtypes.h"
 
 
 
 static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dstDim, SDL_Rect* dstBlit);
+
+//reads capsule from file
+static void L_capsuleDataTypeRead(FILE* src, CEV_Capsule* dst);
+
+//reads capsule from RWpos
+static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst);
 
 
 void CEV_fontClose(CEV_Font* font)
@@ -52,16 +59,20 @@ void CEV_waveClose(CEV_Chunk* chunk)
 void CEV_musicClose(CEV_Music* music)
 {/*closes overlay music*/
 
+    if(IS_NULL(music))
+        return;
+
     CEV_musicClear(music);
 
     free(music);
-
-    CEV_soundSystemGet()->loadedMusic = NULL;
 }
 
 
 void CEV_musicClear(CEV_Music* music)
 {
+    if(IS_NULL(music))
+        return;
+
     Mix_FreeMusic(music->music);
     free(music->virtualFile);
 
@@ -72,9 +83,9 @@ void CEV_musicClear(CEV_Music* music)
 SDL_Surface* CEV_textureToSurface(SDL_Texture* src, void** pxlData)
 {//convert texture into surface
 
-    if IS_NULL(src)
+    if (IS_NULL(src) || IS_NULL(pxlData))
     {
-        fprintf(stderr, "Err at %s / %d : src arg is NULL.\n", __FUNCTION__, __LINE__ );
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
         return NULL;
     }
 
@@ -331,6 +342,99 @@ end:
 }
 
 
+int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName)
+{//fills Capsule from file _v2
+
+    FILE* file  = NULL;
+    readWriteErr = 0;
+
+    if(IS_NULL(caps) || IS_NULL(fileName))
+    {
+        fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
+        return ARG_ERR;
+    }
+
+    file = fopen(fileName, "rb");
+
+    if (IS_NULL(file))
+    {
+        printf("Err at %s / %d : Unable to open file %s : %s\n", __FUNCTION__, __LINE__, fileName, strerror(errno));
+        return FUNC_ERR;
+    }
+
+    caps->type = CEV_fTypeFromName(fileName);
+    caps->size = CEV_fileSize(file);
+    rewind(file);
+
+    L_capsuleDataTypeRead(file, caps);//allocs & fills data field
+
+    fclose(file);
+
+    return (readWriteErr)? FUNC_ERR : FUNC_OK;
+}
+
+void CEV_capsuleTypeWrite(CEV_Capsule* src, FILE* dst)
+{//writes capsule into file where it is
+
+    write_u32le(src->type, dst);
+    write_u32le(src->size, dst);
+
+    if(fwrite(src->data, sizeof(char), src->size, dst) != src->size)
+        readWriteErr++;
+}
+
+
+void CEV_capsuleTypeRead(FILE* src, CEV_Capsule* dst)
+{//reads capsule from file where it is
+
+    dst->type   = read_u32le(src);
+    dst->size   = read_u32le(src);
+
+    if(!readWriteErr)
+        L_capsuleDataTypeRead(src, dst);//allocs & fills data field
+}
+
+
+void CEV_capsuleTypeWrite_RW(CEV_Capsule* src, SDL_RWops* dst)
+{//writes capsule into RWops
+
+    readWriteErr += SDL_WriteLE32(dst, src->type);
+    readWriteErr += SDL_WriteLE32(dst, src->size);
+
+    if(SDL_RWwrite(dst, src->data, 1, src->size) != src->size)
+        readWriteErr++;
+}
+
+
+void CEV_capsuleTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst)
+{//reads capsule from RWops
+
+    dst->type   = SDL_ReadLE32(src);
+    dst->size   = SDL_ReadLE32(src);
+
+    L_capsuleDataTypeRead_RW(src, dst);//allocs & fills data field
+}
+
+
+void CEV_capsuleClear(CEV_Capsule* caps)
+{//clears fileinfo content
+
+    if(IS_NULL(caps))
+        return;
+
+    free(caps->data);
+
+    *caps = (CEV_Capsule){NULL};
+}
+
+
+void CEV_capsuleDestroy(CEV_Capsule* caps)
+{//frees fileinfo and content
+
+    free(caps->data);
+    free(caps);
+}
+
 
 static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dstDim, SDL_Rect* dstBlit)
 {
@@ -383,4 +487,50 @@ static void L_blitRectCorrect(SDL_Rect* srcDim, SDL_Rect* srcClip, SDL_Rect* dst
         dstBlit->h = dstDim->h - dstBlit->y;
 }
 
+static void L_capsuleDataTypeRead(FILE* src, CEV_Capsule* dst)
+{//fills and allocate caps->data 1.0
+
+    if(dst==NULL || src==NULL)
+        readWriteErr++;
+
+    dst->data = malloc(dst->size);
+
+    if (dst->data == NULL)
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        readWriteErr++;
+    }
+    else if (fread(dst->data, 1, dst->size, src) != dst->size)
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        CEV_capsuleClear(dst);
+        readWriteErr++;
+    }
+}
+
+
+static void L_capsuleDataTypeRead_RW(SDL_RWops* src, CEV_Capsule* dst)
+{//fills and allocate dst->data 1.0
+
+    if(IS_NULL(dst) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d :  NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        readWriteErr++;
+        return;
+    }
+
+    dst->data = malloc(dst->size);
+
+    if (IS_NULL(dst->data))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        readWriteErr++;
+    }
+    else if (SDL_RWread(src, dst->data, 1, dst->size) != dst->size)
+    {
+        fprintf(stderr, "Err at %s / %d : Unable to read data in src : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        CEV_capsuleClear(dst);
+        readWriteErr++;
+    }
+}
 

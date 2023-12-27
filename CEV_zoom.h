@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <stdbool.h>
 
-// TODO (drx#1#): voir comment gérer les zoom inférieurs à 1
+// TODO (drx#3#): voir comment gérer les zoom inférieurs à 1
 
 /** \brief Zoom structure definition
  */

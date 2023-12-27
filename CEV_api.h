@@ -415,6 +415,16 @@ double CEV_vectAngle(double x, double y);
 
 /*** SDL_Point ***/
 
+
+/** \brief dumps to stdout.
+ *
+ * \param this : SDL_Point to dump.
+ *
+ * \return void.
+ */
+void CEV_pointDump(SDL_Point this);
+
+
 /** \brief same point.
  *
  * \param pta : SDL_Point.
@@ -911,6 +921,28 @@ SDL_Rect CEV_rectCenteredInRect(SDL_Rect src, SDL_Rect into);
  * \return SDL_Rect as sum of rect1+rect2.
  */
 SDL_Rect CEV_rectSum(SDL_Rect rect1, SDL_Rect rect2);
+
+
+/** \brief Horizontal symmetry for rect
+ *
+ * \param src : SDL_Rect to be move around X
+ * \param x : int as postion to apply symmetry around.
+ *
+ * \return SDL_Rect with new rect position
+ *
+ */
+SDL_Rect CEV_rectSymmetryHor(SDL_Rect src, int x);
+
+
+/** \brief Vertical symmetry for rect
+ *
+ * \param src : SDL_Rect to be move around Y
+ * \param y : int as postion to apply symmetry around.
+ *
+ * \return SDL_Rect with new rect position
+ *
+ */
+SDL_Rect CEV_rectSymmetryVert(SDL_Rect src, int y);
 
 
 

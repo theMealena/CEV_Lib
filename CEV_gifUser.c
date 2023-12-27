@@ -106,7 +106,7 @@ CEV_GifAnim * CEV_gifAnimLoadRW(SDL_RWops* rwops, SDL_Renderer *renderer, char f
                 break;
 
                 default:
-                    // TODO (drx#1): error management to add here
+                    // TODO (drx#8): error management to add here
                 break;
             }
         }

@@ -41,7 +41,7 @@ Layer index 0 is the farmost layer.
 layers blit from top left to bottom right
 */
 
-// TODO (drx#1#): insert CEV_Camera directly
+// TODO (drx#6#): insert CEV_Camera directly
 
 #ifndef CEV_MAP_H_INCLUDED
 #define CEV_MAP_H_INCLUDED
@@ -92,7 +92,7 @@ for 0->width
 typedef struct MAP_TileAnim
 {
     unsigned int
-            picNum,     /**< number of tiles in animation */
+            numOfFrame, /**< number of tiles in animation */
             picStart,   /**< first tile index */
             delayMs,    /**< animation delay */
             picAct;     /**< active index */
@@ -142,11 +142,11 @@ typedef struct CEV_TileMap
         xScroll,   /**< true if map wider than display */
         yScroll,   /**< true if map higher than display */
         firstCall; /**< map draw first call */
-	
-	int numLayer   /**< number of layers */
 
-    uint32_t            
-            tileSetId,  /**< tile set index */
+	int numOfLayer;   /**< number of layers */
+
+    uint32_t
+            picId,  /**< tile set index */
             tileSize;   /**< single tile size (pixels) */
 
     struct TileMapDim
@@ -154,7 +154,7 @@ typedef struct CEV_TileMap
         struct TileMapDimMember
         {
             SDL_Rect pixels,/**< size in pxl */
-                     tiles; /**< ize in tiles */
+                     tiles; /**< size in tiles */
         } world,    /**< world size */
         tileSet,    /**< tileset size */
         display,    /**< display size */
@@ -164,10 +164,18 @@ typedef struct CEV_TileMap
 
     MAP_Tile*** tileMap;        /**< tiles matrix */
     MAP_TileProps** tileProps;  /**< properties layer */
-    SDL_Texture *tileSetPic;    /**< tiles texture */
+    SDL_Texture *pic;    /**< tiles texture */
 }
 CEV_TileMap;
 
+
+/** \brief Dump CEV_TileMap content into stdout
+ *
+ * \param this : CEV_TileMap* to dump.
+ *
+ * \return void
+ */
+void CEV_mapDump(CEV_TileMap* this);
 
 /** \brief Load mapping from file.
  *
@@ -324,11 +332,10 @@ int CEV_mapOptValue(CEV_TileMap *src, SDL_Point pos, int layer, int index);
  * \param  src : CEV_TileMap* to fetch tile from.
  * \param  tileX : X position of tile in tile matrix.
  * \param  tileY : Y position of tile in tile matrix.
- * \param  layer : layer index of tile.
  *
- * \return MAP_Tile* to requested tile.
+ * \return MAP_TileProps* to requested prperties.
  */
-MAP_Tile *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY, unsigned int layer);
+MAP_TileProps *CEV_mapTileProps(CEV_TileMap *src, int tileX, int tileY);
 
 
 /**Landmark translation**/
