@@ -99,7 +99,7 @@ CEV_Edge;
 #define CLEAR_ICOORD    (CEV_ICoord){.x = 0, .y = 0, .z = 0}
 #define CLEAR_FCOORD    (CEV_FCoord){.x = 0.0, .y = 0.0, .z = 0.0}
 #define CLEAR_RECT      (SDL_Rect){.x = 0, .y = 0, .w = 0, .h = 0}
-#define CLEAR_EDGE      (CEV_Edge){.value = false, .memo = false, .re = false, .fe = false, .any = false .out = false}
+#define CLEAR_EDGE      (CEV_Edge){.value = false, .memo = false, .re = false, .fe = false, .any = false, .out = false}
 
 
 /**miscellanous**/

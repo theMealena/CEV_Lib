@@ -12,7 +12,8 @@
 #include <stdio.h>
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include <CEV_types.h>
+#include "CEV_types.h"
+#include "CEV_texts.h"
 
 /**
 
@@ -84,14 +85,14 @@ typedef struct CEV_ScrollText
 {
     unsigned int id,        /**< unique id */
                  lineAct,   /**< actual line */
-                 numOfLine,    /**< number of lines available */
+                 numOfLine, /**< number of lines available */
                  lineFrom,  /**< start line index */
                  lineTo,    /**< stop line index */
                  space,     /**< space size between pics, pxl */
                  fontSize,  /**< font size */
                  speed;     /**< pxl / frame */
 
-    SCROLL_MODE mode;      /**< scrolling mode */
+    SCROLL_MODE mode;       /**< scrolling mode */
 
     int pos;                /**< display position */
 
@@ -211,7 +212,20 @@ int CEV_scrollUpdate(CEV_ScrollText *in);
  *
  * \return one of the function status.
  */
-int CEV_scrollConvertTxtToData(const char* srcName, const char* dstName);
+int CEV_scrollConvertToData(const char* srcName, const char* dstName);
+
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int CEV_scrollConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 
 
 /** \brief loads scroll configuration file.

@@ -16,6 +16,7 @@
 
 #include "CEV_input.h"
 #include "CEV_types.h"
+#include "CEV_chrono.h"
 
     /* DEFINES */
 
@@ -106,9 +107,10 @@ CEV_VideoSystem;
 */
 typedef struct CEV_MainSystem
 {
-    CEV_VideoSystem   video; /**< Main video sytem */
-    CEV_SoundSystem   sound; /**< Main sound system */
-    CEV_Input         input; /**< Main input struct */
+    CEV_VideoSystem     video; /**< Main video sytem */
+    CEV_SoundSystem     sound; /**< Main sound system */
+    CEV_Input           input; /**< Main input struct */
+    CEV_Chrono          chrono;/**< Main timer */
 }
 CEV_MainSystem;
 

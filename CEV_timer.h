@@ -26,12 +26,12 @@ typedef struct CEV_Timer
                 processing, /**< counting down*/
                 cmd;        /**< command*/
 
-    int64_t     accu;   /**< accumulator from preset to 0*/
+    int64_t     accu;   	/**< accumulator from preset to 0*/
 
-	uint32_t     preset,/**< preset value*/
-                 lst;   /**< previous absolute time*/
+	uint32_t     preset,	/**< preset value*/
+                 lst;   	/**< previous absolute time*/
 
-    CEV_Edge    edge;   /**< edge*/
+    CEV_Edge    edge;   	/**< edge*/
 }
 CEV_Timer;
 
@@ -156,4 +156,4 @@ void CEV_timerReset(CEV_Timer *in);
 }
 #endif
 
-#endif // CEV_TIMER_H_INCLUDED
+#endif // CEV_TIMER_H_INCLUDE

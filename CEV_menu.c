@@ -97,7 +97,7 @@ void TEST_menu(void)
     CEV_Input* input = CEV_inputGet();
     SDL_Renderer* render = CEV_videoSystemGet()->render;
 
-    CEV_menuConvertTxtToData("menu/menuEditable.txt", "menu/menu.mdat");
+    CEV_menuConvertToData("menu/menuEditable.txt", "menu/menu.mdat");
 
     CEV_Menu* menu = CEV_menuLoad("menu/menu.mdat");
 
@@ -549,8 +549,8 @@ void CEV_menuButtonValueLink(CEV_Menu* menu, unsigned int mastIndex, unsigned in
 
 
 
-    if((mastIndex>=menu->numOfButton)
-       || (slaveIndex>=menu->numOfButton))
+    if((mastIndex >= menu->numOfButton)
+       || (slaveIndex >= menu->numOfButton))
         return;
 
     else
@@ -595,13 +595,13 @@ int CEV_menuTextColorSet(CEV_MSelector *bt, SDL_Color color, bool state)
 
 
 
-int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
+int CEV_menuConvertToData(const char* srcName, const char* dstName)
 {//converts parameters file into program friendly data
 
     int funcSts = FUNC_OK;
 
-    if((srcName == NULL) || (dstName) == NULL)
-    {//checking args
+    if(IS_NULL(srcName) || IS_NULL(dstName))
+    {//arg error
         fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__);
         return ARG_ERR;
     }
@@ -610,11 +610,38 @@ int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
 
     if(IS_NULL(src))
     {
-        fprintf(stderr, "Err at %s / %d : cannot create CEV_Text.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : arg error.\n", __FUNCTION__, __LINE__);
         return FUNC_ERR;
     }
 
-    //CEV_textDump(src);
+    FILE* dst = fopen(dstName, "wb");
+
+    if (IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        funcSts = FUNC_ERR;
+        goto err_1;
+    }
+
+    funcSts = CEV_menuConvertTxtToDataFile(src, dst, srcName);
+
+    fclose(dst);
+
+err_1:
+    CEV_textDestroy(src);
+
+    return funcSts;
+}
+
+
+int CEV_menuConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
 
     uint32_t    id,
                 buttonNum,
@@ -625,15 +652,6 @@ int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
          hasFolder = CEV_fileFolderNameGet(srcName, fileFolder);
 
     CEV_Capsule caps = {0};
-
-    FILE *dst = fopen(dstName, "wb");
-
-    if(IS_NULL(dst))
-    {
-        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        funcSts = FUNC_ERR;
-        goto err_1;
-    }
 
     //id
     id = (uint32_t)CEV_txtParseValueFrom(src, "id");
@@ -661,7 +679,6 @@ int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
         if(caps.type != IS_FONT)
         {
             fprintf(stderr,"Warn at %s / %d : file is not ttf extension.\n", __FUNCTION__, __LINE__);
-            funcSts = FUNC_ERR;
         }
 
         CEV_capsuleTypeWrite(&caps, dst);
@@ -691,21 +708,14 @@ int CEV_menuConvertTxtToData(const char* srcName, const char* dstName)
 
             default:
                 fprintf(stderr, "Err at %s / %d : button %d is of unknown type enum.\n", __FUNCTION__, __LINE__, i);
-                funcSts = FUNC_ERR;
+                readWriteErr++;
             break;
         }
     }
 
-    fclose(dst);
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 
-err_1:
-
-    CEV_textDestroy(src);
-
-    return funcSts;
 }
-
-
 
 //-----Locals functions -------
 
@@ -1017,7 +1027,7 @@ static void L_mPicConvertTxtToData(CEV_Text *src, FILE *dst, char* folder, int i
     double storage[2];
 
     //num of state for this button
-    sprintf(parName, "[%d]numOfState", index);
+    sprintf(parName, "[%d]stateNum", index);
     valu32 = (uint32_t)CEV_txtParseValueFrom(src, parName);
     write_u32le(valu32, dst);
 

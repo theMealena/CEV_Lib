@@ -78,7 +78,6 @@ char CEV_timerTon(CEV_Timer *in)
     in->cmd = (in->run && in->accu<=0);
 	in->lst = now;
 
-
 	return in->cmd;
 }
 

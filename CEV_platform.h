@@ -17,10 +17,11 @@
 #include <SDL.h>
 #include <CEV_timer.h>
 #include <CEV_aniMini.h>
+#include <CEV_Camera.h>
 
 #define CEV_PLATFORM_MAX_POS 5 //max num of platforms' position
 
-#define PLTFRM_TYPE_ID 0x12010000   //object identifier for constantes
+#define PLTFRM_TYPE_ID 0x12010000   //object identifier for constants
 #define IS_PLTFRM(x) ((x & 0xFFFF0000) == PLTFRM_TYPE_ID)
 
 #define PTFR_USES_CST 0
@@ -39,8 +40,8 @@ IIII = ID for this game object
 //type of object = 0x02
 /* platefrom instance file
 
-    u32le   : Unique ID                     0x00
-            : constants' Unique ID          0x04
+    u32le   : Unique own ID                 0x00
+            : aniMini ID                    0x04
             : timeset as full travel time   0x08
             : timeSync as time offset to 0  0x0C
             : timePause                     0x10
@@ -49,6 +50,9 @@ IIII = ID for this game object
                     u32le : position X
                     u32le : position Y
     u8      : is elevator
+    u32le   : hitbox x,y,w,h
+
+    CEV_AniMini : if embedded (aniMini ID == 0)
 */
 
 
@@ -133,10 +137,10 @@ void CEV_platformDump(CEV_Platform* this);
  *
  * \return void
  */
-void CEV_platformUpdate(CEV_Platform* this, SDL_Rect camera, uint32_t now);
+void CEV_platformUpdate(CEV_Platform* this, CEV_Camera* camera, uint32_t now);
 
 
-/** \brief Calculates platform position.
+/** \brief Calculates position only.
  *
  * \param this : CEV_Platform* to move.
  * \param now : uint32_t as elapsed time.
@@ -146,7 +150,7 @@ void CEV_platformUpdate(CEV_Platform* this, SDL_Rect camera, uint32_t now);
 void CEV_platformMove(CEV_Platform* this, uint32_t now);
 
 
-/** \brief Displays platform onto active renderer.
+/** \brief Displays only onto active renderer.
  *
  * \param this : CEV_Platform* to display.
  * \param cameraPos : SDL_Rect as camera position in world.
@@ -154,8 +158,17 @@ void CEV_platformMove(CEV_Platform* this, uint32_t now);
  *
  * \return void
  */
-void CEV_platformDisplay(CEV_Platform* this, SDL_Rect cameraPos, uint32_t now);
+void CEV_platformDisplay(CEV_Platform* this, CEV_Camera* camera, uint32_t now);
 
+
+/** \brief Fetches platform hitbox position in world.
+ *
+ * \param this : CEV_Platform* to get hitbox from.
+ *
+ * \return SDL_Rect as world positionned hitbox.
+ *
+ */
+SDL_Rect CEV_platformHitboxGet(CEV_Platform* this);
 
 
 /** \brief Attaches animation to platform.
@@ -163,9 +176,9 @@ void CEV_platformDisplay(CEV_Platform* this, SDL_Rect cameraPos, uint32_t now);
  * \param src : CEV_AniMini* to be attached.
  * \param dst : CEV_Platform* to attach to.
  *
- * \return int of std function status.
+ * \return void
  */
-int CEV_platformAnimAttach(CEV_AniMini* src, CEV_Platform* dst);
+void CEV_platformAnimAttach(CEV_AniMini* src, CEV_Platform* dst);
 
 
 /** \brief Performs precalculation according to parameters.
@@ -283,6 +296,19 @@ int CEV_platformTypeRead_RW(SDL_RWops* src, CEV_Platform* dst, bool freeSrc);
  *
  * \return int of standard function status.
  */
-int CEV_platformConvertTxtToData(const char* srcName, const char* dstName);
+int CEV_platformConvertToData(const char* srcName, const char* dstName);
+
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int CEV_platformConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 
 #endif // PLATEFORMS_H_INCLUDED

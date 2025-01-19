@@ -8,6 +8,7 @@
 //**   CEV    |  11-2017   |   2.1.1  |   diag improved
 //**   CEV    |  01-2020   |   2.1.2  | loaded music ptr   ->CEV_playingMusicGet()
 //**   CEV    |  05-2021   |   2.1.2  | local funcs as static
+//**   CEV    |  09-2024   |   2.1.3  | added CEV_Chrono as main timer
 //**********************************************************
 
 
@@ -53,7 +54,7 @@ static bool L_videoAutoAdapt(CEV_VideoDisplay * cfg);
 int CEV_systemInit(void)
 {/*system initialization **/
 
-    CEV_MainSystem  *sys    = NULL; /*main system*/
+    CEV_MainSystem  *sys = NULL; /*main system*/
 
     sys = calloc(1, sizeof(*sys));
 
@@ -91,11 +92,15 @@ int CEV_systemInit(void)
         goto exit_err_3;
     }
 
-    if( CEV_inputInit() != FUNC_OK )
+    if(CEV_inputInit() != FUNC_OK )
     {/*input initialization*/
         fprintf(stderr, "Err at %s / %d : input.\n", __FUNCTION__, __LINE__);
         goto exit_err_4;
     }
+
+    CEV_chronoInit(&sys->chrono);   //init to default values
+    CEV_chronoSet(&sys->chrono);    //set to default main timer
+    CEV_chronoStart();              //and is always started
 
         /*POST***/
 

@@ -24,9 +24,8 @@
  */
 
 
-// TODO (drx#2#04/23/23): Finir les fonctions en version fetchtByIndex, fetchByIdFromFile, fetchByIndexFromFile.
 // TODO (drx#2#04/23/23): Peut-être passer en lecture directe du fichier et éviter de passer par la capsule puis le Rwops
-// TODO (drx#2#08/26/23): Ajouter le BmpFont
+// TODO (drx#2#08/26/23): Ajouter le BmpFont et la boîte de dialogue
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,6 +49,7 @@
 #include "CEV_weather.h"
 #include "CEV_aniMini.h"
 #include "CEV_objects.h"
+#include "CEV_txtParser.h"
 
 /***** Local functions****/
 
@@ -362,7 +362,7 @@ int CEV_capsuleFetchById(uint32_t id, CEV_RsrcFile* src, CEV_Capsule* dst)
 
     if(!offset)
     {
-        fprintf(stderr, "Err at %s / %d : id provided does not exist.\n", __FUNCTION__, __LINE__);
+        fprintf(stderr, "Err at %s / %d : id %08X provided does not exist.\n", __FUNCTION__, __LINE__, id);
         return FUNC_ERR;
     }
 
@@ -1370,7 +1370,7 @@ CEV_Music* CEV_musicFetchById(int32_t id, CEV_RsrcFile* src)
     }
 
 end:
-    CEV_capsuleClear(&lCaps);
+    //CEV_capsuleClear(&lCaps);
 
     return result;
 }
@@ -1404,7 +1404,7 @@ CEV_Music* CEV_musicFetchByIndex(int32_t index, CEV_RsrcFile* src)
     }
 
 end:
-    CEV_capsuleClear(&lCaps);
+    //CEV_capsuleClear(&lCaps);
 
     return result;
 }
@@ -2319,6 +2319,109 @@ CEV_Weather* CEV_weatherFetchByIndexFromFile(int32_t index, const char* fileName
     return result;
 }
 
+
+int CEV_anyConvertToData(const char* srcName, const char* dstName)
+{//converts any source txt file into dedicated datafile
+
+    if(IS_NULL(srcName))
+    {
+        fprintf(stderr, "Err at %s / %d : srcName arg is NULL.\n", __FUNCTION__, __LINE__ );
+        return FUNC_ERR;
+    }
+
+    int funcSts = FUNC_OK;
+    FILE *dst   = NULL;
+
+    char fileName[FILENAME_MAX]     = "\0",
+         srcFolder[FILENAME_MAX]    = "\0";
+
+    CEV_fileFolderNameGet(srcName, srcFolder);
+
+    CEV_Text* holder = CEV_textTxtLoad(srcName);
+
+    uint32_t thisIdType = CEV_txtParseHex32From(holder, "this"),
+             thisType   = CEV_idTofType(thisIdType),
+             thisId     = CEV_txtParseHex32From(holder, "id");
+
+
+    if(!thisIdType)
+    {//file is not legit
+        fprintf(stderr, "Err at %s / %d : source file does not have identifier, add \"this = \" parameter into file.\n", __FUNCTION__, __LINE__ );
+        funcSts = FUNC_ERR;
+        goto err_1;
+    }
+    else if(NOT_NULL(dstName))
+    {//copying destination fileName
+        strcpy(fileName, dstName);
+    }
+    else if (thisId)
+    {//building fileName from Id
+        thisId = (thisId & 0x00FFFFFF) | thisIdType;
+        sprintf(fileName, "%s%08X.%s", srcFolder, thisId, CEV_fTypeToExt(thisType));
+    }
+    else
+    {//or building default fileName
+        sprintf(fileName, "%s%s.%s", srcFolder, "convertDefault", CEV_fTypeToExt(thisType));
+    }
+
+    dst = fopen(fileName, "wb");
+
+    if(IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
+        funcSts = FUNC_ERR;
+        goto err_1;
+    }
+
+
+    switch(thisType)
+    {
+        case IS_SPS :
+            funcSts = SP_animConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        case IS_MENU:
+            funcSts = CEV_menuConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        case IS_SCROLL:
+            funcSts = CEV_scrollConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        case IS_PRLX:
+            funcSts = CEV_parallaxConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        case IS_WTHR:
+            funcSts = CEV_weatherConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        case IS_ANI:
+            funcSts = CEV_aniMiniConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        case IS_OBJ:
+            funcSts = CEV_objectConvertTxtToDataFile(holder, dst, srcName);
+        break;
+
+        default:
+            fprintf(stderr, "Err at %s / %d : Not handled ID : %08X.\n", __FUNCTION__, __LINE__, thisIdType);
+            funcSts = FUNC_ERR;
+            goto err_2;
+        break;
+    }
+
+
+err_2:
+    fclose(dst);
+
+err_1:
+    CEV_textDestroy(holder);
+
+    return funcSts;
+
+}
+
 /*----- Encapsulation -----
 
 
@@ -2816,7 +2919,6 @@ static CEV_Weather* L_capsuleToWeather(CEV_Capsule* caps)
 
     return result;
 }
-
 
 
 static CEV_AniMini* L_capsuleToAniMini(CEV_Capsule* caps)

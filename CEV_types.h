@@ -7,34 +7,35 @@
 
 
 #define IS_PIC(x) (((x)==IS_BMP) + ((x)==IS_PNG) + ((x)==IS_JPG))
-#define FILE_TYPE_NUM 20
-#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani", "obj", "bmf"}
+#define FILE_TYPE_NUM 21
+#define FILE_TYPE_LIST {"default", "dat", "dtx", "bmp", "png", "jpg", "gif", "wav", "ttf", "sps", "men", "scl", "map", "mp3", "plx", "wtr", "txt", "ani", "obj", "bmf", "dlg"}
 
 
 /** \brief defines file type
  */
 typedef enum FILE_TYPE
 {
-    IS_DEFAULT  = 0,    /**< unknown / generic */
-    IS_DAT      = 1,    /**< any data  .dat */
-    IS_DTX      = 2,    /**< CEV_Text  .dtx */
-    IS_BMP      = 3,    /**< bmp       .bmp */
-    IS_PNG      = 4,    /**< png       .png */
-    IS_JPG      = 5,    /**< jpg       .jpg */
-    IS_GIF      = 6,    /**< gif       .gif */
-    IS_WAV      = 7,    /**< wave      .wav */
-    IS_FONT     = 8,    /**< font.ttf  .ttf */
-    IS_SPS      = 9,    /**< sprite    .sps */
-    IS_MENU     = 10,   /**< menu      .men */
-    IS_SCROLL   = 11,   /**< scroller  .scl */
-    IS_MAP      = 12,   /**< map       .map */
-    IS_MUSIC    = 13,   /**< mp3       .mp3 */
-    IS_PRLX     = 14,   /**< parallax  .plx */
-    IS_WTHR     = 15,   /**< weather   .wtr */
-    IS_TXT      = 16,   /**< text file .txt */  // TODO (drx#1#09/15/23): Doublon avec CEV_Text ?
-    IS_ANI      = 17,   /**< short animation .ani */
-    IS_OBJ      = 18,   /**< is game object .obj */
-    IS_BMPFONT  = 19    /**< is bmp font .bmf */
+    IS_DEFAULT  = 0,    /**< unknown / generic  (0x00)*/
+    IS_DAT      = 1,    /**< any data   .dat    (0x01)*/
+    IS_DTX      = 2,    /**< CEV_Text   .dtx    (0x02)*/
+    IS_BMP      = 3,    /**< bmp        .bmp    (0x03)*/
+    IS_PNG      = 4,    /**< png        .png    (0x04)*/
+    IS_JPG      = 5,    /**< jpg        .jpg    (0x05)*/
+    IS_GIF      = 6,    /**< gif        .gif    (0x06)*/
+    IS_WAV      = 7,    /**< wave       .wav    (0x07)*/
+    IS_FONT     = 8,    /**< font.ttf   .ttf    (0x08)*/
+    IS_SPS      = 9,    /**< sprite     .sps    (0x09)*/
+    IS_MENU     = 10,   /**< menu       .men    (0x0A)*/
+    IS_SCROLL   = 11,   /**< scroller   .scl    (0x0B)*/
+    IS_MAP      = 12,   /**< map        .map    (0x0C)*/
+    IS_MUSIC    = 13,   /**< mp3        .mp3    (0x0D)*/
+    IS_PRLX     = 14,   /**< parallax   .plx    (0x0E)*/
+    IS_WTHR     = 15,   /**< weather    .wtr    (0x0F)*/
+    IS_TXT      = 16,   /**< text file  .txt    (0x10)*/  // TODO (drx#1#09/15/23): Doublon avec CEV_Text ?
+    IS_ANI      = 17,   /**< short anim .ani    (0x11)*/
+    IS_OBJ      = 18,   /**< object     .obj    (0x12)*/
+    IS_BMPFONT  = 19,   /**< is bmp font.bmf    (0x13)*/
+    IS_DIALOG   = 20    /**< is dialog  .dlg    (0x14)*/
 }
 FILE_TYPE;
 

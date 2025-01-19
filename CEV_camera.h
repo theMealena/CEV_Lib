@@ -59,16 +59,17 @@ typedef struct S_CameraParam
         camDim,         /**< display (render) dimension */
         posCalc,        /**< calculated camera position */
         *posAct,        /**< camera real position  */
-        autoScrollVel;  /**< autoscroll pxl/frame vel*/
+        autoScrollVel,  /**< autoscroll pxl/frame vel*/
+        posMax;         /**< maximum value */
 
     bool autoReverse;   /**< enables direction change */
 
     float *followThis,  /**< follow this position */
            followPrev;  /**< where was I before ? */
 
-    CEV_CameraMode mode; /**< camera display mode */
+    CEV_CameraMode mode;/**< camera display mode */
 
-    CEV_Timer timer;/**< direction change TON*/
+    CEV_Timer timer;    /**< direction change TON*/
 }
 CEV_CameraParam;
 
@@ -77,24 +78,38 @@ typedef struct S_Camera
 {
     CEV_CameraParam param[2]; /**< parameters x, y */
 
-    SDL_Rect scrollActPos, /**< camera position in world pxl */
-             constraint; /**< world dimension pxl */
+    bool xScroll,   /**< X scrolling -> map wider than camera */
+         yScroll;   /**< Y scrolling -> map higher than camera */
+
+    SDL_Rect scrollActPos,  /**< camera position in world pxl */
+             constraint,    /**< camera rect boundary */
+             posInScreen,   /**< camera pos in screen */// NOTE (drx#9#12/31/23): Unused, later option.
+             posFromWorld;  /**< camera relative position to world */
 }
 CEV_Camera;
+
+
+/** \brief Dumps CEV_Camera content into stdout.
+ *
+ * \param this : CEV_Camera* to be dumped.
+ *
+ * \return void.
+ */
+void CEV_cameraDump(CEV_Camera* this);
 
 
 /** \brief Inits new camera / sets parameters for camera.
  *
  * \param in : CEV_Camera* to init.
  * \param followPt : CEV_FCoord* to be followed by camera.
- * \param constraint : SDL_Rect in which camera should be constraint (world).
+ * \param worldDim : SDL_Rect in which camera should be constraint (world).
  * \param mode : CEV_CameraMode as follow mode.
  *
  * \return void
  *
  * \note Is to use with a declared camera VS camera loaded from file.
  */
-void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, CEV_CameraMode mode);
+void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect worldDim, CEV_CameraMode mode);
 
 
 /** \brief Laods camera from file.

@@ -17,12 +17,21 @@
  * \param src : CEV_Text* to extract value from.
  * \param name : char* as parameter's name.
  *
- * \return double as value extracted, 0.0 is default value on error.
+ * \return double as extracted value, 0.0 is default value on error.
  *
  * \note Value must be placed after '=' char.
  */
 double CEV_txtParseValueFrom(CEV_Text* src, char* name);
 
+
+/** \brief Extract value formated as hexa
+ *
+ * \param src : CEV_Text* to extract value from.
+ * \param name : char* as parameter's name.
+ * \return uint32_t as extracted value, 0 is default value on error.
+ *
+ */
+uint32_t CEV_txtParseHex32From(CEV_Text* src, char* name);
 
 /** \brief Fetches parameter string value.
  *

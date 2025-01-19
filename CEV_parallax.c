@@ -119,7 +119,7 @@ void TEST_parallax(void)
 
     if(!reload)
     {
-        CEV_parallaxConvertTxtToData("prlx\\parseTest.txt", "prlx\\bcgd01.plx");
+        CEV_anyConvertToData("prlx\\parseTest.txt", "prlx\\bcgd01.plx");
         thisPrlx = CEV_parallaxLoad("prlx\\bcgd01.plx");
     }
     else
@@ -515,27 +515,28 @@ void CEV_parallaxAttachCamera(CEV_Camera *src, CEV_Parallax *dst)
     }
 
     dst->cameraPos = &src->scrollActPos;
+    dst->worldDim  = src->constraint;
 }
 
 
 /**** file related functions ****/
 
 
-int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
+int CEV_parallaxConvertToData(const char* srcName, const char* dstName)
 {//converts txt file into data file
 
-        /*---DECLARATIONS---*/
+
+    if(IS_NULL(srcName) || IS_NULL(dstName))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    int funcSts = FUNC_OK;
     uint32_t num = 0;
 
     CEV_Text *src   = NULL;
     FILE *dst       = NULL;
-
-    char folderName[FILENAME_MAX] = "\0",
-         //fileLine[50],
-         hasFolder =  0;
-
-    readWriteErr = 0;
-    hasFolder = CEV_fileFolderNameGet(srcName, folderName);
 
     //loading as CEV_Text to enable quick parsing
     src = CEV_textTxtLoad(srcName);
@@ -543,17 +544,48 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
     if(IS_NULL(src))
     {
         fprintf(stderr, "Err at %s / %d : Unable to open file %s.\n ",__FUNCTION__,  __LINE__, srcName);
-        goto err;
+        return FUNC_ERR;
     }
-
     //opening destination file
     dst = fopen(dstName, "wb");
 
     if(IS_NULL(dst))
     {
         fprintf(stderr, "Err at %s / %d : Unable to create file %s.\n ",__FUNCTION__,  __LINE__, dstName);
+        funcSts = FUNC_ERR;
         goto err_1;
     }
+
+    funcSts = CEV_parallaxConvertTxtToDataFile(src, dst, srcName);
+
+
+    fclose(dst);
+
+err_1:
+    CEV_textDestroy(src);
+
+    return funcSts;
+}
+
+
+int CEV_parallaxConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    uint32_t num = 0;
+
+    char folderName[FILENAME_MAX] = "\0",
+         hasFolder =  0;
+
+    hasFolder = CEV_fileFolderNameGet(srcName, folderName);
+
+    int funcSts = FUNC_OK;
+    char lString[FILENAME_MAX];
 
     //id
     num = (uint32_t)CEV_txtParseValueFrom(src, "id");
@@ -569,26 +601,7 @@ int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName)
         L_parallaxLayerTxtToData(src, dst, hasFolder? folderName : NULL, i);
     }
 
-    if (readWriteErr)
-    {
-        fprintf(stderr, "Err at %s / %d : read / write error.\n ",__FUNCTION__,  __LINE__);
-        goto err_2;
-    }
-
-    CEV_textDestroy(src);
-    fclose(dst);
-
-    return FUNC_OK;
-
-        /*---ERROR---*/
-err_2:
-    fclose(dst);
-
-err_1:
-    CEV_textDestroy(src);
-
-err:
-    return FUNC_ERR;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
 
@@ -730,51 +743,6 @@ int CEV_parallaxWrite_RW(CEV_Parallax* src, SDL_RWops* dst)
     return readWriteErr;
 }
 
-
-// FIXME (drx#2#04/30/23): Passer par un fichier temp, le SDL_AllocRW est douteux. ...
-//NE PAS UTILISER
-/*
-int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst)
-{//creates capsule from structure
-
-    int funcSts = FUNC_OK;
-
-    //creating virtual file
-    SDL_RWops* vFile = SDL_AllocRW();
-
-    if(IS_NULL(vFile))
-    {
-        fprintf(stderr, "Err at %s / %d : unable to allocate vFile : %s.\n", __FUNCTION__, __LINE__, SDL_GetError());
-        return FUNC_ERR;
-    }
-
-    funcSts = CEV_parallaxWrite_RW(src, vFile);
-
-    if(funcSts != FUNC_OK)
-    {
-        fprintf(stderr, "Err at %s / %d : unable to write into virtuel file.\n", __FUNCTION__, __LINE__ );
-        goto end;
-    }
-
-    size_t size = SDL_RWsize(vFile);
-    dst->size = size;
-    dst->type = IS_PRLX;
-    dst->data = malloc(size);
-
-    if(IS_NULL(dst->data))
-    {
-        fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
-        funcSts = FUNC_ERR;
-        goto end;
-    }
-
-    SDL_RWread(vFile, dst->data, size, 1);
-
-end:
-    SDL_FreeRW(vFile);
-    return funcSts;
-}
-*/
 
 /*** Local functions ***/
 

@@ -25,12 +25,12 @@ void TEST_shortAnim(void)
     bool load = true,
         convert = true;
 
-    CEV_Input *input = CEV_inputGet();
-    CEV_AniMini* animation = NULL;
+    CEV_Input *input        = CEV_inputGet();
+    CEV_AniMini* animation  = NULL;
 
     if (convert)
     {
-        CEV_aniMiniConvertTxtToData("aniMini/aniMiniEditable.txt", "aniMini/testshortanim.ani");
+        CEV_aniMiniConvertToData("aniMini/aniMiniEditable.txt", "aniMini/testshortanim.ani");
     }
 
     if(load)
@@ -38,10 +38,10 @@ void TEST_shortAnim(void)
 
     else
     {
-        animation = calloc(1, sizeof(*animation));
-        SDL_Texture *picAnim = CEV_textureLoad("aniMini/Sonic_SP.png");
+        animation               = calloc(1, sizeof(*animation));
+        SDL_Texture *picAnim    = CEV_textureLoad("aniMini/Sonic_SP.png");
         CEV_aniMiniAttachTexture(picAnim, animation);
-        animation->delay = 150;
+        animation->delay        = 150;
         CEV_aniMiniParamSet(6, 4, animation);
         //CEV_spriteMiniFrom(animation, &animation->sprite);
     }
@@ -518,11 +518,10 @@ int CEV_aniMiniTypeWrite_RW(CEV_AniMini* src, SDL_RWops* dst)
 }
 
 
-int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName)
+int CEV_aniMiniConvertToData(const char *srcName, const char *dstName)
 {//converts editable text file into data file
 
     int funcSts = FUNC_OK;
-    char lString[FILENAME_MAX];
 
     if(IS_NULL(srcName) || IS_NULL(dstName))
     {
@@ -531,8 +530,6 @@ int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName)
     }
 
     CEV_Text *src = CEV_textTxtLoad(srcName);
-
-    //CEV_textDump(src);
 
     if(IS_NULL(src))
     {
@@ -549,10 +546,33 @@ int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName)
         goto err_1;
     }
 
+    funcSts = CEV_aniMiniConvertTxtToDataFile(src, dst, srcName);
+
+    fclose(dst);
+
+err_1:
+    CEV_textDestroy(src);
+
+    return funcSts;
+}
+
+
+int CEV_aniMiniConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{//writes to data file from CEV_Text.
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    char lString[FILENAME_MAX];
+
     int aniNum = CEV_txtParseValueFrom(src, "aniNum");
 
     //id
     uint32_t valu32 = (uint32_t)CEV_txtParseValueFrom(src, "id");
+    valu32 = (valu32 & 0x00FFFFFF) | ANI_TYPE_ID;
     write_u32le(valu32, dst);
     //src id
     valu32 = (uint32_t)CEV_txtParseValueFrom(src, "srcId");
@@ -590,12 +610,7 @@ int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName)
         CEV_capsuleClear(&pic);
     }
 
-err_1:
-    CEV_textDestroy(src);
-
-    fclose(dst);
-
-    return funcSts;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
 
@@ -618,18 +633,20 @@ int CEV_aniMiniExport(CEV_AniMini *src, const char *dstName)
         return FUNC_ERR;
     }
 
-    fprintf(dst, "aniNum = %d\n", src->numOfAnim);
-    fprintf(dst, "id = %08X\n", src->id);
-    fprintf(dst, "srcId = %08X\n", src->picId);
-    fprintf(dst, "[0]picNum = %d\n", src->numOfFrame[0]);
-    fprintf(dst, "[1]picNum = %d\n", src->numOfFrame[1]);
-    fprintf(dst, "delay = %d\n", src->delay);
+    fprintf(dst, "this = 0x%08X"    , ANI_TYPE_ID);
+    fprintf(dst, "aniNum = %d\n"    , src->numOfAnim);
+    fprintf(dst, "id = %08X\n"      , src->id);
+    fprintf(dst, "srcId = %08X\n"   , src->picId);
+    fprintf(dst, "[0]picNum = %d\n" , src->numOfFrame[0]);
+    fprintf(dst, "[1]picNum = %d\n" , src->numOfFrame[1]);
+    fprintf(dst, "delay = %d\n"     , src->delay);
     fprintf(dst, "timeOffset = %d\n", src->timeOffset);
 
     if(!src->picId && NOT_NULL(src->pic))
     {
         char folderName[FILENAME_MAX],
-            fileName[L_tmpnam+10];
+             fileName[L_tmpnam+10];
+
         tmpnam(fileName);
         strcat(fileName, "png");
 

@@ -54,9 +54,6 @@ typedef struct CEV_GifAnim CEV_GifAnim;
 char CEV_gifReadWriteErr;
 
 
-
-
-
 /** \brief Loads gif file.
  *
  * \param fileName : file to open.

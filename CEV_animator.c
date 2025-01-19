@@ -97,15 +97,15 @@ void TEST_sprite(void)
     SDL_Renderer *render = CEV_videoSystemGet()->render;
     CEV_Input *input = CEV_inputGet();
 
-    printf("convert = %d\n", SP_animConvertTxtToData("sprite/anim00.txt", "sprite/save.sps"));
+    printf("convert = %d\n", SP_animConvertToData("sprite/spriteMole.txt", "sprite/mole.sps"));
     //SP_AnimList* animTab = SP_animListLoad("bonhommelarite.dat");
 
     //CEV_Font *font = CEV_fontFetchById(1, "compiled.dat");
 
     //printf("animTab contient %d animations.\n", animTab->num);
-    SP_Anim* anim = SP_animLoad("sprite/save.sps");
+    SP_Anim* anim = SP_animLoad("sprite/mole.sps");
 
-    //SP_animExport(anim, "sprite/exportTest.txt");
+    SP_animExport(anim, "sprite/exportTest.txt");
 
 
 
@@ -222,7 +222,7 @@ void SP_spriteDump(SP_Sprite* this)
 
     for(int i=0; i<2; i++)
     {
-        printf("*Dumping %s :*\n", i? "NVIEW" : "XVIEW");
+        printf("*Dumping %s :*\n", i? "XVIEW" : "NVIEW");
         printf(" Is locked : %d\n", this->control[i].isLocked);
         printf(" Show view : %d\n", this->control[i].viewShow);
         printf(" Direction : %d\n", this->control[i].direction);
@@ -372,7 +372,6 @@ SP_Anim* SP_animLoad(const char* fileName)
 SP_Anim* SP_animLoad_RW(SDL_RWops* src, bool freeSrc)
 {//load animation set from RWops
 
-
     //reading header
     uint32_t    id      = SDL_ReadLE32(src), //id
                 nView   = SDL_ReadLE32(src), //Nview num
@@ -474,8 +473,10 @@ int SP_animTypeWrite(SP_Anim *src, FILE *dst)
 }
 
 
-int SP_animConvertTxtToData(const char* srcName, const char* dstName)
+int SP_animConvertToData(const char* srcName, const char* dstName)
 {//converts txt file into data format.
+
+    int funcSts = FUNC_OK;
 
     if (IS_NULL(srcName) || IS_NULL(dstName))
     {
@@ -487,8 +488,8 @@ int SP_animConvertTxtToData(const char* srcName, const char* dstName)
 
     if (IS_NULL(src))
     {
-        printf("Err at %s / %d : unable to load %s : %s\n", __FUNCTION__, __LINE__, dstName, strerror(errno));
-        goto err_1;
+        printf("Err at %s / %d : unable to load CEV_Text : %s\n", __FUNCTION__, __LINE__, srcName);
+        return FUNC_ERR;
     }
 
     FILE* dst = NULL;
@@ -499,6 +500,26 @@ int SP_animConvertTxtToData(const char* srcName, const char* dstName)
     {
         printf("Err at %s / %d : unable to open %s : %s\n", __FUNCTION__, __LINE__, dstName, strerror(errno));
         goto err_1;
+    }
+
+    funcSts = SP_animConvertTxtToDataFile(src, dst, srcName);
+
+    fclose(dst);
+
+err_1 :
+    CEV_textDestroy(src);
+
+    return funcSts;
+}
+
+
+int SP_animConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
     }
 
     //id
@@ -519,43 +540,34 @@ int SP_animConvertTxtToData(const char* srcName, const char* dstName)
     write_u32le(picId, dst);
 
     //each view
-    for(unsigned i= 0; i< vNum + xNum; i++)
+    for(unsigned i = 0; i< vNum + xNum; i++)
         L_viewConvertTxtToData(src, dst, i);
 
     //inserting picture if not referenced
     if(!picId)
     {
-        char folderName[FILENAME_MAX];
+        char fullName[FILENAME_MAX];
 
-        CEV_fileFolderNameGet(srcName, folderName);
+        CEV_fileFolderNameGet(srcName, fullName);
 
         char *picName = CEV_txtParseTxtFrom(src, "picture");
 
         if(picName)
         {
-            strcat(folderName, picName);
+            strcat(fullName, picName);
 
             CEV_Capsule caps = {0};
 
-            CEV_capsuleFromFile(&caps, folderName);
+            CEV_capsuleFromFile(&caps, fullName);
 
             if(!IS_PIC(caps.type))
             {
-                fprintf(stderr, "Warn at %s / %d : file is not picture.\n", __FUNCTION__, __LINE__ );
+                fprintf(stderr, "Warn at %s / %d : file %s is not picture.\n", __FUNCTION__, __LINE__, fullName);
             }
 
             CEV_capsuleTypeWrite(&caps, dst);
         }
     }
-
-    if(fclose(dst))
-    {
-        readWriteErr++;
-    }
-
-err_1 :
-
-    CEV_textDestroy(src);
 
     return (readWriteErr)? FUNC_ERR : FUNC_OK;
 }
@@ -1009,7 +1021,7 @@ void SP_spriteQuery(SP_Sprite* sprite, int* actNview, int* actXview, int* actNpi
 
 
 
- /*--LOCAL FUNCTIONS---*/
+    /*--LOCAL FUNCTIONS---*/
 
 
 static void L_viewConvertTxtToData(CEV_Text *src, FILE *dst, int index)

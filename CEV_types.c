@@ -14,6 +14,7 @@
 #include "CEV_types.h"
 #include "CEV_mixSystem.h"
 #include "CEV_dataFile.h"
+#include "CEV_file.h"
 #include "rwtypes.h"
 
 
@@ -69,7 +70,7 @@ void CEV_musicClose(CEV_Music* music)
 
 
 void CEV_musicClear(CEV_Music* music)
-{
+{//clear music structure contant
     if(IS_NULL(music))
         return;
 
@@ -372,6 +373,7 @@ int CEV_capsuleFromFile(CEV_Capsule* caps, const char* fileName)
 
     return (readWriteErr)? FUNC_ERR : FUNC_OK;
 }
+
 
 void CEV_capsuleTypeWrite(CEV_Capsule* src, FILE* dst)
 {//writes capsule into file where it is

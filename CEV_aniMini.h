@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <SDL.h>
+#include "CEV_texts.h"
 
 //file IS_ANI (17)
 
@@ -240,7 +241,20 @@ int CEV_aniMiniTypeWrite_RW(CEV_AniMini* src, SDL_RWops* dst);
  *
  * \note file extension should be ".ani" to ensure recognition on auto-load.
  */
-int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName);
+int CEV_aniMiniConvertToData(const char *srcName, const char *dstName);
+
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int CEV_aniMiniConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 
 
 /** \brief Export aniMini as editable file.
@@ -249,6 +263,7 @@ int CEV_aniMiniConvertTxtToData(const char *srcName, const char *dstName);
  * \param dstName : const char* as path and resulting fileName.
  *
  * \return int  as sdt funcSts.
+ *
  * \note picture is produced  next to resulting file
  * random name given to embedded picture if any.
  */

@@ -2,6 +2,7 @@
 //** Done by  |      Date     |  version |    comment     **/
 //**------------------------------------------------------**/
 //**   CEV    |    02-2023    |   1.0    |    creation    **/
+//**   CEV    |    09-2024    |   1.0.1  | Added into CEV_system **/
 //**********************************************************/
 
 #include <stdlib.h>
@@ -11,23 +12,25 @@
 
 #include <SDL.h>
 #include "CEV_api.h"
+#include "CEV_mixSystem.h"
 #include "CEV_chrono.h"
 
 
 
 
-/*
-void TEST_cevChrono(void)
+
+void TEST_CEV_chrono(void)
 {//functions stress and testing
 
-#include <CEV_mixSystem.h>
-    CEV_Chrono chrono;
+
     CEV_Input* input = CEV_inputGet();
     CEV_Edge pauseBt;
 
     bool quit = false;
 
-    CEV_chronoSet(&chrono);
+    CEV_Chrono *chrono = CEV_chronoGet();
+    CEV_chronoStart();
+    uint32_t *time = CEV_chronoTicksPtr();
 
     while(!quit)
     {
@@ -39,28 +42,32 @@ void TEST_cevChrono(void)
 
         CEV_edgeUpdate(&pauseBt);
 
-        CEV_chronoUpdate(&chrono);
-
+        CEV_chronoUpdate();
 
         if(pauseBt.re)
         {
-            CEV_edgeUpdate(&pauseBt);
-            CEV_chronoPause(&chrono);
-
-            while(!pauseBt.re)
-            {
-                CEV_inputUpdate();
-                pauseBt.value = input->key[SDL_SCANCODE_SPACE];
-                CEV_edgeUpdate(&pauseBt);
-            }
-
-            CEV_chronoUnpause(&chrono);
+            if (CEV_chronoIsPaused())
+                CEV_chronoUnpause();
+            else
+                CEV_chronoPause();
         }
 
-        printf("%u\n", CEV_chronoTicks());
+        printf("%u\n", *time);
     }
 }
-*/
+
+
+void CEV_chronoInit(CEV_Chrono *in)
+{
+    if(IS_NULL(in))
+    {
+        fprintf(stderr, "Warn at %s / %d : Arg provided is NULL.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
+
+    in->isPaused    = true;
+    in->isRunning   = false;
+}
 
 
 CEV_Chrono* CEV_chronoSet(CEV_Chrono *in)
@@ -82,36 +89,127 @@ CEV_Chrono* CEV_chronoGet(void)
 }
 
 
-uint32_t* CEV_chronoTicks(void)
+uint32_t CEV_chronoTicks(void)
 {
-    return &CEV_chronoSet(NULL)->timeElapsed;
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+        return this->timeElapsed;
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
 }
 
 
-void CEV_chronoStart(CEV_Chrono *in)
+uint32_t* CEV_chronoTicksPtr(void)
 {
-    in->timeStart   = SDL_GetTicks();
-    in->timeElapsed = in->timePause = 0;
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+        return &this->timeElapsed;
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
 }
 
 
-uint32_t CEV_chronoUpdate(CEV_Chrono *in)
+bool CEV_chronoIsRunning(void)
 {
-    return in->timeElapsed = SDL_GetTicks() - in->timeStart;
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+        return this->isRunning;
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
 }
 
 
-void CEV_chronoPause(CEV_Chrono *in)
+bool CEV_chronoIsPaused(void)
 {
-    in->timePause   = SDL_GetTicks();
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+        return this->isPaused;
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+        return false;
+    }
 }
 
 
-void CEV_chronoUnpause(CEV_Chrono *in)
+void CEV_chronoStart(void)
 {
-    uint32_t pause = SDL_GetTicks() - in->timePause;
-    in->timeStart += pause;
+    CEV_Chrono *this = CEV_chronoGet();
 
-    CEV_chronoUpdate(in);
+    if(NOT_NULL(this))
+    {
+        this->timeStart   = SDL_GetTicks();
+        this->timeElapsed = this->timePause = 0;
+        this->isRunning   = true;
+        this->isPaused    = false;
+    }
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+    }
+}
 
+
+uint32_t CEV_chronoUpdate(void)
+{
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+    {
+
+        return (this->timeElapsed = this->isPaused? this->timeElapsed : (SDL_GetTicks() - this->timeStart));
+    }
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+    }
+}
+
+
+void CEV_chronoPause(void)
+{
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+    {
+        this->timePause   = SDL_GetTicks();
+        this->isPaused    = true;
+    }
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+    }
+}
+
+
+void CEV_chronoUnpause(void)
+{
+    uint32_t pause = 0;
+
+    CEV_Chrono *this = CEV_chronoGet();
+
+    if(NOT_NULL(this))
+    {
+        pause = SDL_GetTicks() - this->timePause;
+        this->timeStart  += pause;
+        this->isPaused    = false;
+        CEV_chronoUpdate();
+    }
+    else
+    {
+        fprintf(stderr, "Warn at %s / %d : Requested CEV_Chrono is NULL, use CEV_chronoSet to set.\n", __FUNCTION__, __LINE__ );
+    }
 }

@@ -57,13 +57,15 @@ void TEST_platform(void)
     //CEV_PlatformCst *pltCstPtr   = NULL;
     CEV_Platform    *platformPtr = NULL;
 
-    SDL_Rect cameraPos = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    CEV_Camera camera;
+    CEV_FCoord point = {.x = SCREEN_WIDTH/2, .y = SCREEN_HEIGHT/2, .z = 0.0};
+    CEV_cameraInit(&camera, &point, (SDL_Rect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT}, CAMERA_MED);
 
     if(convert)
     {
-        CEV_aniMiniConvertTxtToData("platform/aniMiniEditable.txt", "platform/testshortanim.ani");
-        //CEV_platformCstConvertTxtToData("platform/platformCstEditable.txt", "platform/cst.obj");
-        CEV_platformConvertTxtToData("platform/platformInstEditable.txt", "platform/inst.obj");
+        CEV_aniMiniConvertToData("platform/aniMiniEditable.txt", "platform/testshortanim.ani");
+        //CEV_platformCstConvertToData("platform/platformCstEditable.txt", "platform/cst.obj");
+        CEV_platformConvertToData("platform/platformInstEditable.txt", "platform/inst.obj");
     }
 
     /*CEV_AniMini* ani = CEV_aniMiniLoad("platform/testshortanim.ani");
@@ -107,7 +109,7 @@ void TEST_platform(void)
 
         //CEV_spriteMiniBlit(&platformPtr->sprite, cameraPos,now);
 
-        CEV_platformUpdate(platformPtr, cameraPos, now);
+        CEV_platformUpdate(platformPtr, &camera, now);
         //CEV_platformMove(platformPtr, now);
         //CEV_platformeDisplay(platformPtr, cameraPos);
 
@@ -147,7 +149,7 @@ void CEV_platformDump(CEV_Platform* this)
         goto end;
     }
 
-
+    printf("\tis at address = %p\n", this);
     printf("\tid = %08X\n", this->id);
     printf("\tAnim id = %08X\n", this->srcId);
 
@@ -157,7 +159,9 @@ void CEV_platformDump(CEV_Platform* this)
             this->timeSync,
             this->timePause);
 
-    puts("\tpositions: \n");
+    printf("actual pos is %d , %d\n", this->actPos.x, this->actPos.y);
+
+    printf("\thas %d positions: \n", this->numOfFloors);
 
     for(unsigned i=0; i< this->numOfFloors; i++)
         printf("\t\tpos %d : %d, %d\n", i, this->floorPos[i].x, this->floorPos[i].y);
@@ -178,8 +182,8 @@ end:
 }
 
 
-void CEV_platformUpdate(CEV_Platform* this, SDL_Rect camera, uint32_t now)
-{//full platforme update move + display
+void CEV_platformUpdate(CEV_Platform* this, CEV_Camera* camera, uint32_t now)
+{//full platform update move + display
 
     CEV_platformMove(this, now);
     CEV_platformDisplay(this, camera, now);
@@ -198,7 +202,7 @@ void CEV_platformMove(CEV_Platform* thisPlateform, uint32_t now)
 }
 
 
-void CEV_platformDisplay(CEV_Platform* this, SDL_Rect cameraPos, uint32_t now)
+void CEV_platformDisplay(CEV_Platform* this, CEV_Camera *camera, uint32_t now)
 {//displays only platform on render
 
     //is it even on camera ?
@@ -207,13 +211,13 @@ void CEV_platformDisplay(CEV_Platform* this, SDL_Rect cameraPos, uint32_t now)
                         .w = this->sprite.clip.w,
                         .h = this->sprite.clip.h};
 
-    if(SDL_HasIntersection(&cameraPos, &worldPos))
+    if(SDL_HasIntersection(&camera->posFromWorld, &worldPos))
     {
         SDL_Rect blitPos = worldPos;
 
         //calculating camera relative position
-        blitPos.x = this->actPos.x - cameraPos.x;
-        blitPos.y = this->actPos.y - cameraPos.y;
+        blitPos.x = this->actPos.x - camera->posFromWorld.x - this->hitbox.x;// NOTE (drx#1#01/02/24): hitbox added 2024/01/02 for hitbox to fit map tiles
+        blitPos.y = this->actPos.y - camera->posFromWorld.y - this->hitbox.y;
 
         SDL_Rect clip = CEV_spriteMiniUpdate(&this->sprite, now);
         SDL_RenderCopy(CEV_videoSystemGet()->render, this->sprite.cst->pic, &clip, &blitPos);
@@ -221,7 +225,18 @@ void CEV_platformDisplay(CEV_Platform* this, SDL_Rect cameraPos, uint32_t now)
 }
 
 
-int CEV_platformAnimAttach(CEV_AniMini* src, CEV_Platform* dst)
+SDL_Rect CEV_platformHitboxGet(CEV_Platform* this)
+{//fetches hitbox position in world
+
+    return (SDL_Rect){  .x = this->actPos.x + this->hitbox.x,
+                        .y = this->actPos.y + this->hitbox.y,
+                        .w = this->hitbox.w,
+                        .h = this->hitbox.h
+                    };
+}
+
+
+void CEV_platformAnimAttach(CEV_AniMini* src, CEV_Platform* dst)
 {//attaches animin to plateform
 
     if(IS_NULL(src) || IS_NULL(dst))
@@ -236,7 +251,7 @@ int CEV_platformAnimAttach(CEV_AniMini* src, CEV_Platform* dst)
     dst->anim = src;
 
     CEV_spriteMiniFrom(src, &dst->sprite);
-    dst->hitbox = src->clip;
+    //dst->hitbox = src->clip;
 }
 
 
@@ -261,8 +276,8 @@ SDL_Rect CEV_platformHitBoxGet(CEV_Platform* this)
 
 //    if(!this->anim->isPxlPerfect)
 //    {
-        result = (SDL_Rect){.x = this->actPos.x + this->hitbox.x,
-                            .y = this->actPos.y + this->hitbox.y,
+        result = (SDL_Rect){.x = this->actPos.x /*+ this->hitbox.x*/,// NOTE (drx#1#01/02/24): hitbox removed 2024/01/02 for hitbox to fit map tiles
+                            .y = this->actPos.y /*+ this->hitbox.y*/,
                             .w = this->hitbox.w,
                             .h = this->hitbox.h};
 //    }
@@ -289,7 +304,7 @@ void CEV_platformClear(CEV_Platform *this)
     if(IS_NULL(this))
         return;
 
-    if(IS_NULL(this->srcId))
+    if(!this->srcId)
         CEV_aniMiniDestroy(this->anim);
 
     CEV_spriteMiniClear(&this->sprite);
@@ -374,16 +389,12 @@ int CEV_platformTypeWrite(CEV_Platform* src, FILE* dst)
 
     int funcSts = FUNC_OK;
 
-    write_u32le(src->id, dst); //own id
-
-    if(src->srcId)
-        src->srcId = (src->srcId & 0x0000FFFF) | ANI_TYPE_ID;
-
-    write_u32le(src->srcId, dst);         //its constant id
-    write_u32le(src->timeSet, dst);       //its full travel time
-    write_u32le(src->timeSync, dst);      //offset to time 0
-    write_u32le(src->timePause, dst);     //pause time
-    write_u32le(src->numOfFloors, dst);   //num of positions
+    write_u32le(src->id, dst);          //own id
+    write_u32le(src->srcId, dst);       //its constant id
+    write_u32le(src->timeSet, dst);     //its full travel time
+    write_u32le(src->timeSync, dst);    //offset to time 0
+    write_u32le(src->timePause, dst);   //pause time
+    write_u32le(src->numOfFloors, dst); //num of positions
 
     for(unsigned i = 0; i < src->numOfFloors; i++) //for every position
     {
@@ -400,12 +411,15 @@ int CEV_platformTypeWrite(CEV_Platform* src, FILE* dst)
     write_u32le(src->hitbox.h, dst);
 
     if(!src->srcId && src->anim)
-    {
+    {//embeds animation if needed
         CEV_aniMiniTypeWrite(src->anim, dst);
     }
 
     if (readWriteErr)
+    {//on error
+        fprintf(stderr, "Err at %s / %d : R/W error occured.\n", __FUNCTION__, __LINE__ );
         funcSts = FUNC_ERR;
+    }
 
     return funcSts;
 }
@@ -489,14 +503,18 @@ int CEV_platformTypeRead_RW(SDL_RWops* src, CEV_Platform* dst, bool freeSrc)
     dst->numOfFloors    = SDL_ReadLE32(src);
 
     if(dst->numOfFloors > CEV_PLATFORM_MAX_POS)
-        fprintf(stderr, "Err at %s / %d : max num of floors reached : max %d available.\n", __FUNCTION__, __LINE__, CEV_PLATFORM_MAX_POS);
-
+    {
+        fprintf(stderr, "Warn at %s / %d : max num of floors reached : max %d available.\n", __FUNCTION__, __LINE__, CEV_PLATFORM_MAX_POS);
+    }
 
     for(unsigned i = 0; (i < dst->numOfFloors) && (i < CEV_PLATFORM_MAX_POS); i++) //for every position
     {
         dst->floorPos[i].x = SDL_ReadLE32(src);
         dst->floorPos[i].y = SDL_ReadLE32(src);
     }
+
+    if (!dst->numOfFloors)
+        dst->numOfFloors = 1;
 
     dst->isElevator = SDL_ReadU8(src);
     dst->hitbox.x   = SDL_ReadLE32(src);
@@ -518,7 +536,7 @@ int CEV_platformTypeRead_RW(SDL_RWops* src, CEV_Platform* dst, bool freeSrc)
 }
 
 
-int CEV_platformConvertTxtToData(const char* srcName, const char* dstName)
+int CEV_platformConvertToData(const char* srcName, const char* dstName)
 {//converts editable into data file
 
     if(IS_NULL(srcName) || IS_NULL(dstName))
@@ -527,19 +545,10 @@ int CEV_platformConvertTxtToData(const char* srcName, const char* dstName)
         return ARG_ERR;
     }
 
-    uint32_t num = 0; //read value
-    double buffer[4]; //multiple parameters line buffer
-    char parName[25]; //parameter name when used
+    int funcSts = FUNC_OK;
 
     CEV_Text *src   = NULL;
     FILE *dst       = NULL;
-
-    char folderName[FILENAME_MAX] = "\0",
-         //fileLine[50],
-         hasFolder =  0;
-
-    readWriteErr = 0;
-    hasFolder = CEV_fileFolderNameGet(srcName, folderName);
 
     //loading as CEV_Text to enable quick parsing
     src = CEV_textTxtLoad(srcName);
@@ -558,6 +567,36 @@ int CEV_platformConvertTxtToData(const char* srcName, const char* dstName)
         fprintf(stderr, "Err at %s / %d : Unable to create file %s.\n ",__FUNCTION__,  __LINE__, dstName);
         goto err;
     }
+
+    funcSts = CEV_platformConvertTxtToDataFile(src, dst, srcName);
+
+    fclose(dst);
+
+err:
+    CEV_textDestroy(src);
+
+    if(readWriteErr)
+    {
+        fprintf(stderr, "Err at %s / %d : read/write err.\n ",__FUNCTION__,  __LINE__, srcName);
+    }
+
+    return (readWriteErr)? FUNC_ERR : FUNC_OK;
+}
+
+
+int CEV_platformConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{//Writes to data file from CEV_Text.
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    uint32_t num = 0; //read value
+    double buffer[4]; //multiple parameters line buffer
+    char parName[25]; //parameter name when used
+
 
     //id
     num = (uint32_t)CEV_txtParseValueFrom(src, "id");
@@ -603,23 +642,14 @@ int CEV_platformConvertTxtToData(const char* srcName, const char* dstName)
 
     if(NOT_NULL(fileName))
     {
+        char folderName[FILENAME_MAX] = "\0";
+        CEV_fileFolderNameGet(folderName, srcName);
         strcat(folderName, fileName);
         CEV_fileInsert(folderName, dst);
     }
 
-    fclose(dst);
-
-err:
-    CEV_textDestroy(src);
-
-    if(readWriteErr)
-    {
-        fprintf(stderr, "Err at %s / %d : read/write err.\n ",__FUNCTION__,  __LINE__, srcName);
-    }
-
-    return (readWriteErr)? FUNC_ERR : FUNC_OK;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
-
 
 /*static int L_platformTypeWrite_RW(CEV_Platform* this, SDL_RWops* dst, bool embedRsc)
 {
@@ -792,7 +822,7 @@ static void L_platformPreCalcul(CEV_Platform* this)
     uint32_t pathTravelTime[CEV_PLATFORM_MAX_POS], //as i to i+1 (from 0 to 1)
              pathDist[CEV_PLATFORM_MAX_POS];
 
-    for(unsigned i=0; i<(this->numOfFloors-this->isElevator); i++)
+    for(int i=0; i<(this->numOfFloors - this->isElevator); i++)
     {//calculating segment length
         int next        = (i+1)%this->numOfFloors;
         pathDist[i]     = (uint32_t)CEV_icoordDist(this->floorPos[i], this->floorPos[next]);

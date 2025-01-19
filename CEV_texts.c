@@ -286,7 +286,7 @@ void CEV_textSortZA(CEV_Text *src)
 }
 
 
-int CEV_textConvertTxtToData(const char *srcName, const char *dstName)
+int CEV_textConvertToData(const char *srcName, const char *dstName)
 {//convert natural text file into text capsule file .tdat
 
     int funcSts = FUNC_OK;

@@ -82,7 +82,7 @@ bool CEV_fileFileNameGet(const char* src, char* dst);
  *
  * \return 1 on success, 0 otherwise.
  *
- * \note folder name provided with strin end '/' or '\\'
+ * \note folder name provided with string end '/' or '\\'
  */
 bool CEV_fileFolderNameGet(const char *src, char *dst);
 

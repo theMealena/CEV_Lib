@@ -42,8 +42,10 @@ IIII = ID for this game object
 
 #include "CEV_types.h"
 #include "CEV_camera.h"
+#include "CEV_texts.h"
 
-#define WEATHER_ID 0x0F000000
+#define WTHR_TYPE_ID (IS_WTHR<<24)
+#define IS_WTHR_ID(x)((x & 0xFF000000) == WTHR_TYPE_ID)
 
 enum {WEATHER_SNOW, WEATHER_RAIN, WEATHER_FALL, WEATHER_NUM};
 
@@ -70,14 +72,14 @@ typedef struct S_CEV_Weather
         *scrollCorrectionY; /**< enables scroll correction, link to camera y pos. */
 
     uint32_t id,        /**< own identifier. filed*/
-             picId,     /**< picture (texture) id. filed 0x0 if embedded*/
-             num,        /**< actual num of particles to display. filed*/
-             numax;      /**< max num of particles available for display. */
+             picId,     /**< picture (texture) id. file : 0x0 if embedded*/
+             num,       /**< actual num of particles to display. filed*/
+             numax;     /**< max num of particles available for display. */
 
     float angle;        /**< RAIN ONLY as falling rain angle / direction. */
 
-    SDL_Rect renderDim,    /**< main render size. */
-             picDim;   /**< particle picture size. */
+    SDL_Rect renderDim, /**< main render size. */
+             picDim;    /**< particle picture size. */
 
     SDL_Texture* pic;   /**< particle pic. filed*/
 
@@ -326,8 +328,20 @@ int CEV_weatherTypeWrite(CEV_Weather* src, CEV_Capsule* picture, FILE* dst);
  *
  * \return standard function status *
  */
-int CEV_weatherConvertTxtToData(char* srcFileName, char* dstFileName);
+int CEV_weatherConvertToData(char* srcFileName, char* dstFileName);
 
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int CEV_weatherConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 #ifdef __cplusplus
 }
 #endif

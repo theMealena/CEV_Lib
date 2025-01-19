@@ -808,6 +808,7 @@ SDL_Rect* CEV_rectDimCopy(SDL_Rect src, SDL_Rect* dst)
 
 SDL_Rect* CEV_rectPosCopy(SDL_Rect src, SDL_Rect* dst)
 {//x, y copy
+
     dst->x = src.x;
     dst->y = src.y;
 
@@ -818,7 +819,6 @@ SDL_Rect* CEV_rectPosCopy(SDL_Rect src, SDL_Rect* dst)
 SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, SDL_Rect border)
 {/*keeps rect inside border */
 
-    
     if (rect->x < border.x)
         rect->x = border.x;
 
@@ -830,8 +830,6 @@ SDL_Rect* CEV_rectConstraint(SDL_Rect *rect, SDL_Rect border)
 
     else if ((rect->y + rect->h) >= (border.y + border.h))
         rect->y = border.h - rect->h;
-
-    return rect;
 
     return rect;
 }

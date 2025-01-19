@@ -23,6 +23,7 @@
 #include "CEV_gif.h"
 #include "CEV_types.h"
 #include "CEV_camera.h"
+#include "CEV_texts.h"
 
 
 /*
@@ -202,7 +203,20 @@ void CEV_parallaxLayerDump(CEV_ParaLayer* this);
  *
  * \return any of standard return value.
  */
-int CEV_parallaxConvertTxtToData(const char* srcName, const char* dstName);
+int CEV_parallaxConvertToData(const char* srcName, const char* dstName);
+
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int CEV_parallaxConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 
 
 /** \brief Loads parallax object from file.
@@ -244,15 +258,5 @@ CEV_Parallax* CEV_parallaxLoad_RW(SDL_RWops* src, uint8_t freeSrc);
  * \return int : 0 on success, any value on error.
  */
 int CEV_parallaxWrite_RW(CEV_Parallax* src, SDL_RWops* dst);
-
-
-/** \brief Builds CEV_Capsule from Parallax structure.
- *
- * \param src : CEV_Parallax* to encapsule.
- * \param dst : CEV_Capsule* to fill with result.
- *
- * \return int : 0 on success, any value on error.
- */
-int CEV_parallaxToCapsule(CEV_Parallax* src, CEV_Capsule *dst);
 
 #endif // PARALLAX_H_INCLUDED

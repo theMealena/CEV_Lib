@@ -4,6 +4,7 @@
 //**   CEV    |  2022/03/06   |   1.0    | rev & test / added to CEV_lib
 //**********************************************************/
 // CEV - 2023-11-26 - Removed time parameter in init.
+// CEV _ 2023-12-31 - Added relative pos from world - followMe as NULL compliant
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,6 +16,7 @@
 #include "CEV_api.h"
 #include "rwtypes.h"
 #include "CEV_camera.h"
+
 
 //reads camera from virtual file
 static int L_cameraTypeRead_RW(SDL_RWops* src, CEV_Camera *dst);
@@ -48,6 +50,9 @@ static int L_cameraOffScene(CEV_Camera *src);
 
 //calculates where the camera should be
 static void L_cameraTheoricPos(CEV_CameraParam *in);
+
+//update cam position relative to world
+static void L_cameraFromWorld(CEV_Camera *this);
 
 
 void TEST_camera(void)
@@ -98,7 +103,38 @@ void TEST_camera(void)
 }
 
 
-void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, CEV_CameraMode mode)
+void CEV_cameraDump(CEV_Camera* this)
+{
+    puts("*** BEGIN CEV_Camera ***");
+
+    if(IS_NULL(this))
+    {
+        puts("This CEV_Camera is NULL");
+        goto end;
+    }
+
+    printf(" x is %s, y is %s\n",
+            this->xScroll? "disabled":"enabled",
+            this->yScroll? "disabled":"enabled");
+
+    puts("Actual scroll pos :");
+    CEV_rectDump(this->scrollActPos);
+
+    puts("Constraint :");
+    CEV_rectDump(this->scrollActPos);
+
+    puts("Pos in screen :");
+    CEV_rectDump(this->scrollActPos);
+
+    puts("posFromWorld :");
+    CEV_rectDump(this->posFromWorld);
+
+end:
+    puts("*** END CEV_Camera ***");
+}
+
+
+void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect worldDim, CEV_CameraMode mode)
 {//Init new camera
 
     for(int i=0; i<2; i++)
@@ -114,23 +150,73 @@ void CEV_cameraInit(CEV_Camera *in, CEV_FCoord* followPt, SDL_Rect constraint, C
     }
 
     in->param[CEV_X].camDim     = SCREEN_WIDTH;
-    in->param[CEV_X].followThis = &followPt->x;
+    in->param[CEV_X].followThis = IS_NULL(followPt)? NULL : &followPt->x;
     in->param[CEV_X].dirAct     = CAMERA_POSITIVE;
     in->param[CEV_X].posAct     = &in->scrollActPos.x;
 
 
     in->param[CEV_Y].camDim     = SCREEN_HEIGHT;
-    in->param[CEV_Y].followThis = &followPt->y;
+    in->param[CEV_Y].followThis = IS_NULL(followPt)? NULL : &followPt->y;
     in->param[CEV_Y].dirAct     = CAMERA_POSITIVE;
     in->param[CEV_Y].posAct     = &in->scrollActPos.y;
 
-    in->constraint = constraint;
+    in->constraint.x = 0;
 
-    in->scrollActPos = (SDL_Rect){
+    if(worldDim.w < in->param[CEV_X].camDim)
+    {//cam wider than world
+        in->xScroll             = false;
+        in->param[CEV_X].posMax = 0;
+        in->posFromWorld.x      = -((SCREEN_WIDTH - worldDim.w)/2);
+        in->posFromWorld.w      = worldDim.w;
+        in->constraint.w        = SCREEN_WIDTH;
+    }
+    else
+    {
+        in->xScroll             = true;
+        in->param[CEV_X].posMax = worldDim.w - in->param[CEV_X].camDim;
+        in->posFromWorld.x      = 0;
+        in->posFromWorld.w      = SCREEN_WIDTH;
+        in->constraint.w        = worldDim.w;
+    }
+
+    in->constraint.y = 0;
+    if(worldDim.h < in->param[CEV_Y].camDim)
+    {//cam higher than world
+        in->yScroll             = false;
+        in->param[CEV_Y].posMax = 0;
+        in->posFromWorld.y      = -((SCREEN_HEIGHT - worldDim.h)/2);
+        in->posFromWorld.h      =
+        in->constraint.h        = SCREEN_HEIGHT;
+    }
+    else
+    {
+        in->yScroll             = true;
+        in->param[CEV_Y].posMax = worldDim.h - in->param[CEV_Y].camDim;
+        in->posFromWorld.y      = 0;
+        in->posFromWorld.h      =
+        in->constraint.h        = worldDim.h;
+    }
+
+    in->posInScreen = (SDL_Rect){0, 0, in->param[CEV_X].camDim, in->param[CEV_Y].camDim};
+
+    if(NOT_NULL(followPt))
+    {
+        in->scrollActPos = (SDL_Rect){
                             .x = *in->param[CEV_X].followThis - (in->param[CEV_X].camDim / in->param[CEV_X].mode),
                             .y = *in->param[CEV_Y].followThis - (in->param[CEV_Y].camDim / in->param[CEV_Y].mode),
                             .w = in->param[CEV_X].camDim,
                             .h = in->param[CEV_Y].camDim };
+    }
+    else
+    {
+        in->scrollActPos = (SDL_Rect){
+                            .x = 0,
+                            .y = 0,
+                            .w = in->param[CEV_X].camDim,
+                            .h = in->param[CEV_Y].camDim };
+
+    }
+
 
     in->param[CEV_X].posCalc = in->scrollActPos.x;
     in->param[CEV_Y].posCalc = in->scrollActPos.y;
@@ -232,10 +318,11 @@ int CEV_cameraUpdate(CEV_Camera *in)
         else
             L_cameraFollow(&in->param[i]);
 
-        in->param[i].followPrev = *in->param[i].followThis;
+        in->param[i].followPrev = IS_NULL(in->param[i].followThis)? 0.0 : *in->param[i].followThis;
     }
 
-    CEV_rectConstraint(&in->scrollActPos, in->constraint);
+    L_cameraFromWorld(in);
+    //CEV_rectConstraint(&in->scrollActPos, in->constraint);
 
     return L_cameraOffScene(in);
 }
@@ -302,7 +389,7 @@ void CEV_cameraOpenFieldSet(CEV_Camera *in, int direction)
 
 
 void CEV_cameraDirectionLock(CEV_Camera *in, int direction)
-{//Locks camera movement to direction
+{//Locks camera moving direction (as not coming back..)
 
     int x = direction & (CAMERA_LEFT | CAMERA_RIGHT),
         y = (direction & (CAMERA_UP | CAMERA_DOWN))>>2;
@@ -453,6 +540,7 @@ static void L_cameraFollow(CEV_CameraParam *in)
     {
         CEV_reachValue(&pos, in->posCalc, in->velMax);
         *in->posAct = pos;
+        CEV_constraint(0, in->posAct, in->posMax);
     }
 }
 
@@ -497,6 +585,9 @@ static void L_cameraAutoScroll(CEV_CameraParam *in)
 static void L_cameraDirectionCalc(CEV_CameraParam *in)
 {//calculate which side to display open field
 
+    if(IS_NULL(in->followThis))
+        return;
+
     if(*in->followThis > in->followPrev)
         in->dirCalc = CAMERA_POSITIVE;
 
@@ -523,6 +614,9 @@ static void L_cameraDirectionCalc(CEV_CameraParam *in)
 static void L_cameraTheoricPos(CEV_CameraParam *in)
 {//where should the camera be ?
 
+    if(IS_NULL(in->followThis))
+        return;
+
     if(in->dirAct & CAMERA_POSITIVE) //going right / down
         in->posCalc = *in->followThis - (in->camDim / in->mode);
     else//CAMERA_NEGATIVE //going left / up
@@ -546,7 +640,11 @@ static int L_cameraFollowPos(CEV_CameraParam *in)
 
 static int L_cameraOffScene(CEV_Camera *in)
 {//follow point is off camera value
+
     int result = 0;
+
+    if(IS_NULL(in->param[CEV_X].followThis) || IS_NULL(in->param[CEV_Y].followThis))
+        return 0;
 
     //returns any off-camera position
     if (*in->param[CEV_X].followThis < in->scrollActPos.x)
@@ -559,4 +657,14 @@ static int L_cameraOffScene(CEV_Camera *in)
         result |= CAMERA_DOWN;
 
     return result;
+}
+
+
+static void L_cameraFromWorld(CEV_Camera *this)
+{//update camera relative position to world
+    if(this->xScroll)
+        this->posFromWorld.x = this->scrollActPos.x;
+
+    if(this->yScroll)
+        this->posFromWorld.y = this->scrollActPos.y;
 }

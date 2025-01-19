@@ -115,7 +115,7 @@ void CEV_textSortZA(CEV_Text *src);
  * \note dstName should have .tdat extension type.
     any line starting with '/' char are ignored.
  */
-int CEV_textConvertTxtToData(const char *srcName, const char *dstName);
+int CEV_textConvertToData(const char *srcName, const char *dstName);
 
 
 /** \brief Loads CEV_Text from file.

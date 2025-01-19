@@ -2,7 +2,11 @@
 //** Done by  |      Date     |  version |    comment     **/
 //**------------------------------------------------------**/
 //**   CEV    |    02-2023    |   1.0    |    creation    **/
+//**   CEV    |    09-2024    |   1.0.1  | Added into CEV_system **/
 //**********************************************************/
+
+// CEV - 1.0.1 - most function rewritten without Arg and fetches last set timer.
+
 
 #ifndef CEV_CHRONO_H_INCLUDED
 #define CEV_CHRONO_H_INCLUDED
@@ -14,11 +18,14 @@ typedef struct CEV_Chrono
     uint32_t timeStart,     /**< as timeAbs when starting */
              timeElapsed,   /**< as effective elapsed time without pause */
              timePause;     /**< abs timestamp when pause requested */
+
+    bool    isRunning,      /**< is active */
+            isPaused;       /**< is paused */
 }
 CEV_Chrono;
 
 
-void TEST_cevChrono(void);
+void TEST_CEV_chrono(void);
 
 
 /** \brief Sets any chrono for global access.
@@ -47,42 +54,69 @@ CEV_Chrono* CEV_chronoGet(void);
  *
  * \return uint32_t as elapsed time.
  */
-uint32_t* CEV_chronoTicks(void);
+uint32_t CEV_chronoTicks(void);
+
+
+/** \brief Gets ptr to relative ticks.
+ *
+ * \param void.
+ *
+ * \return uint32_t* as elapsed time.
+ */
+uint32_t* CEV_chronoTicksPtr(void);
+
+
+/** \brief Gets running status.
+ *
+ * \param void
+ *
+ * \return bool : true if chrono was started, false otherwise.
+ */
+bool CEV_chronoIsRunning(void);
+
+
+/** \brief Gets pause status.
+ *
+ * \param void
+ *
+ * \return bool : true if chrono is pause, false otherwise.
+ */
+bool CEV_chronoIsPaused(void);
 
 
 /** \brief Starts / resets chrono.
  *
- * \param in : CEV_Chrono* to start.
+ * \param void
  *
  * \return void.
  */
-void CEV_chronoStart(CEV_Chrono *in);
+void CEV_chronoStart(void);
 
 
 /** \brief Updates / runs chrono.
  *
- * \param in  :  CEV_Chrono* to update.
+ * \param void
  *
  * \return uint32_t as elapsed time.
  */
-uint32_t CEV_chronoUpdate(CEV_Chrono *in);
+uint32_t CEV_chronoUpdate(void);
 
 
 /** \brief Pauses chrono.
  *
- * \param in : CEV_Chrono* to pause.
+ * \param void
  *
  * \return void.
  */
-void CEV_chronoPause(CEV_Chrono *in);
+void CEV_chronoPause(void);
 
 
 /** \brief Unpauses chrono.
  *
- * \param in : CEV_Chrono* to unpause.
+ * \param void
  *
  * \return void.
  */
-void CEV_chronoUnpause(CEV_Chrono *in);
+void CEV_chronoUnpause(void);
 
 #endif // CEV_CHRONO_H_INCLUDED

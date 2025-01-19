@@ -148,7 +148,7 @@ size_t CEV_fileSize(FILE* file)
 
 
 bool CEV_fileFileNameGet(const char* src, char* dst)
-{//dst is filled with name from folder/name
+{//dst is filled with "name" from "folder/name"
 
     if(IS_NULL(src) || IS_NULL(dst))
     {
@@ -175,7 +175,7 @@ bool CEV_fileFolderNameGet(const char *src, char *dst)
 {//dst is filled with folder from folder/name, name provided with '/' or '\\'
 //returns true if folder found, dst is filled with empty char '\0' otherwise
 
-    if(IS_NULL(src) || IS_NULL(dst))
+    if(IS_NULL(dst))
     {
         fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
         return false;
@@ -183,15 +183,19 @@ bool CEV_fileFolderNameGet(const char *src, char *dst)
 
     bool funcSts = false;
 
-    int srcLen   = strlen(src),
-        i;
+    int i = 0;
 
-    for (i = srcLen; i >= 0; i--)
+    if (NOT_NULL(src))
     {
-        if ((src[i] =='/') || (src[i]=='\\'))
+        int srcLen = strlen(src);
+
+        for (i = srcLen; i >= 0; i--)
         {
-            funcSts = true;
-            break;
+            if ((src[i] =='/') || (src[i]=='\\'))
+            {
+                funcSts = true;
+                break;
+            }
         }
     }
 
@@ -365,8 +369,9 @@ end:
     return funcSts;
 }
 
+
 int CEV_fileInsert(char* srcName, FILE* dst)
-{
+{//inserts srcName file into dst file
     int funcSts = FUNC_OK;
 
     if(IS_NULL(srcName) || IS_NULL(dst))

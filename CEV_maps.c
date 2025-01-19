@@ -5,7 +5,8 @@
 //**   CEV    |    07-2021    |   1.1    |  pic embedded & NULL tolerance **/
 //**********************************************************/
 //2022/09/18 CEV : CEV_mapWorldPointToDisplayTile corrected
-
+//2024/01/01 CEV : CEV_mapWorldRectToMatrixTile corrected : caused late display of far positive tile
+//2024/01/07 CEV : COR#1 added mod to include half tile if display is not direct divider of tiles
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -235,7 +236,7 @@ int CEV_mapSave(CEV_TileMap* src, const char* dstFileName)
         }
         else
         {
-            fprintf(stderr, "Err at %s / %d : Cannot embedd NULL tileSet.\n", __FUNCTION__, __LINE__ );
+            fprintf(stderr, "Err at %s / %d : Cannot embed NULL tileSet.\n", __FUNCTION__, __LINE__ );
             embeddPic = false;
         }
     }
@@ -543,12 +544,12 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
     }
 
     //keeping values in range
-    CEV_constraint(0, &dispX, src->dim.world.pixels.w - src->dim.display.pixels.w -1);
-    CEV_constraint(0, &dispY, src->dim.world.pixels.h - src->dim.display.pixels.h -1);
+    CEV_constraint(0, &dispX, src->dim.world.pixels.w - src->dim.display.pixels.w );
+    CEV_constraint(0, &dispY, src->dim.world.pixels.h - src->dim.display.pixels.h );
 
     //updating camera pos
-    src->dim.display.pixels.x = dispX;
-    src->dim.display.pixels.y = dispY;
+//    src->dim.display.pixels.x = 0;//dispX;
+//    src->dim.display.pixels.y = 0;//dispY;
 
 
     if (!src->xScroll)//centering if map smaller than display
@@ -565,9 +566,9 @@ void CEV_mapDraw(CEV_TileMap *src, SDL_Renderer* dst, int dispX, int dispY, int 
 
     unsigned int now = SDL_GetTicks();
 
-	for(int x = inWorld.x; x <= inWorld.x + inWorld.w; x++)
+	for(int x = inWorld.x; x < inWorld.x + inWorld.w; x++)
 	{
-	    for(int y = inWorld.y; y <= inWorld.y + inWorld.h; y++)
+	    for(int y = inWorld.y; y < inWorld.y + inWorld.h; y++)
         {
             //where to draw tile
             SDL_Rect blitPos = CEV_mapBlitPos(src, x, y, dispX, dispY);
@@ -683,11 +684,11 @@ SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
     if(src->xScroll)
     {//map.w > camera.w
         result.x = dispX / src->tileSize;
-        addTile = ((dispX + src->dim.display.pixels.w) % src->tileSize);//camera on full tile ?
+        addTile = ((dispX + src->dim.display.pixels.w) % src->tileSize)>0;//camera on full tile ?
         result.w = src->dim.display.tiles.w + addTile;
 
-        if((result.x + result.w) >= src->dim.world.tiles.w)//correction if off map
-            result.w = src->dim.display.tiles.w;
+        /*if((result.x + result.w) >= src->dim.world.tiles.w)//correction if off map
+            result.w = src->dim.display.tiles.w;*/
     }
     else
     {
@@ -698,11 +699,12 @@ SDL_Rect CEV_mapWhereInWorld(CEV_TileMap *src, int dispX, int dispY)
     if(src->yScroll)
     {//map.h > camera.h
         result.y = dispY / src->tileSize;
-        addTile = ((dispY + src->dim.display.pixels.h) % src->tileSize);//camera on full tile ?
+        addTile  = ((dispY + src->dim.display.pixels.h)  % src->tileSize)>0;//camera on full tile ?
+
         result.h = src->dim.display.tiles.h + addTile;
 
-        if((result.y + result.h) >= src->dim.world.tiles.h)//correction if off map
-            result.h = src->dim.display.tiles.h;
+        /*if((result.y + result.h) >= src->dim.world.tiles.h)//correction if off map
+            result.h = src->dim.display.tiles.h;*/
     }
     else
     {
@@ -732,8 +734,8 @@ bool CEV_mapNeedScroll(CEV_TileMap *src, SDL_Renderer* dst)
         src->yScroll                = dispH < src->dim.world.pixels.h;
         src->dim.display.pixels.w   = dispW;
         src->dim.display.pixels.h   = dispH;
-        src->dim.display.tiles.w    = dispW / src->tileSize;
-        src->dim.display.tiles.h    = dispH / src->tileSize;
+        src->dim.display.tiles.w    = dispW / src->tileSize + ((dispW%src->tileSize)? 1:0);// NOTE (drx#9#01/07/24): COR1
+        src->dim.display.tiles.h    = dispH / src->tileSize + ((dispH%src->tileSize)? 1:0);// NOTE (drx#9#01/07/24): COR1
 
 
     return src->xScroll || src->yScroll;
@@ -961,7 +963,9 @@ static void L_mapTypeRead_RW(SDL_RWops* src, CEV_TileMap* dst)
     {
         for(int y=0; y<dst->dim.world.tiles.h; y++)
         {
-            dst->tileProps[x][y].type = SDL_ReadLE32(src);
+            dst->tileProps[x][y].id     = SDL_ReadLE32(src);
+            dst->tileProps[x][y].type   = SDL_ReadLE32(src);
+            dst->tileProps[x][y].value  = SDL_ReadLE32(src);
         }
     }
 }
@@ -1001,7 +1005,9 @@ static void L_mapTypeWrite(const CEV_TileMap* src, FILE* dst)
     {
         for(int y=0; y<src->dim.world.tiles.h; y++)
         {
+            write_u32le(src->tileProps[x][y].id, dst);
             write_s32le(src->tileProps[x][y].type, dst);
+            write_s32le(src->tileProps[x][y].value, dst);
         }
     }
 }

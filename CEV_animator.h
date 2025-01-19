@@ -34,7 +34,8 @@ capsule : img if no pic Id
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <CEV_types.h>
+#include "CEV_types.h"
+#include "CEV_texts.h"
 
 #define SP_NUM_OF_REQ_MAX (5)   /**< maximum of request */
 
@@ -69,11 +70,11 @@ enum {SP_CLIP = 0, SP_HBOX = 1};
  */
 typedef enum
 {
-    SP_LOOP_FOR     = 0,
-    SP_FOR_REV      = 1,
-    SP_FOR_ONCE     = 2,
-    SP_FOR_REV_LOCK = 3,
-    SP_FOR_LOCK     = 4,
+    SP_LOOP_FOR     = 0, /**< Plays forward once and then repeats forward from start pic index*/
+    SP_FOR_REV      = 1, /**< Loops forth and back and forth */
+    SP_FOR_ONCE     = 2, /**< Plays forward once */
+    SP_FOR_REV_LOCK = 3, /**< Plays forward, locks and play backward when unlocked */
+    SP_FOR_LOCK     = 4, /**< Plays forward once and locks */
     SP_MODE_LAST
 }
 SP_LOOP_MODE;
@@ -109,7 +110,7 @@ typedef struct SP_Anim
              picId,         /**< Picture unique ID if not embedded */
              numOfView[2];  /**<number of view / xtra */
     SP_View* view[2];       /**<2 tables of SP_View / xtra*/
-    SDL_Texture* pic;     /**<spritesheet*/
+    SDL_Texture* pic;       /**<spritesheet*/
 }
 SP_Anim;
 
@@ -256,8 +257,20 @@ int SP_animTypeWrite(SP_Anim *src, FILE *dst);
  * \return int as sdt funcSts.
  * \note readWriteErr is filled.
  */
-int SP_animConvertTxtToData(const char* srcName, const char* dstName);
+int SP_animConvertToData(const char* srcName, const char* dstName);
 
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int SP_animConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 
 
 /** \brief Export SP_Anim as editable file.

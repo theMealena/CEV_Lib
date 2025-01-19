@@ -69,7 +69,8 @@ void TEST_txtParse(void)
 
     printf("toto is : %f\n", CEV_txtParseValueFrom(txt, "toto"));
     printf("tata is : %f\n", CEV_txtParseValueFrom(txt, "tata"));
-
+    printf("hex is : %08X\n", CEV_txtParseHex32From(txt, "hex"));
+    printf("hex holds : %s\n", CEV_txtParseTxtFrom(txt, "hex"));
     printf("name is :_%s\n", CEV_txtParseTxtFrom(txt, "name"));
 
     int num = CEV_txtParseValueArrayFrom(txt, "list", dDst, 10);
@@ -96,6 +97,31 @@ void TEST_txtParse(void)
 double CEV_txtParseValueFrom(CEV_Text* src, char* name)
 {
     return L_valueFromString(L_txtSeek(src, name));
+}
+
+
+uint32_t CEV_txtParseHex32From(CEV_Text* src, char* name)
+{
+    uint32_t result = 0x0;
+
+    if(IS_NULL(src) || IS_NULL(name))
+        goto end;
+
+    char* ptr =  L_txtSeek(src, name);
+
+    if(IS_NULL(ptr))
+        goto end;
+
+    //going after '=' or end of ptr
+    while(*ptr++ != '=' && *ptr!='\0');
+
+    while(!isalnum(*ptr) && *ptr!='\0')
+        ptr++;
+
+    sscanf(ptr, "%x", &result);
+
+end:
+    return result;
 }
 
 
@@ -139,6 +165,7 @@ int CEV_txtParseIndexGetFrom(CEV_Text *src, char* name)
 
     return 0;
 }
+
 
 char* L_txtSeek(CEV_Text *src, char* name)
 {

@@ -105,8 +105,9 @@ MAP_TileAnim;
 //not implemented
 typedef struct MAP_TileProps
 {
-    uint32_t id, type;
-    int value;
+    uint32_t id;
+    int type,
+        value;
     //add any options structure here (warp, chest, objects) must contain char type as first member
 }
 MAP_TileProps;

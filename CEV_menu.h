@@ -7,6 +7,7 @@
 
 #include "CEV_api.h"
 #include "CEV_types.h"
+#include "CEV_texts.h"
 
 /**
 
@@ -282,7 +283,20 @@ void CEV_menuButtonLink(CEV_Menu *menu, unsigned int mastIndex, unsigned char* s
  *
  * \return int : any of std function status.
  */
-int CEV_menuConvertTxtToData(const char* srcName, const char* dstName);
+int CEV_menuConvertToData(const char* srcName, const char* dstName);
+
+
+/** \brief Writes to data file from CEV_Text.
+ *
+ * \param src : CEV_Text* build from txt file.
+ * \param dst : FILE* as destination file.
+ * \param srcName : char* as name of file of src.
+ *
+ * \return int of standard function status.
+ *
+ * \note src & dst are not freed in this function.
+ */
+int CEV_menuConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName);
 
 
 #endif // CEV_SELECTION_H_INCLUDED

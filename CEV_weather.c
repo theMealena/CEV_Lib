@@ -15,7 +15,7 @@
 //                      Doxy comments added
 //                      tested, stressed and validated
 //                      0 warning with C11 (-Wall)
-//03/03/2023 CEV    : CEV_weatherConvertTxtToData() : conversion from txt file now uses parsing
+//03/03/2023 CEV    : CEV_weatherConvertToData() : conversion from txt file now uses parsing
 
 
 
@@ -63,7 +63,7 @@ CEV_Particle;
 
 /// constructor
 
-/** \brief inserts picture in file (CEV_weatherConvertTxtToData usage).
+/** \brief inserts picture in file (CEV_weatherConvertToData usage).
  *
  * \param fileName : char* as picture file name to insert.
  * \param dst : FILE* to insert picture into (@actual position).
@@ -199,10 +199,12 @@ void TEST_weather(void)
     CEV_Weather* weather = NULL;
     //CEV_GifAnim* anim;
     CEV_Camera cam = {0};
+    cam.constraint = (SDL_Rect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    cam.posInScreen = cam.posFromWorld = cam.scrollActPos = cam.constraint;
 
     if(convert)
     {
-        CEV_weatherConvertTxtToData("weather/weatherEditable.txt", "weather/weatherTest.wtr");
+        CEV_anyConvertToData("weather/weatherEditable.txt", NULL/*"weather/weatherTest.wtr"*/);
     }
 
 
@@ -227,7 +229,7 @@ void TEST_weather(void)
         */
 
         //direct load
-        weather = CEV_weatherLoad("weather/weatherTest.wtr");//CEV_weatherFetchById(0x0F000002, &resources);
+        weather = CEV_weatherLoad("weather/0F000001.wtr");//CEV_weatherFetchById(0x0F000002, &resources);
 
         CEV_weatherDump(weather, false);
     }
@@ -251,16 +253,16 @@ void TEST_weather(void)
             CEV_weatherStop(weather);
 
         if(input->key[SDL_SCANCODE_RIGHT])
-            cam.scrollActPos.x+=10;
+            cam.scrollActPos.x+=2;
 
         if(input->key[SDL_SCANCODE_LEFT])
-            cam.scrollActPos.x-=10;
+            cam.scrollActPos.x-=2;
 
         if(input->key[SDL_SCANCODE_DOWN])
-            cam.scrollActPos.y+=10;
+            cam.scrollActPos.y+=2;
 
         if(input->key[SDL_SCANCODE_UP])
-            cam.scrollActPos.y-=10;
+            cam.scrollActPos.y-=2;
 
         if(input->key[SDL_SCANCODE_LSHIFT])
             CEV_weatherParticleMaxSize(0.6, weather);
@@ -312,10 +314,15 @@ void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
         goto end;
     }
 
+    printf("run is %s, anyActive is %s\n", this->run?"true":"false", this->anyActive?"true":"false");
+
     printf("id is : %u\nsrc_Id is: %u\ntype is: %d\n",
             this->id,
             this->picId,
             this->type);
+
+    printf("Vx is %d, Vy is %d\n", this->Vx, this->Vy);
+
 
     printf("num is : %u\nnumax is: %u\nangle is %f\noffScreen is %u\n",
             this->num,
@@ -366,7 +373,7 @@ void CEV_weatherDump(CEV_Weather* this, bool dumpParticles)
     {
         for(unsigned i=0; i<this->numax; i++)
         {
-            printf("Particle %d holds :\n");
+            printf("Particle %d holds :\n", i);
             CEV_weatherParticleDump(this->particles +i);
         }
     }
@@ -401,7 +408,7 @@ void CEV_weatherParticleDump(CEV_Particle* this)
     puts("blit Pos is :");
     CEV_rectDump(this->pos);
 
-    printf("Main pos : %d\nangle : %p\nfactor : %f\ndisp width : %f\n",
+    printf("Main pos : %d\nangle : %d\nfactor : %f\ndisp width : %f\n",
             this->xMain,
             this->angle,
             this->factor,
@@ -437,8 +444,8 @@ CEV_Weather* CEV_weatherCreate(uint8_t type, unsigned int num, int vx, int vy)
                               &result->renderDim.w,
                               &result->renderDim.h);
 
-    result->picDim         = CLEAR_RECT;
-    result->pic             = NULL;
+    result->picDim              = CLEAR_RECT;
+    result->pic                 = NULL;
     result->type                = type;
     result->num                 = num;
     result->numax               = num;
@@ -452,7 +459,6 @@ CEV_Weather* CEV_weatherCreate(uint8_t type, unsigned int num, int vx, int vy)
     result->offScreen           = 0;
 
     //creating particle instance
-
     result->particles = calloc(num, sizeof(CEV_Particle));
 
     if(IS_NULL(result->particles))
@@ -465,7 +471,6 @@ CEV_Weather* CEV_weatherCreate(uint8_t type, unsigned int num, int vx, int vy)
 
 exit:
     return result;
-
 
 err_1:
     free(result);
@@ -529,13 +534,11 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
     CEV_fconstraint(0.0, &min, max);
     CEV_fconstraint(min, &max, 1.0);
 
-    ///NEW FROM HERE (25/02/2023) from fall
-
     bool LanyActive = false;
     SDL_Renderer *render = CEV_videoSystemGet()->render;
 
-    if(in->run ||in->anyActive)
-    {
+    //if(in->run || in->anyActive)
+    //{
         for(unsigned i=0; i<in->num; i++)
         {
             CEV_Particle *Lparticle = in->particles + i;
@@ -558,42 +561,45 @@ void CEV_weatherShowWithLayer(CEV_Weather* in, float min, float max)
 
                 //activating particle when offscreen
                 if(L_particlePosToDisplay(Lparticle, in->renderDim, in->offScreen))
-                    Lparticle->disp = in->run;
-
-                SDL_Rect temp = Lparticle->pos;//copied to keep original untouched
-
-                SDL_RendererFlip flip = SDL_FLIP_NONE;
-
-                if(in->type == WEATHER_FALL)
                 {
-                    temp.w *= (float)cos((double)Lparticle->dispWidth);
-                    if(temp.w < 0.0)
-                    {
-                        temp.w = -temp.w;
-                        flip = SDL_FLIP_HORIZONTAL;
-                    }
+                    Lparticle->disp = in->run;
                 }
-
-                SDL_Point local={temp.w/2, temp.h/2};
 
                 if(Lparticle->disp)
                 {
-                    SDL_RenderCopyEx(render,
-                                    in->pic,
-                                    NULL,
-                                    &temp,
-                                    Lparticle->angle,
-                                    &local,
-                                    flip);
+                    SDL_Rect temp = Lparticle->pos;//copied to keep original untouched
 
-                    LanyActive = true;
+                    SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+                    if(in->type == WEATHER_FALL)
+                    {
+                        temp.w *= (float)cos((double)Lparticle->dispWidth);
+                        if(temp.w < 0.0)
+                        {
+                            temp.w = -temp.w;
+                            flip = SDL_FLIP_HORIZONTAL;
+                        }
+                    }
+
+                    SDL_Point local={temp.w/2, temp.h/2};
+
+
+                        SDL_RenderCopyEx(render,
+                                        in->pic,
+                                        NULL,
+                                        &temp,
+                                        Lparticle->angle,
+                                        &local,
+                                        flip);
+
+                        LanyActive = true;
                 }
 
             }
         }
-    }
+    //}
 
-    in->anyActive = LanyActive;
+    //in->anyActive = true;// LanyActive;
 }
 
 
@@ -751,10 +757,10 @@ void CEV_weatherAttachTexture(SDL_Texture* src, CEV_Weather* dst)
         //SDL_DestroyTexture(dst->pic);
     //}
 
-    dst->picDim    = CEV_textureDimGet(src);
+    dst->picDim     = CEV_textureDimGet(src);
     dst->pic        = src;
-    dst->offScreen      = 2 * CEV_pointDist(CLEAR_POINT,
-                                            (SDL_Point){dst->picDim.w, dst->picDim.h});
+    dst->offScreen  = 2 * CEV_pointDist(CLEAR_POINT,
+                                        (SDL_Point){dst->picDim.w, dst->picDim.h});
 
     for(unsigned i=0; i<dst->numax; i++)
         L_particleAttachTexture(dst->particles +i, dst->picDim);
@@ -765,8 +771,15 @@ void CEV_weatherAttachTexture(SDL_Texture* src, CEV_Weather* dst)
 void CEV_weatherAttachCamera(CEV_Camera* src, CEV_Weather* dst)
 {//attaches camera
 
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return;
+    }
+
     dst->scrollCorrectionX = &src->scrollActPos.x;
     dst->scrollCorrectionY = &src->scrollActPos.y;
+    dst->renderDim         = (SDL_Rect){0, 0, src->scrollActPos.w, src->scrollActPos.h};
 }
 
 
@@ -917,7 +930,7 @@ int CEV_weatherTypeWrite(CEV_Weather* src, CEV_Capsule* picture, FILE* dst)
 }
 
 
-int CEV_weatherConvertTxtToData(char* srcName, char* dstName)
+int CEV_weatherConvertToData(char* srcName, char* dstName)
 {//creates file from CSV descriptor file
 
     int funcSts = FUNC_OK;
@@ -927,8 +940,6 @@ int CEV_weatherConvertTxtToData(char* srcName, char* dstName)
         fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
         return ARG_ERR;
     }
-
-    puts("preparing to convert weather...");
 
     CEV_Text* src = CEV_textTxtLoad(srcName);
 
@@ -947,52 +958,7 @@ int CEV_weatherConvertTxtToData(char* srcName, char* dstName)
         goto err;
     }
 
-    int vx  = 0,
-        vy  = 0;
-
-    uint32_t numOfParticles = 0,
-             id             = 0,
-             srcId          = 0;
-
-    char filePath[FILENAME_MAX],
-        *type,
-        *picName;
-
-    CEV_fileFolderNameGet(srcName, filePath);
-
-    //readWriteErr = 0;
-
-    type    = CEV_txtParseTxtFrom(src, "type");
-    picName = CEV_txtParseTxtFrom(src, "picture");
-    numOfParticles = CEV_txtParseValueFrom(src, "partNum");
-    id      = IS_NULL(picName)? CEV_txtParseValueFrom(src, "id") : 0;
-    srcId   = CEV_txtParseValueFrom(src, "srcId");
-    vx      = CEV_txtParseValueFrom(src, "Xvector");
-    vy      = CEV_txtParseValueFrom(src, "Yvector");
-
-    printf("type = %s\n picName = %s\n num = %d\n id = %d\n srcId = %d\n vx = %d\n vy = %d\n",
-            type, picName,
-            numOfParticles, id, srcId, vx, vy);
-
-
-    id = (id & 0x00FFFFFF) | WEATHER_ID;
-    write_u32le(id, dst); //id
-    write_u32le(srcId , dst); //pic embedded or not
-    write_u32le(numOfParticles, dst);
-    write_u32le(vx, dst);
-    write_u32le(vy, dst);
-    write_u8(L_weatherNameToType(type), dst);
-
-    if(picName)
-    {
-        strcat(filePath, picName);
-        L_weatherTxtPictureTypeWrite(filePath, dst);
-    }
-
-
-    if(readWriteErr)
-        funcSts = FUNC_ERR;
-
+    funcSts = CEV_weatherConvertTxtToDataFile(src, dst, srcName);
 
     fclose(dst);
 
@@ -1002,6 +968,57 @@ err:
     return funcSts;
 }
 
+
+int CEV_weatherConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
+    }
+
+    int funcSts = FUNC_OK;
+
+    int vx  = 0,
+        vy  = 0;
+
+    uint32_t numOfParticles = 0,
+             id             = 0,
+             srcId          = 0;
+
+    char *type,
+        *picName;
+
+
+
+    type    = CEV_txtParseTxtFrom(src, "type");
+    picName = CEV_txtParseTxtFrom(src, "picture");
+    numOfParticles = CEV_txtParseValueFrom(src, "partNum");
+    id      = IS_NULL(picName)? CEV_txtParseValueFrom(src, "id") : 0;
+    srcId   = CEV_txtParseValueFrom(src, "srcId");
+    vx      = CEV_txtParseValueFrom(src, "Xvector");
+    vy      = CEV_txtParseValueFrom(src, "Yvector");
+
+    id = (id & 0x00FFFFFF) | WTHR_TYPE_ID;
+
+    write_u32le(id, dst); //id
+    write_u32le(srcId , dst); //pic embedded or not
+    write_u32le(numOfParticles, dst);
+    write_u32le(vx, dst);
+    write_u32le(vy, dst);
+    write_u8(L_weatherNameToType(type), dst);
+
+    if(NOT_NULL(picName))
+    {
+        char filePath[FILENAME_MAX];
+        CEV_fileFolderNameGet(srcName, filePath);
+        strcat(filePath, picName);
+        L_weatherTxtPictureTypeWrite(filePath, dst);
+    }
+
+    return readWriteErr? FUNC_ERR : FUNC_OK;
+}
 
 
 /**LOCALS**/
@@ -1040,15 +1057,15 @@ static int L_weatherNameToType(char* name)
 static void L_flakeInit(CEV_Particle* in, SDL_Rect renderDim, int vx)
 {//initialize single snowflake particle
 
-    in->factor      = CEV_frand(0.0, (double)vx);   //randomizing amplitude
-    in->coord.z     = CEV_frand(0.1, 1.0);  //randomizing size
-    in->xMain       = rand()%renderDim.w;   //randomizing main X pos
+    in->factor      = CEV_frand(0.0, (double)vx);           //randomizing amplitude
+    in->coord.z     = CEV_frand(0.1, 1.0);                  //randomizing size
+    in->xMain       = rand()%renderDim.w;                   //randomizing main X pos
     in->coord.x     = in->xMain;
-    in->coord.y     = CEV_frand(0.0,(float)renderDim.h); //randomizing Y pos
-    in->angle       = rand()%360;                        //randomizing rotation pos
-    in->disp        = false;                //starts undisplayed
-    //in->pos         = texutreDim;               //copying texture dimensions
-    //CEV_rectDimScale(&in->pos, in->coord.z);    //scaling display rect
+    in->coord.y     = CEV_frand(0.0, (double)renderDim.h);   //randomizing Y pos
+    in->angle       = rand()%360;                           //randomizing rotation pos
+    in->disp        = false;                                //starts undisplayed
+    //in->pos         = texutreDim;                         //copying texture dimensions
+    //CEV_rectDimScale(&in->pos, in->coord.z);              //scaling display rect
     //in->pos.x       = in->coord.x;
 
 }
@@ -1142,7 +1159,7 @@ static bool L_particlePosToDisplay(CEV_Particle* in, SDL_Rect renderDim, int off
         in->pos.y -= renderDim.h + offScreen;
         in->coord.y -= renderDim.h + offScreen;
     }
-    else if(in->pos.y < -offScreen)
+    else if(in->pos.y <= -offScreen)
     {
         in->pos.y += renderDim.h + offScreen;
         in->coord.y += renderDim.h + offScreen;

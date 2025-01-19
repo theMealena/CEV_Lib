@@ -792,6 +792,17 @@ CEV_Weather* CEV_weatherFetchByIdFromFile(int32_t id, const char* fileName);
  */
 CEV_Weather* CEV_weatherFetchByIndexFromFile(int32_t index, const char* fileName);
 
+
+/** \brief converts any source txt file into dedicated datafile.
+ *
+ * \param srcName : const char* as file to be converted.
+ * \param dstName : const char* as resulting file name or NULL for automatic naming.
+ *
+ * \return int of std function status.
+ *
+ * \note If automated naming, resulting name is build upon id, or default name.
+ */
+int CEV_anyConvertToData(const char* srcName, const char* dstName);
 /*----- Encapsulation -----*/
 
 ///** \brief writes capsule into file.

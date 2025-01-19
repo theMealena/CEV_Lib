@@ -40,6 +40,14 @@ static void L_switchButtonPreset(CEV_SwitchButton* this);
 static void L_switchButtonAnim(CEV_SwitchButton* this);
 
 
+/** \brief converts litteral mode into numeric for file saving.
+ *
+ * \param str : const char* as button mode.
+ *
+ * \return uint32_t as mode in numeric value or 0 if not found / error.
+ */
+static uint32_t L_switchButtonModeStrToNum(const char* str);
+
 
 void TEST_switchButton(void)
 {//module test and stress
@@ -51,53 +59,56 @@ void TEST_switchButton(void)
     bool quit = false;
 
     int test = 0;
+    bool btest = false;
 
-    bool createBtn = 0;
+    bool createBtn = 1;
 
     CEV_SwitchButton *button = NULL;
 
     if(createBtn)
     {
         button = calloc(1, sizeof(CEV_SwitchButton));
-        button->id = SWITCHBTN_TYPE_ID;
+        button->id = SWITCHBTN_TYPE_ID +1;
         button->animId = 0;
         button->anim = CEV_aniMiniLoad("animini/testshortanim.ani");
-        CEV_spriteMiniFrom(button->anim, &button->sprite );
         button->anim->delay = 1000;
-        button->pos = (SDL_Rect){20, 20, 50, 50};
+        button->pos = (CEV_ICoord){20, 20, 0};
+        button->accessMode = SWITCHBTN_CMD_LOGIC;
+        CEV_spriteMiniFrom(button->anim, &button->sprite );
         L_switchButtonPreset(button);
         button->value = 5;
+        button->isReversible = true;
     }
     else
     {
-        CEV_switchButtonConvertTxtToData("bouton/boutonEditable.txt","bouton/testswitchbutton.obj");
+        CEV_switchButtonConvertToData("bouton/boutonEditable.txt","bouton/testswitchbutton.obj");
 
         CEV_Capsule capTest = {0};
         CEV_capsuleFromFile(&capTest, "bouton/testswitchbutton.obj");
 
-        button = CEV_capsuleExtract(&capTest, true);//CEV_switchButtonLoad("bouton/testswitchbutton.obj");
+        button = /*CEV_capsuleExtract(&capTest, true);//*/CEV_switchButtonLoad("bouton/testswitchbutton.obj");
+
         CEV_capsuleClear(&capTest);
     }
 
     CEV_switchButtonAttachValue(&test, button);
+    CEV_switchButtonAttachBool(&btest, button);
 
-    //CEV_switchButtonDump(button);
+    CEV_switchButtonDump(button);
+    CEV_Edge spacebar = CLEAR_EDGE;
 
     while(!quit)
     {
         CEV_inputUpdate();
         quit = input->window.quitApp;
 
-        if(input->key[SDL_SCANCODE_SPACE])
-            button->isActivated = true;
+        spacebar.value = input->key[SDL_SCANCODE_SPACE];
+        CEV_edgeUpdate(&spacebar);
 
-        if(input->key[SDL_SCANCODE_RETURN])
-        {
-            test = 0;
-            button->isActivated = false;
-        }
+        if(spacebar.re)
+            button->isActivated ^=1;
 
-        CEV_switchButtonUpdate(button, (SDL_Rect){0, 0, 1280, 720});
+        CEV_switchButtonUpdate(button, NULL);
         printf("value = %d\n", test);
         //CEV_switchButtonDump(button);
 
@@ -117,6 +128,8 @@ void TEST_switchButton(void)
 void CEV_switchButtonDump(CEV_SwitchButton* this)
 {//dumps content
 
+    char* mode[SWITCHBTN_NUMOF_CMD] = SWITCHBTN_CMD_MODES;
+
     puts("*** BEGIN CEV_SwitchButton ***");
 
     if(IS_NULL(this))
@@ -125,25 +138,28 @@ void CEV_switchButtonDump(CEV_SwitchButton* this)
         goto end;
     }
 
-    printf("id is : %08X\ndst_Id is: %08X\nvalue is: %d\n",
+    printf("\tis at address = %p\n", this);
+
+    printf("\tid is : %08X\n\tdst_Id is: %08X\n\tvalue is: %d\n",
             this->id,
             this->ctrlId,
             this->value);
 
-    printf("linked bool at: %p\nlinked num at: %p\n is activated: %u\n is reversible: %u\n",
+    printf("\tmode is : %s\n", this->accessMode? mode[this->accessMode-1] : "not set");
+
+    printf("\tlinked bool at: %p\n\tlinked num at: %p\n\tis activated: %u\n\tis reversible: %u\n",
             this->bDst,
             this->nDst,
             this->isActivated,
             this->isReversible);
 
-    printf("anim is at: %p\n", this->anim);
-    puts("anim contains :");
+    printf("\tanim is at: %p\n", this->anim);
+    puts("\tanim contains :");
     CEV_aniMiniDump(this->anim);
 
-    puts("pos is");
-    CEV_rectDump(this->pos);
-    puts("clip is");
-    CEV_rectDump(this->clip);
+    printf("\tpos is %d ; %d ; %d\n", this->pos.x, this->pos.y, this->pos.z);
+    puts("blit is");
+    CEV_rectDump(this->blit);
 
 end:
     puts("****END CEV_SwitchButton****");
@@ -212,7 +228,7 @@ void CEV_switchButtonAttachAnim(CEV_AniMini* src, CEV_SwitchButton* dst)
     if(!dst->animId)//was embedded, otherwise is held somewhere else
         CEV_aniMiniDestroy(dst->anim);//NULL compliant
 
-    CEV_rectDimCopy(src->clip, &dst->clip);
+    CEV_rectDimCopy(src->clip, &dst->blit);
     CEV_spriteMiniFrom(src, &dst->sprite);
     dst->anim 	= src;
 	dst->animId = src->id;
@@ -308,16 +324,16 @@ int CEV_switchButtonTypeWrite(CEV_SwitchButton* src, FILE* dst)
     int funcSts = FUNC_OK;
 
     write_u32le(src->id, dst);      //own id
-    write_u32le(src->ctrlId, dst);   //its dst id
+    write_u32le(src->ctrlId, dst);  //its dst id
     write_u32le(src->animId, dst);  //its animation id
     write_u32le(src->value, dst);   //its value
+    write_u32le(src->accessMode, dst);//access mode to target
     write_u32le(src->pos.x, dst);   //x pos in world
     write_u32le(src->pos.y, dst);   //y pos in world
     write_u32le(src->hitBox.x, dst);//relative hitbox.x
     write_u32le(src->hitBox.y, dst);//relative hitbox.y
     write_u32le(src->hitBox.w, dst);//relative hitbox.w
     write_u32le(src->hitBox.h, dst);//relative hitbox.h
-
     write_u8(src->isReversible, dst); //is reversible
 
     if(!src->animId)//means to embed animini
@@ -326,7 +342,7 @@ int CEV_switchButtonTypeWrite(CEV_SwitchButton* src, FILE* dst)
     }
 
     if (readWriteErr)
-    {
+    {//on error
         fprintf(stderr, "Err at %s / %d : R/W error occured.\n", __FUNCTION__, __LINE__ );
         funcSts = FUNC_ERR;
     }
@@ -351,8 +367,9 @@ int CEV_switchButtonTypeRead_RW(SDL_RWops* src, CEV_SwitchButton* dst, bool free
     dst->ctrlId         = SDL_ReadLE32(src);//destination ID
     dst->animId         = SDL_ReadLE32(src);//its animini ID
     dst->value          = SDL_ReadLE32(src);//value
+    dst->accessMode     = SDL_ReadLE32(src);//access mode to target
     dst->pos.x          = SDL_ReadLE32(src);//position.x in world
-    dst->pos.y          = SDL_ReadLE32(src); //position.x in world
+    dst->pos.y          = SDL_ReadLE32(src); //position.y in world
     dst->hitBox.x       = SDL_ReadLE32(src);//relative hitbox.x
     dst->hitBox.y       = SDL_ReadLE32(src);//relative hitbox.y
     dst->hitBox.w       = SDL_ReadLE32(src);//relative hitbox.w
@@ -381,13 +398,31 @@ int CEV_switchButtonTypeRead_RW(SDL_RWops* src, CEV_SwitchButton* dst, bool free
 }
 
 
-void CEV_switchButtonUpdate(CEV_SwitchButton* this, SDL_Rect camera)
+void CEV_switchButtonUpdate(CEV_SwitchButton* this, CEV_Camera* camera)
 {//updates status and shows if into camera
 
-    CEV_switchButtonMove(this);
+    this->blit = (SDL_Rect){.x = this->pos.x,
+                            .y = this->pos.y,
+                            .w = this->sprite.clip.w,
+                            .h = this->sprite.clip.h};
 
-    if(SDL_HasIntersection(&camera, &this->pos))
+    CEV_switchButtonMove(this);
+    L_switchButtonAnim(this);
+
+    if(IS_NULL(camera) || SDL_HasIntersection(&camera->posFromWorld, &this->blit))
+    {
         CEV_switchButtonDisplay(this, camera);
+    }
+}
+
+
+SDL_Rect CEV_switchButtonHitBoxGet(CEV_SwitchButton* this)
+{//hitBox position in world
+
+    return (SDL_Rect){.x = this->pos.x + this->hitBox.x,
+                      .y = this->pos.y + this->hitBox.y,
+                      .w = this->hitBox.w,
+                      .h = this->hitBox.h};
 
 }
 
@@ -400,7 +435,7 @@ void CEV_switchButtonMove(CEV_SwitchButton* this)
     CEV_edgeUpdate(&this->reActive);
 
     //numerical command as plateform call
-    if(this->nDst && this->reActive.any)
+    if(this->nDst && this->reActive.re)
         *(this->nDst) = this->value;
 
     //logical command
@@ -410,18 +445,24 @@ void CEV_switchButtonMove(CEV_SwitchButton* this)
                         this->isActivated :
                         this->reActive.re || *(this->bDst);
     }
-
-    L_switchButtonAnim(this);
 }
 
 
-void CEV_switchButtonDisplay(CEV_SwitchButton* this, SDL_Rect camera)
+void CEV_switchButtonDisplay(CEV_SwitchButton* this, CEV_Camera* camera)
 {//displays button
 
-    SDL_Renderer* render = CEV_videoSystemGet()->render;
+    //SDL_Renderer* render = CEV_videoSystemGet()->render;
+    int relativeX = 0,
+        relativeY = 0;
 
-    SDL_Rect blitPos = {this->pos.x - camera.x, this->pos.y - camera.y, this->clip.w, this->clip.h};
-    SDL_RenderCopy(render, this->anim->pic, &this->clip, &blitPos);
+    if(NOT_NULL(camera))
+    {
+        relativeX = camera->posFromWorld.x;
+        relativeY = camera->posFromWorld.y;
+    }
+
+    SDL_Rect blitPos = {this->pos.x - relativeX, this->pos.y - relativeY, this->blit.w, this->blit.h};
+    CEV_spriteMiniBlit(&this->sprite, blitPos, SDL_GetTicks());
 }
 
 
@@ -433,7 +474,7 @@ int CEV_switchButtonToCapsule(CEV_SwitchButton* src, CEV_Capsule *dst)
 }
 
 
-int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
+int CEV_switchButtonConvertToData(const char* srcName, const char* dstName)
 {//converts txt editing file into file
 
     int funcSts = FUNC_OK;
@@ -458,7 +499,27 @@ int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
     {
         fprintf(stderr, "Err at %s / %d : %s.\n", __FUNCTION__, __LINE__, strerror(errno));
         funcSts = FUNC_ERR;
-        goto err_1;
+        goto err;
+    }
+
+    funcSts = CEV_switchButtonConvertTxtToDataFile(src, dst, srcName);
+
+    fclose(dst);
+
+err:
+    CEV_textDestroy(src);
+
+    return funcSts;
+}
+
+
+int CEV_switchButtonConvertTxtToDataFile(CEV_Text *src, FILE *dst, const char* srcName)
+{//Writes to data file from CEV_Text.
+
+    if(IS_NULL(src) || IS_NULL(dst))
+    {
+        fprintf(stderr, "Err at %s / %d : NULL arg provided.\n", __FUNCTION__, __LINE__ );
+        return ARG_ERR;
     }
 
     //id
@@ -476,6 +537,7 @@ int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
     //destination id
     write_u32le(CEV_txtParseValueFrom(src, "value"), dst);
 
+    write_u32le(L_switchButtonModeStrToNum(CEV_txtParseTxtFrom(src, "mode")), dst);
 
     double dArray[4];
 
@@ -496,27 +558,24 @@ int CEV_switchButtonConvertTxtToData(const char* srcName, const char* dstName)
     char *aniMiniName = CEV_txtParseTxtFrom(src, "aniMini");
 
     if(!animId && NOT_NULL(aniMiniName))
-    {// TODO (drx#1#12/12/23): Manque extraction du dossier du fichier, à corriger, voir dans platform
-        CEV_fileInsert(aniMiniName, dst);
+    {
+        char folderName[FILENAME_MAX] = "\0";
+        CEV_fileFolderNameGet(folderName, srcName);
+        strcat(folderName, aniMiniName);
+        CEV_fileInsert(folderName, dst);
     }
 
-    if(readWriteErr)
-        funcSts = FUNC_ERR;
-
-err_1:
-    CEV_textDestroy(src);
-
-    fclose(dst);
-
-    return funcSts;
+    return readWriteErr? FUNC_ERR : FUNC_OK;
 }
 
+
+    /****  Local functions  ****/
 
 static void L_switchButtonPreset(CEV_SwitchButton* this)
 {//sets values to preset // starts animation
 
-    this->clip = this->anim->clip;
-    CEV_rectDimCopy(this->clip, &this->pos);
+    this->blit = this->anim->clip;
+    //CEV_rectDimCopy(this->clip, &this->pos);
     //CEV_spriteMiniPlay(&(this->anim->sprite), true);//playing at start up
     this->aniCtrl.preset = this->anim->numOfFrame[0] * this->anim->delay;
     this->aniCtrl.run = true;
@@ -526,7 +585,12 @@ static void L_switchButtonPreset(CEV_SwitchButton* this)
 static void L_switchButtonAnim(CEV_SwitchButton* this)
 {
     if(this->anim->numOfAnim > 1)
-        this->sprite.switchAnim = this->isActivated;
+    {
+        if(this->bDst)
+            this->sprite.switchAnim = *this->bDst;
+        else if(this->nDst)
+            this->sprite.switchAnim = *this->nDst == this->value;
+    }
 
     if(this->reActive.any)
     {
@@ -537,6 +601,27 @@ static void L_switchButtonAnim(CEV_SwitchButton* this)
     CEV_timerRepeat(&this->aniCtrl);
     //if(needsUpdate)
     if(!this->aniCtrl.cmd)
-        this->clip = CEV_spriteMiniUpdate(&this->sprite, this->aniCtrl.preset - this->aniCtrl.accu);
+        CEV_spriteMiniUpdate(&this->sprite, this->aniCtrl.preset - this->aniCtrl.accu);
 
+}
+
+
+static uint32_t L_switchButtonModeStrToNum(const char* str)
+{//mode as text to value conversion
+
+
+    if(IS_NULL(str))
+        return 0;
+
+    char* src[SWITCHBTN_NUMOF_CMD] = SWITCHBTN_CMD_MODES;
+
+    for(int i=0; i<SWITCHBTN_NUMOF_CMD; i++)
+    {
+        if (!strcmp(str, src[i]))
+        {
+            return (uint32_t)(i+1);
+        }
+    }
+
+    return 0;
 }
